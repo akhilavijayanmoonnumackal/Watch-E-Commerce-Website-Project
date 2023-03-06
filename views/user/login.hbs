@@ -1,0 +1,118 @@
+<div class="d-md-flex half">
+    <div class="bg" style="background-image: url('/images/bg_1.jpeg');"></div>
+    <div class="contents">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-12">
+                    <div class="form-block mx-auto">
+                        <div class="text-center mb-5">
+                            <h3 class="text-uppercase">Login to <strong>CozaStore</strong></h3>
+                            <p class="text-white-50 mb-3">Please enter your login and password! </p>
+                            {{!-- <span class="d-none">
+                                <p class="text-white-50 mb-">Inavlid username or password</p>
+                            </span> --}}
+                        </div>
+
+                        {{!-- --FORM -- --}}
+                        <form action="/login" method="post">
+
+                            <div class="form-group first">
+                                <label for="username">Username</label>
+                                <input type="text" name="email" class=" form-control" placeholder="your-email@gmail.com"
+                                    id="username">
+                            </div>
+                            <div class="form-group last mb-3">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class=" form-control" placeholder="Your Password"
+                                    id="password">
+                            </div>
+                            {{#if loginErr}}
+                            <p class="error text-danger">{{loginErr}}</p>
+                            {{/if}}
+                            <div class="d-sm-flex mb-5 align-items-center">
+                                <label><span class=" caption">Don't
+                                        have an account?<a href="/signup" class=" new">Create
+                                        </a>
+                                    </span>
+                                    {{!-- <input type="checkbox" checked="checked" />
+                                    <div class="control__indicator"></div> --}}
+                                </label>
+                                <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
+                            </div>
+
+                            <input type="submit" value="Log In" class="btn btn-block py-2 btn-primary">
+
+                            <span class="text-center my-3 d-block">or</span>
+
+
+                            <div class="">
+                                {{!-- <a href="#" class="btn btn-block py-2 btn-facebook">
+                                    <span class="icon-facebook mr-3"></span> Login with OTP
+                                </a> --}}
+
+
+                                {{!-- ----------------------------------------------------- --}}
+                                <!--Modal: Login with Avatar Form-->
+                                <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog"
+                                    aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+                                        <!--Content-->
+                                        <div class="modal-content">
+
+                                            <!--Header-->
+                                            <div class="modal-header">
+                                                <img src="https://t3.ftcdn.net/jpg/05/65/43/76/240_F_565437623_6vP34sYqtLRcmN0ZqD4d8ABfCCjP4ITm.jpg"
+                                                    alt="avatar" class="rounded-circle img-responsive">
+                                            </div>
+                                            <!--Body-->
+                                            <div class="modal-body text-center mb-1">
+
+                                                <h5 class="mt-1 mb-2">Enter Mobile Number</h5>
+                                                <form id="otp-form">
+                                                    <div class="md-form ml-0 mr-0">
+                                                        <input type="phone" id="form29"
+                                                            class="form-control form-control-sm validate ml-0"
+                                                            placeholder="Enter mobile number without country code">
+                                                        {{!-- <label data-error="wrong" data-success="right"
+                                                            for="form29" class="ml-0">Enter password</label> --}}
+                                                    </div>
+
+                                                    <div class="text-center mt-4">
+                                                        <button class="btn btn-cyan mt-1" type="submit">send OTP<i
+                                                                class=" fas
+                                                            fa-sign-in ml-1"></i></button>
+                                                        {{!-- <input type="submit" value="Send OTP"
+                                                            class="btn btn-block py-2 btn-primary"> --}}
+                                                    </div>
+
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+                                        <!--/.Content-->
+                                    </div>
+                                </div>
+                                <!--Modal: Login with Avatar Form-->
+
+                                <div class="text-center">
+                                    <a href="/otp-login" class="btn btn-block py-2 btn-facebook">Login with OTP</a>
+                                </div>
+
+
+                                {{!-- ----------------------------------------------------- --}}
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!--
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script> --}}

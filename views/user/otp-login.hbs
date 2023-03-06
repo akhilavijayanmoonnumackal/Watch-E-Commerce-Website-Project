@@ -1,0 +1,120 @@
+<style>
+    .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border: 1px solid black;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .close-modal {
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+</style>
+<div class="d-flex justify-content-center align-items-center continer">
+    <div class="card py-5 px-3">
+        <h5 class="m-0">Mobile phone verification</h5>
+        <span class="mobile-text"><b>Enter the code we just sent on your phone</b>
+            <b class="text-color">+91 {{user.phone}}</b>
+        </span>
+        <form id="send-otp" action="">
+            <div class="d-flex flex-row mt-5">
+                <input type="text" name="phone" class="form-control" autofocus="" />
+                {{!-- <input type="text" class="form-control" />
+                <input type="text" class="form-control" />
+                <input type="text" class="form-control" /> --}}
+            </div>
+            <button type="submit">Send OTP</button>
+        </form>
+        <div class="text-center mt-5">
+            <span class="d-block mobile-text" id="countdown"></span>
+            <span class="d-block mobile-text" id="resend"></span>
+        </div>
+    </div>
+</div>
+<div class="modal">
+    <div class="modal-header">
+        <div>
+            <h3>OTP verification</h3>
+        </div>
+
+
+        <button class="close-modal">X</button>
+    </div>
+    <div class="modal-body">
+        <form id="otp-verify" action="">
+            <label for="">Enter OTP</label>
+            <input type="text" name="otp" placeholder="enter otp">
+            <button type="submit">verify OTP</button>
+        </form>
+    </div>
+</div>
+<button id="verify" style="visibility: hidden;" class="open-modal" onclick="showModal()">Open modal</button>
+
+
+{{!--
+<script src="mainotp.js"></script> --}}
+
+<script>
+    const verifyButton = document.getElementById('verify');
+    $('#send-otp').submit((e) => {
+        e.preventDefault();
+        $.ajax({
+            url: '/send-otp',
+            method: 'post',
+            data: $('#send-otp').serialize(),
+            success: (res) => {
+                verifyButton.style.visibility = 'visible'
+            }
+        })
+    })
+
+    $('#otp-verify').submit((e) => {
+        e.preventDefault();
+        $.ajax({
+            url: '/verify-otp',
+            method: 'post',
+            data: $('#otp-verify').serialize(),
+            success: (res) => {
+
+            }
+
+        })
+    })
+    const modal = document.querySelector('.modal');
+    const closeButton = document.querySelector('.close-modal');
+
+    function showModal() {
+        modal.style.display = 'block';
+    }
+
+    function hideModal() {
+        modal.style.display = 'none';
+    }
+
+    closeButton.addEventListener('click', hideModal);
+
+</script>

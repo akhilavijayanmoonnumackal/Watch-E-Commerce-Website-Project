@@ -1,0 +1,43 @@
+<section>
+    <div class="container">
+        <div>
+            <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px"
+                id="userTable">
+                <thead>
+                    <tr>
+                        <th scope="col">No:</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone no</th>
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each user}}
+                    <tr>
+                        <td>{{@index}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.phone}}</td>
+                        {{#if this.userStatus}}
+                        <td><a href="/admin/blockUser/{{this._id}}" class="btn btn-danger"
+                                onclick="function1()">Block</a></td>
+                        {{else}}
+                        <td> <a href="/admin/unblockUser/{{this._id}}" class="btn btn-success"
+                                onclick="return confirm('Do you want to unblock {{this.name}}')">Unblock</a></td>
+                        {{/if}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    $(document).ready(function () {
+        $('#userTable').DataTable();
+    });
+
+</script>
