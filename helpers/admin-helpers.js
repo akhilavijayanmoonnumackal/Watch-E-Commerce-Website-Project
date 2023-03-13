@@ -1,5 +1,5 @@
-var db=require('../config/connection')
-var collection=require('../config/collections')
+const db=require('../config/connection')
+const collection=require('../config/collections')
 const bcrypt=require('bcrypt')
 const { Reject } = require('twilio/lib/twiml/VoiceResponse')
 const { ObjectId } = require('mongodb')

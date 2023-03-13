@@ -5,6 +5,7 @@
     <title>Home</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="/images/icons/favicon.png" />
     <!--===============================================================================================-->
@@ -45,6 +46,14 @@
 
     <link rel="stylesheet" href="/css/owl.carousel.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <!--==================================== ADMIN HEADER ===========================================================-->
+
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/imgs/theme/favicon.svg">
+    <!-- Template CSS -->
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css" />
+
+
 </head>
 
 <body class="animsition">
@@ -52,10 +61,13 @@
 
     {{#if admin}}
     {{>admin-header}}
+    {{>admin-sidebar}}
     {{else if userHeader}}
     {{>user-header}}
     {{/if}}
     {{{body}}}
+
+
 
 
     <!--===============================================================================================-->
@@ -159,6 +171,17 @@
     </script>
     <!--===============================================================================================-->
     <script src="/js/main.js"></script>
+
+    {{!--======================ADMIN HEADER============================== --}}
+    <script src="/assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="/assets/js/vendors/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/vendors/select2.min.js"></script>
+    <script src="/assets/js/vendors/perfect-scrollbar.js"></script>
+    <script src="/assets/js/vendors/jquery.fullscreen.min.js"></script>
+    <script src="/assets/js/vendors/chart.js"></script>
+    <!-- Main Script -->
+    <script src="/assets/js/main.js" type="text/javascript"></script>
+    <script src="/assets/js/custom-chart.js" type="text/javascript"></script>
 
 </body>
 

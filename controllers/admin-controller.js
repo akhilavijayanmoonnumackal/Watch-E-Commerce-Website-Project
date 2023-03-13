@@ -5,6 +5,7 @@ const adminHelpers=require('../helpers/admin-helpers');
 const userHelpers=require('../helpers/user-helpers');
 const { response } = require('express');
 const { LogInstance } = require('twilio/lib/rest/serverless/v1/service/environment/log');
+const productHelpers = require('../helpers/product-helpers');
 let adminHeader;
 
 module.exports ={
@@ -71,6 +72,35 @@ module.exports ={
         adminHelpers.unblockUser(userId).then((response)=>{
             res.redirect('/admin/user-management');
         })
-    }
-    
+    },
+    viewProducts:(req,res)=>{
+        if(req.session.adminLoggedIn){
+            productHelpers.viewProducts().then((products)=>{
+                console.log(products);
+                res.render('admin/view-products',{admin:true, products,adminName:req.session.adminName});
+            })
+        }else{
+            res.redirect('/admin/admin-login')
+        }
+    },
+    addProductGet:(req,res)=>{
+        res.render('admin/add-product',{admin:true, adminName:req.session.adminName});
+    },
+
+    addProductPost:(req,res)=>{
+        console.log(req.files);
+    //console.log(req.body.image);
+        productHelpers.addProduct(req.body,(id)=>{
+            console.log(req.files);
+            console.log(id);
+            let img=req.files.image;        
+            img.mv('./public/images/'+id+'.jpg',(err)=>{
+                if(!err){
+                    res.redirect('/admin/view-products');
+                }else{
+                    console.log(err);
+                }
+            })
+        })
+    }   
 }

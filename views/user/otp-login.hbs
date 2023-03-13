@@ -28,8 +28,8 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        width: 50%;
+        height: 50%;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 9998;
     }
@@ -37,6 +37,9 @@
 <div class="d-flex justify-content-center align-items-center continer">
     <div class="card py-5 px-3">
         <h5 class="m-0">Mobile phone verification</h5>
+        {{#if loginErr}}
+        <b class="h5 error">{{loginErr}}</b>
+        {{/if}}
         <span class="mobile-text"><b>Enter the code we just sent on your phone</b>
             <b class="text-color">+91 {{user.phone}}</b>
         </span>
@@ -60,8 +63,6 @@
         <div>
             <h3>OTP verification</h3>
         </div>
-
-
         <button class="close-modal">X</button>
     </div>
     <div class="modal-body">
@@ -87,7 +88,13 @@
             method: 'post',
             data: $('#send-otp').serialize(),
             success: (res) => {
-                verifyButton.style.visibility = 'visible'
+                if (res) {
+                    verifyButton.style.visibility = 'visible'
+                }
+                else {
+                    location.reload();
+                }
+
             }
         })
     })
@@ -99,7 +106,12 @@
             method: 'post',
             data: $('#otp-verify').serialize(),
             success: (res) => {
-
+                if (res.status) {
+                    location.href = '/';
+                }
+                else {
+                    location.reload();
+                }
             }
 
         })

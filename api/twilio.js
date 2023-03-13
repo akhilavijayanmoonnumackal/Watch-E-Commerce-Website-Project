@@ -13,7 +13,7 @@ module.exports = {
             .create({to:`+91${mobile}`, channel: 'sms'})
             .then(verification => {
                 console.log(verification.status)
-                resolve({status : true})
+                resolve(verification.status)
             });
         })
     },

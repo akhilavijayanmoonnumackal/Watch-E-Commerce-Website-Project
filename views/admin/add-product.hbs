@@ -1,0 +1,96 @@
+<main class="main-wrap">
+    <section class="content-main">
+        <form action="/admin/add-product" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-6">
+                    <div class="content-header">
+                        <h2 class="content-title">Add New Product</h2>
+                        <div>
+                            <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">Cancel</button>
+                            <button type="submit" class="btn btn-md rounded font-sm hover-up">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>1. General info</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="mb-4">
+                                        <label class="form-label">Product title</label>
+                                        <input type="text" placeholder="Type here" class="form-control" name="name">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Description</label>
+                                        <textarea placeholder="Type here" class="form-control" rows="4"
+                                            name="description" type="text"></textarea>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label">Brand name</label>
+                                        <select class="form-select">
+                                            <option> Adidas </option>
+                                            <option> Nike </option>
+                                            <option> Puma </option>
+                                        </select>
+                                    </div>
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>2. Pricing</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="mb-4">
+                                        <label for="price" class="form-label">Price</label>
+                                        <input type="number" placeholder="00.0" class="form-control" name="price">
+                                    </div>
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>3. Category</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="mb-4">
+                                        <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                                            <input class="form-check-input" checked="" name="mycategory" type="radio">
+                                            <span class="form-check-label"> Women </span>
+                                        </label>
+                                        <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                                            <input class="form-check-input" name="mycategory" type="radio">
+                                            <span class="form-check-label"> Men </span>
+                                        </label>
+                                        <label class="mb-2 form-check form-check-inline" style="width: 45%;">
+                                            <input class="form-check-input" name="mycategory" type="radio">
+                                            <span class="form-check-label"> Smart Watches</span>
+                                        </label>
+                                    </div>
+                                </div> <!-- col.// -->
+                            </div> <!-- row.// -->
+                            <hr class="mb-4 mt-0">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <h6>4. Media</h6>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="mb-4">
+                                        <label for="image" class="form-label">Images</label>
+                                        <input class="form-control" type="file" name="image">
+                                    </div>
+                                </div> <!-- col.// -->
+                            </div> <!-- .row end// -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+    </section> <!-- content-main end// -->
+</main>
