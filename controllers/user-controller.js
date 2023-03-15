@@ -98,33 +98,60 @@ module.exports={
     productDetail:(req,res)=>{
         console.log(req.params.id);
         if(req.session.loggedIn){
-            let userName=req.session.user;
+            let user=req.session.user;
+            // let userName=req.session.user;
             let Id=req.params.id;
             console.log(req.params.id);
             productHelpers.getProductDetails(Id).then((product)=>{
                 console.log(product);
-                res.render('user/productDetail',{product,user:true,userName});
+                res.render('user/productDetail',{admin:false,product,user,userHeader:true});
             })
         }else{
             res.render('user/login');
         }       
     },
     addToCart: (req,res) => {
-        console.log('api call');
-        userHelpers.addToCart(req.params.id,req.session.user._id).then(() => {
-            res.json({ status: true})
-        })
-    },
-    cart: async(req,res) => {
-        if(req.session.loggedIn){
-            //let userName=req.session.user;
-            let products = await userHelpers.getCartProducts(req.session.user._id)
-            let totalValue = 0
-            if(products.length>0) {
-                totalValue = await userHelpers.getTotalAmount(req.session.user._id)
+        if(req.session.loggedIn) {
+            console.log("hello")
+            let productId = req.query.productId;
+            console.log(productId);
+            console.log("gotit");
+            let userId = req.session.user._id;
+            let quantity= 1;
+            try{
+                if(parseInt(req.quantity)>1){
+                    quantity=req.quantity
+                }
+            }catch(err){
+                console.log(err);
+            }finally{
+                userHelpers.addToCart(userId,productId,quantity).then((response) => {
+                    res.json={
+                        success: true
+                    }
+                });
             }
-            console.log(products);
-            res.render('user/cart', { products, totalValue, user: req.session.user })
+            // console.log(quantity)
+        }else{
+            res.redirect('/login');
+        }
+    },
+    cartDetails: (req,res) => {
+        if(req.session.loggedIn){
+            let user=req.session.user;
+            userHelpers.cartDetails(req.session.user._id).then((products) =>{
+                // console.log(products);
+                res.render('user/cart',{admin:false,user,products,userHeader:true})
+            })
+            // let products = await userHelpers.getCartProducts(req.session.user._id)
+            // let totalValue = 0
+            // if(products.length>0) {
+            //     totalValue = await userHelpers.getTotalAmount(req.session.user._id)
+            // }
+            // console.log(products);
+            // res.render('user/cart', { products, totalValue, user: req.session.user })
+        }else{
+            res.redirect('/login');
         }
     },
     changeProductQuantity: (req,res,next) => {
@@ -151,8 +178,19 @@ module.exports={
     },
     wishListDetails: (req,res) => {
         if(req.session.loggedIn) {
-            userHelpers.wishListDetails(req.session.user._id).then((response) => {
-            res.render('user/wishList',{user: req.session.user })
+            let user=req.session.user;
+            userHelpers.wishListDetails(req.session.user._id).then((products) => {
+                // console.log(response);
+                res.render('user/wishList',{admin:false,user,products,userHeader:true })
+            });
+        }
+    },
+    addToWishlist : (req, res)=>{
+        if(req.session.loggedIn){
+            let productId = req.query.productId;
+            let userId = req.session.user._id;
+            userHelpers.addToWishlist(userId, productId).then((response)=>{
+                console.log(response)
             })
         }
     }

@@ -628,7 +628,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 .fix-menu-desktop .wrap-menu-desktop {
   height: 70px;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgb(102 101 95);
   box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 0px 3px 0px rgba(0, 0, 0, 0.2);
@@ -2189,7 +2189,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .cl2 {
-  color: #f8f9fa;
+  color: #c6c6c6;
   ;
 }
 

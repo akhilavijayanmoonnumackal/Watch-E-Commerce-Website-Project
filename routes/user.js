@@ -16,12 +16,13 @@ router.post('/send-otp',controller.sendOtp);
 router.post('/verify-otp',controller.verifyOtp);
 router.get('/shop',controller.shop);
 router.get('/productDetail/:id',controller.productDetail);
-router.get('/addToCart/:id', controller.addToCart);
-router.get('/cart', controller.cart);
+router.get('/addToCart', controller.addToCart);
+router.get('/cart', controller.cartDetails);
 router.post('/changeProductQuantity', controller.changeProductQuantity);
 router.post('/removeProduct', controller.removeProduct);
-router.get('/wishList', controller.getWishList);
+//router.get('/wishList', controller.getWishList);
 router.get('/wishList', controller.wishListDetails);
+router.get('/addToWishlist', controller.addToWishlist);
 
 
 

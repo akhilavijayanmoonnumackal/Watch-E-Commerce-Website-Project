@@ -1,68 +1,31 @@
-<!-- breadcrumb -->
-<div class="container">
-    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
-        <a href="/home" class="stext-109 cl8 hov-cl1 trans-04">
-            Home
-            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-        </a>
-
-        <a href="product.html" class="stext-109 cl8 hov-cl1 trans-04">
-            Men
-            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
-        </a>
-
-        <span class="stext-109 cl4">
-            {{this.name}}
-        </span>
-    </div>
-</div>
-
-<!-- Product Detail -->
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
     <div class="container">
-        <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+        <div class="p-b-10">
+            <h3 class="ltext-103 cl5 text-white ">
+                `
+            </h3>
+        </div>
+        {{!-- <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
             <img src="images/icons/icon-close2.png" alt="CLOSE">
-        </button>
+        </button> --}}
         <div class="row">
             <div class="col-md-6 col-lg-7 p-b-30">
                 <div class="p-l-25 p-r-30 p-lr-0-lg">
                     <div class="wrap-slick3 flex-sb flex-w">
-                        <div class="wrap-slick3-dots"></div>
-                        <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+                        {{!-- <div class="wrap-slick3-dots"></div>
+                        <div class="wrap-slick3-arrows flex-sb-m flex-w"></div> --}}
 
                         <div class="slick3 gallery-lb">
                             <div class="item-slick3" data-thumb="/images/{{this._id}}.jpg">
                                 <div class="wrap-pic-w pos-relative">
                                     <img src="/images/{{this.product._id}}.jpg" alt="IMG-PRODUCT">
 
-                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                    {{!-- <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
                                         href="/images/{{this.product._id}}.jpg">
                                         <i class="fa fa-expand"></i>
-                                    </a>
+                                    </a> --}}
                                 </div>
                             </div>
-
-                            {{!-- <div class="item-slick3" data-thumb="images/product-detail-02.jpg">
-                                <div class="wrap-pic-w pos-relative">
-                                    <img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
-
-                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                        href="images/product-detail-02.jpg">
-                                        <i class="fa fa-expand"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="item-slick3" data-thumb="images/product-detail-03.jpg">
-                                <div class="wrap-pic-w pos-relative">
-                                    <img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
-
-                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                        href="images/product-detail-03.jpg">
-                                        <i class="fa fa-expand"></i>
-                                    </a>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -124,60 +87,28 @@
 
                         <div class="flex-w flex-r-m p-b-10">
                             <div class="size-204 flex-w flex-m respon6-next">
-                                {{!-- <button class="cart-item-count mr-3"
-                                    style="background-color: #587BA3; color:aliceblue"
-                                    onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)">-</button>
-                                <span id="{{this.product._id}}">{{this.quantity}}</span>
-                                <button class="cart-item-count ml-3" style="background-color: #587BA3; color:aliceblue"
-                                    onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)">+</button>
-                                --}}
-
-                                {{!-- <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                        <i class="fs-16 zmdi zmdi-minus"></i>
-                                    </div>
-
-                                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product"
-                                        value="1">
-
-                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                        <i class="fs-16 zmdi zmdi-plus"></i>
-                                    </div>
-                                </div> --}}
-
-                                <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                        <i class="fs-16 zmdi zmdi-minus"
-                                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)"></i>
-                                    </div>
-
-                                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product"
-                                        value="1">
-
-                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                        <i class="fs-16 zmdi zmdi-plus"
-                                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)"></i>
-                                    </div>
-                                </div>
 
                                 <button
                                     class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-                                    onclick="addToCart('{{this.product._id}}')">
-                                    Add to cart
+                                    type="submit">
+                                    <a id="addToCart" data-product="{{product._id}}"
+                                        class=" btn-addcart-btn dis-block pos-relative js-addcart-btn">
+                                        Add to cart
+                                    </a>
                                 </button>
 
-                                {{!-- <button
+                                <button
                                     class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                     Buy Now
-                                </button> --}}
+                                </button>
 
                             </div>
                         </div>
-                        {{!-- <div>
-                            <button
-                                class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                Add to cart
-                            </button>
+                        <div>
+                            {{!--<a href="/addToCart"><button
+                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                    Add to cart
+                                </button></a>
 
                             <button
                                 class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
@@ -187,10 +118,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="bor10 m-t-50 p-t-43 p-b-40">
-
         </div>
     </div>
 </section>
@@ -242,40 +169,30 @@
 <script src="/vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
+
 <script>
-    $('.js-addwish-b2, .js-addwish-detail').on('click', function (e) {
+
+    $('.js-addcart-btn').on('click', function (e) {
         e.preventDefault();
-    });
+        const el = document.querySelector('#addToCart');
+        const clickedBtn = $(this);
 
-    $('.js-addwish-b2').each(function () {
-        var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-        $(this).on('click', function () {
-            swal(nameProduct, "is added to wishlist !", "success");
-
-            $(this).addClass('js-addedwish-b2');
-            $(this).off('click');
+        let productId = el.dataset.product;
+        console.log(productId)
+        $.get('/addToCart', { productId: productId }, function (response) {
+            console.log(response);
+            if (response.success) {
+                swal(nameProduct, "is added to cart!", "success");
+                clickedBtn.addClass('js-addedcart');
+                clickedBtn.off('click');
+            } else {
+                swal("Error", response.message, "error");
+            }
         });
     });
 
-    $('.js-addwish-detail').each(function () {
-        var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
-        $(this).on('click', function () {
-            swal(nameProduct, "is added to wishlist !", "success");
 
-            $(this).addClass('js-addedwish-detail');
-            $(this).off('click');
-        });
-    });
-
-    /*---------------------------------------------*/
-
-    $('.js-addcart-detail').each(function () {
-        var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-        $(this).on('click', function () {
-            swal(nameProduct, "is added to cart !", "success");
-        });
-    });
 
 </script>
 <!--===============================================================================================-->
