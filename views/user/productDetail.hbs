@@ -1,3 +1,8 @@
+<style>
+    .wrap-pic-w img {
+        min-width: 25%;
+    }
+</style>
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
     <div class="container">
         <div class="p-b-10">
@@ -16,9 +21,31 @@
                         <div class="wrap-slick3-arrows flex-sb-m flex-w"></div> --}}
 
                         <div class="slick3 gallery-lb">
-                            <div class="item-slick3" data-thumb="/images/{{this._id}}.jpg">
+                            <div class="item-slick3" data-thumb="{{product.image.[0]}}">
                                 <div class="wrap-pic-w pos-relative">
-                                    <img src="/images/{{this.product._id}}.jpg" alt="IMG-PRODUCT">
+                                    <img src="{{product.image.[0]}}" alt="IMG-PRODUCT">
+                                    <div class="row">
+                                        <div class="thumnail-images pt-5 mx-auto">
+                                            <ul id="thumnail" style="list-style: none;">
+                                                <li class="d-inline-block">
+                                                    <img class="product-image" width="50" onclick="changeImage(this)"
+                                                        src="{{product.image.[0]}}" alt="">
+                                                </li>
+                                                <li class="d-inline-block pl-3">
+                                                    <img class="product-image" width="50" onclick="changeImage(this)"
+                                                        src="{{product.image.[1]}}" alt="">
+                                                </li>
+                                                <li class="d-inline-block pl-3">
+                                                    <img class="product-image" width="50" onclick="changeImage(this)"
+                                                        src="{{product.image.[2]}}" alt="">
+                                                </li>
+                                                <li class="d-inline-block pl-3">
+                                                    <img class="product-image" width="50" onclick="changeImage(this)"
+                                                        src="{{product.image.[3]}}" alt="">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
                                     {{!-- <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
                                         href="/images/{{this.product._id}}.jpg">
@@ -121,6 +148,18 @@
         </div>
     </div>
 </section>
+
+
+{{!-- =============================================================================================== --}}
+<script>
+    function changeImage(element) {
+        var main_product_image = document.getElementById('main_product_image');
+        main_product_image.src = element.src;
+        $('#main_product_image')({
+            responsive: true
+        });
+    }
+</script>
 
 
 <!--===============================================================================================-->

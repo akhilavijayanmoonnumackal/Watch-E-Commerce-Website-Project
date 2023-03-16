@@ -1,0 +1,77 @@
+<main class="main-wrap">
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+
+                            <!-- [ breadcrumb ] start -->
+
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="card-h">
+                                        <div class="card-body">
+
+                                            <form action="/admin/add-banner" method="post"
+                                                enctype="multipart/form-data">
+
+                                                <div class="rows">
+
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <h4 class="text-primary">Add Banners</h4>
+                                                    </div>
+
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="fullName">Banner Image</label>
+                                                            <input type="file" class="form-control" id="fullName"
+                                                                name="image" multiple required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="eMail">Bannner Head</label>
+                                                            <input type="text" class="form-control" id="head"
+                                                                name="head" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="eMail">Bannner text</label>
+                                                            <input type="text" class="form-control" id="text"
+                                                                name="text" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <div class="text-right mt-3">
+
+                                                            {{! <button type="submit" id="submit"
+                                                                class="btn-primary p-2">Update</button> }}
+                                                            <button type="submit"
+                                                                class="btn btn-primary btn-block">Submit</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- [ Main Content ] end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+</main>

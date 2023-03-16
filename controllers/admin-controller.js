@@ -6,6 +6,8 @@ const userHelpers=require('../helpers/user-helpers');
 const { response } = require('express');
 const { LogInstance } = require('twilio/lib/rest/serverless/v1/service/environment/log');
 const productHelpers = require('../helpers/product-helpers');
+const cloudinary = require('../utils/cloudinary');
+const upload = require('../utils/multer');
 let adminHeader;
 
 module.exports ={
@@ -87,20 +89,111 @@ module.exports ={
         res.render('admin/add-product',{admin:true, adminName:req.session.adminName});
     },
 
-    addProductPost:(req,res)=>{
-        console.log(req.files);
-    //console.log(req.body.image);
-        productHelpers.addProduct(req.body,(id)=>{
-            console.log(req.files);
-            console.log(id);
-            let img=req.files.image;        
-            img.mv('./public/images/'+id+'.jpg',(err)=>{
-                if(!err){
-                    res.redirect('/admin/view-products');
-                }else{
-                    console.log(err);
+    // addProductPost:async(req,res)=>{
+    //     try{
+    //         console.log(req.files)
+    //         const id = await productHelpers.addProduct(req.body);
+    //             let imgUrl = [];
+    //             for(let i=0;i<req.files.length;i++){
+    //                 const result = await cloudinary.uploader.upload(req.files[i].path);
+    //                 imgUrl.push(result.url);
+    //             }
+    //             if(imgUrl.length != 0){
+    //                 await productHelpers.addProductImages(id,imgUrl);
+    //             }
+    //             res.render('admin/view-products');
+            
+    //     }catch(err){
+    //         console.log(err);
+    //         res.status(500).send('Internal Server Error');
+    //     }
+    // },
+
+    addProductPost:async(req,res)=>{
+        try{
+            console.log(req.files)
+            
+                const imgUrl = [];
+                for(let i=0;i<req.files.length;i++){
+                    const result = await cloudinary.uploader.upload(req.files[i].path);
+                    imgUrl.push(result.url);
+                    console.log(result.url);
+                }
+                productHelpers.addProduct(req.body,async(id) => {
+                    productHelpers.addProductImages(id,imgUrl).then((response) => {
+                        console.log(response);
+                    })
+                })
+        }catch(err){
+            console.log(err);
+        }finally{
+            res.redirect('/admin/view-products');
+        }
+    },
+
+
+
+    // addProductPost:(req,res)=>{
+    //     try{
+    //         console.log(req.files)
+    //         productHelpers.addProduct(req.body,async(id) => {
+    //             const imgUrl = [];
+    //             for(let i=0;i<req.files.length;i++){
+    //                 const result = await cloudinary.uploader.upload(req.files[i].path);
+    //                 imgUrl.push(result.url);
+    //             }
+    //             if(imgUrl.length != 0){
+    //                 productHelpers.addProductImages(id,imgUrl);
+    //             }
+    //         })
+    //     }catch(err){
+    //         console.log(err);
+    //     }finally{
+    //         res.render('admin/view-products');
+    //     }
+    // },
+    //     console.log(req.files);
+    // //console.log(req.body.image);
+    //     productHelpers.addProduct(req.body,(id)=>{
+    //         console.log(req.files);
+    //         console.log(id);
+    //         let img=req.files.image;        
+    //         img.mv('./public/images/'+id+'.jpg',(err)=>{
+    //             if(!err){
+    //                 res.redirect('/admin/view-products');
+    //             }else{
+    //                 console.log(err);
+    //             }
+    //         })
+    //     })
+    // },
+    bannerManagement:(req,res) => {
+        if(req.session.adminLoggedIn){
+            adminHelpers.bannerManagement().then((banner) => {
+                console.log(banner);
+                res.render('admin/bannerManagement', {admin:true,adminName:req.session.adminName})
+            })
+        }
+    },
+    addBannerGet:(req,res) => {
+        res.render('admin/add-banner', {admin:true, adminName:req.session.adminName})
+    },
+    addBannerPost:(req,res) => {
+        try {
+            adminHelpers.addBanner(req.body,async(id) => {
+                let imgUrl = [];
+                for(let i=0;i<req.files.length;i++){
+                    const result = await cloudinary.uploader.upload(req.files[i].path);
+                    imgUrl.push(result.url);
+                }
+                if(imgUrl.length != 0){
+                    adminHelpers.addBannerImages(id,imgUrl);
                 }
             })
-        })
+        }catch(err){
+            console.log(err);
+        }finally{
+            res.render('admin/bannerManangement');
+        }
     }
 }

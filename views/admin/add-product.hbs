@@ -23,19 +23,20 @@
                                 <div class="col-md-9">
                                     <div class="mb-4">
                                         <label class="form-label">Product title</label>
-                                        <input type="text" placeholder="Type here" class="form-control" name="name">
+                                        <input type="text" placeholder="Type here" class="form-control" name="name"
+                                            required>
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label">Description</label>
                                         <textarea placeholder="Type here" class="form-control" rows="4"
-                                            name="description" type="text"></textarea>
+                                            name="description" type="text" required></textarea>
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label">Brand name</label>
                                         <select class="form-select">
-                                            <option> Adidas </option>
-                                            <option> Nike </option>
-                                            <option> Puma </option>
+                                            <option> Alpina </option>
+                                            <option> Rolex </option>
+                                            <option> Angelous </option>
                                         </select>
                                     </div>
                                 </div> <!-- col.// -->
@@ -48,7 +49,8 @@
                                 <div class="col-md-9">
                                     <div class="mb-4">
                                         <label for="price" class="form-label">Price</label>
-                                        <input type="number" placeholder="00.0" class="form-control" name="price">
+                                        <input type="number" placeholder="00.0" class="form-control" name="price"
+                                            required>
                                     </div>
                                 </div> <!-- col.// -->
                             </div> <!-- row.// -->
@@ -60,15 +62,15 @@
                                 <div class="col-md-9">
                                     <div class="mb-4">
                                         <label class="mb-2 form-check form-check-inline" style="width: 45%;">
-                                            <input class="form-check-input" checked="" name="mycategory" type="radio">
+                                            <input class="form-check-input" checked="" name="mycategory" type="radio" />
                                             <span class="form-check-label"> Women </span>
                                         </label>
                                         <label class="mb-2 form-check form-check-inline" style="width: 45%;">
-                                            <input class="form-check-input" name="mycategory" type="radio">
+                                            <input class="form-check-input" name="mycategory" type="radio" />
                                             <span class="form-check-label"> Men </span>
                                         </label>
                                         <label class="mb-2 form-check form-check-inline" style="width: 45%;">
-                                            <input class="form-check-input" name="mycategory" type="radio">
+                                            <input class="form-check-input" name="mycategory" type="radio" />
                                             <span class="form-check-label"> Smart Watches</span>
                                         </label>
                                     </div>
@@ -82,14 +84,16 @@
                                 <div class="col-md-9">
                                     <div class="mb-4">
                                         <label for="image" class="form-label">Images</label>
-                                        <input class="form-control" type="file" name="image">
+                                        <input class="form-control" type="file" name="image" id="image" multiple
+                                            required />
                                     </div>
-                                </div> <!-- col.// -->
-                            </div> <!-- .row end// -->
+                                    <div class="img-container" style="display: flex;">
+                                    </div> <!-- col.// -->
+                                </div> <!-- .row end// -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>
         </form>
     </section> <!-- content-main end// -->

@@ -17991,9 +17991,9 @@ iframe {
 	display: block;
 }
 
-.wrap-pic-w img {
+/* .wrap-pic-w img {
 	width: 100%;
-}
+} */
 
 .wrap-pic-max-w img {
 	max-width: 100%;

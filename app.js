@@ -7,8 +7,7 @@ const hbs=require('express-handlebars');
 const db=require('./config/connection');
 const session=require('express-session');
 const nocache=require('nocache')
-const fileUpload=require('express-fileupload')
-require('dotenv')
+require('dotenv').config();
 
 
 
@@ -37,7 +36,6 @@ app.use(nocache())
 app.use(cookieParser());
 app.use(session({resave:false, saveUninitialized:true, secret:"key", cookie:{maxAge:600000}}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(fileUpload())
 
 app.use('/', userRouter);
 app.use('/admin', adminRouter);

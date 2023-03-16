@@ -112,10 +112,10 @@ module.exports={
     },
     addToCart: (req,res) => {
         if(req.session.loggedIn) {
-            console.log("hello")
+            //console.log("hello")
             let productId = req.query.productId;
             console.log(productId);
-            console.log("gotit");
+            // console.log("gotit");
             let userId = req.session.user._id;
             let quantity= 1;
             try{
@@ -174,6 +174,8 @@ module.exports={
             userHelpers.getWishList(req.session.user._id).then((response) => {
                 res.json(response)
             })
+        }else{
+            res.redirect('/login');
         }
     },
     wishListDetails: (req,res) => {
@@ -183,6 +185,8 @@ module.exports={
                 // console.log(response);
                 res.render('user/wishList',{admin:false,user,products,userHeader:true })
             });
+        }else{
+            res.redirect('/login');
         }
     },
     addToWishlist : (req, res)=>{
@@ -192,6 +196,8 @@ module.exports={
             userHelpers.addToWishlist(userId, productId).then((response)=>{
                 console.log(response)
             })
+        }else{
+            res.redirect('/login');
         }
     }
 }

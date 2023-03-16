@@ -4,6 +4,7 @@ const bcrypt=require('bcrypt')
 const { Reject } = require('twilio/lib/twiml/VoiceResponse')
 const { ObjectId } = require('mongodb')
 const { response } = require('express')
+const collections = require('../config/collections')
 
 module.exports={
     adminLogin:(adminData)=>{
@@ -50,5 +51,21 @@ module.exports={
                 console.log(response);
             })
         })
+    },
+    bannerManagement:() => {
+        return new Promise(async(resolve, reject) => {
+            let banner = await db.get().collection(collections.BANNER_COLLECTION)
+            .find().toArray();
+            resolve(banner);
+        })
+    },
+    addBanner: (banner,callback) => {
+        db.get().collection(collections.BANNER_COLLECTION)
+        .insertOne(banner).then((data) => {
+            callback(data.insertedId);
+        })
+    },
+    addBannerImages: () => {
+
     }
 }

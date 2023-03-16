@@ -3,6 +3,8 @@ var router = express.Router();
 const controller=require('../controllers/user-controller');
 const sessionChecker = require('../middleware/session');
 const productHelpers=require('../helpers/product-helpers')
+const cloudinary = require('../utils/cloudinary');
+const upload = require('../utils/multer');
 
 /* GET home page. */
 router.get('/', controller.get);
