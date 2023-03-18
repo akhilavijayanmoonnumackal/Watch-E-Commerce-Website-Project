@@ -9,10 +9,34 @@ const productHelpers = require('../helpers/product-helpers');
 let userHeader;
 
 module.exports={
-    get:(req,res)=>{
-        let user=req.session.user;
-        res.render("user/home", {user, userHeader:true});
+    get:async(req,res)=>{        
+        let count = 0;
+        if(req.session.loggedIn){
+            let user=req.session.user;
+            let product = await userHelpers.cartDetails(req.session.user._id)
+            count = product.length; 
+            res.render('user/home',{admin:false,user,count, userHeader:true});         
+        }else{
+            res.render('user/home',{admin:false,count, userHeader:true});  
+        }
+              
+        // productHelpers.viewProducts().then((products) => {
+        //     res.render("user/home", {user,count,products, userHeader:true});
+        // })       
     },
+
+    
+    // get:async(req,res)=>{        
+    //     let count = 0;
+    //     let user=req.session.user;
+    //     if(req.session.user) {
+    //         count = await userHelpers.getCartCount(req.session.user._id)
+    //     }
+    //     res.render("user/home", {user,count, userHeader:true});
+    //     // productHelpers.viewProducts().then((products) => {
+    //     //     res.render("user/home", {user,count, userHeader:true});
+    //     // })       
+    // },
     userLogin:(req,res)=>{
         if(req.session.loggedIn){
             res.redirect('/');
@@ -55,7 +79,8 @@ module.exports={
         })
     },
     userLogout:(req,res)=>{
-        req.session.destroy();
+        // req.session.destroy();
+        req.session.loggedIn=false;
         res.redirect('/login');
     },
     otpLogin : (req, res) =>{
@@ -88,23 +113,35 @@ module.exports={
             }
         })
     },
-    shop:(req,res)=>{
-        let user=req.session.user;
-        productHelpers.viewProducts().then((products)=>{
-            res.render('user/shop',{admin:false,products,user, userHeader:true});
-            console.log(products);
-        })
+    shop:async(req,res)=>{
+        let count=0;
+        if(req.session.loggedIn){
+            let user=req.session.user;
+            let product = await userHelpers.cartDetails(req.session.user._id)
+            let count = product.length;        
+            productHelpers.viewProducts().then((products)=>{
+                res.render('user/shop',{admin:false,products,user,count, userHeader:true});
+                console.log(products);
+            })
+        }else{
+            productHelpers.viewProducts().then((products)=>{
+                res.render('user/shop',{admin:false,products,count, userHeader:true});
+                console.log(products);
+            })
+        }
     },
-    productDetail:(req,res)=>{
+    productDetail:async(req,res)=>{
         console.log(req.params.id);
         if(req.session.loggedIn){
             let user=req.session.user;
             // let userName=req.session.user;
             let Id=req.params.id;
             console.log(req.params.id);
+            let product = await userHelpers.cartDetails(req.session.user._id)
+            let count = product.length;
             productHelpers.getProductDetails(Id).then((product)=>{
                 console.log(product);
-                res.render('user/productDetail',{admin:false,product,user,userHeader:true});
+                res.render('user/productDetail',{admin:false,count, product, user,userHeader:true});
             })
         }else{
             res.render('user/login');
@@ -136,27 +173,47 @@ module.exports={
             res.redirect('/login');
         }
     },
-    cartDetails: (req,res) => {
+    
+    cartDetails: async(req,res) => {
         if(req.session.loggedIn){
+            // let count = await userHelpers.getCartCount(req.session.user._id)
             let user=req.session.user;
-            userHelpers.cartDetails(req.session.user._id).then((products) =>{
-                // console.log(products);
-                res.render('user/cart',{admin:false,user,products,userHeader:true})
-            })
-            // let products = await userHelpers.getCartProducts(req.session.user._id)
-            // let totalValue = 0
-            // if(products.length>0) {
-            //     totalValue = await userHelpers.getTotalAmount(req.session.user._id)
-            // }
-            // console.log(products);
-            // res.render('user/cart', { products, totalValue, user: req.session.user })
+            let product = await userHelpers.cartDetails(req.session.user._id)
+            // console.log(count);
+            let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
+            let count = product.length;
+            res.render('user/cart', { product,count, totalValue,user, userHeader:true })
         }else{
             res.redirect('/login');
         }
     },
-    changeProductQuantity: (req,res,next) => {
-        console.log(req.body);
+    
+    // cartDetails: (req,res) => {
+    //     if(req.session.loggedIn){
+    //         let user=req.session.user;
+    //         userHelpers.cartDetails(req.session.user._id).then((products) =>{
+    //             // console.log(products);
+    //             res.render('user/cart',{admin:false,user,products,userHeader:true})
+    //         })
+    //         // let products = await userHelpers.getCartProducts(req.session.user._id)
+    //         // let totalValue = 0
+    //         // if(products.length>0) {
+    //         //     totalValue = await userHelpers.getTotalAmount(req.session.user._id)
+    //         // }
+    //         // console.log(products);
+    //         // res.render('user/cart', { products, totalValue, user: req.session.user })
+    //     }else{
+    //         res.redirect('/login');
+    //     }
+    // },
+    changeProductQuantity: (req,res) => {
+        //console.log(req.body);
         userHelpers.changeProductQuantity(req.body).then(async(response) => {
+            // response.total=await userHelpers.getTotalAmount(req.body.user)
+            // console.log(response.total);
+            // res.json(response);
+            // let product = await userHelpers.cartDetails(req.session.user._id)
+            // let count = product.length;
             let count = await userHelpers.getCartCount(req.session.user._id)
             if(count!=0){
                 response.total=await userHelpers.getTotalAmount(req.body.user)
@@ -164,10 +221,36 @@ module.exports={
             res.json(response)
         })
     },
-    removeProduct: (req,res) => {
-        userHelpers.removeProduct(req.body).then(() => {
-            res.json({ status: true })
+    // changeProductQuantity: (req,res) => {
+    //     //console.log(req.body);
+    //     userHelpers.changeProductQuantity(req.body).then(async(response) => {
+    //         response.total=await userHelpers.getTotalAmount(req.body.user)
+    //         console.log(response.total);
+    //         res.json(response);
+    //         // let count = await userHelpers.getCartCount(req.session.user._id)
+    //         // if(count!=0){
+    //         //     response.total=await userHelpers.getTotalAmount(req.body.user)
+    //         // }
+    //         // res.json(response)
+    //     })
+    // },
+    removeCartProduct: (req,res) => {
+        userHelpers.removeCartProduct(req.body).then(() => {
+            res.json({status: true})
         })
+    },
+    // removeCartProduct: (req,res) => {
+    //     userHelpers.removeCartProduct(req.body).then(async(response) => {
+    //         res.json(response)
+    //     })
+    // },
+    getTotalAmount: async(req,res) => {
+        let count = null
+        if(req.session.loggedIn==true) {
+            count = await userHelpers.getCartCount(req.session.user._id)
+            let total = await userHelpers.getTotalAmount(req.session.user._id)
+            res.render('user/place-order',{total,count,user:true, user:req.session.user});
+        }
     },
     getWishList: (req,res) => {
         if(req.session.loggedIn){
@@ -178,12 +261,14 @@ module.exports={
             res.redirect('/login');
         }
     },
-    wishListDetails: (req,res) => {
+    wishListDetails: async(req,res) => {
         if(req.session.loggedIn) {
             let user=req.session.user;
+            let product = await userHelpers.cartDetails(req.session.user._id)
+            let count = product.length;
             userHelpers.wishListDetails(req.session.user._id).then((products) => {
                 // console.log(response);
-                res.render('user/wishList',{admin:false,user,products,userHeader:true })
+                res.render('user/wishList',{admin:false,user,count,products,userHeader:true })
             });
         }else{
             res.redirect('/login');

@@ -6,7 +6,8 @@ const ObjectId=require('mongodb-legacy').ObjectId;
 module.exports={
     viewProducts:()=>{
         return new Promise(async(resolve,reject)=>{
-            let products=await db.get().collection(collection.PRODUCT_COLLECTION).find().toArray();
+            let products=await db.get().collection(collection.PRODUCT_COLLECTION)
+            .find().toArray();
             resolve(products);
         })
     },
@@ -20,7 +21,6 @@ module.exports={
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id: new ObjectId(proId)}).then((product)=>{
                 resolve(product);
-                console.log(product);
             })
         })
     },

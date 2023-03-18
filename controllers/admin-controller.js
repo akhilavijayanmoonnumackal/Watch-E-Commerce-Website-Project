@@ -53,7 +53,8 @@ module.exports ={
         }
     },
     adminLogout:(req,res)=>{
-        req.session.destroy();
+        // req.session.destroy();
+        req.session.adminLoggedIn=false;
         res.redirect('/admin')
     },
     userManage:(req,res)=>{
