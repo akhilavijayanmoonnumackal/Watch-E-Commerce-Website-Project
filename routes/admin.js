@@ -20,7 +20,11 @@ router.post('/add-product', upload.array("image"), adminController.addProductPos
 // router.post('/add-product', adminController.addProductPost)
 router.get('/bannerManagement', adminController.bannerManagement);
 router.get('/add-banner', adminController.addBannerGet);
-router.post('/add-banner', upload.array("image", 3), adminController.addBannerPost);
+router.post('/add-banner', upload.single("image"), adminController.addBannerPost);
+router.get('/list-banner/:id', adminController.listBanner);
+router.get('/unlist-banner/:id', adminController.unlistBanner);
+router.get('/edit-banner/:id', adminController.editBanner);
+router.post('/edit-banner/:id', adminController.editBannerPost);
 
 
 module.exports = router;

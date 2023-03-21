@@ -71,7 +71,8 @@
 
 
     <!--===============================================================================================-->
-    <script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+    {{!--
+    <script src="/vendor/jquery/jquery-3.2.1.min.js"></script> --}}
     <!--===============================================================================================-->
     <script src="/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
@@ -148,6 +149,7 @@
             var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
             $(this).on('click', function () {
                 swal(nameProduct, "is added to cart !", "success");
+                console.log("apiCall");
             });
         });
 

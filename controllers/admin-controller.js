@@ -8,6 +8,7 @@ const { LogInstance } = require('twilio/lib/rest/serverless/v1/service/environme
 const productHelpers = require('../helpers/product-helpers');
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
+const { ObjectId } = require('mongodb');
 let adminHeader;
 
 module.exports ={
@@ -168,33 +169,98 @@ module.exports ={
     //         })
     //     })
     // },
-    bannerManagement:(req,res) => {
+    bannerManagement:(req,res) => {       //1
         if(req.session.adminLoggedIn){
-            adminHelpers.bannerManagement().then((banner) => {
-                console.log(banner);
-                res.render('admin/bannerManagement', {admin:true,adminName:req.session.adminName})
+            adminHelpers.getBanners().then((banner) => {
+                //console.log(banner);
+                res.render('admin/bannerManagement', {admin:true,banner,adminName:req.session.adminName})
             })
+        }else{
+            res.redirect('/admin/admin-login')
         }
     },
-    addBannerGet:(req,res) => {
+    addBannerGet:(req,res) => {          //1
         res.render('admin/add-banner', {admin:true, adminName:req.session.adminName})
     },
-    addBannerPost:(req,res) => {
+    addBannerPost:async(req,res) => {           //1
         try {
-            adminHelpers.addBanner(req.body,async(id) => {
-                let imgUrl = [];
-                for(let i=0;i<req.files.length;i++){
-                    const result = await cloudinary.uploader.upload(req.files[i].path);
-                    imgUrl.push(result.url);
-                }
-                if(imgUrl.length != 0){
-                    adminHelpers.addBannerImages(id,imgUrl);
-                }
-            })
+            //console.log(req.files);
+                adminHelpers.addBanner(req.body,async(id) => {
+                    let result = await cloudinary.uploader.upload(req.file.path);
+                    adminHelpers.updateBannerImages(id,result.url);
+                })
         }catch(err){
             console.log(err);
         }finally{
-            res.render('admin/bannerManangement');
+            res.redirect('/admin/bannerManangement');
         }
+    },
+    listBanner:(req,res) => {             //1
+        adminHelpers.bannerList(req.params.id).then(()=>{
+            res.redirect('back');
+        })
+    },
+    unlistBanner: (req,res) => {         //1
+        console.log(req.params.id);
+        adminHelpers.unListbanner(req.params.id).then(()=>{
+            res.redirect('back');
+        })
+    },
+    editBanner:(req,res) => {     //1
+        adminHelpers.getBannerDetails(req.params.id);
+        res.render('admin/edit-banner', {admin:true, adminName:req.session.adminName,banner})
+    },
+    editBannerPost: async (req,res) => {     //1
+        try{
+            adminHelpers.updateBanner(req.param.id, req.body);
+            let result = await cloudinary.uploader.upload(req.file.path);
+            if(result.url) {
+                adminHelpers.updateBannerImages(req.params.id, result.url);
+            }
+        }catch(err){
+            console.log("error", err);
+        }finally{
+            res.redirect('/admin/bannerManagement');
+        }
+    },
+    getBannerDetails: (bannerId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BANNER_COLLECTION)
+            .findOne({_id: new ObjectId(bannerId)})
+            .then((response) => {
+                resolve(response);
+            })
+        })
+    }, 
+    // updateBanner:(bannerId, banner) =>{
+    //     return new Promise((resolve, reject => {
+    //         db.get().collection(collection.BANNER_COLLECTION)
+    //         .updateOne({_id:new ObjectId(bannerId)},
+    //         {
+    //             $set: {
+    //                 head: banner.head,
+    //                 text: banner.text
+    //             }
+    //         });
+    //     }))
+    // },
+    // updateBannerImages: (bannerId,bannerUrl) => {
+    //     return new Promise((resolve, reject) => {
+    //         db.get().collection(collection.BANNER_COLLECTION)
+    //         .updateOne({_id: new ObjectId(bannerId)},
+    //         {
+    //             $set: 
+    //             {
+    //                 image: bannerUrl
+    //             }
+    //         })
+    //     })
+    // },
+    getAllBanners: () => {
+        return new Promise(async(resolve, reject) => {
+            let banners = await db.get().collection(collection.BANNER_COLLECTION)
+            .find().toArray();
+            resolve(banners);
+        })
     }
 }

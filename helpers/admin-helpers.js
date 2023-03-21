@@ -6,6 +6,7 @@ const { ObjectId } = require('mongodb')
 const { response } = require('express')
 const collections = require('../config/collections')
 
+
 module.exports={
     adminLogin:(adminData)=>{
         return new Promise(async(resolve,reject)=>{
@@ -54,18 +55,113 @@ module.exports={
     },
     bannerManagement:() => {
         return new Promise(async(resolve, reject) => {
-            let banner = await db.get().collection(collections.BANNER_COLLECTION)
+            let banner = await db.get().collection(collection.BANNER_COLLECTION)
             .find().toArray();
             resolve(banner);
         })
     },
-    addBanner: (banner,callback) => {
-        db.get().collection(collections.BANNER_COLLECTION)
-        .insertOne(banner).then((data) => {
+    addBanner: (banner,callback) => {          //1
+        return new Promise((resolve, reject) => {
+            banner.status=true;
+            db.get().collection(collection.BANNER_COLLECTION)
+            .insertOne(banner).then((data) => {
             callback(data.insertedId);
+            })
+        })
+        
+    },
+    updateBannerImages: (bannerId,bannerUrl) => {        //1
+        return new Promise((resolve,reject) => {
+            db.get().collection(collection.BANNER_COLLECTION)
+            .updateOne({_id: new ObjectId(bannerId)},
+            {
+                $set: 
+                    {
+                        image: bannerUrl
+                    }
+            })
+        }) 
+    },
+    updateBanner: (bannerId,banner) => {    //1
+        return new Promise((resolve,reject) => {
+            db.get().collection(collection.BANNER_COLLECTION)
+            .updateOne({_id: new ObjectId(bannerId)},
+            {
+                $set:
+                {
+                    head: banner.head,
+                    text: banner.text
+                }
+            });
         })
     },
-    addBannerImages: () => {
-
+    // bannerList: (bannerId) => {
+    //     return new Promise((resolve,reject) => {
+    //         db.get().collection(collection.BANNER_COLLECTION)
+    //         .updateOne({_id:new ObjectId(bannerId)}, {$set: {status:false}})
+    //         .then((response) => {
+    //             resolve();
+    //         })
+    //     })
+    // },
+    getBanners: () => {    //1
+        return new Promise(async(resolve, reject) => {
+            let banner = await db.get().collection(collection.BANNER_COLLECTION)
+            .find().toArray();
+            resolve(banner);
+        })
+    },
+    getBannerDetails: (bannerId) => {    //1
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BANNER_COLLECTION)
+            .findOne({_id: new ObjectId(bannerId)})
+            .then((response) => {
+                resolve(response);
+            })
+        })
+    },
+    // bannerUnlist: (bannerId) => {
+    //     return new Promise((resolve, reject) => {
+    //         db.get().collection(collection.BANNER_COLLECTION)
+    //         .updateOne({_id: new ObjectId(bannerId)},
+    //         {
+    //             $set:
+    //             {
+    //                 status: false
+    //             }
+    //         }).then((response) => {
+    //             resolve();
+    //         })
+    //     })
+    // },
+    bannerList:(bannerId) => {    //1
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BANNER_COLLECTION)
+            .updateOne({_id: new ObjectId(bannerId)},
+            {
+                $set:
+                {
+                    status:true
+                }
+            }).then((response) => {
+                console.log(response);
+                resolve();
+            })
+        })
+    },
+    unListbanner:(bannerId) => {    //1
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BANNER_COLLECTION)
+            .updateOne({_id: new ObjectId(bannerId)},
+            {
+                $set:
+                {
+                    status:false
+                }
+            }).then((response) => {
+                console.log(response);
+                resolve();
+            })
+        })
     }
 }

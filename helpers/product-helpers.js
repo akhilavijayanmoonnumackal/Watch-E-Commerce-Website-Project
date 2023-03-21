@@ -13,13 +13,15 @@ module.exports={
     },
 
     addProduct:(product,callback)=>{
-        db.get().collection(collection.PRODUCT_COLLECTION).insertOne(product).then((data)=>{
+        db.get().collection(collection.PRODUCT_COLLECTION)
+        .insertOne(product).then((data)=>{
             callback(data.insertedId);
         })
     },
     getProductDetails:(proId)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id: new ObjectId(proId)}).then((product)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION)
+            .findOne({_id: new ObjectId(proId)}).then((product)=>{
                 resolve(product);
             })
         })

@@ -6,18 +6,21 @@ const { response } = require('express');
 const twilioApi = require('../api/twilio') ;
 const { verifyOtp } = require('../api/twilio');
 const productHelpers = require('../helpers/product-helpers');
+const adminHelpers = require('../helpers/admin-helpers');
+const adminController = require('./admin-controller');
 let userHeader;
 
 module.exports={
     get:async(req,res)=>{        
         let count = 0;
+        let banner = await adminController.getAllBanners();
         if(req.session.loggedIn){
             let user=req.session.user;
             let product = await userHelpers.cartDetails(req.session.user._id)
             count = product.length; 
-            res.render('user/home',{admin:false,user,count, userHeader:true});         
+            res.render('user/home',{admin:false,user,count,banner, userHeader:true});         
         }else{
-            res.render('user/home',{admin:false,count, userHeader:true});  
+            res.render('user/home',{admin:false,count,banner, userHeader:true});  
         }
               
         // productHelpers.viewProducts().then((products) => {
@@ -162,7 +165,7 @@ module.exports={
             }catch(err){
                 console.log(err);
             }finally{
-                userHelpers.addToCart(userId,productId,quantity).then((response) => {
+                userHelpers.addToCart(userId,productId,quantity).then(() => {
                     res.json={
                         success: true
                     }
@@ -182,6 +185,7 @@ module.exports={
             // console.log(count);
             let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
             let count = product.length;
+            console.log(product[0].proDetails);
             res.render('user/cart', { product,count, totalValue,user, userHeader:true })
         }else{
             res.redirect('/login');
@@ -234,8 +238,8 @@ module.exports={
     //         // res.json(response)
     //     })
     // },
-    removeCartProduct: (req,res) => {
-        userHelpers.removeCartProduct(req.body).then(() => {
+    removeProduct: (req,res) => {
+        userHelpers.removeProduct(req.body).then(() => {
             res.json({status: true})
         })
     },

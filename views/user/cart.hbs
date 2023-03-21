@@ -21,32 +21,26 @@
                                         <img src="{{proDetails.[0].image.[0]}}" alt="IMG">
                                     </div>
                                 </td>
-                                <td class="column-2">{{proDetails.[0].name}}</td>
-                                <td class="column-3">{{proDetails.[0].price}}</td>
+                                <td class="column-2">{{this.proDetails.[0].name}}</td>
+                                <td class="column-3" id="price{{this.proDetails.[0]._id}}">{{this.proDetails.[0].price}}
+                                </td>
                                 <td class="column-4">
                                     <button class="cart-item-count mr-3" style="background-color: #fd8a14 ;
                                         color:aliceblue; width: 3vh;" type="button"
-                                        onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)">-</button>
-                                    <span id="{{this.product._id}}">{{products.quantity}}</span>
+                                        onclick="changeQuantity('{{this.proDetails.[0]._id}}',-1)">-</button>
+                                    <span id="{{this.proDetails.[0]._id}}">{{this.products.quantity}}</span>
                                     <button class="cart-item-count ml-3"
                                         style="background-color: #fd8a14 ; color:aliceblue; width: 3vh;" type="button"
-                                        onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)">+</button>
-                                    {{!-- <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                        <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                            <i class="fs-16 zmdi zmdi-minus"></i>
-                                        </div>
+                                        onclick="changeQuantity('{{this.proDetails.[0]._id}}',1)">+</button>
 
-                                        <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                            name="num-product1" value="1">
-                                        <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                            <i class="fs-16 zmdi zmdi-plus"></i>
-                                        </div>
-                                    </div> --}}
                                 </td>
-                                <td class="column-5"><span id="total">{{this.total}}</span></td>
+                                <td class="column-5">
+                                    <span id="{{this.proDetails.[0]._id}}total">{{mathMulti this.products.quantity
+                                        this.proDetails.[0].price}}</span>
+                                </td>
                                 <td>
-                                    <button
-                                        onclick="removeCartProduct('{{this.product._id}}','{{this._id}}','{{proDetails.[0].name}}')"
+                                    <button type="button"
+                                        onclick="removeProduct('{{this._id}}','{{this._id}}','{{../user}}',-1)"
                                         class="btn btn-danger">Remove</button>
                                 </td>
                             </tr>
@@ -98,7 +92,7 @@
                         </div>
                     </div>
 
-                    <div class="flex-w flex-t bor12 p-t-15 p-b-30">
+                    {{!-- <div class="flex-w flex-t bor12 p-t-15 p-b-30">
                         <div class="size-208 w-full-ssm">
                             <span class="stext-110 cl2">
                                 Shipping:
@@ -144,7 +138,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="flex-w flex-t p-t-27 p-b-33">
                         <div class="size-208">
@@ -170,5 +164,60 @@
     </div>
 </form>
 <script>
+
+    function removeProduct(proId, cartId, userId, count) {
+        let quantity = parseInt(document.getElementById(proId).innerHTML)
+        count = parseInt(count)
+        $.ajax({
+            url: '/remove-cart-product',
+            data: {
+                user: userId,
+                cart: cartId,
+                product: proId,
+                count: count,
+                quantity: quantity
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.removeProduct) {
+                    alert("Product removed")
+                    location.reload()
+                } else {
+                    console.log(document.getElementById(proId))
+                    document.getElementById(proId).innerHTML = quantity + count
+                    document.getElementById('total').innerHTML = response.total;
+                }
+            }
+
+        })
+    }
+
+    function changeQuantity(proId, count) {
+        let quantity = parseInt(document.getElementById(proId).innerHTML)
+        console.log(quantity)
+        count = parseInt(count);
+        $.ajax({
+            url: '/change-product-quantity',
+            data: {
+                product: proId,
+                count: count,
+                quantity: quantity
+            },
+            method: 'post',
+            success: (response) => {
+                console.log("response :" + response);
+                if (response.removeCartProduct) {
+                    //document.getElementById('total')
+                    alert('Product removed from your cart');
+                    location.reload()
+                } else {
+                    console.log(response);
+                    document.getElementById(proId).innerHTML = quantity + count
+                    document.getElementById(`${proId}total`).innerHTML = (quantity + count) * document.getElementById(`price${proId}`).innerHTML;
+                }
+            }
+        })
+    }
+
 
 </script>

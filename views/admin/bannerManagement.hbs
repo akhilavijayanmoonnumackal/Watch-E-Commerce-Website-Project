@@ -34,7 +34,7 @@
                               </tr>
                             </thead>
                             <tbody>
-                              {{#each Banners}}
+                              {{#each banner}}
                               <tr>
                                 <th scope="row">{{@index}}</th>
                                 <td>
@@ -42,7 +42,8 @@
                                 </td>
                                 <td>{{this.head}}</td>
                                 <td>{{this.text}}</td>
-                                <td><a href="/admin/edit-banner/{{this._id}}" class="btn btn-primary btn-sm">EDIT</a>
+                                <td><a href="/admin/edit-banner/{{this._id}}" class="btn btn-primary btn-sm"
+                                    style="width: 100px;height:35px;">EDIT</a>
                                 </td>
 
                                 {{#if this.status}}
@@ -60,10 +61,8 @@
                           </table>
                         </div>
                       </div>
-
                     </div>
                   </div>
-
                 </div>
               </div>
               <!-- [ Main Content ] end -->

@@ -179,7 +179,7 @@ module.exports={
         return new Promise((resolve,reject) => {
             if(details.count == -1 && details.quantity == 1) {
                 db.get().collection(collection.CART_COLLECTION)
-                .updateOne({_id: ObjectId(details.cart) },
+                .updateOne({_id:new ObjectId(details.cart) },
                 {
                     $pull: { products: { item: new ObjectId(details.product) } }
                 }
@@ -202,7 +202,7 @@ module.exports={
             }
         })
     },
-    removeCartProduct: (details) => {
+    removeProduct: (details) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.CART_COLLECTION)
             .updateOne({_id:new ObjectId(details.cart) },

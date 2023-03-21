@@ -169,7 +169,8 @@
 
 
 <!--===============================================================================================-->
-<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+{{!--
+<script src="/vendor/jquery/jquery-3.2.1.min.js"></script> --}}
 <!--===============================================================================================-->
 <script src="/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
@@ -217,31 +218,13 @@
 
 <script>
 
-    $('.js-addcart-btn').on('click', function (e) {
-        e.preventDefault();
-        const el = document.querySelector('#addToCart');
-        const clickedBtn = $(this);
-
-        let productId = el.dataset.product;
-        console.log(productId)
-        $.get('/addToCart', { productId: productId }, function (response) {
-            console.log(response);
-            if (response.success) {
-                swal(nameProduct, "is added to cart!", "success");
-                clickedBtn.addClass('js-addedcart');
-                clickedBtn.off('click');
-            } else {
-                swal("Error", response.message, "error");
-            }
-        });
-    });
-
-
 
 
 </script>
-<!--===============================================================================================-->
-<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+{{!-- =================================================================== --}}
+<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js">
+</script>
 <script>
     $('.js-pscroll').each(function () {
         $(this).css('position', 'relative');

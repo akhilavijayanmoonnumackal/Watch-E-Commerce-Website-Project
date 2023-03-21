@@ -5,10 +5,11 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const hbs=require('express-handlebars');
 const db=require('./config/connection');
+const handlebars=require('handlebars');
+const mathHelpers=require('./helpers/math-helpers');
 const session=require('express-session');
 const nocache=require('nocache')
 require('dotenv').config();
-
 
 
 //Database connection
@@ -26,6 +27,8 @@ const app = express();
 
 
 // view engine setup
+
+handlebars.registerHelper(mathHelpers);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.engine('hbs',hbs.engine({extname:'hbs', defaultLayout:'layout',layoutsDir:__dirname+'/views/layout/', partialsDir:__dirname+'/views/partials/'}))
