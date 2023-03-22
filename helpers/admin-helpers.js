@@ -163,5 +163,72 @@ module.exports={
                 resolve();
             })
         })
+    },
+    isCategoryExist: async(categoryName) => {
+        const category = await db.get().collection(collection.CATEGORY_COLLECTION)
+        .findOne({categoryName:categoryName});
+        return category;
+    },
+    allCategories: () => {
+        return new Promise(async(resolve,reject) => {
+            let category = await db.get().collection(collection.CATEGORY_COLLECTION)
+            .find().toArray();
+            resolve(category);
+        })
+    },
+    addCategory: (categoryData) => {
+        categoryData.status=true;
+        return new Promise((resolve,reject) => {
+             db.get().collection(collection.CATEGORY_COLLECTION)
+            .insertOne(categoryData).then((data) => {
+                resolve(data);
+            });
+            
+        })
+    },
+    // bannerList:(bannerId) => {    //1
+    //     return new Promise((resolve, reject) => {
+    //         db.get().collection(collection.BANNER_COLLECTION)
+    //         .updateOne({_id: new ObjectId(bannerId)},
+    //         {
+    //             $set:
+    //             {
+    //                 status:true
+    //             }
+    //         }).then((response) => {
+    //             console.log(response);
+    //             resolve();
+    //         })
+    //     })
+    // }
+    categoryList: (categoryId) => {
+        return new Promise((resolve,reject) => {
+            db.get().collection(collection.CATEGORY_COLLECTION)
+            .updateOne({_id: new ObjectId(categoryId)},
+            {
+                $set:
+                {
+                    status:true
+                }
+            }).then((response) => {
+                console.log(response);
+                resolve();
+            })
+        })
+    },
+    categoryUnlist: (categoryId) => {
+        return new Promise((resolve,reject) => {
+            db.get().collection(collection.CATEGORY_COLLECTION)
+            .updateOne({_id: new ObjectId(categoryId)},
+            {
+                $set:
+                {
+                    status:false
+                }
+            }).then((response) => {
+                console.log(response);
+                resolve();
+            })
+        })
     }
 }

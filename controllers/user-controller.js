@@ -239,7 +239,9 @@ module.exports={
     //     })
     // },
     removeProduct: (req,res) => {
-        userHelpers.removeProduct(req.body).then(() => {
+        const proId = req.params.id;
+        const userId = req.session.user._id;
+        userHelpers.removeProduct(userId, proId).then(() => {
             res.json({status: true})
         })
     },

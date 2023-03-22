@@ -29,6 +29,7 @@
                             <tr>
                                 <th>Item</th>
                                 <th>Price</th>
+                                <th>Remove</th>
                                 {{!-- <th>Status</th>
                                 <th>Registered</th> --}}
                                 <th class="text-end"> View Details</th>
@@ -49,6 +50,11 @@
                                     </a>
                                 </td>
                                 <td width="15%" class="price">{{this.price}}</td>
+                                <td>
+                                    <button type="button"
+                                        onclick="removeProduct('{{this._id}}','{{this._id}}','{{../user}}',-1)"
+                                        class="btn btn-sm btn-danger rounded font-sm mt-15">Remove</button>
+                                </td>
                                 <td class="text-end">
                                     <a href="/productDetail/{{this._id}}"
                                         class="btn btn-sm btn-brand rounded font-sm mt-15"

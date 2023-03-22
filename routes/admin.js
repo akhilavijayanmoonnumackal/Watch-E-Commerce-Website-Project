@@ -25,6 +25,15 @@ router.get('/list-banner/:id', adminController.listBanner);
 router.get('/unlist-banner/:id', adminController.unlistBanner);
 router.get('/edit-banner/:id', adminController.editBanner);
 router.post('/edit-banner/:id', adminController.editBannerPost);
+//router.get('/category', adminController.viewCategory);
+router.post('/addCategory', adminController.addCategoryPost);
+router.get('/category', adminController.categoryManagement);
+router.get('/listcategory/:id', adminController.listcategory);
+router.get('/unlistcategory/:id', adminController.unlistcategory);
+//router.get('/listCategoryOrUnlistCategory/:id', adminController.listCategoryOrUnlistCategory);
+router.get('/editProduct/:id', adminController.editProduct);
+router.post('/editProduct/:id', adminController.editProductPost);
+
 
 
 module.exports = router;

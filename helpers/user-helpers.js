@@ -202,15 +202,23 @@ module.exports={
             }
         })
     },
-    removeProduct: (details) => {
+    removeProduct: (userId, proId) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.CART_COLLECTION)
-            .updateOne({_id:new ObjectId(details.cart) },
-            {
-                $pull: { products: { item:new ObjectId(details.product) } }
-            }
-            ).then(() => {
+            .updateOne(
+                {
+                    userId: new ObjectId(userId)
+                },
+                {
+                    $pull: { 
+                        products: { productId: new ObjectId(proId) } 
+                    }
+                }
+            ).then((response) => {
+                console.log(response)
                 resolve()
+            }).catch((err)=>{
+                console.log(err);
             })
         })
     },

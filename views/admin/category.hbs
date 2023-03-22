@@ -1,0 +1,88 @@
+<main class="main-wrap">
+    <div class="card-h  text-center">
+        <div class="card-body">
+            <div>
+                <a href="" class="btn btn-success float-right mb-3" data-toggle="modal"
+                    data-target="#exampleModalCenter">Add Category</a>
+            </div>
+            <h4 class="py-4 text-center">Category Management</h4>
+            <div class="col-md-9">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    {{!-- <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" />
+                                    </div> --}}
+                                </th>
+                                <th>No.</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Updation</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each category}}
+                            <tr>
+                                <td class="text-center">
+                                    {{!-- <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" />
+                                    </div> --}}
+                                </td>
+                                <td scope="row">{{@index}}</td>
+                                <td><b>{{this.category}}</b></td>
+                                <td>
+                                    <a href="" class="btn btn-primary btn-sm" style="width: 100px;height:35px;">EDIT</a>
+                                </td>
+                                {{#if this.status}}
+                                <td>
+                                    <a href="/admin/unlistCategory/{{this._id}}"
+                                        class="btn btn-danger btn-sm">UNLIST</a>
+                                </td>
+                                {{else}}
+                                <td>
+                                    <a href="/admin/listCategory/{{this._id}}" class="btn btn-warning btn-sm">LISTED</a>
+                                </td>
+                                {{/if}}
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- .col// -->
+        </div>
+    </div>
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/admin/addCategory" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Category</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter category" name="category">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class=" btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,10 +1,10 @@
 <main class="main-wrap">
     <section class="content-main">
-        <form action="/admin/add-product" method="post" enctype="multipart/form-data">
+        <form action="/admin/editProduct/{{product._id}}" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-6">
                     <div class="content-header">
-                        <h2 class="content-title">Add New Product</h2>
+                        <h2 class="content-title">Edit Product</h2>
                         <div>
                             <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">Cancel</button>
                             <button type="submit" class="btn btn-md rounded font-sm hover-up">Save</button>
@@ -24,12 +24,13 @@
                                     <div class="mb-4">
                                         <label class="form-label">Product title</label>
                                         <input type="text" placeholder="Type here" class="form-control" name="name"
-                                            required>
+                                            value="{{product.name}}" required>
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label">Description</label>
                                         <textarea placeholder="Type here" class="form-control" rows="4"
-                                            name="description" type="text" required></textarea>
+                                            name="description" type="text" value="{{product.description}}"
+                                            required></textarea>
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label">Brand name</label>
@@ -55,7 +56,7 @@
                                     <div class="mb-4">
                                         <label for="price" class="form-label">Price</label>
                                         <input type="number" placeholder="00.0" class="form-control" name="price"
-                                            required>
+                                            value="{{product.price}}" required>
                                     </div>
                                 </div> <!-- col.// -->
                             </div> <!-- row.// -->
@@ -68,24 +69,9 @@
                                     <div class="mb-4">
                                         <div class="mb-4">
                                             <label class="form-label">Category</label>
-                                            <select class="form-select" name="category">
-                                                {{#each category}}
-                                                <option value="{{this._id}}"> {{this.category}} </option>
-                                                {{/each}}
-                                            </select>
+                                            <input type="text" class="form-control" name="category"
+                                                value="{{product.category}}" required>
                                         </div>
-                                        {{!-- <label class="mb-2 form-check form-check-inline" style="width: 45%;">
-                                            <input class="form-check-input" checked="" name="mycategory" type="radio" />
-                                            <span class="form-check-label"> {{this.category.[0]}} </span>
-                                        </label> --}}
-                                        {{!-- <label class="mb-2 form-check form-check-inline" style="width: 45%;">
-                                            <input class="form-check-input" name="mycategory" type="radio" />
-                                            <span class="form-check-label"> Men </span>
-                                        </label>
-                                        <label class="mb-2 form-check form-check-inline" style="width: 45%;">
-                                            <input class="form-check-input" name="mycategory" type="radio" />
-                                            <span class="form-check-label"> Smart Watches</span>
-                                        </label> --}}
                                     </div>
                                 </div> <!-- col.// -->
                             </div> <!-- row.// -->
@@ -97,8 +83,10 @@
                                 <div class="col-md-9">
                                     <div class="mb-4">
                                         <label for="image" class="form-label">Images</label>
-                                        <input class="form-control" type="file" name="image" id="image" multiple
-                                            required />
+                                        <img src="/product-images/{{product._id}}.jpg" alt=""
+                                            style="width: 100px;height:auto" id="imgView" class="pt-3">
+                                        <input type="file" name="image" class="form-control"
+                                            onchange="viewImage(event)">
                                     </div>
                                     <div class="img-container" style="display: flex;">
                                     </div> <!-- col.// -->
@@ -111,3 +99,9 @@
         </form>
     </section> <!-- content-main end// -->
 </main>
+
+<script>
+    function viewImage(event) {
+        document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
+</script>

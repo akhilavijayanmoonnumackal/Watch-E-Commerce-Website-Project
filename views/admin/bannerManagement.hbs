@@ -45,12 +45,13 @@
                                 <td><a href="/admin/edit-banner/{{this._id}}" class="btn btn-primary btn-sm"
                                     style="width: 100px;height:35px;">EDIT</a>
                                 </td>
-
                                 {{#if this.status}}
-                                <td><a href="/admin/unlist-banner/{{this._id}}" class="btn btn-danger btn-sm">UNLIST</a>
+                                <td>
+                                  <a href="/admin/unlist-banner/{{this._id}}" class="btn btn-danger btn-sm">UNLIST</a>
                                 </td>
                                 {{else}}
-                                <td><a href="/admin/list-banner/{{this._id}}" class="btn btn-warning btn-sm">LISTED</a>
+                                <td>
+                                  <a href="/admin/list-banner/{{this._id}}" class="btn btn-warning btn-sm">LISTED</a>
                                 </td>
                                 {{/if}}
 

@@ -39,8 +39,7 @@
                                         this.proDetails.[0].price}}</span>
                                 </td>
                                 <td>
-                                    <button type="button"
-                                        onclick="removeProduct('{{this._id}}','{{this._id}}','{{../user}}',-1)"
+                                    <button type="button" onclick="removeProduct('{{this.proDetails.[0]._id}}')"
                                         class="btn btn-danger">Remove</button>
                                 </td>
                             </tr>
@@ -165,31 +164,21 @@
 </form>
 <script>
 
-    function removeProduct(proId, cartId, userId, count) {
-        let quantity = parseInt(document.getElementById(proId).innerHTML)
-        count = parseInt(count)
-        $.ajax({
-            url: '/remove-cart-product',
-            data: {
-                user: userId,
-                cart: cartId,
-                product: proId,
-                count: count,
-                quantity: quantity
-            },
-            method: 'post',
-            success: (response) => {
-                if (response.removeProduct) {
-                    alert("Product removed")
-                    location.reload()
-                } else {
-                    console.log(document.getElementById(proId))
-                    document.getElementById(proId).innerHTML = quantity + count
-                    document.getElementById('total').innerHTML = response.total;
+    function removeProduct(proId) {
+        var check = confirm("Do you want to remove " + name + " from cart?")
+        if (check) {
+            $.ajax({
+                url: `/remove-cart-product/${proId}`,
+                method: 'GET',
+                success: (response) => {
+                    //$(proId).remove()
+                    let msg = name + " removed"
+                    //$('#delete-msg').html(msg)
+                    location.reload();
+                    console.log("removed");
                 }
-            }
-
-        })
+            })
+        }
     }
 
     function changeQuantity(proId, count) {
@@ -206,7 +195,7 @@
             method: 'post',
             success: (response) => {
                 console.log("response :" + response);
-                if (response.removeCartProduct) {
+                if (response.removeProduct) {
                     //document.getElementById('total')
                     alert('Product removed from your cart');
                     location.reload()

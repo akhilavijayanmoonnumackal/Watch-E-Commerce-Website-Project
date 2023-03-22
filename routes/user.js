@@ -22,7 +22,7 @@ router.get('/addToCart', controller.addToCart);
 router.get('/cart', controller.cartDetails);
 router.post('/change-product-quantity', controller.changeProductQuantity);
 router.get('/checkout', controller.getTotalAmount);
-router.post('/remove-cart-product', controller.removeProduct);
+router.get('/remove-cart-product/:id', controller.removeProduct);
 //router.get('/wishList', controller.getWishList);
 router.get('/wishList', controller.wishListDetails);
 router.get('/addToWishlist', controller.addToWishlist);
