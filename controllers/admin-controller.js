@@ -134,7 +134,7 @@ module.exports ={
             //console.log(req.files);
                 adminHelpers.addBanner(req.body,async(id) => {
                     let result = await cloudinary.uploader.upload(req.file.path);
-                    adminHelpers.updateBannerImages(id,result.url);
+                    await adminHelpers.updateBannerImages(id,result.url);
                 })
         }catch(err){
             console.log(err);

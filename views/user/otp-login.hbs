@@ -52,40 +52,18 @@
             </div>
             <button type="submit">Send OTP</button>
         </form>
-        <div class="text-center mt-5">
+        {{!-- <div class="text-center mt-5">
             <span class="d-block mobile-text" id="countdown"></span>
             <span class="d-block mobile-text" id="resend"></span>
-        </div>
+        </div> --}}
     </div>
 </div>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+{{!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
     Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-{{!-- <div class="modal">
+</button> --}}
+<div class="modal">
     <div class="modal-header">
         <div>
             <h3>OTP verification</h3>
@@ -100,11 +78,11 @@
         </form>
     </div>
 </div>
-<button id="verify" style="visibility: hidden;" class="open-modal" onclick="showModal()">Open modal</button> --}}
+<button id="verify" style="visibility: hidden;" class="open-modal" onclick="showModal()">Open modal</button>
 
 
-{{!--
-<script src="mainotp.js"></script> --}}
+
+<script src="mainotp.js"></script>
 
 <script>
     const verifyButton = document.getElementById('verify');

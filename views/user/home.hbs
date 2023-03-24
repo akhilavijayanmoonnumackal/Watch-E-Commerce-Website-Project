@@ -3,47 +3,51 @@
     <div class="wrap-slick1">
         <div class="slick1">
 
+
+            {{!-- <div class="col-md-12 col-xl-12 p-b-30 m-lr-auto">
+                <div class="item-slick1" data-thumb="{{this.image}}" alt="img">
+                    <img src="https://cdn.pixabay.com/photo/2015/12/06/09/15/maple-1079235__340.jpg" alt="IMG-PRODUCT">
+                    <div class="container h-full">
+                        <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+                            <div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+                                <span class="ltext-101 cl2 respon2">
+                                    dnsdkdsnklds
+                                </span>
+                            </div>
+
+                            <div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
+                                <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+                                    sdfsdfdd
+                                </h2>
+                            </div>
+
+                            <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+                                <a href="/shop"
+                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                    Shop Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+
+
+            {{#each banner}}
+
             {{#if this.status}}
-            <div class="item-slick1" data-thumb="{{this.image}}" alt="img">
-                <img src="{{this.image}}" alt="IMG-PRODUCT">
+            <div class="item-slick1" style="background-image: url({{this.image}};">
                 <div class="container h-full">
                     <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
-                        <div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+                        <div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
                             <span class="ltext-101 cl2 respon2">
                                 {{this.head}}
                             </span>
                         </div>
 
-                        <div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
-                            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-                                {{this.text}}
-                            </h2>
-                        </div>
-
-                        <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-                            <a href="/shop" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
-                                Shop Now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{/if}}
-
-
-
-            {{!-- <div class="item-slick1" style="background-image: url(images/banner2.jpg);">
-                <div class="container h-full">
-                    <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
-                        <div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
-                            <span class="ltext-101 cl2 respon2">
-                                Men New-Season
-                            </span>
-                        </div>
-
                         <div class="layer-slick1 animated visible-false" data-appear="lightSpeedIn" data-delay="800">
                             <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
-                                New-Season
+                                {{this.text}}
                             </h2>
                         </div>
 
@@ -54,9 +58,11 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
+            {{/if}}
+            {{/each}}
 
-            {{!-- <div class="item-slick1" style="background-image: url(images/banner3.jpg);">
+            <div class="item-slick1" style="background-image: url(images/banner3.jpg);">
                 <div class="container h-full">
                     <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
                         <div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
@@ -78,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
 </section>
@@ -87,6 +93,7 @@
 <div class="sec-banner bg0 p-t-80 p-b-50">
     <div class="container">
         <div class="row">
+
             <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
                 <!-- Block1 -->
                 <div class="block1 wrap-pic-w">

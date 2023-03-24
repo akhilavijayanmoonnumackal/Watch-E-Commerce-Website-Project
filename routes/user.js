@@ -26,6 +26,7 @@ router.get('/remove-cart-product/:id', controller.removeProduct);
 //router.get('/wishList', controller.getWishList);
 router.get('/wishList', controller.wishListDetails);
 router.get('/addToWishlist', controller.addToWishlist);
+// router.get('/cartSvg', controller.getCartSvg);
 
 
 // router.get('/shop', (req,res)=>{

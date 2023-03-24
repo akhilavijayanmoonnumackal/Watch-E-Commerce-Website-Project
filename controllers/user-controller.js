@@ -18,6 +18,7 @@ module.exports={
             let user=req.session.user;
             let product = await userHelpers.cartDetails(req.session.user._id)
             count = product.length; 
+            console.log(banner)
             res.render('user/home',{admin:false,user,count,banner, userHeader:true});         
         }else{
             res.render('user/home',{admin:false,count,banner, userHeader:true});  
@@ -178,6 +179,7 @@ module.exports={
     },
     
     cartDetails: async(req,res) => {
+        let count=0;
         if(req.session.loggedIn){
             // let count = await userHelpers.getCartCount(req.session.user._id)
             let user=req.session.user;
@@ -188,7 +190,7 @@ module.exports={
             console.log(product[0].proDetails);
             res.render('user/cart', { product,count, totalValue,user, userHeader:true })
         }else{
-            res.redirect('/login');
+            res.render('user/cartSvg', {userHeader:true, count});
         }
     },
     
@@ -290,6 +292,12 @@ module.exports={
         }else{
             res.redirect('/login');
         }
+    },
+
+    BannerList :  (req, res)=>{
+        let banner =  adminController.listBanner();
+
+
     }
 }
 
