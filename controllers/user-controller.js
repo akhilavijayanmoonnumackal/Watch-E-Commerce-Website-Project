@@ -186,9 +186,11 @@ module.exports={
             let product = await userHelpers.cartDetails(req.session.user._id)
             // console.log(count);
             let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
+            let totalAmount = await userHelpers.get1TotalAmount(req.session.user._id)
             let count = product.length;
             console.log(product[0].proDetails);
-            res.render('user/cart', { product,count, totalValue,user, userHeader:true })
+            console.log("totalvalue:",totalAmount);
+            res.render('user/cart', { product,count, totalValue,totalAmount,user, userHeader:true })
         }else{
             res.render('user/cartSvg', {userHeader:true, count});
         }
@@ -222,7 +224,7 @@ module.exports={
             // let count = product.length;
             let count = await userHelpers.getCartCount(req.session.user._id)
             if(count!=0){
-                response.total=await userHelpers.getTotalAmount(req.body.user)
+                response.total=await userHelpers.get1TotalAmount(req.body.user)
             }
             res.json(response)
         })
@@ -252,14 +254,15 @@ module.exports={
     //         res.json(response)
     //     })
     // },
-    getTotalAmount: async(req,res) => {
-        let count = null
-        if(req.session.loggedIn==true) {
-            count = await userHelpers.getCartCount(req.session.user._id)
-            let total = await userHelpers.getTotalAmount(req.session.user._id)
-            res.render('user/place-order',{total,count,user:true, user:req.session.user});
-        }
-    },
+
+    // getTotalAmount: async(req,res) => {
+    //     let count = null
+    //     if(req.session.loggedIn==true) {
+    //         count = await userHelpers.getCartCount(req.session.user._id)
+    //         let allTotal = await userHelpers.getTotalAmount(req.session.user._id)
+    //         res.render('user/place-order',{allTotal,count,user:true, user:req.session.user});
+    //     }
+    // },
     getWishList: (req,res) => {
         if(req.session.loggedIn){
             userHelpers.getWishList(req.session.user._id).then((response) => {
@@ -298,6 +301,19 @@ module.exports={
         let banner =  adminController.listBanner();
 
 
+    },
+    getPlaceOrder: async(req,res) => {
+        if(req.session.loggedIn) {
+            let user = req.session.user;
+            let total = await userHelpers.get1TotalAmount(req.session.user._id)
+            res.render('user/placeOrder',{admin:false,user,total, userHeader:true})
+        }else{
+            res.render('/login')
+        }
+    },
+    orderSuccess: (req,res) => {
+        res.render('user/orderSuccess', {user:req.session.user})
     }
+    
 }
 

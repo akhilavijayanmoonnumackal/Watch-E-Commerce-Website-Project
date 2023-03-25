@@ -157,7 +157,7 @@ module.exports={
             resolve(cartItems);
           } catch {
             resolve(null);
-          }
+            }
         });
       },
     getCartCount: (userId) => {
@@ -277,6 +277,46 @@ module.exports={
                 resolve(null)
             }            
         })
+    },
+    get1TotalAmount: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+              userId = new ObjectId(userId);
+              let total = await db.get().collection(collection.CART_COLLECTION)
+              .aggregate([
+                  {
+                    '$match': {
+                      'userId': userId
+                    }
+                  }, {
+                    '$unwind': {
+                      'path': '$products', 
+                      'preserveNullAndEmptyArrays': true
+                    }
+                  }, {
+                    '$lookup': {
+                      'from': 'products', 
+                      'localField': 'products.productId', 
+                      'foreignField': '_id', 
+                      'as': 'proDetails'
+                    }
+                  },
+                  {
+                    '$unwind':{'path':'$proDetails'}
+                  },{
+                    '$group':{
+                        '_id':'null',
+                        'total': {'$sum': {'$multiply': ['$products.quantity','$proDetails.price']}}
+                    }
+                  }
+                ]).toArray()
+              console.log("total",total[0].total)
+              //console.log(cartItems.length);
+              resolve(total[0].total);
+            } catch {
+              resolve(null);
+              }
+          });
     },
     getWishList: (proId,userId) => {
         return new Promise(async(resolve,reject) => {
