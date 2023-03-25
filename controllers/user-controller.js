@@ -181,20 +181,24 @@ module.exports={
     cartDetails: async(req,res) => {
         let count=0;
         if(req.session.loggedIn){
-            // let count = await userHelpers.getCartCount(req.session.user._id)
             let user=req.session.user;
             let product = await userHelpers.cartDetails(req.session.user._id)
-            // console.log(count);
             let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
             let totalAmount = await userHelpers.get1TotalAmount(req.session.user._id)
             let count = product.length;
-            console.log(product[0].proDetails);
-            console.log("totalvalue:",totalAmount);
-            res.render('user/cart', { product,count, totalValue,totalAmount,user, userHeader:true })
+            console.log("count: ", count);
+            if(count>0) {
+                console.log("count: ", count);
+            
+                console.log("totalvalue:",totalAmount);
+                res.render('user/cart', { product,count, totalValue,totalAmount,user, userHeader:true })
+            }else{
+                res.render('user/cartEmptySvg' , {userHeader:true,user, count})
+            }            
         }else{
             res.render('user/cartSvg', {userHeader:true, count});
-        }
-    },
+        }
+    },
     
     // cartDetails: (req,res) => {
     //     if(req.session.loggedIn){
