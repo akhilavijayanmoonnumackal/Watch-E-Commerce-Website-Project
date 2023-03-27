@@ -50,22 +50,36 @@
                             <a href="contact.html">Contact</a>
                         </li>
                         <li class="text-warning">
-                            {{#if user}}
-                            {{user.name}}
-                            {{/if}}
-                            {{#if user}}
-                            <a href="/logout">
-                        <li>
-                            <button class=" text-muted" type="button">Logout</button>
-                        </li>
-                        </a>
-                        {{else}}
-                        <a href="/login">
-                            <li><button class="text-muted" type="button">Login</button></li>
-                        </a>
-                        {{/if}}
 
+
+                            {{#if user}}
+                            <ul class="nav">
+                                <li class="dropdown nav-item">
+                                    <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#" id="dropdownAccount"
+                                        aria-expanded="false"> <img class="img-xs rounded-circle"
+                                            style="width:50px;height:50px; " src="images/akhila3.jpg" alt="User"></a>
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownAccount">
+                                        {{#if user.name}}
+                                        <a class="dropdown-item text-danger" href="/logout"><i
+                                                class="material-icons md-exit_to_app"></i>Logout</a>
+                                        {{else}}
+                                        <a href="/login"></a>
+                                        {{/if}}
+                            </ul>
                         </li>
+                    </ul>
+                    <a href="/userProfile">
+                        <li>
+                            <button class=" text-warning" type="button">{{user.name}}</button>
+                        </li>
+                    </a>
+                    {{else}}
+                    <a href="/login">
+                        <li><button class="text-muted" type="button">Login</button></li>
+                    </a>
+                    {{/if}}
+
+                    </li>
                     </ul>
                 </div>
 

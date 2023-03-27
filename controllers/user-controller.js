@@ -323,6 +323,10 @@ module.exports={
     },
     orderSuccess: (req,res) => {
         res.render('user/orderSuccess', {user:req.session.user})
+    },
+    userProfile: (req,res) => {
+        let user = req.session.user;
+        res.render('user/userProfile', {user,userHeader:true})
     }
     
 }

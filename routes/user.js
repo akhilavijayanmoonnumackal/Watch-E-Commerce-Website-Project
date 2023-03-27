@@ -28,6 +28,7 @@ router.get('/wishList', controller.wishListDetails);
 router.get('/addToWishlist', controller.addToWishlist);
 router.get('/place-order', controller.getPlaceOrder);
 router.get('/orderSuccess', controller.orderSuccess);
+router.get('/userProfile', controller.userProfile);
 
 
 // router.get('/shop', (req,res)=>{
