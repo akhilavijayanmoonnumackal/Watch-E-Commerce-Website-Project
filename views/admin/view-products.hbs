@@ -32,8 +32,9 @@
                         <input type="date" value="02.05.2021" class="form-control">
                     </div>
                     <div class="col-md-2 col-6">
+
                         <select class="form-select">
-                            <option selected>Status</option>
+                            <option>Update</option>
                             <option>Active</option>
                             <option>Disabled</option>
                             <option>Show all</option>
@@ -61,21 +62,30 @@
                             </a>
                         </div>
                         <div class="col-lg-2 col-sm-2 col-4 col-price"> <span>{{this.price}}</span> </div>
+
                         <div class="col-lg-2 col-sm-2 col-4 col-status">
-                            <span class="badge rounded-pill alert-success">Active</span>
+
+                            <span class="">
+                                {{#if this.status}}
+                                <a href="/admin/unlistProduct/{{this._id}}" class="btn btn-danger btn-sm">UNLIST</a>
+                                {{else}}
+                                <a href="/admin/listProduct/{{this._id}}" class="btn btn-warning btn-sm"
+                                    style="width:70px">LIST</a>
+                                {{/if}}
+                            </span>
                         </div>
-                        {{!-- <div class="col-lg-1 col-sm-2 col-4 ">
+                        <div class="col-lg-1 col-sm-2 col-4 ">
                             <span>{{this.category.category}}</span>
-                        </div> --}}
+                        </div>
                         <div class="col-lg-2 col-sm-2 col-4 col-action text-end">
                             <a href="/admin/editProduct/{{this._id}}" class="btn btn-sm font-sm rounded btn-brand">
                                 <i class="material-icons md-edit"></i> Edit
                             </a>
-                            <a href="/admin/delete/{{this._id}}" class="btn btn-sm font-sm btn-light rounded">
-                                <i class="material-icons md-delete_forever"
-                                    onclick="return confirm('Do you want to delete {{this.name}}')"></i>
-                                Delete
-                            </a>
+                            {{!-- {{#if this.status}}
+                            <a href="/admin/unlistProduct/{{this._id}}" class="btn btn-danger btn-sm">UNLIST</a>
+                            {{else}}
+                            <a href="/admin/listProduct/{{this._id}}" class="btn btn-danger btn-sm">LIST</a>
+                            {{/if}} --}}
                         </div>
                     </div> <!-- row .// -->
                 </article> <!-- itemlist  .// -->

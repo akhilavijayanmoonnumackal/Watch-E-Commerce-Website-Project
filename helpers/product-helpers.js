@@ -82,5 +82,35 @@ module.exports={
                 console.log(err);
             })
         })
+    },
+    listProduct: (proId) => {
+        return new Promise((resolve,reject) => {
+            db.get().collection(collection.PRODUCT_COLLECTION)
+            .updateOne({_id: new ObjectId(proId)},
+            {
+                $set:
+                {
+                    status:true
+                }
+            }).then((response) => {
+                console.log(response);
+                resolve();
+            })
+        })
+    },
+    unlistProduct: (proId) => {
+        return new Promise((resolve,reject) => {
+            db.get().collection(collection.PRODUCT_COLLECTION)
+            .updateOne({_id: new ObjectId(proId)},
+            {
+                $set:
+                {
+                    status:false
+                }
+            }).then((response) => {
+                console.log(response);
+                resolve();
+            })
+        })
     }
 }

@@ -134,6 +134,23 @@ module.exports={
             })
         }
     },
+    // productDetail: async(req,res) => {
+    //     let count=0;
+    //     let Id=req.params.id;
+    //     if(req.session.loggedIn) {
+    //         let user=req.session.user;            
+    //         let product = await userHelpers.cartDetails(req.session.user._id)
+    //         let count = product.length;
+    //         productHelpers.getProductDetails(Id).then((product) => {
+    //             console.log(product);
+    //             res.render('user/productDetail',{admin:false,count, product, user,userHeader:true});
+    //         })
+    //     }else{
+    //         productHelpers.getProductDetails(Id).then((product) => {
+    //             res.render('user/productDetail',{admin:false, product,count,userHeader:true})
+    //         })
+    //     }
+    // },
     productDetail:async(req,res)=>{
         console.log(req.params.id);
         if(req.session.loggedIn){
@@ -151,6 +168,7 @@ module.exports={
             res.render('user/login');
         }       
     },
+    
     addToCart: (req,res) => {
         if(req.session.loggedIn) {
             //console.log("hello")
@@ -173,6 +191,7 @@ module.exports={
                 });
             }
             // console.log(quantity)
+            
         }else{
             res.redirect('/login');
         }

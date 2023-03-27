@@ -33,6 +33,8 @@ router.get('/unlistcategory/:id', adminController.unlistcategory);
 //router.get('/listCategoryOrUnlistCategory/:id', adminController.listCategoryOrUnlistCategory);
 router.get('/editProduct/:id', adminController.editProduct);
 router.post('/editProduct/:id',upload.array("image"), adminController.editProductPost);
+router.get('/listProduct/:id', adminController.listProduct);
+router.get('/unlistProduct/:id', adminController.unlistProduct);
 
 
 

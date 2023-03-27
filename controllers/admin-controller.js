@@ -282,6 +282,16 @@ module.exports ={
         //     res.redirect('/admin/view-products')
         //     if(req.files.image)
         // })
+    },
+    listProduct : (req,res) => {
+        productHelpers.listProduct(req.params.id).then(() => {
+            res.redirect('back');
+        })
+    },
+    unlistProduct: (req,res) => {
+        productHelpers.productUnlist(req.params.id).then(() => {
+            res.redirect('back');
+        })
     }
     // editBannerPost: async (req,res) => {     //1
     //     try{
