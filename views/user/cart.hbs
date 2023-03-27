@@ -86,7 +86,7 @@
                         </div>
 
                         <div class="size-209 p-t-1">
-                            <span class="mtext-110 cl2" id="total">
+                            <span class="mtext-110 cl2" data-price={{totalAmount}} id="totalValue">
                                 Rs.{{totalAmount}}
                             </span>
                         </div>
@@ -105,6 +105,16 @@
 </div>
 
 <script>
+    window.onload = function () {
+        //const subTotal = parseFloat(document.getElementById('subTotal').innerText);
+        const subTotal1 = document.getElementById('totalValue');
+        const subTotal = subTotal1.dataset.price;
+        console.log(subTotal);
+    }
+</script>
+
+<script>
+    const subTotal1 = document.getElementById('totalValue');
     function removeProduct(proId) {
         var check = confirm("Do you want to remove " + name + " from cart?")
         if (check) {
@@ -129,7 +139,6 @@
         $.ajax({
             url: '/change-product-quantity',
             data: {
-
                 product: proId,
                 count: count,
                 quantity: quantity
@@ -138,14 +147,13 @@
             success: (response) => {
                 console.log("response :" + response);
                 if (response.removeProduct) {
-                    //document.getElementById('total')
                     alert('Product removed from your cart');
                     location.reload()
                 } else {
-                    console.log(response);
+                    console.log(response.total);
                     document.getElementById(proId).innerHTML = quantity + count
                     document.getElementById(`${proId}total`).innerHTML = (quantity + count) * document.getElementById(`price${proId}`).innerHTML;
-
+                    document.getElementById('totalValue').innerHTML = response.total;
                 }
             }
         })

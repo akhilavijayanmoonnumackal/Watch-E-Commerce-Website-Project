@@ -219,17 +219,22 @@ module.exports={
     },
     
     changeProductQuantity: (req,res) => {
-        //console.log(req.body);
-        userHelpers.changeProductQuantity(req.body).then(async(response) => {
+        console.log(req.body);
+        const userId = req.session.user._id
+        userHelpers.changeProductQuantity(req.body, userId).then(async(response) => {
             let user=req.session.user;
             // response.total=await userHelpers.getTotalAmount(req.body.user)
             // console.log(response.total);
             // res.json(response);
             // let product = await userHelpers.cartDetails(req.session.user._id)
             // let count = product.length;
-            let count = await userHelpers.getCartCount(req.session.user._id)
+            console.log("come")
+            let count = await userHelpers.getCartCount(userId)
+            console.log("go")
+            console.log(count);
             if(count!=0){
-                response.total=await userHelpers.get1TotalAmount(req.body.user)
+                response.total=await userHelpers.get1TotalAmount(userId)
+                console.log(response.total);
             }
             res.json(response)
         })
@@ -310,7 +315,7 @@ module.exports={
     getPlaceOrder: async(req,res) => {
         if(req.session.loggedIn) {
             let user = req.session.user;
-            let total = await userHelpers.get1TotalAmount(req.session.user._id)
+            let total = await userHelpers.get1TotalAmount(req.session.user._id);
             res.render('user/placeOrder',{admin:false,user,total, userHeader:true})
         }else{
             res.render('/login')
