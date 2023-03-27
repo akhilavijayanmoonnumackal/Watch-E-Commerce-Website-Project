@@ -183,15 +183,14 @@ module.exports={
         if(req.session.loggedIn){
             let user=req.session.user;
             let product = await userHelpers.cartDetails(req.session.user._id)
-            let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
+            //let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
             let totalAmount = await userHelpers.get1TotalAmount(req.session.user._id)
             let count = product.length;
             console.log("count: ", count);
             if(count>0) {
-                console.log("count: ", count);
-            
+                console.log("count: ", count);            
                 console.log("totalvalue:",totalAmount);
-                res.render('user/cart', { product,count, totalValue,totalAmount,user, userHeader:true })
+                res.render('user/cart', { product,count,totalAmount,user, userHeader:true })
             }else{
                 res.render('user/cartEmptySvg' , {userHeader:true,user, count})
             }            
@@ -200,27 +199,10 @@ module.exports={
         }
     },
     
-    // cartDetails: (req,res) => {
-    //     if(req.session.loggedIn){
-    //         let user=req.session.user;
-    //         userHelpers.cartDetails(req.session.user._id).then((products) =>{
-    //             // console.log(products);
-    //             res.render('user/cart',{admin:false,user,products,userHeader:true})
-    //         })
-    //         // let products = await userHelpers.getCartProducts(req.session.user._id)
-    //         // let totalValue = 0
-    //         // if(products.length>0) {
-    //         //     totalValue = await userHelpers.getTotalAmount(req.session.user._id)
-    //         // }
-    //         // console.log(products);
-    //         // res.render('user/cart', { products, totalValue, user: req.session.user })
-    //     }else{
-    //         res.redirect('/login');
-    //     }
-    // },
     changeProductQuantity: (req,res) => {
         //console.log(req.body);
         userHelpers.changeProductQuantity(req.body).then(async(response) => {
+            let user=req.session.user;
             // response.total=await userHelpers.getTotalAmount(req.body.user)
             // console.log(response.total);
             // res.json(response);

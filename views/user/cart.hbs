@@ -122,14 +122,14 @@
         }
     }
 
-    function changeQuantity(proId, count, userId) {
+    function changeQuantity(proId, count) {
         let quantity = parseInt(document.getElementById(proId).innerHTML)
         console.log(quantity)
         count = parseInt(count);
         $.ajax({
             url: '/change-product-quantity',
             data: {
-                user: userId,
+
                 product: proId,
                 count: count,
                 quantity: quantity
@@ -145,7 +145,7 @@
                     console.log(response);
                     document.getElementById(proId).innerHTML = quantity + count
                     document.getElementById(`${proId}total`).innerHTML = (quantity + count) * document.getElementById(`price${proId}`).innerHTML;
-                    document.getElementById(`${proId}total`).innerHTML = (quantity + count) * document.getElementById(`price${proId}`).innerHTML;
+
                 }
             }
         })

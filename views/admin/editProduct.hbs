@@ -23,14 +23,13 @@
                                 <div class="col-md-9">
                                     <div class="mb-4">
                                         <label class="form-label">Product title</label>
-                                        <input type="text" placeholder="Type here" class="form-control" name="name"
-                                            value="{{product.name}}" required>
+                                        <input type="text" class="form-control" name="name" value="{{product.name}}"
+                                            required>
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label">Description</label>
-                                        <textarea placeholder="Type here" class="form-control" rows="4"
-                                            name="description" type="text" value="{{product.description}}"
-                                            required></textarea>
+                                        <input class="form-control" rows="4" name="description" type="text"
+                                            value="{{product.description}}" required>
                                     </div>
                                     <div class="mb-4">
                                         <label class="form-label">Brand name</label>
@@ -83,10 +82,14 @@
                                 <div class="col-md-9">
                                     <div class="mb-4">
                                         <label for="image" class="form-label">Images</label>
-                                        <img src="/product-images/{{product._id}}.jpg" alt=""
-                                            style="width: 100px;height:auto" id="imgView" class="pt-3">
-                                        <input type="file" name="image" class="form-control"
+                                        <input type="file" name="image" multiple class="form-control"
                                             onchange="viewImage(event)">
+                                        <div class="d-flex">
+                                            {{#each product.image}}
+                                            <img src="{{this}}" alt="" style="width: 50px;height:auto" id="imgView"
+                                                class="pt-3">
+                                            {{/each}}
+                                        </div>
                                     </div>
                                     <div class="img-container" style="display: flex;">
                                     </div> <!-- col.// -->

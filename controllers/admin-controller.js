@@ -250,21 +250,33 @@ module.exports ={
     },
     editProduct: async(req,res) => {
         let product = await productHelpers.getProductDetails(req.params.id)
-        console.log(product);
+        console.log("product: ",product);
         res.render('admin/editProduct',{admin:true, adminName:req.session.adminName,product});
     },
-    editProductPost: async(req,res) => {
-        try {
-            productHelpers.updateProduct(req.params.id,req.body);
-            let result = await cloudinary.uploader.upload(req.files.path);
-            if(result.url) {
-                productHelpers.updateProductImages(req.params.id, result.url);
-            }
-        }catch(err){
-            console.log("error",err);
-        }finally{
-            res.redirect('/admin/view-products')
-        }
+    editProductPost: (req,res) => {
+        // try {
+            productHelpers.updateProduct(req.params.id,req.body).then(async()=>{
+                console.log("api CALl 1st")
+                console.log(req.files.length);
+                let imgUrls = []
+                for(let i=0;i<req.files.length;i++){
+                    let result = await cloudinary.uploader.upload(req.files[i].path);
+                    imgUrls.push(result.url);
+                }
+                console.log("api call")
+                console.log(imgUrls)
+                if(imgUrls) {
+                    productHelpers.updateProductImages(req.params.id, imgUrls).then(()=>{
+                        res.redirect('/admin/view-products');
+                    })
+                }else{
+                    res.redirect('/admin/view-products');
+                }
+            })
+        // }catch(err){
+        //     console.log("error",err);
+        //     res.redirect('/admin/view-products');
+        // }
         // let id = req.params.id;
         // productHelpers.updateProduct(req.params.id,req.body).then(() => {
         //     res.redirect('/admin/view-products')
