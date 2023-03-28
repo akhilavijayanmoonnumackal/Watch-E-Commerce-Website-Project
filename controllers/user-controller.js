@@ -16,6 +16,7 @@ module.exports={
         let banner = await adminController.getAllBanners();
         if(req.session.loggedIn){
             let user=req.session.user;
+            console.log(user);
             let product = await userHelpers.cartDetails(req.session.user._id)
             count = product.length; 
             console.log(banner)
@@ -109,10 +110,10 @@ module.exports={
     verifyOtp : (req, res) =>{
         twilioApi.verifyOtp(req.session.mobile, req.body.otp).then((result) =>{
             if(result === "approved"){
-                res.json({status : true})
+                req.session.loggedIn=true;
+                res.json({status : true})                          
             }
-            else{
-                
+            else{               
                 res.json({status : false})
             }
         })
@@ -215,8 +216,8 @@ module.exports={
             }            
         }else{
             res.render('user/cartSvg', {userHeader:true, count});
-        }
-    },
+        }
+    },
     
     changeProductQuantity: (req,res) => {
         console.log(req.body);
@@ -321,13 +322,33 @@ module.exports={
             res.render('/login')
         }
     },
+    postPlaceOrder: async(req,res) => {
+        let products= await userHelpers.cartDetails(req.body.userId)
+        let totalPrice = await userHelpers.get1TotalAmount(req.body.userId)
+        userHelpers.placeOrder(req.body,products,totalPrice).then((orderId) => {
+            console.log(orderId);
+            if(req.body['payment-method'] === 'COD') {
+                res.json({ codSuccess: true})
+            }
+        })
+        console.log(req.body);
+    },
     orderSuccess: (req,res) => {
         res.render('user/orderSuccess', {user:req.session.user})
     },
     userProfile: (req,res) => {
-        let user = req.session.user;
-        res.render('user/userProfile', {user,userHeader:true})
-    }
-    
+        if(req.session.loggedIn) {
+            let user = req.session.user;
+            res.render('user/userProfile', {admin:false,user,userHeader:true})
+        }else{
+            res.redirect('/login')
+        }
+    },
+    addAddressPost: async(req,res) => {
+        userHelpers.updateAddress(req.body,req.params.id);
+        let user = await findUser(req.params.id);
+        req.session.user = user;
+        res.redirect('/userProfile')
+    }    
 }
 

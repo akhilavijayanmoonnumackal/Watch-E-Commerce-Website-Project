@@ -2,7 +2,7 @@
 module.exports = {
 
     checkforUser : (req, res,next) =>{
-        if(req.session.user ){
+        if(req.session.loggedIn){
             res.redirect('/')
         }
         else{

@@ -3,6 +3,7 @@ const collection=require('../config/collections')
 const bcrypt=require('bcrypt')
 var ObjectId=require('mongodb-legacy').ObjectId;
 const collections = require('../config/collections');
+const { response } = require('express');
 //const { use } = require('../routes/user')
 
 module.exports={
@@ -422,6 +423,45 @@ module.exports={
                     resolve(response);
                 });
             }
+        })
+    },
+    // placeOrder: (order, products, total) => {
+    //     return new Promise((resolve,reject) => {
+    //         console.log(order,products,total);
+    //         let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
+    //         let orderObj = {
+    //             deliveryDetails: {
+    //                 mobile: order.mobile,
+    //                 address: order.address,
+    //                 pincode: order.pincode
+    //             },
+    //             userId: ObjectId(order.userId),
+    //             PaymentMethod: order['payment-method'],
+    //             products: products,
+    //             totalAmount: total,
+    //             status: status,
+    //             date: new Date()
+    //         }
+    //         db.get().collection(collection.ORDER_COLLECTION)
+    //         .insertOne(orderObj).then((response) => {
+    //             db.
+    //         })
+    //     })
+    // },
+    updateAddress: (addressData, userId) => {
+        return new Promise((resolve,reject) => {
+            addressData._id = new ObjectId();
+            db.get().collection(collection.USER_COLLECTION)
+            .updateOne({_id: new ObjectId(userId)},
+            {
+                $push:
+                {
+                    address: addressData
+                }
+            }).then((response) => {
+                resolve(response)
+            })
+            
         })
     }
 }

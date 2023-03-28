@@ -18,7 +18,7 @@
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
-                        Akhila Vijayan
+                        {{user.name}}
                     </div>
                     <div class="profile-usertitle-job">
                         Customer
@@ -26,17 +26,15 @@
                 </div>
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR BUTTONS -->
-                <div class="profile-userbuttons">
+                {{!-- <div class="profile-userbuttons">
                     <button type="button" class="btn btn-success btn-sm">Follow</button>
                     <button type="button" class="btn btn-danger btn-sm">Message</button>
-                </div>
+                </div> --}}
                 <!-- END SIDEBAR BUTTONS -->
 
 
                 <div class="portlet light bordered">
-
                     <div>
-
                         <div class="margin-top-20 profile-desc-link">
                             <i class="icon material-icons md-shopping_bag"></i>
                             <a href="#">My Orders</a>
@@ -93,19 +91,13 @@
                                         <h5 class="mb-0">ADD A NEW ADDRESS</h5>
                                     </div>
                                     <div class="card-body">
-                                        <form>
+                                        <form action="/addAddress/{{user._id}}" method="post">
                                             <!-- 2 column grid layout with text inputs for the first and last names -->
                                             <div class="row mb-4">
                                                 <div class="col">
                                                     <div class="form-outline">
-                                                        <input type="text" id="form7Example1" class="form-control" />
-                                                        <label class="form-label" for="form7Example1">First name</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-outline">
-                                                        <input type="text" id="form7Example2" class="form-control" />
-                                                        <label class="form-label" for="form7Example2">Last name</label>
+                                                        <input type="text" id="name" class="form-control" required />
+                                                        <label class="form-label" for="fullname">Full Name</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,14 +105,15 @@
                                             <div class="row mb-4">
                                                 <div class="col">
                                                     <div class="form-outline">
-                                                        <input type="text" id="form7Example1" class="form-control" />
+                                                        <input type="text" id="form7Example1" class="form-control"
+                                                            required />
                                                         <label class="form-label" for="form7Example1">Pincode</label>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-outline">
-                                                        <input type="text" id="form7Example2" class="form-control" />
-                                                        <label class="form-label" for="form7Example2">10 Digit
+                                                        <input type="text" id="phone" class="form-control" required />
+                                                        <label class="form-label" for="phone">10 Digit
                                                             Mobile Number</label>
                                                     </div>
                                                 </div>
@@ -128,49 +121,35 @@
 
                                             <!-- Text input -->
                                             <div class="form-outline mb-4">
-                                                <input type="text" id="form7Example4" class="form-control" />
-                                                <label class="form-label" for="form7Example4">Locality</label>
+                                                <input type="text" id="locality" class="form-control" required />
+                                                <label class="form-label" for="locality">Locality</label>
                                             </div>
 
                                             <!-- Text input -->
                                             <div class="form-outline mb-4">
-                                                <input type="text" id="form7Example3" class="form-control" />
-                                                <label class="form-label" for="form7Example3">Address(area and
+                                                <input type="text" id="address" class="form-control" required />
+                                                <label class="form-label" for="addressArea">Address(area and
                                                     street)</label>
                                             </div>
-
-                                            <div class="row mb-4">
-                                                <div class="col">
-                                                    <div class="form-outline">
-                                                        <input type="text" id="form7Example1" class="form-control" />
-                                                        <label class="form-label"
-                                                            for="form7Example1">City/District/Town</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-outline">
-                                                        <input type="text" id="form7Example2" class="form-control" />
-                                                        <label class="form-label" for="form7Example2">State</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Text input -->
                                             <div class="form-outline mb-4">
-                                                <input type="text" id="form7Example4" class="form-control" />
-                                                <label class="form-label" for="form7Example4">Lanmark(optional)</label>
+                                                <input type="text" id="city" class="form-control" required />
+                                                <label class="form-label" for="city">City/District/Town</label>
                                             </div>
-
-                                            <!-- Number input -->
                                             <div class="form-outline mb-4">
-                                                <input type="number" id="form7Example6" class="form-control" />
-                                                <label class="form-label" for="form7Example6">Alternate
-                                                    Phone(Optional)</label>
+                                                <label for="state">State</label>
+                                                <select id="state" class="form-control">
+                                                    <option selected>SELECT</option>
+                                                    <option>Kerala</option>
+                                                    <option>Tamilnadu</option>
+                                                    <option>Karnataka</option>
+                                                    <option>Goa</option>
+                                                    <option>UP</option>
+                                                </select>
                                             </div>
 
                                             <!-- Message input -->
                                             <div class="form-outline mb-4">
-                                                <input type="text" id="form7Example4" class="form-control" />
+                                                {{!-- <input type="text" id="form7Example4" class="form-control" /> --}}
                                                 <label class="form-label" for="form7Example4">Address Type</label>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio"
@@ -184,7 +163,7 @@
 
                                             <!-- Checkbox -->
                                             <div class="form-check d-flex justify-content-center mb-2">
-                                                <a href="/admin/userProfile"
+                                                <a href="/userProfile"
                                                     class="btn btn-light rounded font-sm mr-5 text-body hover-up">
                                                     Cancel
                                                 </a>
@@ -219,15 +198,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/admin/userProfile" method="post">
+                <form action="/admin/addAddress/{{user._id}}" method="post">
                     <div class="form-group">
                         <label for="inputAddress">First Name</label>
                         <input type="text" class="form-control" id="inputAddress" placeholder="first name">
                     </div>
-                    <div class="form-group">
+
+                    {{!-- <div class="form-group">
                         <label for="inputAddress2">Last Name</label>
                         <input type="text" class="form-control" id="inputAddress2" placeholder="last name">
-                    </div>
+                    </div> --}}
                     <div class="form-group">
 
                         <label for="inputEmail4">Email</label>

@@ -1,40 +1,94 @@
 <style>
-    .modal {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: white;
-        border: 1px solid black;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        z-index: 9999;
+    body {
+        background: #a497aa;
     }
 
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .text-color {
+        color: #145a32;
     }
 
-    .close-modal {
-        background-color: transparent;
+    .card {
+        width: 350px;
+        padding: 10px;
+        border-radius: 20px;
+        background: #d4efdf;
         border: none;
-        font-size: 20px;
+        position: relative;
+    }
+
+    .container {
+        height: 100vh;
+    }
+
+    .mobile-text {
+        color: #cd5c5c;
+        font-size: 15px;
+    }
+
+    .form-control {
+        margin-right: 12px;
+    }
+
+    .form-control,
+    .form-select {
+        padding-left: 93px;
+    }
+
+    .form-control:focus {
+        color: #495057;
+        background-color: #d4efdf;
+        border-color: #c0392b;
+        outline: 0;
+        box-shadow: none;
+    }
+
+    .cursor {
         cursor: pointer;
     }
 
-    .modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 50%;
-        height: 50%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9998;
+    .card1 {
+        width: 350px;
+        padding: 10px;
+        border-radius: 20px;
+        background: #fff;
+        border: none;
+        height: 350px;
+        position: relative;
+    }
+
+    .container1 {
+        height: 50vh;
+    }
+
+    body1 {
+        background: #eee;
     }
 </style>
 <div class="d-flex justify-content-center align-items-center continer">
+    <div class="card py-5 px-3 mt-180">
+        <h5 class="m-0">Mobile Phone Verification</h5>
+        {{#if loginErr}}
+        <b class="h5 error">{{loginErr}}</b>
+        {{/if}}
+        <span class="mobile-text"><b>Enter your registered phone number</b>
+            {{!-- <b class="text-color">+91{{user.phone}}</b> --}}
+        </span>
+        <div class="d-flex flex-row mt-5">
+            <form id="send-otp" action="">
+                <div class="d-flex flex-row mt-5">
+                    <input type="text" name="phone" class="form-control" autofocus="" />
+
+                </div>
+                <div class="pt-4">
+                    <button type="submit" class="btn btn-warning" data-toggle="modal"
+                        data-target="#exampleModalCenter">Request OTP</button>
+                </div>
+                {{!-- <button type="submit">Send OTP</button> --}}
+            </form>
+        </div>
+    </div>
+</div>
+{{!-- <div class="d-flex justify-content-center align-items-center continer">
     <div class="card py-5 px-3">
         <h5 class="m-0">Mobile phone verification</h5>
         {{#if loginErr}}
@@ -46,24 +100,84 @@
         <form id="send-otp" action="">
             <div class="d-flex flex-row mt-5">
                 <input type="text" name="phone" class="form-control" autofocus="" />
-                {{!-- <input type="text" class="form-control" />
-                <input type="text" class="form-control" />
-                <input type="text" class="form-control" /> --}}
+
             </div>
             <button type="submit">Send OTP</button>
         </form>
-        {{!-- <div class="text-center mt-5">
-            <span class="d-block mobile-text" id="countdown"></span>
-            <span class="d-block mobile-text" id="resend"></span>
-        </div> --}}
+
+    </div>
+</div> --}}
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">OTP VERIFICATION</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="otp-verify" action="">
+                    <span class="mobile-text">Enter the code we just
+                        send on your mobile phone <b class="text-danger">+91 {{user.phone}}</b>
+                    </span>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="otp" class="sr-only">Enter OTP</label>
+                        <input type="text" name="otp" class="form-control" id="inputPassword2" placeholder="enter otp">
+                    </div>
+                    {{!-- <div class="form-row mt-5">
+                        <input type="text" name="otp" placeholder="enter otp">
+                    </div> --}}
+                    {{!-- <div class="text-center mt-5">
+                        <span class="d-block mobile-text">Don't receive the
+                            code?</span>
+                        <span class="font-weight-bold text-danger cursor">Resend</span>
+                    </div> --}}
+                    {{!-- <div class="btn btn-primary-sm">
+                        <button type="submit">verify OTP</button>
+                    </div> --}}
+                    <div class="text-center">
+
+                        <button type="submit" class="btn btn-warning mb-2">verify OTP</button>
+                    </div>
+                </form>
+                {{!-- <div class="d-flex justify-content-center align-items-center container1">
+                    <div class="card1 py-5 px-3">
+                        <h5 class="m-0">OTP Verification</h5>
+                        <form id="otp-verify" action="">
+                            <span class="mobile-text">Enter the code we just
+                                send on your mobile phone <b class="text-danger">+91 {{user.phone}}</b>
+                            </span>
+                            <div class="d-flex flex-row mt-5">
+                                <input type="text" class="form-control" autofocus="" name="otp">
+                                <input type=" text" class="form-control" name="otp">
+                                <input type=" text" class="form-control" name="otp">
+                                <input type="text" class="form-control" name="otp">
+                            </div>
+                            <div class="text-center mt-5">
+                                <span class="d-block mobile-text">Don't receive the
+                                    code?</span>
+                                <span class="font-weight-bold text-danger cursor">Resend</span>
+                            </div>
+                        </form>
+                    </div>
+                </div> --}}
+            </div>
+            {{!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">VERIFY</button>
+            </div> --}}
+        </div>
     </div>
 </div>
 
-<!-- Button trigger modal -->
-{{!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-    Launch demo modal
-</button> --}}
-<div class="modal">
+{{!-- <div class="modal">
     <div class="modal-header">
         <div>
             <h3>OTP verification</h3>
@@ -78,7 +192,7 @@
         </form>
     </div>
 </div>
-<button id="verify" style="visibility: hidden;" class="open-modal" onclick="showModal()">Open modal</button>
+<button id="verify" style="visibility: hidden;" class="open-modal" onclick="showModal()">Open modal</button> --}}
 
 
 
@@ -118,20 +232,11 @@
                     location.reload();
                 }
             }
-
         })
     })
     const modal = document.querySelector('.modal');
     const closeButton = document.querySelector('.close-modal');
 
-    function showModal() {
-        modal.style.display = 'block';
-    }
 
-    function hideModal() {
-        modal.style.display = 'none';
-    }
-
-    closeButton.addEventListener('click', hideModal);
 
 </script>

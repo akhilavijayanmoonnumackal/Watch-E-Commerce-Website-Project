@@ -27,8 +27,11 @@ router.get('/remove-cart-product/:id', controller.removeProduct);
 router.get('/wishList', controller.wishListDetails);
 router.get('/addToWishlist', controller.addToWishlist);
 router.get('/place-order', controller.getPlaceOrder);
+router.post('/place-order', controller.postPlaceOrder);
 router.get('/orderSuccess', controller.orderSuccess);
 router.get('/userProfile', controller.userProfile);
+//router.get('/addAddress', controller.getAddress);
+router.post('/addAddress/:id', controller.addAddressPost);
 
 
 // router.get('/shop', (req,res)=>{

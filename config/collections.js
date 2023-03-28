@@ -5,5 +5,6 @@ module.exports={
     CART_COLLECTION:'cart',
     WISHLIST_COLLECTION: 'wishlist',
     BANNER_COLLECTION: 'banner',
-    CATEGORY_COLLECTION: 'category'
+    CATEGORY_COLLECTION: 'category',
+    ORDER_COLLECTION:'order'
 }
