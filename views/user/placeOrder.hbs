@@ -9,54 +9,54 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="mb-25">
-                        <h4>Billing Details</h4>
+                        <h4>DELIVERY ADDRESS</h4>
                     </div>
-                    <form method="post">
-                        <div class="form-group">
-                            <input type="text" required="" name="fname" placeholder="First name *">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" required="" name="lname" placeholder="Last name *">
-                        </div>
+                    <div class="div1 pl-4 pt-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                value="option1" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                                <p class="font-weight-bold">Akhila Vijayan - 8848953482</p>
 
-                        <div class="form-group">
-                            <input type="text" name="billing_address" required="" placeholder="Address *">
+                            </label>
                         </div>
-                        <div class="form-group">
-                            <input type="text" name="billing_address2" required="" placeholder="Address line2">
+                        <div class="form-check">
+                            <label class="form-check-label" for="exampleRadios1">
+                                Moonnumackal House, Thommankuthu P O, Thodupuzha
+                            </label>
+                            <br> <label class="form-check-label" for="exampleRadios1">
+                                Idukki,Kerala-685581
+                            </label>
                         </div>
-                        <div class="form-group">
-                            <input required="" type="text" name="city" placeholder="City / Town *">
+                        <div class="pt-4">
+                            <button type="button" class="btn btn-warning btn-sm ml-2">DELIVERY HERE</button>
                         </div>
-                        <div class="form-group">
-                            <input required="" type="text" name="state" placeholder="State / County *">
-                        </div>
-                        <div class="form-group">
-                            <input required="" type="text" name="zipcode" placeholder="Postcode / ZIP *">
-                        </div>
-                        <div class="form-group">
-                            <input required="" type="text" name="phone" placeholder="Phone *">
-                        </div>
-                        <div class="form-group">
-                            <input required="" type="text" name="email" placeholder="Email address *">
-                        </div>
+                    </div>
 
-                        <div id="collapsePassword" class="form-group create-account collapse in">
-                            <input required="" type="password" placeholder="Password" name="password">
-                        </div>
+                    {{!-- =====================form================== --}}
 
-                        <div class="chek-form">
-                            <div class="custome-checkbox">
-                                <input class="form-check-input" type="checkbox" name="checkbox" id="differentaddress">
-                                <label class="form-check-label label_info" data-bs-toggle="collapse"
-                                    data-target="#collapseAddress" href="#collapseAddress"
-                                    aria-controls="collapseAddress" for="differentaddress"><span>Ship to a
-                                        different address?</span></label>
+                    <br>
+                    <div class="col-md-9">
+                        <div class="profile-content">
+                            <p>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                    data-target="#collapseExample" aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    + Add New Address
+                                </button>
+                            </p>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                    richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                                    cred nesciunt sapiente ea proident.
+                                </div>
                             </div>
                         </div>
-
-                    </form>
+                    </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6">
                     <div class="order_review">
                         <div class="mb-20">
@@ -76,9 +76,11 @@
 
                                     <tr>
                                         <td class="image product-thumbnail"><img src="{{proDetails.[0].image.[0]}}"
-                                                alt="#"></td>
+                                                alt="#">
+                                        </td>
                                         <td>
-                                            <h5><a href="shop-product-full.html">{{this.proDetails.[0].name}}</a></h5>
+                                            <h5><a href="shop-product-full.html">{{this.proDetails.[0].name}}</a>
+                                            </h5>
 
                                         </td>
                                         <td>{{this.products.quantity}}</td>
@@ -88,7 +90,8 @@
 
                                     <tr>
                                         <th>SubTotal</th>
-                                        <td class="product-subtotal" colspan="2">{{mathMulti this.products.quantity
+                                        <td class="product-subtotal" colspan="2">{{mathMulti
+                                            this.products.quantity
                                             this.proDetails.[0].price}}</td>
                                     </tr>
                                     <tr>
@@ -118,8 +121,11 @@
                                         data-target="#bankTranfer" aria-controls="bankTranfer">Direct Bank
                                         Transfer</label>
                                     <div class="form-group collapse in" id="bankTranfer">
-                                        <p class="text-muted mt-5">There are many variations of passages of Lorem
-                                            Ipsum available, but the majority have suffered alteration. </p>
+                                        <p class="text-muted mt-5">There are many variations of passages
+                                            of
+                                            Lorem
+                                            Ipsum available, but the majority have suffered alteration.
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="custome-radio">
@@ -128,8 +134,11 @@
                                     <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse"
                                         data-target="#checkPayment" aria-controls="checkPayment">COD</label>
                                     <div class="form-group collapse in" id="checkPayment">
-                                        <p class="text-muted mt-5">Please send your cheque to Store Name, Store
-                                            Street, Store Town, Store State / County, Store Postcode. </p>
+                                        <p class="text-muted mt-5">Please send your cheque to Store
+                                            Name,
+                                            Store
+                                            Street, Store Town, Store State / County, Store Postcode.
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="custome-radio">
@@ -138,7 +147,9 @@
                                     <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse"
                                         data-target="#paypal" aria-controls="paypal">Paypal</label>
                                     <div class="form-group collapse in" id="paypal">
-                                        <p class="text-muted mt-5">Pay via PayPal; you can pay with your credit card
+                                        <p class="text-muted mt-5">Pay via PayPal; you can pay with your
+                                            credit
+                                            card
                                             if you don't have a PayPal account.</p>
                                     </div>
                                 </div>
@@ -279,10 +290,27 @@
         border-radius: 4px;
         color: #fff;
         border: 1px solid #046963;
-        background-color: #088178;
+        background-color: #71aa96e5;
         cursor: pointer;
         -webkit-transition: all 300ms linear 0s;
         transition: all 300ms linear 0s;
         letter-spacing: 0.5px;
+    }
+
+    .div1 {
+        width: 635px;
+        height: 180px;
+        border: 1px solid rgb(145, 145, 156);
+        box-sizing: border-box;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+
+    .div2 {
+        width: 635px;
+        height: 70px;
+        padding: 50px;
+        border: 1px solid rgb(118, 169, 222);
+        box-sizing: border-box;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
 </style>
