@@ -425,29 +425,31 @@ module.exports={
             }
         })
     },
-    // placeOrder: (order, products, total) => {
-    //     return new Promise((resolve,reject) => {
-    //         console.log(order,products,total);
-    //         let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
-    //         let orderObj = {
-    //             deliveryDetails: {
-    //                 mobile: order.mobile,
-    //                 address: order.address,
-    //                 pincode: order.pincode
-    //             },
-    //             userId: ObjectId(order.userId),
-    //             PaymentMethod: order['payment-method'],
-    //             products: products,
-    //             totalAmount: total,
-    //             status: status,
-    //             date: new Date()
-    //         }
-    //         db.get().collection(collection.ORDER_COLLECTION)
-    //         .insertOne(orderObj).then((response) => {
-    //             db.
-    //         })
-    //     })
-    // },
+    placeOrder: (order, products, totalPrice) => {
+        return new Promise((resolve,reject) => {
+            console.log(order,products,totalPrice);
+            let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
+            let orderObj = {
+                deliveryDetails: {
+                    mobile: order.mobile,
+                    address: order.address,
+                    pincode: order.pincode
+                },
+                userId: new ObjectId(order.userId),
+                PaymentMethod: order['payment-method'],
+                products: products,
+                totalAmount: totalPrice,
+                status: status,
+                date: new Date()
+            }
+            db.get().collection(collection.ORDER_COLLECTION)
+            .insertOne(orderObj).then((response) => {
+                db.get().collection(collection.CART_COLLECTION)
+                .deleteOne({ user: new ObjectId(order.userId)})
+                resolve(response.insertedId)
+            })
+        })
+    },
     updateAddress: (addressData, userId) => {
         return new Promise((resolve,reject) => {
             addressData._id = new ObjectId();
@@ -463,5 +465,26 @@ module.exports={
             })
             
         })
+    },
+    getCartProductList: (userId) => {
+        return new Promise(async(resolve,reject) => {
+            let cart = await db.get().collection(collection.CART_COLLECTION)
+                .findOne({userId:new ObjectId(userId)})
+            console.log(cart);
+            if (cart !== null) {
+                resolve(cart.products)
+            } else {
+                reject(new Error('Cart not found for user'))
+            }
+        })
     }
+    
+    // getCartProductList: (userId) => {
+    //     return new Promise(async(resolve,reject) => {
+    //        let cart = await db.get().collection(collection.CART_COLLECTION)
+    //        .findOne({user:new ObjectId(userId)})
+    //        console.log(cart);
+    //        resolve(cart.products)
+    //     })
+    // }
 }

@@ -323,7 +323,7 @@ module.exports={
         }
     },
     postPlaceOrder: async(req,res) => {
-        let products= await userHelpers.cartDetails(req.body.userId)
+        let products= await userHelpers.getCartProductList(req.body.userId)
         let totalPrice = await userHelpers.get1TotalAmount(req.body.userId)
         userHelpers.placeOrder(req.body,products,totalPrice).then((orderId) => {
             console.log(orderId);
