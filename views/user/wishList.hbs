@@ -51,9 +51,10 @@
                                 </td>
                                 <td width="15%" class="price">{{this.price}}</td>
                                 <td>
-                                    <button type="button"
-                                        onclick="removeProduct('{{this._id}}','{{this._id}}','{{../user}}',-1)"
-                                        class="btn btn-sm btn-danger rounded font-sm mt-15">Remove</button>
+                                    <button type="button" onclick="removeWishlistProduct('{{this.proDetails.[0]._id}}')"
+                                        class="btn btn-danger">Remove</button>
+
+
                                 </td>
                                 <td class="text-end">
                                     <a href="/productDetail/{{this._id}}"
@@ -88,5 +89,22 @@
 <script>
     function viewDetails(id) {
         location.href = `/productDetail/${id}`
+    }
+
+    function removeWishlistProduct(proId) {
+        var check = confirm("Do you want to remove this product from wishlist?")
+        if (check) {
+            $.ajax({
+                url: `/removeWishlistProduct/${proId}`,
+                method: 'GET',
+                success: (response) => {
+                    //$(proId).remove()
+                    let msg = "product removed"
+                    //$('#delete-msg').html(msg)
+                    location.reload();
+                    console.log("removed");
+                }
+            })
+        }
     }
 </script>

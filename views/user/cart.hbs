@@ -6,6 +6,7 @@
             <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                 <div class="m-l-25 m-r--38 m-lr-0-xl">
                     <div class="wrap-table-shopping-cart">
+                        {{#if product}}
                         <table class="table-shopping-cart">
                             <tr class="table_head">
                                 <th class="column-1">Product</th>
@@ -15,6 +16,7 @@
                                 <th class="column-5">Total</th>
                                 <th class="column-5">Remove</th>
                             </tr>
+
                             {{#each product}}
                             <tr class="table_row">
                                 <td class="column-1">
@@ -51,7 +53,9 @@
                                 </div>
                             </tr>
                             {{/each}}
+
                         </table>
+                        {{/if}}
                     </div>
 
                     <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
@@ -115,25 +119,26 @@
         console.log(subTotal);
     }
 </script>
-
 <script>
     const subTotal1 = document.getElementById('totalValue');
-    function removeProduct(proId) {
-        var check = confirm("Do you want to remove " + name + " from cart?")
+
+    function removeProduct(proId, cartId) {
+        var check = confirm("Do you want to remove from cart?")
         if (check) {
             $.ajax({
                 url: `/remove-cart-product/${proId}`,
                 method: 'GET',
                 success: (response) => {
-                    //$(proId).remove()
+                    $(proId).remove()
                     let msg = name + " removed"
-                    //$('#delete-msg').html(msg)
+                    $('#delete-msg').html(msg)
                     location.reload();
                     console.log("removed");
                 }
             })
         }
     }
+
 
     function changeQuantity(proId, count) {
         let quantity = parseInt(document.getElementById(proId).innerHTML)
@@ -155,7 +160,8 @@
                 } else {
                     console.log(response.total);
                     document.getElementById(proId).innerHTML = quantity + count
-                    document.getElementById(`${proId}total`).innerHTML = (quantity + count) * document.getElementById(`price${proId}`).innerHTML;
+                    document.getElementById(`${proId}total`).innerHTML = (quantity + count) *
+                        document.getElementById(`price${proId}`).innerHTML;
                     document.getElementById('totalValue').innerHTML = response.total;
                 }
             }

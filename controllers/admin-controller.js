@@ -139,7 +139,7 @@ module.exports ={
         }catch(err){
             console.log(err);
         }finally{
-            res.redirect('/admin/bannerManangement');
+            res.redirect('/admin/add-banner ');
         }
     },
     listBanner:(req,res) => {             //1

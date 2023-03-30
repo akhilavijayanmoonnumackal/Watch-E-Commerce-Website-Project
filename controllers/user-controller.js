@@ -18,9 +18,14 @@ module.exports={
             let user=req.session.user;
             console.log(user);
             let product = await userHelpers.cartDetails(req.session.user._id)
-            count = product.length; 
-            console.log(banner)
-            res.render('user/home',{admin:false,user,count,banner, userHeader:true});         
+            try{
+                count = product.proDetails.length;
+            }catch(err){
+                console.log(err)
+            }finally{
+                console.log(banner)
+                res.render('user/home',{admin:false,user,count,banner, userHeader:true});    
+            }     
         }else{
             res.render('user/home',{admin:false,count,banner, userHeader:true});  
         }
@@ -123,11 +128,16 @@ module.exports={
         if(req.session.loggedIn){
             let user=req.session.user;
             let product = await userHelpers.cartDetails(req.session.user._id)
-            let count = product.length;        
-            productHelpers.viewProducts().then((products)=>{
-                res.render('user/shop',{admin:false,products,user,count, userHeader:true});
-                console.log(products);
-            })
+            try{
+                count = product.products.length;  
+            }catch{
+                console.log("err");
+            }finally{
+                productHelpers.viewProducts().then((products)=>{
+                    res.render('user/shop',{admin:false,products,user,count, userHeader:true});
+                    console.log(products);
+                })
+            }
         }else{
             productHelpers.viewProducts().then((products)=>{
                 res.render('user/shop',{admin:false,products,count, userHeader:true});
@@ -153,18 +163,25 @@ module.exports={
     //     }
     // },
     productDetail:async(req,res)=>{
+        let count=0
         console.log(req.params.id);
         if(req.session.loggedIn){
             let user=req.session.user;
             // let userName=req.session.user;
             let Id=req.params.id;
             console.log(req.params.id);
-            let product = await userHelpers.cartDetails(req.session.user._id)
-            let count = product.length;
-            productHelpers.getProductDetails(Id).then((product)=>{
-                console.log(product);
-                res.render('user/productDetail',{admin:false,count, product, user,userHeader:true});
-            })
+            let product = await userHelpers.cartDetails(req.session.user._id);
+            try{
+                count = product.products.length;
+            }
+            catch{
+                console.log("err");
+            }finally{
+                productHelpers.getProductDetails(Id).then((product)=>{
+                    console.log(product);
+                    res.render('user/productDetail',{admin:false,count, product, user,userHeader:true});
+                })
+            }
         }else{
             res.render('user/login');
         }       
@@ -205,15 +222,21 @@ module.exports={
             let product = await userHelpers.cartDetails(req.session.user._id)
             //let totalValue = await userHelpers.getTotalAmount(req.session.user._id)
             let totalAmount = await userHelpers.get1TotalAmount(req.session.user._id)
-            let count = product.length;
-            console.log("count: ", count);
-            if(count>0) {
-                console.log("count: ", count);            
-                console.log("totalvalue:",totalAmount);
-                res.render('user/cart', { product,count,totalAmount,user, userHeader:true })
-            }else{
-                res.render('user/cartEmptySvg' , {userHeader:true,user, count})
-            }            
+            try{
+                console.log(product)
+                count = product.length;
+            }catch(err){
+                console.log(err)
+            }finally{
+                console.log("count: ", count);
+                if(count>0) {
+                    console.log("count: ", count);            
+                    console.log("totalvalue:",totalAmount);
+                    res.render('user/cart', { product,count,totalAmount,user, userHeader:true })
+                }else{
+                    res.render('user/cartEmptySvg' , {userHeader:true,user, count})
+                }      
+            }      
         }else{
             res.render('user/cartSvg', {userHeader:true, count});
         }
@@ -254,6 +277,7 @@ module.exports={
     //     })
     // },
     removeProduct: (req,res) => {
+        console.log("tttttttttttttttttttttttttt",req.params.id);
         const proId = req.params.id;
         const userId = req.session.user._id;
         userHelpers.removeProduct(userId, proId).then(() => {
@@ -307,6 +331,21 @@ module.exports={
             res.redirect('/login');
         }
     },
+    removeWishlistProduct: (req,res) => {
+        const proId = req.params.id;
+        const userId = req.session.user._id;
+        userHelpers.removeWishlistProduct(userId, proId).then(() => {
+            res.json({status: true})
+        })
+    },
+
+    // removeProduct: (req,res) => {
+    //     const proId = req.params.id;
+    //     const userId = req.session.user._id;
+    //     userHelpers.removeProduct(userId, proId).then(() => {
+    //         res.json({status: true})
+    //     })
+    // },
 
     BannerList :  (req, res)=>{
         let banner =  adminController.listBanner();
@@ -316,6 +355,7 @@ module.exports={
     getPlaceOrder: async(req,res) => {
         if(req.session.loggedIn) {
             let user = req.session.user;
+            // let products= await userHelpers.getCartProductList(req.body.userId)   //start from here
             let total = await userHelpers.get1TotalAmount(req.session.user._id);
             res.render('user/placeOrder',{admin:false,user,total, userHeader:true})
         }else{

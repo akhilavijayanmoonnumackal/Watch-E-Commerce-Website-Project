@@ -154,8 +154,19 @@ module.exports={
                 }
               ]).toArray();
             console.log(cartItems)
-            console.log(cartItems.length);
-            resolve(cartItems);
+            console.log("fdgffffffffffffffffffffff",cartItems.length);
+            if(cartItems.length!=0){
+                if(cartItems.length===1){
+                    if(cartItems[0].proDetails.length===0){
+                        console.log("noijas")
+                        console.log(`prodetailslength : ${cartItems[0].proDetails.length}`);
+                        resolve(null);
+                    }
+                }
+                resolve(cartItems)
+            }else{
+                resolve(null);
+            }
           } catch {
             resolve(null);
             }
@@ -312,10 +323,15 @@ module.exports={
                     }
                   }
                 ]).toArray()
-              console.log("total",total[0].total)
-              //console.log(cartItems.length);
-              resolve(total[0].total);
-            } catch(err) {
+                try{
+                    console.log("total", total[0].total)
+                    //console.log(cartItems.length);
+                    resolve(total[0].total);
+                }catch{
+                    resolve(0);
+                }
+            } 
+            catch(err) {
                 console.log(err);
               resolve(null);
               }
@@ -425,6 +441,27 @@ module.exports={
             }
         })
     },
+    removeWishlistProduct:(userId, proId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.WISHLIST_COLLECTION)
+            .updateOne(
+                {
+                    userId: new ObjectId(userId)
+                },
+                {
+                    $pull: {
+                        products: { productId: new ObjectId(proId) }
+                    }
+                }
+            ).then((response) => {
+                console.log(response);
+                resolve()
+            }).catch((err) => {
+                console.log(err);
+            })
+        })
+    },
+
     placeOrder: (order, products, totalPrice) => {
         return new Promise((resolve,reject) => {
             console.log(order,products,totalPrice);
@@ -442,11 +479,16 @@ module.exports={
                 status: status,
                 date: new Date()
             }
+
             db.get().collection(collection.ORDER_COLLECTION)
-            .insertOne(orderObj).then((response) => {
+            .insertOne(orderObj)
+            .then((response) => {
                 db.get().collection(collection.CART_COLLECTION)
-                .deleteOne({ user: new ObjectId(order.userId)})
-                resolve(response.insertedId)
+                .deleteOne({ userId: new ObjectId(order.userId)})
+                .then((response2)=>{
+                    console.log(response2)
+                    resolve(response.insertedId)
+                })
             })
         })
     },

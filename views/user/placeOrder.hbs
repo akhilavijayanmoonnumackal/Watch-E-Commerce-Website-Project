@@ -141,21 +141,21 @@
                 <div class="col-md-6">
                     <div class="order_review">
                         <div class="mb-20">
-                            <h4>Your Orders</h4>
+                            <h4>Total Price</h4>
                         </div>
                         <div class="size-209 p-t-1">
-                            <span class="mtext-110 cl2" data-price={{totalAmount}} id="totalValue">
-                                Rs.{{totalAmount}}
+                            <span class="mtext-110 cl2" data-price={{total}} id="totalValue">
+                                Rs. {{total}}
                             </span>
                         </div>
                         <div class="table-responsive order_table text-center">
                             <table class="table">
 
-                                <tr class="table_head">
+                                {{!-- <tr class="table_head">
                                     <th colspan="2">Product</th>
                                     <th colspan="2">Quantity</th>
 
-                                </tr>
+                                </tr> --}}
 
                                 {{#each product}}
                                 <tr class="table-row">
@@ -252,8 +252,6 @@
     }
 
 </script>
-
-
 
 <style>
     div {
