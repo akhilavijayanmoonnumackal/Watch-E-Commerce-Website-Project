@@ -5,14 +5,13 @@ const { productDetail } = require('../controllers/user-controller');
 const ObjectId=require('mongodb-legacy').ObjectId;
 
 module.exports={
-    viewProducts:()=>{
+    viewProducts:() => {
         return new Promise(async(resolve,reject)=>{
             let products=await db.get().collection(collection.PRODUCT_COLLECTION)
             .find().toArray();
             resolve(products);
         })
     },
-
     addProduct:(product,callback)=>{
         db.get().collection(collection.PRODUCT_COLLECTION)
         .insertOne(product).then((data)=>{

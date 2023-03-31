@@ -164,10 +164,31 @@ module.exports={
             })
         })
     },
-    isCategoryExist: async(categoryName) => {
-        const category = await db.get().collection(collection.CATEGORY_COLLECTION)
-        .findOne({categoryName:categoryName});
-        return category;
+
+    // isCategoryNameExist: (name) => {
+    //     return new Promise(async(resolve,reject) => {
+    //         const category = await db.get().collection(collection.CATEGORY_COLLECTION)
+    //         .findOne({name: name.trim().toLowerCase() });    
+    //         if(category) {
+    //             resolve(category)
+    //             console.log("category name", category);
+    //         }else{
+    //             resolve()
+    //         }
+    //     })
+    // },
+
+    isCategoryNameExist: (name) => {
+        return new Promise(async(resolve,reject) => {
+            const category = await db.get().collection(collection.CATEGORY_COLLECTION)
+            .findOne({name: name});
+            if(category) {
+                resolve(category)
+                console.log("category name", category);
+            }else{
+                resolve()
+            }
+        })
     },
     allCategories: () => {
         return new Promise(async(resolve,reject) => {
@@ -186,6 +207,7 @@ module.exports={
             
         })
     },
+    
     // bannerList:(bannerId) => {    //1
     //     return new Promise((resolve, reject) => {
     //         db.get().collection(collection.BANNER_COLLECTION)

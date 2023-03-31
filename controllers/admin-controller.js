@@ -36,7 +36,6 @@ module.exports ={
                 let admin = req.session.admin
                 req.session.adminEmail=req.body.email;
                 req.session.adminLoggedIn=true;
-                //console.log("ytfvughbjnkmldxcfvgbhj****************")
                 res.render('admin/dashboard', {admin, adminHeader:true, adminName:req.session.adminName});
             }else{
                 req.session.adminLoginErr="Invalid username or password"
@@ -95,6 +94,7 @@ module.exports ={
         })
        }        
     },
+
     addProductPost:async(req,res)=>{
         try{
             console.log(req.files)
@@ -188,20 +188,92 @@ module.exports ={
         })
     },
   
-    addCategoryPost: (req,res) => {
-        adminHelpers.addCategory(req.body).then((response) => {
+    // addCategoryPost: async(req,res) => {        
+    //     console.log("ttttttttttttttttttt",req.body);
+    //     let name=req.body.name.trim().toLowerCase();
+    //     console.log(name);
+    //     //let data=req.body
+
+    //     const categoryNameExist = await adminHelpers.isCategoryNameExist(name)
+    //     if(categoryNameExist) {
+    //         console.log("categoryNameExist", categoryNameExist);
+    //         console.log("exist");
+    //         res.redirect('/admin/category')
+    //     }else{
+    //         await adminHelpers.addCategory(req.body).then((response) => {
+    //             res.redirect('/admin/category');
+    //         })
+            
+    //     }
+    // },
+
+    // addCategoryPost: (req,res) => {
+    //     adminHelpers.addCategory(req.body).then((response) => {
+    //         res.redirect('/admin/category');
+    //     })
+    // },
+
+
+    addCategoryPost: async (req, res) => {
+        console.log("ttttttttttttttttttt", req.body);
+        let name = req.body.name;
+        console.log(name);
+      
+        const categoryNameExist = await adminHelpers.isCategoryNameExist(name);
+        if (categoryNameExist) {
+          console.log("categoryNameExist", categoryNameExist);
+          console.log("exist");
+          let message = "Category already exists";
+          res.redirect(`/admin/category?message=${message}`);
+        } else {
+          await adminHelpers.addCategory(req.body).then((response) => {
             res.redirect('/admin/category');
-        })
-    },
-    categoryManagement: (req,res) => {
-        if(req.session.adminLoggedIn){
-        adminHelpers.allCategories().then((category) => {
-            res.render('admin/category', {admin:true, adminName:req.session.adminName,category})
-        })
-        }else{
-            res.redirect('/admin/login')
-        }       
-    },
+          });
+        }
+      },
+      
+      categoryManagement: (req, res) => {
+        if (req.session.adminLoggedIn) {
+          const message = req.query.message;
+          console.log("message", message);
+          adminHelpers.allCategories().then((category) => {
+            res.render("admin/category", {admin: true,adminName: req.session.adminName,category,message});
+          });
+        } else {
+          res.redirect("/admin/login");
+        }
+      },
+      
+      
+    // addCategoryPost: async(req,res) => {        
+    //     console.log("ttttttttttttttttttt",req.body);
+    //     let name=req.body.name
+    //     console.log(name);
+    //     //let data=req.body
+
+    //     const categoryNameExist = await adminHelpers.isCategoryNameExist(name)
+    //     if(categoryNameExist) {
+    //         console.log("categoryNameExist", categoryNameExist);
+    //         console.log("exist");
+    //         res.redirect('/admin/category?message=Exist')
+    //     }else{
+    //         await adminHelpers.addCategory(req.body).then((response) => {
+    //             res.redirect('/admin/category');
+    //         })
+            
+    //     }
+    // },  
+    // categoryManagement: (req,res) => {
+    //     if(req.session.adminLoggedIn){
+    //         const message = req.query.message
+    //         console.log("message",message);
+    //         adminHelpers.allCategories().then((category) => {
+    //             res.render('admin/category', {admin:true, adminName:req.session.adminName,category})
+    //         })
+    //         }else{
+    //             res.redirect('/admin/login')
+    //         }       
+    // },
     listcategory: (req,res) => {
         adminHelpers.categoryList(req.params.id).then(() => {
             res.redirect('back');
