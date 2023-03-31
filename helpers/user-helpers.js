@@ -466,14 +466,93 @@ module.exports={
     //     })
     // },
 
+    // wishListDetails:(userId) => {
+    //     return new Promise(async(resolve,reject) => {
+    //         let result = await db.get().collection(collections.WISHLIST_COLLECTION)
+    //         .aggregate(
+    //             [
+    //                 {
+    //                   '$match': {
+    //                     'userId': new ObjectId(userId)
+    //                   }
+    //                 }, {
+    //                   '$lookup': {
+    //                     'from': 'products', 
+    //                     'localField': 'products', 
+    //                     'foreignField': '_id', 
+    //                     'as': 'productDetails'
+    //                   }
+    //                 }, {
+    //                   '$project': {
+    //                     'productDetails': 1, 
+    //                     '_id': 0
+    //                   }
+    //                 }
+    //             ]
+    //         ).toArray();
+    //         console.log(result[0].productDetails);
+    //         resolve(result[0].productDetails)
+    //     })
+    // },
+    // wishListDetails:(userId) => {
+    //     return new Promise(async(resolve,reject) => {
+    //         let result = await db.get().collection(collections.WISHLIST_COLLECTION)
+    //         .aggregate(
+    //             [
+    //                 {
+    //                   '$match': {
+    //                     'userId': new ObjectId(userId)
+    //                   }
+    //                 }, {
+    //                   '$unwind': {
+    //                     'path': '$products', 
+    //                     'preserveNullAndEmptyArrays': true
+    //                   }
+    //                 }, {
+    //                   '$lookup': {
+    //                     'from': 'products', 
+    //                     'localField': 'products', 
+    //                     'foreignField': '_id', 
+    //                     'as': 'productDetails'
+    //                   }
+    //                 }, {
+    //                   '$project': {
+    //                     'productDetails': 1, 
+    //                     '_id': 0
+    //                   }
+    //                 }
+    //               ]
+    //         ).toArray();
+    //         console.log("result",result);
+    //         console.log(result.length);
+    //         if(result.length!=0){
+    //             if(result.length===1) {
+    //                 if(result[0].productDetails.length===0){
+    //                     console.log(`wishDetails : ${result[0].productDetails.length}`);
+    //                     resolve(null)
+    //                 }
+    //             }
+    //         }
+    //         resolve(result)
+    //     })
+    // },
+
+
     wishListDetails:(userId) => {
         return new Promise(async(resolve,reject) => {
-            let result = await db.get().collection(collections.WISHLIST_COLLECTION)
+            try {
+                userId = new ObjectId(userId);
+                result = await db.get().collection(collections.WISHLIST_COLLECTION)
             .aggregate(
                 [
                     {
                       '$match': {
                         'userId': new ObjectId(userId)
+                      }
+                    }, {
+                      '$unwind': {
+                        'path': '$products', 
+                        'preserveNullAndEmptyArrays': true
                       }
                     }, {
                       '$lookup': {
@@ -488,10 +567,25 @@ module.exports={
                         '_id': 0
                       }
                     }
-                ]
+                  ]
             ).toArray();
-            console.log(result[0].productDetails);
-            resolve(result[0].productDetails)
+            console.log("result",result);
+            console.log(result.length);
+            if(result.length!=0){
+                if(result.length===1) {
+                    if(result[0].productDetails.length===0){
+                        console.log(`wishDetails : ${result[0].productDetails.length}`);
+                        resolve(null)
+                    }
+                }
+                resolve(result)
+            }else{
+                resolve(null)
+                }           
+            } catch {
+                resolve(null)
+            }
+            
         })
     },
 
@@ -578,6 +672,7 @@ module.exports={
 
 
     removeWishlistProduct:(userId, proId) => {
+        console.log(userId,proId,'00000000000000000000000000000000000000000000000000000000000000000');
         return new Promise((resolve, reject) => {
             db.get().collection(collection.WISHLIST_COLLECTION)
             .updateOne(
@@ -586,11 +681,11 @@ module.exports={
                 },
                 {
                     $pull: {
-                        products: { productId: new ObjectId(proId) }
+                        products: new ObjectId(proId)
                     }
                 }
             ).then((response) => {
-                console.log(response);
+                console.log("remove",response);
                 resolve()
             }).catch((err) => {
                 console.log(err);

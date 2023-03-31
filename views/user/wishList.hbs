@@ -1,5 +1,6 @@
 <div class="container">
     <section class="content-main">
+        {{#if products}}
         <div class="p-b-10">
             <h3 class="ltext-103 cl5 text-white ">
                 `
@@ -22,7 +23,7 @@
                     </div>
                 </div>
             </header> <!-- card-header end// --> --}}
-            <div class="card-body">
+            <div class="col-12">
                 <div class="table-responsive">
 
                     <table class="table table-hover">
@@ -30,47 +31,80 @@
                             <tr>
                                 <th>Item</th>
                                 <th>Price</th>
-                                <th>Remove</th>
+
                                 {{!-- <th>Status</th>
                                 <th>Registered</th> --}}
                                 <th class="text-end"> View Details</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {{#each products}}
                             <tr>
                                 <td width="40%">
-                                    <a href="/productDetail/{{this._id}}" class="itemside"
+                                    <a href="/productDetail/{{this.productDetails.[0]._id}}" class="item-center"
                                         onclick="viewDetails('{{this._id}}')">
                                         <div class="left">
-                                            <img src="{{this.image.[0]}}" class="img-sm " alt="Userpic">
+                                            <img src="{{this.productDetails.[0].image.[0]}}" class="img-sm "
+                                                alt="Userpic">
                                         </div>
                                         <div class="info pl-3">
-                                            <h6 class="mb-0 title">{{this.name}}</h6>
+                                            <h6 class="mb-0 title">{{this.productDetails.[0].name}}</h6>
                                         </div>
                                     </a>
                                 </td>
-                                <td width="15%" class="price">{{this.price}}</td>
-                                <td>
-                                    <button type="button" onclick="removeWishlistProduct('{{this.proDetails.[0]._id}}')"
-                                        class="btn btn-danger">Remove</button>
+                                <td width="15%" class="price" style="padding: 2%;margin-left:2%">
+                                    {{this.productDetails.[0].price}}</td>
 
-
-                                </td>
                                 <td class="text-end">
-                                    <a href="/productDetail/{{this._id}}"
+                                    <a href="/productDetail/{{this.productDetails.[0]._id}}"
                                         class="btn btn-sm btn-brand rounded font-sm mt-15"
                                         onclick="viewDetails('{{this._id}}')">View
                                         Details</a>
                                 </td>
+                                <td>
+                                    <button type="button"
+                                        onclick="removeWishlistProduct('{{this.productDetails.[0]._id}}')"
+                                        class="btn btn-sm" style="margin: 7%;">x</button>
+                                    {{!-- <a href="/removeWishlistProduct/{{this.productDetails.[0]._id}}">X</a> --}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <div class="text-center text-success">
+                                    <h4 id="delete-msg" class="font-italic"></h4>
+                                </div>
                             </tr>
                             {{/each}}
                         </tbody>
                     </table> <!-- table-responsive.// -->
-
                 </div>
             </div> <!-- card-body end// -->
         </div> <!-- card end// -->
+        {{else}}
+        <div class="container-fluid  mt-100">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        {{!-- <div class="card-header">
+                            <h5>Cart</h5>
+                        </div> --}}
+                        <div class="card-body cart">
+                            <div class="col-sm-12 empty-cart-cls text-center">
+                                <img src="images/wishlistsvg.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                                <h3><strong>Your wishlist is Empty</strong></h3>
+                                <h4>Add something to make me happy :)</h4>
+                                <a href="/shop" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue
+                                    shopping</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+
+
+
         <div class="pagination-area mt-15 mb-50">
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-start">
@@ -100,9 +134,29 @@
                 url: `/removeWishlistProduct/${proId}`,
                 method: 'GET',
                 success: (response) => {
-                    //$(proId).remove()
+                    $(proId).remove()
                     let msg = "product removed"
-                    //$('#delete-msg').html(msg)
+                    $('#delete-msg').html(msg)
+                    location.reload();
+                    console.log("removed");
+                }
+
+            })
+        }
+    }
+
+
+
+    function removeProduct(proId, cartId) {
+        var check = confirm("Do you want to remove from cart?")
+        if (check) {
+            $.ajax({
+                url: `/remove-cart-product/${proId}`,
+                method: 'GET',
+                success: (response) => {
+                    $(proId).remove()
+                    let msg = name + " removed"
+                    $('#delete-msg').html(msg)
                     location.reload();
                     console.log("removed");
                 }

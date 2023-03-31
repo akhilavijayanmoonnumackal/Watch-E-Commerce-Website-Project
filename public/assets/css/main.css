@@ -5,6 +5,8 @@
 @import url(vendors/select2.min.css);
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,300;1,400;1,700;1,900&amp;display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;500;600;700&amp;display=swap");
+@import url("https://fonts.googleapis.com/css?family=Poppins-Medium:300,400&display=swap");
+@import url("https://fonts.google.com/specimen/Open+Sans");
 
 html,
 body,
@@ -141,7 +143,7 @@ table {
 }
 
 img {
-    max-width: 100%
+    max-width: 80%
 }
 
 *:focus,
@@ -536,8 +538,10 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Spartan", sans-serif;
-    color: #495057;
+    font-family: "Open+Sans";
+
+    /* font-family: "Spartan", sans-serif; */
+    color: #3f4143;
     font-weight: 600;
     line-height: 1.5
 }
