@@ -380,6 +380,92 @@ module.exports={
             }
         })
     },
+    // wishListDetails:(userId) => {
+    //     return new Promise(async(resolve,reject) => {
+    //         try {
+    //             userId=new ObjectId(userId);
+    //             let result = await db.get().collection(collections.WISHLIST_COLLECTION)
+    //         .aggregate(
+    //             [
+    //                 {
+    //                   '$match': {
+    //                     'userId': new ObjectId(userId)
+    //                   }
+    //                 }, {
+    //                   '$lookup': {
+    //                     'from': 'products', 
+    //                     'localField': 'products', 
+    //                     'foreignField': '_id', 
+    //                     'as': 'productDetails'
+    //                   }
+    //                 }, {
+    //                   '$project': {
+    //                     'productDetails': 1, 
+    //                     '_id': 0
+    //                   }
+    //                 }
+    //             ]
+    //         ).toArray();
+    //         console.log(result);
+    //         console.log("iiiiiiiiiiiiiiiiiiiiii",result.length);
+    //         if(result.length != 0) {
+    //             if(result.length===1) {
+    //                 if(result[0].proDetails.length===0) {
+    //                     console.log("yyyyyyyyyyyyyyyyyyy");
+    //                     console.log(`wishpro: ${result[0].proDetails.length}`);
+    //                     resolve(null)
+    //                 }                    
+    //             }
+    //             resolve(result)
+    //         }else{
+    //             resolve(null)
+    //         }
+    //     } catch {
+    //         resolve (null)
+    //         }                       
+    //     })
+    // },
+
+    // wishListDetails:(userId) => {
+    //     return new Promise(async(resolve,reject) => {
+    //         let result = await db.get().collection(collections.WISHLIST_COLLECTION)
+    //         .aggregate(
+    //             [
+    //                 {
+    //                   '$match': {
+    //                     'userId': new ObjectId(userId)
+    //                   }
+    //                 }, {
+    //                   '$lookup': {
+    //                     'from': 'products', 
+    //                     'localField': 'products', 
+    //                     'foreignField': '_id', 
+    //                     'as': 'productDetails'
+    //                   }
+    //                 }, {
+    //                   '$project': {
+    //                     'productDetails': 1, 
+    //                     '_id': 0
+    //                   }
+    //                 }
+    //             ]
+    //         ).toArray();
+    //         console.log("jjjjjjjjjjj",result.length);
+    //         if(result.length != 0) {
+    //             if(result.length===1) {
+    //                 if(result[0].proDetails.length===0) {
+    //                     console.log("yyyyyyyyyyyyyyyyyyy");
+    //                     console.log(`wishpro: ${result[0].proDetails.length}`);
+    //                     resolve(null)
+    //                 }                    
+    //             }
+    //             resolve(result)
+    //         }else{
+    //             resolve(null)
+    //         }
+    //     })
+    // },
+
     wishListDetails:(userId) => {
         return new Promise(async(resolve,reject) => {
             let result = await db.get().collection(collections.WISHLIST_COLLECTION)
@@ -408,6 +494,54 @@ module.exports={
             resolve(result[0].productDetails)
         })
     },
+
+
+
+    // addToWishlist:(userId, productId, wishQuantity)=>{
+    //     return new Promise(async(resolve, reject)=>{
+    //         userId = new ObjectId(userId);
+    //         productId = new ObjectId(productId);
+    //         wishQuantity=Number(wishQuantity)
+    //         const isWishList = await db.get().collection(collections.WISHLIST_COLLECTION).findOne({userId: userId});
+    //         const proWishExist = await db.get().collection(collection.WISHLIST_COLLECTION)
+    //         .findOne(
+    //             {
+    //                 userId:userId,
+    //                 products:{$elemMatch:{productId}}
+    //             }
+    //         );
+    //         console.log(proWishExist);
+    //         if(isWishList){
+    //             if(proWishExist) {
+    //                 db.get().collection(collections.WISHLIST_COLLECTION)
+    //                 .updateOne(
+    //                     {
+    //                         userId: userId
+    //                     },
+    //                     {
+    //                         $push:{
+    //                             products: productId
+    //                         }
+    //                     }
+    //                 )
+    //                 .then((response)=>{
+    //                     resolve(response);
+    //                 });                
+    //         }else{
+    //             let wishList={
+    //                 userId : userId,
+    //                 products : [productId],
+    //             }
+    //             db.get().collection(collections.WISHLIST_COLLECTION)
+    //             .insertOne(wishList)
+    //             .then((response)=>{
+    //                 resolve(response);
+    //                 });
+    //             }
+    //         }
+    //     })
+    // },
+
     addToWishlist:(userId, productId)=>{
         return new Promise(async(resolve, reject)=>{
             userId = new ObjectId(userId);
@@ -441,6 +575,8 @@ module.exports={
             }
         })
     },
+
+
     removeWishlistProduct:(userId, proId) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.WISHLIST_COLLECTION)

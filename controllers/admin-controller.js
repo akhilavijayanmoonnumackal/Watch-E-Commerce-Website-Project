@@ -139,7 +139,7 @@ module.exports ={
         }catch(err){
             console.log(err);
         }finally{
-            res.redirect('/admin/add-banner ');
+            res.redirect('back');
         }
     },
     listBanner:(req,res) => {             //1
@@ -179,30 +179,7 @@ module.exports ={
             })
         })
     }, 
-    // updateBanner:(bannerId, banner) =>{
-    //     return new Promise((resolve, reject => {
-    //         db.get().collection(collection.BANNER_COLLECTION)
-    //         .updateOne({_id:new ObjectId(bannerId)},
-    //         {
-    //             $set: {
-    //                 head: banner.head,
-    //                 text: banner.text
-    //             }
-    //         });
-    //     }))
-    // },
-    // updateBannerImages: (bannerId,bannerUrl) => {
-    //     return new Promise((resolve, reject) => {
-    //         db.get().collection(collection.BANNER_COLLECTION)
-    //         .updateOne({_id: new ObjectId(bannerId)},
-    //         {
-    //             $set: 
-    //             {
-    //                 image: bannerUrl
-    //             }
-    //         })
-    //     })
-    // },
+    
     getAllBanners: () => {
         return new Promise(async(resolve, reject) => {
             let banners = await db.get().collection(collection.BANNER_COLLECTION)
@@ -216,19 +193,6 @@ module.exports ={
             res.redirect('/admin/category');
         })
     },
-    // addBannerPost:async(req,res) => {           //1
-    //     try {
-    //         //console.log(req.files);
-    //             adminHelpers.addBanner(req.body,async(id) => {
-    //                 let result = await cloudinary.uploader.upload(req.file.path);
-    //                 adminHelpers.updateBannerImages(id,result.url);
-    //             })
-    //     }catch(err){
-    //         console.log(err);
-    //     }finally{
-    //         res.redirect('/admin/bannerManangement');
-    //     }
-    // }
     categoryManagement: (req,res) => {
         if(req.session.adminLoggedIn){
         adminHelpers.allCategories().then((category) => {
@@ -304,6 +268,44 @@ module.exports ={
     //         console.log("error", err);
     //     }finally{
     //         res.redirect('/admin/bannerManagement');
+    //     }
+    // },
+
+    // updateBanner:(bannerId, banner) =>{
+    //     return new Promise((resolve, reject => {
+    //         db.get().collection(collection.BANNER_COLLECTION)
+    //         .updateOne({_id:new ObjectId(bannerId)},
+    //         {
+    //             $set: {
+    //                 head: banner.head,
+    //                 text: banner.text
+    //             }
+    //         });
+    //     }))
+    // },
+    // updateBannerImages: (bannerId,bannerUrl) => {
+    //     return new Promise((resolve, reject) => {
+    //         db.get().collection(collection.BANNER_COLLECTION)
+    //         .updateOne({_id: new ObjectId(bannerId)},
+    //         {
+    //             $set: 
+    //             {
+    //                 image: bannerUrl
+    //             }
+    //         })
+    //     })
+    // },
+    // addBannerPost:async(req,res) => {           //1
+    //     try {
+    //         //console.log(req.files);
+    //             adminHelpers.addBanner(req.body,async(id) => {
+    //                 let result = await cloudinary.uploader.upload(req.file.path);
+    //                 adminHelpers.updateBannerImages(id,result.url);
+    //             })
+    //     }catch(err){
+    //         console.log(err);
+    //     }finally{
+    //         res.redirect('/admin/bannerManangement');
     //     }
     // }
 }

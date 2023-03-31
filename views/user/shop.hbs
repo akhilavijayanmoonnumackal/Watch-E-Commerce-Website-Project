@@ -9,8 +9,9 @@
 
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-                    All Products
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*"><a
+                        href="/shop">All Products</a>
+
                 </button>
 
                 <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
@@ -263,12 +264,13 @@
                     <div class="block2-txt flex-w flex-t p-t-14">
 
                         <div class="block2-txt-child1 flex-col-l ">
-                            <a href="/productDetail" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                            <a href="/productDetail/{{this._id}}" class=" stext-104 cl4 hov-cl1 trans-04
+                                js-name-b2 p-b-6">
                                 {{this.name}}
                             </a>
 
                             <span class="stext-105 cl3">
-                                {{this.price}}
+                                Rs.{{this.price}}
                             </span>
                         </div>
 
