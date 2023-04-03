@@ -68,15 +68,17 @@
                                     <h6>3. Category</h6>
                                 </div>
                                 <div class="col-md-9">
-
                                     <div class="mb-4">
                                         <div class="mb-4">
-                                            <label class="form-label">Category</label>
-                                            {{#each category}}
+                                            {{!-- <label class="form-label">Category</label> --}}
+                                            {{!-- <input type="text" class="form-control" id="catgName"
+                                                aria-describedby="emailHelp" name="name" value="{{this.name}}"
+                                                required /> --}}
+                                            <label for=" exampleInputEmail1">Category Name</label>
                                             <input type="text" class="form-control" id="catgName"
                                                 aria-describedby="emailHelp" name="name" value="{{this.name}}"
                                                 required />
-                                            {{/each}}
+
                                             {{!-- <select class="form-select" name="category" id="catgName">
                                                 <option value="">Select a Category</option>
                                                 {{#each category}}

@@ -76,7 +76,9 @@
 
                                                 <option value="">Select a Category</option>
                                                 {{#each category}}
+                                                {{#if this.status}}
                                                 <option value="{{this._id}}">{{this.name}} </option>
+                                                {{/if}}
                                                 {{/each}}
                                             </select>
                                         </div>

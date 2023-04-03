@@ -295,5 +295,21 @@ module.exports={
                 resolve();
             })
         })
+    },
+    getAllCoupons: () => {
+        return new Promise(async(resolve,reject) => {
+            let coupon = await db.get().collection(collection.COUPON_COLLECTION)
+            .find().toArray();
+            resolve(coupon);
+        })
+    },
+    addCoupon: (coupon) => {
+        coupon.status=true;
+        return new Promise((resolve,reject) => {
+            db.get().collection(collection.COUPON_COLLECTION)
+            .insertOne(coupon).then((data) => {
+                resolve(data)
+            })
+        })
     }
 }

@@ -36,5 +36,7 @@ router.get('/editProduct/:id', adminController.editProduct);
 router.post('/editProduct/:id',upload.array("image"), adminController.editProductPost);
 router.get('/listProduct/:id', adminController.listProduct);
 router.get('/unlistProduct/:id', adminController.unlistProduct);
+router.get('/coupon', adminController.getCoupons);
+router.post('/addCoupon', adminController.addCouponPost);
 
 module.exports = router;

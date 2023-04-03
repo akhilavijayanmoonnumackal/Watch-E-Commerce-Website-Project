@@ -302,10 +302,18 @@ module.exports ={
             res.redirect('/admin/category')
         }
     },
+    // editProduct: async(req,res) => {
+    //     let product = await productHelpers.getProductDetails(req.params.id)
+    //     console.log("product: ",product);
+    //     res.render('admin/editProduct',{admin:true, adminName:req.session.adminName,product});
+    // },
     editProduct: async(req,res) => {
-        let product = await productHelpers.getProductDetails(req.params.id)
-        console.log("product: ",product);
-        res.render('admin/editProduct',{admin:true, adminName:req.session.adminName,product});
+        let product = await productHelpers.getProductDetails(req.params.id);
+        adminHelpers.allCategories().then((category) => {
+            console.log("product: ",product);
+            res.render('admin/editProduct',{admin:true,category,adminName:req.session.adminName,product});
+            })
+        
     },
     editProductPost: (req,res) => {
         // try {
@@ -346,7 +354,7 @@ module.exports ={
         productHelpers.unlistProduct(req.params.id).then(() => {
             res.redirect('back');
         })
-    }
+    },
     
     // editBannerPost: async (req,res) => {     //1
     //     try{
@@ -399,4 +407,20 @@ module.exports ={
     //         res.redirect('/admin/bannerManangement');
     //     }
     // }
+
+    getCoupons: (req,res) => {
+        if(req.session.adminLoggedIn) {
+            adminHelpers.getAllCoupons().then((coupon) => {
+                res.render('admin/coupon', {admin: true, adminName:req.session.adminName,coupon})
+            })
+        }else{
+            res.render('admin/login');
+        }
+    },
+    addCouponPost: (req,res) => {
+        let code = req.body.code;
+        adminHelpers.addCoupon(req.body).then((response) => {
+            res.redirect('/admin/coupon');
+        })
+    }
 }
