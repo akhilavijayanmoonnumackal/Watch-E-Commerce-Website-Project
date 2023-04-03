@@ -30,12 +30,11 @@ router.post('/addCategory', adminController.addCategoryPost);
 router.get('/category', adminController.categoryManagement);
 router.get('/listcategory/:id', adminController.listcategory);
 router.get('/unlistcategory/:id', adminController.unlistcategory);
+router.post('/editCategory/:id', adminController.editCategoryPost);
 //router.get('/listCategoryOrUnlistCategory/:id', adminController.listCategoryOrUnlistCategory);
 router.get('/editProduct/:id', adminController.editProduct);
 router.post('/editProduct/:id',upload.array("image"), adminController.editProductPost);
 router.get('/listProduct/:id', adminController.listProduct);
 router.get('/unlistProduct/:id', adminController.unlistProduct);
-
-
 
 module.exports = router;

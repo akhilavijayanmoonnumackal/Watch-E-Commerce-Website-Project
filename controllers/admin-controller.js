@@ -97,8 +97,7 @@ module.exports ={
 
     addProductPost:async(req,res)=>{
         try{
-            console.log(req.files)
-            
+            console.log(req.files)        
                 const imgUrl = [];
                 for(let i=0;i<req.files.length;i++){
                     const result = await cloudinary.uploader.upload(req.files[i].path);
@@ -231,6 +230,7 @@ module.exports ={
           });
         }
       },
+
       
       categoryManagement: (req, res) => {
         if (req.session.adminLoggedIn) {
@@ -284,6 +284,27 @@ module.exports ={
             res.redirect('back');
         })
     },
+
+    editCategoryPost: (req,res) => {
+        try {
+            adminHelpers.updateCategory(req.params.id,req.body)
+            .then((category) => {
+                res.render('/admin/category', {admin: true,adminName: req.session.adminName,category})
+            })
+            console.log("id:",req.params.id );
+            // .then((response) => {
+            //     console.log(response);
+            // })
+        } catch(err) {
+            console.log(err);
+        } finally {
+            res.redirect('/admin/category')
+        }
+    },
+
+    
+
+
     editProduct: async(req,res) => {
         let product = await productHelpers.getProductDetails(req.params.id)
         console.log("product: ",product);

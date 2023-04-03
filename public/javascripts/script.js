@@ -36,6 +36,7 @@ function addToCart(proId) {
     })
 }
 
+
 $('.js-addcart-btn').on('click', (e) => {
     e.preventDefault();
     const el = document.querySelector('#addToCart');

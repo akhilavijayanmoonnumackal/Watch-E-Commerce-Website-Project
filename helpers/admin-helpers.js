@@ -190,6 +190,8 @@ module.exports={
             }
         })
     },
+
+    
     allCategories: () => {
         return new Promise(async(resolve,reject) => {
             let category = await db.get().collection(collection.CATEGORY_COLLECTION)
@@ -197,17 +199,33 @@ module.exports={
             resolve(category);
         })
     },
-    addCategory: (categoryData) => {
-        categoryData.status=true;
+
+    addCategory: (category) => {
+        category.status=true;
         return new Promise((resolve,reject) => {
              db.get().collection(collection.CATEGORY_COLLECTION)
-            .insertOne(categoryData).then((data) => {
+            .insertOne(category).then((data) => {
                 resolve(data);
             });
             
         })
     },
-    
+    updateCategory: (categoryId, category) => {
+        console.log("categoryId:", categoryId);
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.CATEGORY_COLLECTION)
+            .updateOne({_id: new ObjectId(categoryId)},
+            {
+                $set:
+                {
+                    name: category.name
+                }
+            }).then((response) => {
+                console.log("response cat", response);
+                resolve(response);
+            })
+        })
+    },
     // bannerList:(bannerId) => {    //1
     //     return new Promise((resolve, reject) => {
     //         db.get().collection(collection.BANNER_COLLECTION)

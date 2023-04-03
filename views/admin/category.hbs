@@ -3,7 +3,9 @@
         <div class="card-body">
             <div>
                 <a href="" class="btn btn-success float-right mb-3" data-toggle="modal"
-                    data-target="#exampleModalCenter">Add Category</a>
+                    data-target="#exampleModalCenter">
+                    Add Category
+                </a>
             </div>
             <h4 class="py-4 text-center">Category Management</h4>
             <div class="col-md-9">
@@ -20,7 +22,6 @@
                                 <th>Category Name</th>
                                 <th>Status</th>
                                 <th>Updation</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -34,7 +35,10 @@
                                 <td scope="row">{{@index}}</td>
                                 <td><b>{{this.name}}</b></td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm" style="width: 100px;height:35px;">EDIT</a>
+                                    <a href="" class="btn btn-primary btn-sm" style="width: 100px;height:35px;"
+                                        data-toggle="modal" data-target="#exampleModalCenterEdit{{this._id}}">
+                                        EDIT
+                                    </a>
                                 </td>
                                 {{#if this.status}}
                                 <td>
@@ -71,7 +75,7 @@
                 <form action="/admin/addCategory" method="post">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Category Name</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        <input type="text" class="form-control" id="catgName" aria-describedby="emailHelp"
                             placeholder="Enter category" name="name" required>
                     </div>
                     <div class="form-group">
@@ -86,3 +90,69 @@
         </div>
     </div>
 </div>
+
+{{!-- <!-- Modal -->
+<div class="modal fade" id="exampleModalCenterEdit" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/admin/addCategory" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Category Name</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            name="name" value="{{category.name}}" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class=" btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Reset</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div> --}}<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+{{#each category}}
+<div class="modal fade" id="exampleModalCenterEdit{{this._id}}" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/admin/editCategory/{{this._id}}" method="post">
+                    <div class=" form-group">
+                        <label for=" exampleInputEmail1">Category Name</label>
+                        <input type="text" class="form-control" id="catgName" aria-describedby="emailHelp" name="name"
+                            value="{{this.name}}" required />
+                    </div>
+                    {{!-- <div class="form-group">
+                        <span type="button" class=" btn btn-secondary" data-dismiss="modal">Close</span>
+                        <span type="submit" class="btn btn-primary">Reset</span>
+                    </div> --}}
+                    <div class="form-group">
+                        <button type="button" class=" btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Reset</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{{/each}}
