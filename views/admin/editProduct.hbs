@@ -34,7 +34,7 @@
                                         <input class="form-control" rows="4" name="description" type="text"
                                             value="{{product.description}}" required>
                                     </div>
-                                    <div class="mb-4">
+                                    {{!-- <div class="mb-4">
                                         <label class="form-label">Brand name</label>
                                         <select class="form-select">
                                             <option> Alpina </option>
@@ -46,7 +46,7 @@
                                             <option> Casio </option>
                                             <option> Titan </option>
                                         </select>
-                                    </div>
+                                    </div> --}}
                                 </div> <!-- col.// -->
                             </div> <!-- row.// -->
                             <hr class="mb-4 mt-0">
@@ -68,16 +68,31 @@
                                     <h6>3. Category</h6>
                                 </div>
                                 <div class="col-md-9">
+
                                     <div class="mb-4">
                                         <div class="mb-4">
                                             <label class="form-label">Category</label>
-                                            <input type="text" class="form-control" name="category"
-                                                value=" {{this.category}}" required>
+                                            {{#each category}}
+                                            <input type="text" class="form-control" id="catgName"
+                                                aria-describedby="emailHelp" name="name" value="{{this.name}}"
+                                                required />
+                                            {{/each}}
+                                            {{!-- <select class="form-select" name="category" id="catgName">
+                                                <option value="">Select a Category</option>
+                                                {{#each category}}
+                                                <option value="{{this._id}}">{{this.name}} </option>
+                                                {{/each}}
+                                            </select> --}}
                                         </div>
+                                        {{!-- <div class="mb-4">
+                                            <label class="form-label">Category</label>
+                                            <input type="text" class="form-control" name="name" value="{{this.name}}"
+                                                required>
+                                        </div> --}}
                                     </div>
                                 </div> <!-- col.// -->
                             </div> <!-- row.// -->
-                            <hr class="mb-4 mt-0">
+                            <hr class=" mb-4 mt-0">
                             <div class="row">
                                 <div class="col-md-3">
                                     <h6>4. Media</h6>

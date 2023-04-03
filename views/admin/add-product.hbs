@@ -35,7 +35,7 @@
                                         <textarea placeholder="Type here" class="form-control" rows="4"
                                             name="description" type="text" required></textarea>
                                     </div>
-                                    <div class="mb-4">
+                                    {{!-- <div class="mb-4">
                                         <label class="form-label">Brand name</label>
                                         <select class="form-select">
                                             <option> Alpina </option>
@@ -47,7 +47,7 @@
                                             <option> Casio </option>
                                             <option> Titan </option>
                                         </select>
-                                    </div>
+                                    </div> --}}
                                 </div> <!-- col.// -->
                             </div> <!-- row.// -->
                             <hr class="mb-4 mt-0">
@@ -72,9 +72,11 @@
                                     <div class="mb-4">
                                         <div class="mb-4">
                                             <label class="form-label">Category</label>
-                                            <select class="form-select" name="category">
+                                            <select class="form-select" name="category" id="catgName">
+
+                                                <option value="">Select a Category</option>
                                                 {{#each category}}
-                                                <option value="{{this._id}}"> {{this.category}} </option>
+                                                <option value="{{this._id}}">{{this.name}} </option>
                                                 {{/each}}
                                             </select>
                                         </div>

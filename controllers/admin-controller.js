@@ -9,6 +9,7 @@ const productHelpers = require('../helpers/product-helpers');
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
 const { ObjectId } = require('mongodb');
+const { reject } = require('bcrypt/promises');
 let adminHeader;
 
 module.exports ={
@@ -89,7 +90,7 @@ module.exports ={
     addProductGet: async(req,res)=>{
        if(req.session.adminLoggedIn){
         adminHelpers.allCategories().then((category) => {
-            console.log(category);
+            console.log("category: ",category);
             res.render('admin/add-product',{admin:true,category, adminName:req.session.adminName});
         })
        }        
@@ -301,10 +302,6 @@ module.exports ={
             res.redirect('/admin/category')
         }
     },
-
-    
-
-
     editProduct: async(req,res) => {
         let product = await productHelpers.getProductDetails(req.params.id)
         console.log("product: ",product);
@@ -346,10 +343,11 @@ module.exports ={
         })
     },
     unlistProduct: (req,res) => {
-        productHelpers.productUnlist(req.params.id).then(() => {
+        productHelpers.unlistProduct(req.params.id).then(() => {
             res.redirect('back');
         })
     }
+    
     // editBannerPost: async (req,res) => {     //1
     //     try{
     //         adminHelpers.updateBanner(req.param.id, req.body);

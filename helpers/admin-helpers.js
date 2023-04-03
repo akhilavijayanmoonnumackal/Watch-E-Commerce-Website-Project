@@ -5,6 +5,8 @@ const { Reject } = require('twilio/lib/twiml/VoiceResponse')
 const { ObjectId } = require('mongodb')
 const { response } = require('express')
 const collections = require('../config/collections')
+const { reject } = require('bcrypt/promises')
+const async = require('hbs/lib/async')
 
 
 module.exports={
@@ -192,12 +194,35 @@ module.exports={
     },
 
     
+    // allCategories: () => {
+    //     return new Promise(async(resolve,reject) => {
+    //         let category = await db.get().collection(collection.CATEGORY_COLLECTION)
+    //         .find().toArray();
+    //         resolve(category);
+    //     })
+    // },
+
     allCategories: () => {
         return new Promise(async(resolve,reject) => {
-            let category = await db.get().collection(collection.CATEGORY_COLLECTION)
-            .find().toArray();
-            resolve(category);
+            try {
+                let category = await db.get().collection(collection.CATEGORY_COLLECTION)
+                .find().toArray();
+                resolve(category);
+            }catch(err){
+                reject(err);
+            }            
         })
+    },
+    getAllCategories: (filter = {status:true}) => {
+        return new Promise(async(resolve, reject) => {
+            try {
+                let category = await db.get().collection(collection.CATEGORY_COLLECTION)
+                .find(filter).toArray();
+                resolve(category);
+            }catch(err){
+                reject(err)
+            }
+        })        
     },
 
     addCategory: (category) => {

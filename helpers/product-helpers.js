@@ -2,6 +2,7 @@ const db=require('../config/connection');
 const collection=require('../config/collections');
 const { response } = require('../app');
 const { productDetail } = require('../controllers/user-controller');
+const { reject } = require('bcrypt/promises');
 const ObjectId=require('mongodb-legacy').ObjectId;
 
 module.exports={
@@ -13,11 +14,23 @@ module.exports={
         })
     },
     addProduct:(product,callback)=>{
-        db.get().collection(collection.PRODUCT_COLLECTION)
-        .insertOne(product).then((data)=>{
-            callback(data.insertedId);
-        })
+        product.price = parseInt(product.price);
+        product.category = new ObjectId(product.category);
+        product.status =true;
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.PRODUCT_COLLECTION)
+            .insertOne(product).then((data)=>{
+                callback(data.insertedId);
+                resolve(data);
+            })
+        })        
     },
+    // addProduct:(product,callback)=>{
+    //     db.get().collection(collection.PRODUCT_COLLECTION)
+    //     .insertOne(product).then((data)=>{
+    //         callback(data.insertedId);
+    //     })
+    // },
     getProductDetails:(proId)=>{
         return new Promise((resolve,reject)=>{
             db.get().collection(collection.PRODUCT_COLLECTION)
@@ -93,7 +106,7 @@ module.exports={
                 }
             }).then((response) => {
                 console.log(response);
-                resolve();
+                resolve(response);
             })
         })
     },
@@ -108,7 +121,7 @@ module.exports={
                 }
             }).then((response) => {
                 console.log(response);
-                resolve();
+                resolve(response);
             })
         })
     }

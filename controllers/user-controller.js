@@ -152,6 +152,35 @@ module.exports={
             }
         })
     },
+    // shop:async(req,res)=>{
+    //     let count=0;
+    //     if(req.session.loggedIn){
+    //         let user=req.session.user;
+    //         let product = await userHelpers.cartDetails(req.session.user._id)
+    //         try{
+    //             count = product.length;  
+    //         }catch{
+    //             console.log("err");
+    //         }finally{
+    //             if(count>0) {
+    //                 productHelpers.viewProducts().then((products)=>{
+    //                     res.render('user/shop',{admin:false,products,user,count, userHeader:true});
+    //                     console.log(products);
+    //                 })
+    //             }else{
+    //                 productHelpers.viewProducts().then((products)=>{
+    //                     res.render('user/shop',{admin:false,products,user,count, userHeader:true});
+    //                     console.log(products);
+    //                 })
+    //             }                
+    //         }
+    //     }else{
+    //         productHelpers.viewProducts().then((products)=>{
+    //             res.render('user/shop',{admin:false,products,count, userHeader:true});
+    //             console.log(products);
+    //         })
+    //     }
+    // },
     shop:async(req,res)=>{
         let count=0;
         if(req.session.loggedIn){
@@ -163,10 +192,13 @@ module.exports={
                 console.log("err");
             }finally{
                 if(count>0) {
-                    productHelpers.viewProducts().then((products)=>{
-                        res.render('user/shop',{admin:false,products,user,count, userHeader:true});
-                        console.log(products);
+                    adminHelpers.getAllCategories().then((category) => {
+                        productHelpers.viewProducts().then((products)=>{
+                            res.render('user/shop',{admin:false,products,user,category,count, userHeader:true});
+                            console.log(products);
+                        })
                     })
+                    
                 }else{
                     productHelpers.viewProducts().then((products)=>{
                         res.render('user/shop',{admin:false,products,user,count, userHeader:true});

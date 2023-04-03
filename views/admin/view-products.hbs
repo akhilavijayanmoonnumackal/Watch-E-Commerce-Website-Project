@@ -59,6 +59,9 @@
                                 <div class="left">
                                     <img src="{{this.image.[0]}}" class="img-sm img-thumbnail" alt="Item">
                                 </div>
+                                {{!-- <div class="col-lg-1 col-sm-2 col-4 ">
+                                    <span>{{this.category}}</span>
+                                </div> --}}
                                 <div class="info">
                                     <h6 class="mb-0">{{this.name}}</h6>
                                 </div>
@@ -77,9 +80,7 @@
                                 {{/if}}
                             </span>
                         </div>
-                        <div class="col-lg-1 col-sm-2 col-4 ">
-                            <span>{{this.category.category}}</span>
-                        </div>
+
                         <div class="col-lg-2 col-sm-2 col-4 col-action text-end">
                             <a href="/admin/editProduct/{{this._id}}" class="btn btn-sm font-sm rounded btn-brand">
                                 <i class="material-icons md-edit"></i> Edit
