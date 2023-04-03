@@ -422,5 +422,15 @@ module.exports ={
         adminHelpers.addCoupon(req.body).then((response) => {
             res.redirect('/admin/coupon');
         })
+    },
+    activateCoupon: (req,res) => {
+        adminHelpers.couponActivate(req.params.id).then(() => {
+            res.redirect('back');
+        })
+    },
+    deactivateCoupon: (req,res) => {
+        adminHelpers.deactivateCoupon(req.params.id).then(() => {
+            res.redirect('back');
+        })
     }
 }

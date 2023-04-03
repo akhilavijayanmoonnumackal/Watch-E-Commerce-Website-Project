@@ -311,5 +311,36 @@ module.exports={
                 resolve(data)
             })
         })
+    },
+    couponActivate: (couponId) => {
+        return new Promise((resolve,reject) => {
+            db.get().collection(collection.COUPON_COLLECTION)
+            .updateOne({_id: new ObjectId(couponId)},
+            {
+                $set:
+                {
+                    status:true
+                }
+            }).then((response) => {
+                console.log(response);
+                resolve();
+            })
+        })
+    },
+    deactivateCoupon: (couponId) => {
+        return new Promise((resolve,reject) => {
+            db.get().collection(collection.COUPON_COLLECTION)
+            .updateOne({_id: new ObjectId(couponId)},
+            {
+                $set:
+                {
+                    status:false
+                }
+            }).then((response) => {
+                console.log(response);
+                resolve();
+            })
+        })
     }
+    
 }
