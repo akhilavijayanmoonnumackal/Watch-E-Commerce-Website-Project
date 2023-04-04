@@ -4,6 +4,8 @@ const bcrypt=require('bcrypt')
 var ObjectId=require('mongodb-legacy').ObjectId;
 const collections = require('../config/collections');
 const { response } = require('express');
+const { reject } = require('bcrypt/promises');
+const async = require('hbs/lib/async');
 //const { use } = require('../routes/user')
 
 module.exports={
@@ -782,7 +784,7 @@ module.exports={
                 reject(new Error('Cart not found for user'))
             }
         })
-    }
+    },
     
     // getCartProductList: (userId) => {
     //     return new Promise(async(resolve,reject) => {
@@ -792,4 +794,13 @@ module.exports={
     //        resolve(cart.products)
     //     })
     // }
+    getUserOrders: (userId) => {
+        return new Promise(async(resolve, reject) => {
+            let orders = await db.get().collection(collection.ORDER_COLLECTION)
+            .find({
+                userId: new ObjectId(userId)
+            }).toArray()
+            resolve(orders)
+        })
+    }
 }

@@ -8,6 +8,7 @@ const { verifyOtp } = require('../api/twilio');
 const productHelpers = require('../helpers/product-helpers');
 const adminHelpers = require('../helpers/admin-helpers');
 const adminController = require('./admin-controller');
+const async = require('hbs/lib/async');
 let userHeader;
 
 module.exports={
@@ -557,7 +558,7 @@ module.exports={
         let user = await findUser(req.params.id);
         req.session.user = user;
         res.redirect('/userProfile')
-    }
+    },
     // applyCoupon : async(req,res) => {
     //     if(req.session.loggedIn) {
     //         let code = req.body.code;
@@ -604,6 +605,38 @@ module.exports={
     //     const discount = coupon.discount
     //     const total = subtotal - discount
     //     return { success: true, message: 'Coupon code applied', total: total }
-    //     }      
+    //     }   
+    
+    viewOrders: async(req,res) => {
+        if(req.session.loggedIn) {
+            let user = req.session.user;
+            let orders = await userHelpers.getUserOrders(req.session.user._id)            
+            res.render('user/viewOrders', {admin:false,user,userHeader:true,orders})            
+        }else{
+            res.redirect('/login')
+        }
+    }
+    // orderManagement: (req,res) => {
+    //     if(req.session.adminLoggedIn) {
+    //         adminHelpers.allOrders().then((order) => {
+    //             res.render('admin/orderManagement', {admin: true,adminName: req.session.adminName,order})
+    //         })
+    //     }else{
+    //         res.redirect('/admin/admin-login')
+    //     }
+    // },
+    // singleOrderDetail: async(req,res) => {
+    //     if(req.session.adminLoggedIn) {
+    //         let orderId = req.params.id;
+    //         let products = await productHelpers.getOrderedProducts(req.params.id);
+    //         console.log("products:", products);
+    //         adminHelpers.singleOrderView(orderId).then((deliveryDetails) => {
+    //             console.log("deliveryDetails: ",deliveryDetails);
+    //             res.render('admin/singleOrderDetail', {admin: true,adminName: req.session.adminName,products,deliveryDetails,orderId})
+    //         });                       
+    //     }else{
+    //         res.render('admin/admin-login');
+    //     }
+    // }
 }
 

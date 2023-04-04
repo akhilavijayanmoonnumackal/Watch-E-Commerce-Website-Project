@@ -35,6 +35,7 @@ router.get('/userProfile', controller.userProfile);
 //router.get('/addAddress', controller.getAddress);
 router.post('/addAddress/:id', controller.addAddressPost);
 // router.post('/applyCoupon', controller.applyCoupon);
+router.get('/viewOrders', controller.viewOrders);
 
 
 // router.get('/shop', (req,res)=>{

@@ -1,4 +1,5 @@
 <!-- Product -->
+
 <section class="bg0 p-t-23 p-b-140">
     <div class="container">
         <div class="p-b-10">
@@ -14,17 +15,27 @@
 
                 </button>
 
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
-                    Women
+                {{#each category}}
+                <div id="item-container">
+                    {{!-- <button class="category-btn" data-filter="all">All</button> --}}
+                    <button class="category-btn" data-filter="{{this.name}}">{{this.name}}</button>
+                    {{!-- <button class="category-btn" data-filter="Category B">Category B</button>
+                    <button class="category-btn" data-filter="Category C">Category C</button> --}}
+                    <!-- Add your items here -->
+                </div>
+                {{/each}}
+                {{!-- {{#each category}}
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
+                    data-filter=".{{this.name}}">{{this.name}}
                 </button>
-
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
+                {{/each}} --}}
+                {{!-- <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".Men">
                     Men
                 </button>
 
                 <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
                     Smart Watches
-                </button>
+                </button> --}}
             </div>
 
             <div class="flex-w flex-c-m m-tb-10">

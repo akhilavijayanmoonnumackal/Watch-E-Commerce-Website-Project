@@ -45,7 +45,40 @@
                                     ₹{{this.totalAmount}}
                                 </td>
                                 <td>
-                                    <span class="badge badge-pill badge-soft-success">{{this.status}}</span>
+                                    {{!-- <span class="badge badge-pill badge-soft-success">{{this.status}}</span> --}}
+                                    {{!-- <div class="dropdown">
+                                        <span class="badge badge-pill badge-soft-success dropdown-toggle" role="button"
+                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            {{this.status}}
+                                        </span>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="badge badge-pill badge-soft-success dropdown-toggle"
+                                                href="#">Shipped</a>
+                                            <a class="badge badge-pill badge-soft-success dropdown-toggle"
+                                                href="#">Delivered</a>
+                                            <a class="badge badge-pill badge-soft-success dropdown-toggle"
+                                                href="#">Cancel</a>
+                                        </div>
+                                    </div> --}}
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary btn-xs dropdown-toggle" type="button"
+                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            {{this.status}}
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="#">Shipped</a>
+                                            <a class="dropdown-item" href="#">In Transit</a>
+                                            <a class="dropdown-item" href="#">Out for Delivery</a>
+                                            <a class="dropdown-item" href="#">Delivered</a>
+                                            <a class="dropdown-item" href="#">Cancel</a>
+                                            {{!-- <div class="dropdown-divider"></div> --}}
+
+                                        </div>
+                                    </div>
+
+
                                 </td>
                                 <td>
                                     <i class="material-icons md-payment font-xxl text-muted mr-5"></i>
