@@ -40,5 +40,8 @@ router.get('/coupon', adminController.getCoupons);
 router.post('/addCoupon', adminController.addCouponPost);
 router.get('/activateCoupon/:id', adminController.activateCoupon);
 router.get('/deactivateCoupon/:id', adminController.deactivateCoupon);
+router.post('/editCoupon/:id', adminController.editCouponPost);
+router.get('/orderManagement', adminController.orderManagement);
+router.get('/singleOrderDetail/:id', adminController.singleOrderDetail);
 
 module.exports = router;

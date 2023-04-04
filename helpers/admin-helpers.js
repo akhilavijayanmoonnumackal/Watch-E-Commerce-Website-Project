@@ -341,6 +341,45 @@ module.exports={
                 resolve();
             })
         })
+    },
+    updateCoupon: (couponId, coupon) => {
+        return new Promise((resolve,reject) => {
+            let status = coupon[status]
+            db.get().collection(collection.COUPON_COLLECTION)
+            .updateOne({_id: new ObjectId(couponId)},
+            {
+                $set:
+                {
+                    // userId: new ObjectId(coupon.userId),
+                    code:coupon.code,
+                    discount:coupon.discount,
+                    description:coupon.description,
+                    expDate:new Date(),
+                    status:status
+                }
+            }).then((response) => {
+                resolve(response)
+            })
+        })
+    },
+    allOrders: () => {
+        return new Promise(async(resolve,reject) => {
+            try {
+                let order = await db.get().collection(collection.ORDER_COLLECTION)
+                .find().toArray();
+                resolve(order)
+            }catch(err) {
+                reject(err)
+            }
+        })
+    },
+    singleOrderView: (orderId) => {
+        return new Promise(async(resolve,reject) => {
+            await db.get().collection(collection.ORDER_COLLECTION)
+            .findOne({_id: new ObjectId(orderId)})
+            .then((response) => {
+                resolve(response);
+            })
+        })
     }
-    
 }

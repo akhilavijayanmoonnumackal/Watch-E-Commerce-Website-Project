@@ -10,6 +10,7 @@ const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
 const { ObjectId } = require('mongodb');
 const { reject } = require('bcrypt/promises');
+const async = require('hbs/lib/async');
 let adminHeader;
 
 module.exports ={
@@ -317,6 +318,7 @@ module.exports ={
     },
     editProductPost: (req,res) => {
         // try {
+            
             productHelpers.updateProduct(req.params.id,req.body).then(async()=>{
                 console.log("api CALl 1st")
                 console.log(req.files.length);
@@ -432,5 +434,39 @@ module.exports ={
         adminHelpers.deactivateCoupon(req.params.id).then(() => {
             res.redirect('back');
         })
+    },
+    editCouponPost: (req,res) => {
+        try {
+            adminHelpers.updateCoupon(req.params.id, req.body)
+            .then((coupon) => {
+                res.render('/admin/coupon', {admin: true,adminName: req.session.adminName,coupon})
+            })
+        } catch(err) {
+            console.log(err);
+        } finally {
+            res.redirect('/admin/coupon')
+        }
+    },
+    orderManagement: (req,res) => {
+        if(req.session.adminLoggedIn) {
+            adminHelpers.allOrders().then((order) => {
+                res.render('admin/orderManagement', {admin: true,adminName: req.session.adminName,order})
+            })
+        }else{
+            res.redirect('/admin/admin-login')
+        }
+    },
+    singleOrderDetail: async(req,res) => {
+        if(req.session.adminLoggedIn) {
+            let orderId = req.params.id;
+            let products = await productHelpers.getOrderedProducts(req.params.id);
+            console.log("products:", products);
+            adminHelpers.singleOrderView(orderId).then((deliveryDetails) => {
+                console.log("deliveryDetails: ",deliveryDetails);
+                res.render('admin/singleOrderDetail', {admin: true,adminName: req.session.adminName,products,deliveryDetails,orderId})
+            });                       
+        }else{
+            res.render('admin/admin-login');
+        }
     }
 }

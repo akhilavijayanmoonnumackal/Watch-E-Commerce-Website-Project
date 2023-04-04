@@ -1,5 +1,5 @@
 const accountSid ='AC96e560a732bc215c3cc5ef66b4e9e8f7'
-const authToken ='4e6a79f45986c38e6b86a871814c8d98'
+const authToken ='6fbf0446882f1aeb163a605014c4824c'
 const serviceSid ='VA218ea587d1416b936118cbbf7aed37f5'
 const client = require('twilio')(accountSid, authToken);
 require('dotenv')

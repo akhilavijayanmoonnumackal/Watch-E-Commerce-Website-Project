@@ -693,12 +693,44 @@ module.exports={
         })
     },
 
+    // placeOrder: (order, products, totalPrice) => {
+    //     return new Promise((resolve,reject) => {
+    //         console.log(order,products,totalPrice);
+    //         let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
+    //         let orderObj = {
+    //             deliveryDetails: {
+    //                 name: order.name,
+    //                 mobile: order.mobile,
+    //                 address: order.address,
+    //                 pincode: order.pincode
+    //             },
+    //             userId: new ObjectId(order.userId),
+    //             PaymentMethod: order['payment-method'],
+    //             products: products,
+    //             totalAmount: totalPrice,
+    //             status: status,
+    //             date: new Date()
+    //         }
+
+    //         db.get().collection(collection.ORDER_COLLECTION)
+    //         .insertOne(orderObj)
+    //         .then((response) => {
+    //             db.get().collection(collection.CART_COLLECTION)
+    //             .deleteOne({ userId: new ObjectId(order.userId)})
+    //             .then((response2)=>{
+    //                 console.log(response2)
+    //                 resolve(response.insertedId)
+    //             })
+    //         })
+    //     })
+    // },
     placeOrder: (order, products, totalPrice) => {
         return new Promise((resolve,reject) => {
             console.log(order,products,totalPrice);
             let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
             let orderObj = {
                 deliveryDetails: {
+                    name: order.name,
                     mobile: order.mobile,
                     address: order.address,
                     pincode: order.pincode
@@ -708,7 +740,7 @@ module.exports={
                 products: products,
                 totalAmount: totalPrice,
                 status: status,
-                date: new Date()
+                date: new Date().toLocaleString()
             }
 
             db.get().collection(collection.ORDER_COLLECTION)

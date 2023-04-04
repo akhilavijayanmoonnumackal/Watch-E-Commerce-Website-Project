@@ -3,9 +3,11 @@ const collection=require('../config/collections');
 const { response } = require('../app');
 const { productDetail } = require('../controllers/user-controller');
 const { reject } = require('bcrypt/promises');
+const async = require('hbs/lib/async');
 const ObjectId=require('mongodb-legacy').ObjectId;
 
-module.exports={
+module.exports = {
+
     viewProducts:() => {
         return new Promise(async(resolve,reject)=>{
             let products=await db.get().collection(collection.PRODUCT_COLLECTION)
@@ -56,56 +58,6 @@ module.exports={
             })
         })
     },
-
-    // cartDetails: (userId) => {
-    //     return new Promise(async (resolve, reject) => {
-    //       try {
-    //         userId = new ObjectId(userId);
-    //         let cartItems = await db.get().collection(collection.CART_COLLECTION)
-    //         .aggregate([
-    //             {
-    //               '$match': {
-    //                 'userId': userId
-    //               }
-    //             }, {
-    //               '$unwind': {
-    //                 'path': '$products', 
-    //                 'preserveNullAndEmptyArrays': true
-    //               }
-    //             }, {
-    //               '$lookup': {
-    //                 'from': 'products', 
-    //                 'localField': 'products.productId', 
-    //                 'foreignField': '_id', 
-    //                 'as': 'proDetails'
-    //               }
-    //             }, {
-    //               '$project': {
-    //                 'proDetails': 1, 
-    //                 'products.quantity': 1, 
-    //                 '_id': 0
-    //               }
-    //             }
-    //           ]).toArray();
-    //         console.log(cartItems)
-    //         console.log("fdgffffffffffffffffffffff",cartItems.length);
-    //         if(cartItems.length!=0){
-    //             if(cartItems.length===1){
-    //                 if(cartItems[0].proDetails.length===0){
-    //                     console.log("noijas")
-    //                     console.log(`prodetailslength : ${cartItems[0].proDetails.length}`);
-    //                     resolve(null);
-    //                 }
-    //             }
-    //             resolve(cartItems)
-    //         }else{
-    //             resolve(null);
-    //         }
-    //       } catch {
-    //         resolve(null);
-    //         }
-    //     });
-    //   },
     
     addProductImages:(proId,imgUrl) => {
         return new Promise(async(resolve,reject) => {
@@ -122,6 +74,9 @@ module.exports={
         })
     },
     updateProduct: (proId,proDetail) => {
+        proDetail.price = parseInt(proDetail.price);
+        proDetail.category = new ObjectId(proDetail.category);
+        proDetail.status =true;
         return new Promise((resolve,reject) => {
             console.log(proId)
             db.get().collection(collection.PRODUCT_COLLECTION)
@@ -140,6 +95,25 @@ module.exports={
             })
         })
     },
+    // updateProduct: (proId,proDetail) => {
+    //     return new Promise((resolve,reject) => {
+    //         console.log(proId)
+    //         db.get().collection(collection.PRODUCT_COLLECTION)
+    //         .updateOne({_id: new ObjectId(proId)},
+    //         {
+    //             $set:
+    //             {
+    //                 name:proDetail.name,
+    //                 description:proDetail.description,
+    //                 price:proDetail.price,
+    //                 category:proDetail.category
+    //             }
+    //         }).then((response) => {
+    //             console.log(response);
+    //             resolve()
+    //         })
+    //     })
+    // },
     updateProductImages: (proId,imgUrl) => {
         return new Promise((resolve,reject) => {
             db.get().collection(collection.PRODUCT_COLLECTION)
@@ -188,5 +162,41 @@ module.exports={
                 resolve(response);
             })
         })
-    }
+    },
+    getOrderedProducts: (orderId) => {
+        return new Promise(async(resolve,reject) => {
+            try {
+                orderId = new ObjectId(orderId);
+                let orderedItems = await db.get().collection(collection.ORDER_COLLECTION)
+                .aggregate([
+                    {
+                      '$match': {
+                        _id: orderId
+                      }
+                    }, {
+                      '$unwind': {
+                        'path': '$products'
+                      }
+                    }, {
+                      '$lookup': {
+                        'from': 'products', 
+                        'localField': 'products.productId', 
+                        'foreignField': '_id', 
+                        'as': 'proDetails'
+                      }
+                    }, {
+                      '$project': {
+                        'proDetails': 1, 
+                        'products.quantity': 1, 
+                        '_id': 0
+                      }
+                    }
+                  ]).toArray()
+                  console.log("orderedItems",orderedItems);
+                  resolve(orderedItems)
+            } catch{
+                resolve(null)
+            }
+        })
+    }    
 }

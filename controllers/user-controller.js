@@ -557,6 +557,53 @@ module.exports={
         let user = await findUser(req.params.id);
         req.session.user = user;
         res.redirect('/userProfile')
-    }    
+    }
+    // applyCoupon : async(req,res) => {
+    //     if(req.session.loggedIn) {
+    //         let code = req.body.code;
+    //         userHelpers.applyCoupon(code)
+
+    //     }
+    // },
+    // postPlaceOrder: async(req,res) => {
+    //     let products= await userHelpers.getCartProductList(req.body.userId)
+    //     let totalPrice = await userHelpers.get1TotalAmount(req.body.userId)
+    //     userHelpers.placeOrder(req.body,products,totalPrice).then((orderId) => {
+    //         console.log(orderId);
+    //         if(req.body['payment-method'] === 'COD') {
+    //             res.json({ codSuccess: true})
+    //         }
+    //     })
+    //     console.log(req.body);
+    // }
+    // addCategoryPost: async (req, res) => {
+    //     console.log("ttttttttttttttttttt", req.body);
+    //     let name = req.body.name;
+    //     console.log(name);
+      
+    //     const categoryNameExist = await adminHelpers.isCategoryNameExist(name);
+    //     if (categoryNameExist) {
+    //       console.log("categoryNameExist", categoryNameExist);
+    //       console.log("exist");
+    //       let message = "Category already exists";
+    //       res.redirect(`/admin/category?message=${message}`);
+    //     } else {
+    //       await adminHelpers.addCategory(req.body).then((response) => {
+    //         res.redirect('/admin/category');
+    //       });
+    //     }
+    //   }
+    // applyCoupon: (code,subtotal) => {
+    //     const coupon = db.coupons.findOne({ code: code })
+    //     if (!coupon) {
+    //         return { success: false, message: 'Invalid coupon code' }
+    //     }
+    //     if (coupon.valid_until < new Date()) {
+    //         return { success: false, message: 'Coupon code has expired' }
+    //     }
+    //     const discount = coupon.discount
+    //     const total = subtotal - discount
+    //     return { success: true, message: 'Coupon code applied', total: total }
+    //     }      
 }
 

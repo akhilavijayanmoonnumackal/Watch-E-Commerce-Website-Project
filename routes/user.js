@@ -5,6 +5,7 @@ const sessionChecker = require('../middleware/session');
 const productHelpers=require('../helpers/product-helpers')
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
+const adminController = require('../controllers/admin-controller');
 
 /* GET home page. */
 router.get('/', controller.get);
@@ -33,6 +34,7 @@ router.get('/orderSuccess', controller.orderSuccess);
 router.get('/userProfile', controller.userProfile);
 //router.get('/addAddress', controller.getAddress);
 router.post('/addAddress/:id', controller.addAddressPost);
+// router.post('/applyCoupon', controller.applyCoupon);
 
 
 // router.get('/shop', (req,res)=>{
