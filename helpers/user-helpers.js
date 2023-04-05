@@ -8,6 +8,7 @@ const { reject } = require('bcrypt/promises');
 const async = require('hbs/lib/async');
 const Razorpay = require('razorpay');
 const { resolve } = require('path');
+const { log } = require('console');
 //const { use } = require('../routes/user')
 
 var instance = new Razorpay({
@@ -791,25 +792,6 @@ module.exports={
             })
         })
     },
-    // updateProfileInfo: (userId, user) => {
-    //     return new Promise((resolve, reject) => {
-    //       const { name, email, phone, userStatus } = user;
-    //       db.get().collection(collection.USER_COLLECTION)
-    //         .updateOne({ _id: new ObjectId(userId) }, {
-    //           $set: { name, email, phone, userStatus }
-    //         })
-    //         .then((response) => {
-    //           console.log("Profile response:", response);
-    //           resolve();
-    //         })
-    //         .catch((error) => {
-    //           console.error("Error updating user profile:", error);
-    //           reject(error);
-    //         });
-    //     });
-    //   },
-      
-
     updateAddress: (addressData, userId) => {
         return new Promise((resolve,reject) => {
             addressData._id = new ObjectId();
@@ -821,6 +803,7 @@ module.exports={
                     address: addressData
                 }
             }).then((response) => {
+                console.log("uuuuuu", response);
                 resolve(response)
             })
             

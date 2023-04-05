@@ -11,28 +11,40 @@
                     <div class="mb-25">
                         <h4>DELIVERY ADDRESS</h4>
                     </div>
+                    {{!-- {{#each user.address}}
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2 border ">
+                        <div class="p-3">
+                            <p> <b> {{this.name}} </b> <b class="pl-4 font-weight-normal">{{this.mobile}} </b> <a
+                                    type="button" onclick="addressRemove('{{this._id}}')"
+                                    class="text-danger border p-1 float-right"><b> DELETE</b></a></p>
+                            <p>{{this.address}} , {{this.city}} , {{this.district}} , {{this.pincode}}</p>
+
+                        </div>
+                    </div>
+                    {{/each}} --}}
+                    {{#each user.address}}
                     <div class="div1 pl-4 pt-4">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
                                 value="option1" checked>
                             <label class="form-check-label" for="exampleRadios1">
-                                <p class="font-weight-bold">Akhila Vijayan - 8848953482</p>
+                                <p class="font-weight-bold">{{this.name}} - {{this.mobile}}</p>
 
                             </label>
                         </div>
                         <div class="form-check">
                             <label class="form-check-label" for="exampleRadios1">
-                                Moonnumackal House, Thommankuthu P O, Thodupuzha
+                                {{this.address}}
                             </label>
                             <br> <label class="form-check-label" for="exampleRadios1">
-                                Idukki,Kerala-685581
+                                {{this.district}},{{this.state}}-{{this.pincode}}
                             </label>
                         </div>
                         <div class="pt-4">
-                            <button type="button" class="btn btn-warning btn-sm ml-2">DELIVERY HERE</button>
+                            <button type="submit" class="btn btn-warning btn-sm ml-2">DELIVERY HERE</button>
                         </div>
                     </div>
-
+                    {{/each}}
 
                     {{!-- =====================form================== --}}
 
@@ -120,7 +132,7 @@
                                             </div> --}}
 
                                             <div class="form-check d-flex justify-content-center mb-2">
-                                                <a href="/admin/placeOrder"
+                                                <a href="/placeOrder"
                                                     class="btn btn-light rounded font-sm mr-5 text-body hover-up">
                                                     Cancel
                                                 </a>

@@ -275,7 +275,7 @@
                         <div class="margin-top-20 profile-desc-link">
                             <i class="icon material-icons md-person"></i>
 
-                            <a href="" class=""" mb-3" data-toggle="modal" data-target="#exampleModalCenter">Profile
+                            <a href="" class=""" mb-3">Profile
                                 Information</a>
 
                             {{!-- <a href="/account">Profile Information</a> --}}
@@ -305,52 +305,29 @@
         </div>
         <div class="col-md-9">
             <div class="profile-content">
-
-
-
-
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Profile Information</h5>
+                <p>
+                    <button class="btn btn-primary" type="button" aria-expanded="false" aria-controls="collapseExample"
+                        data-toggle="modal" data-target="#exampleModalCenter">
+                        +Add Address
+                    </button>
+                </p>
+                {{#each user.address}}
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2 border ">
+                    <div class="p-3">
+                        <p> <b> {{this.name}} </b> <b class="pl-4 font-weight-normal">{{this.mobile}} </b> <a
+                                type="button" onclick="addressRemove('{{this._id}}')"
+                                class="text-danger border p-1 float-right"><b> DELETE</b></a></p>
+                        <p>{{this.address}} , {{this.city}} , {{this.district}} , {{this.pincode}}</p>
 
                     </div>
-                    <div class="modal-body">
-                        <form action="/profileInformation/{{user._id}}" method="post">
-                            <div class="form-group">
-                                <label for="inputAddress">Full Name</label>
-                                <input type="text" class="form-control" name="name" id="inputAddress"
-                                    placeholder="first name" value="{{user.name}}">
-                            </div>
-
-                            {{!-- <div class="form-group">
-                                <label for="inputAddress2">Last Name</label>
-                                <input type="text" class="form-control" id="inputAddress2" placeholder="last name">
-                            </div> --}}
-                            <div class="form-group">
-
-                                <label for="inputEmail4">Email</label>
-                                <input type="email" class="form-control" id="inputEmail4" name="email"
-                                    placeholder="Email" value="{{user.email}}">
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="inputEmail4">Phone No.</label>
-                                    <input type="phone" class="form-control" name="phone" id="inputEmail4"
-                                        placeholder="Phone" value="{{user.phone}}">
-                                </div>
-                            </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
-                        <input type="submit" class="btn btn-primary" value="update">
-                    </div>
-                    </form>
                 </div>
+                {{/each}}
+
+
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
@@ -360,40 +337,70 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Profile Information</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Address</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/admin/addAddress/{{user._id}}" method="post">
-                    <div class="form-group">
-                        <label for="inputAddress">First Name</label>
-                        <input type="text" class="form-control" id="inputAddress" placeholder="first name">
-                    </div>
-
-                    {{!-- <div class="form-group">
-                        <label for="inputAddress2">Last Name</label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="last name">
-                    </div> --}}
-                    <div class="form-group">
-
-                        <label for="inputEmail4">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputEmail4">Phone No.</label>
-                            <input type="phone" class="form-control" id="inputEmail4" placeholder="Phone">
+                {{!-- <form action="/admin/addAddress/{{user._id}}" method="post"> --}}
+                    <form action="/addAddress/{{user._id}}" method="post" id="checkout-form">
+                        <div class="row mb-4">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input required="" type="text" id="name" class="form-control"
+                                        placeholder="Full name *" name="name" />
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </form>
+
+                        <div class="row mb-4">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input required="" type="text" id="pincode" class="form-control"
+                                        placeholder="Postcode / ZIP *" name="pincode" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <input required="" type="phone" id="mobile" class="form-control" name="mobile"
+                                        placeholder="Phone *" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input required="" type="text" id="locality" class="form-control" name="locality"
+                                placeholder="Locality *" />
+                        </div>
+
+                        <div class="form-group">
+                            <input required="" type="text" id="address" class="form-control" name="address"
+                                placeholder="Address *" />
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col">
+                                <div class="form-group">
+                                    <input required="" type="text" id="city" class="form-control"
+                                        placeholder="City / District / Town *" name="city" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <input required="" type="state" id="state" class="form-control" name="state"
+                                        placeholder="State / County *" />
+                                    {{!-- <input type="text" name="userId" id="" value="{{user._id}}" hidden> --}}
+                                </div>
+                            </div>
+                        </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -414,30 +421,5 @@
                 }, false)
             })
     })()
-
-</script>
-<script>
-    function profileInfoUpdate(userId) {
-        console.log("api calll")
-        console.log(userId)
-        $.ajax({
-            url: `/profileInformation/${userId}`,
-            method: 'post',
-            success: (response) => {
-                console.log(response);
-                Toastify({
-                    text: "Profile info updated successfully!",
-                    duration: 3000,
-                    newWindow: true,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "green",
-                    stopOnFocus: true
-                }).showToast();
-            }
-        })
-
-    }
 
 </script>

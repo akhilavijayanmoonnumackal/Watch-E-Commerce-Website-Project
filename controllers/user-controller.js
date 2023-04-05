@@ -572,11 +572,21 @@ module.exports={
             res.redirect('/userProfile')
         }
     },
+    getAddress: (req,res) => {
+        if(req.session.user) {
+            let user = req.session.user;
+            res.render('user/manageAddress', {admin:false,user,userHeader:true})
+        }else{
+            res.redirect('/');
+        }
+    },
     addAddressPost: async(req,res) => {
+        console.log(req.params.id);
+        console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
         userHelpers.updateAddress(req.body,req.params.id);
-        let user = await findUser(req.params.id);
+        let user = await userHelpers.findUser(req.params.id);
         req.session.user = user;
-        res.redirect('/userProfile')
+        res.redirect('/manageAddress');
     },
     // applyCoupon : async(req,res) => {
     //     if(req.session.loggedIn) {
