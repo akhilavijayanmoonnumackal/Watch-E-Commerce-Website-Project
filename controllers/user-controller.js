@@ -538,6 +538,10 @@ module.exports={
             console.log(orderId);
             if(req.body['payment-method'] === 'COD') {
                 res.json({ codSuccess: true})
+            }else{
+                userHelpers.generateRazorpay(orderId,totalPrice).then((response) => {
+                    res.json(response)
+                })
             }
         })
         console.log(req.body);
@@ -627,6 +631,18 @@ module.exports={
         }else{
             res.redirect('/login')
         }
+    },
+    verifyPayment: (req,res) => {
+        console.log(req.body);
+        userHelpers.verifyPayment(req.body).then(() => {
+            userHelpers.changePaymentStatus(req.body['order[receipt]']).then(() => {
+                console.log("Payment Successfull");
+                res.json({ status: true })
+            })
+        }).catch((err) => {
+            console.log(err);
+            res.json({ status: false, errMsg:'' })
+        })
     }
 }
 

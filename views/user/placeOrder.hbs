@@ -205,10 +205,9 @@
                                 <div class="payment_option">
                                     <div class="custome-radio">
                                         <input class="form-check-input" required="" type="radio" name="payment-method"
-                                            value="BANK" checked="">
+                                            value="RAZORPAY" checked="">
                                         <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse"
-                                            data-target="#bankTranfer" aria-controls="bankTranfer">Direct Bank
-                                            Transfer</label>
+                                            data-target="#bankTranfer" aria-controls="bankTranfer">Razorpay</label>
 
                                     </div>
                                     <div class="custome-radio">
@@ -218,13 +217,12 @@
                                             data-target="#checkPayment" aria-controls="checkPayment">COD</label>
 
                                     </div>
-                                    <div class="custome-radio">
+                                    {{!-- <div class="custome-radio">
                                         <input class="form-check-input" required="" type="radio" name="payment-method"
                                             value="PAYPAL" checked="">
                                         <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse"
                                             data-target="#paypal" aria-controls="paypal">Paypal</label>
-
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <button onclick="placeOrderSubmit()" type="submit"
@@ -259,6 +257,53 @@
 
                 }
             })
+        })
+    }
+
+    function razorpayPayment(order) {
+        var options = {
+            "key": "rzp_test_266WOnlg6wbzrr", // Enter the Key ID generated from the Dashboard
+            "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Akhila",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verifyPayment',
+            data: {
+                payment,
+                order
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    location.href = '/orderSuccess'
+                } else {
+                    alert("Payment Failed")
+                }
+            }
         })
     }
 
