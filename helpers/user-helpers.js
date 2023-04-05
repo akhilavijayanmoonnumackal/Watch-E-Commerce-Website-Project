@@ -764,6 +764,52 @@ module.exports={
             })
         })
     },
+    findUser: (userId) => {
+        return new Promise(async(resolve,reject) => {
+            let user = await db.get().collection(collection.USER_COLLECTION)
+            .findOne({_id: new ObjectId(userId)})
+            resolve(user);
+        })
+    },
+    updateProfileInfo: (userId, user) => {
+        return new Promise((resolve, reject) =>{
+            console.log("user", userId);
+            // let status = user[Userstatus]
+            db.get().collection(collection.USER_COLLECTION)
+            .updateOne({_id: new ObjectId(userId)},
+            {
+                $set:
+                {
+                    name: user.name,
+                    email: user.email,
+                    phone: user.phone,
+                    // userStatus:status
+                }
+            }).then((response) => {
+                console.log("Profileresponse",response);
+                resolve()
+            })
+        })
+    },
+    // updateProfileInfo: (userId, user) => {
+    //     return new Promise((resolve, reject) => {
+    //       const { name, email, phone, userStatus } = user;
+    //       db.get().collection(collection.USER_COLLECTION)
+    //         .updateOne({ _id: new ObjectId(userId) }, {
+    //           $set: { name, email, phone, userStatus }
+    //         })
+    //         .then((response) => {
+    //           console.log("Profile response:", response);
+    //           resolve();
+    //         })
+    //         .catch((error) => {
+    //           console.error("Error updating user profile:", error);
+    //           reject(error);
+    //         });
+    //     });
+    //   },
+      
+
     updateAddress: (addressData, userId) => {
         return new Promise((resolve,reject) => {
             addressData._id = new ObjectId();

@@ -32,6 +32,7 @@ router.get('/place-order', controller.getPlaceOrder);
 router.post('/place-order', controller.postPlaceOrder);
 router.get('/orderSuccess', controller.orderSuccess);
 router.get('/userProfile', controller.userProfile);
+router.post('/profileInformation/:id', controller.editProfileInfo);
 //router.get('/addAddress', controller.getAddress);
 router.post('/addAddress/:id', controller.addAddressPost);
 // router.post('/applyCoupon', controller.applyCoupon);

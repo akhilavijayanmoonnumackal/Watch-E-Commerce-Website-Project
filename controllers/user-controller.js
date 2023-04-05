@@ -549,12 +549,27 @@ module.exports={
     orderSuccess: (req,res) => {
         res.render('user/orderSuccess', {user:req.session.user})
     },
-    userProfile: (req,res) => {
+    userProfile: async(req,res) => {
         if(req.session.loggedIn) {
-            let user = req.session.user;
+            let userDetails = req.session.user;
+            let user = await userHelpers.findUser(userDetails._id)
             res.render('user/userProfile', {admin:false,user,userHeader:true})
         }else{
             res.redirect('/login')
+        }
+    },
+    editProfileInfo: (req, res) => {
+        console.log(req.body)
+        try {
+            userHelpers.updateProfileInfo(req.params.id,req.body)
+            .then((response) => {
+                console.log(response)
+                res.redirect('/userProfile')
+                // res.render('user/userProfile' , {admin:false,user,userHeader:true});
+            })
+        } catch(err) {
+            console.log(err);
+            res.redirect('/userProfile')
         }
     },
     addAddressPost: async(req,res) => {

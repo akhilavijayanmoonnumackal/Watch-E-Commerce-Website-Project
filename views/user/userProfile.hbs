@@ -12,8 +12,19 @@
             <div class="profile-sidebar">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    <img src="images/akhila3.jpg" class="img-responsive" alt="">
+                    {{!-- <label class="-label" for="file">
+                        <span class="glyphicon glyphicon-camera"></span>
+                        <span>Change Image</span>
+                    </label> --}}
+                    {{!-- <input id="file" type="file" onchange="loadFile(event)" /> --}}
+                    <img src="images/profile.png" class="img-responsive" id="output" alt="">
                 </div>
+
+
+
+                {{!-- <div class="profile-userpic">
+                    <img src="images/akhila3.jpg" class="img-responsive" alt="">
+                </div> --}}
                 <!-- END SIDEBAR USERPIC -->
                 <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
@@ -72,114 +83,46 @@
         </div>
         <div class="col-md-9">
             <div class="profile-content">
-                <p>
-                    {{!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
-                        aria-expanded="false" aria-controls="collapseExample">
-                        Link with href
-                    </a> --}}
-                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-                        aria-expanded="false" aria-controls="collapseExample">
-                        + Add a new Address
-                    </button>
-                </p>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        <div class="row">
-                            <div class="col-md-8 mb-4">
-                                <div class="card mb-4">
-                                    <div class="card-header py-3">
-                                        <h5 class="mb-0">ADD A NEW ADDRESS</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <form action="/addAddress/{{user._id}}" method="post">
-                                            <!-- 2 column grid layout with text inputs for the first and last names -->
-                                            <div class="row mb-4">
-                                                <div class="col">
-                                                    <div class="form-outline">
-                                                        <input type="text" id="name" class="form-control" required />
-                                                        <label class="form-label" for="fullname">Full Name</label>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="row mb-4">
-                                                <div class="col">
-                                                    <div class="form-outline">
-                                                        <input type="text" id="form7Example1" class="form-control"
-                                                            required />
-                                                        <label class="form-label" for="form7Example1">Pincode</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-outline">
-                                                        <input type="text" id="phone" class="form-control" required />
-                                                        <label class="form-label" for="phone">10 Digit
-                                                            Mobile Number</label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Profile Information</h5>
 
-                                            <!-- Text input -->
-                                            <div class="form-outline mb-4">
-                                                <input type="text" id="locality" class="form-control" required />
-                                                <label class="form-label" for="locality">Locality</label>
-                                            </div>
-
-                                            <!-- Text input -->
-                                            <div class="form-outline mb-4">
-                                                <input type="text" id="address" class="form-control" required />
-                                                <label class="form-label" for="addressArea">Address(area and
-                                                    street)</label>
-                                            </div>
-                                            <div class="form-outline mb-4">
-                                                <input type="text" id="city" class="form-control" required />
-                                                <label class="form-label" for="city">City/District/Town</label>
-                                            </div>
-                                            <div class="form-outline mb-4">
-                                                <label for="state">State</label>
-                                                <select id="state" class="form-control">
-                                                    <option selected>SELECT</option>
-                                                    <option>Kerala</option>
-                                                    <option>Tamilnadu</option>
-                                                    <option>Karnataka</option>
-                                                    <option>Goa</option>
-                                                    <option>UP</option>
-                                                </select>
-                                            </div>
-
-                                            <!-- Message input -->
-                                            <div class="form-outline mb-4">
-                                                {{!-- <input type="text" id="form7Example4" class="form-control" /> --}}
-                                                <label class="form-label" for="form7Example4">Address Type</label>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                    <label class="form-check">Home</label>
-                                                    <input class=" form-check-input" type="radio"
-                                                        name="inlineRadioOptions" id="inlineRadio1" value="option2">
-                                                    <label class="form-check-label" for="inlineRadio1">Work</label>
-                                                </div>
-                                            </div>
-
-                                            <!-- Checkbox -->
-                                            <div class="form-check d-flex justify-content-center mb-2">
-                                                <a href="/userProfile"
-                                                    class="btn btn-light rounded font-sm mr-5 text-body hover-up">
-                                                    Cancel
-                                                </a>
-                                                <button type="submit"
-                                                    class="btn btn-md rounded font-sm hover-up">Save</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/profileInformation/{{user._id}}" method="post">
+                            <div class="form-group">
+                                <label for="inputAddress">First Name</label>
+                                <input type="text" class="form-control" name="name" id="inputAddress"
+                                    placeholder="first name" value="{{user.name}}">
                             </div>
 
+                            {{!-- <div class="form-group">
+                                <label for="inputAddress2">Last Name</label>
+                                <input type="text" class="form-control" id="inputAddress2" placeholder="last name">
+                            </div> --}}
+                            <div class="form-group">
 
-                        </div>
+                                <label for="inputEmail4">Email</label>
+                                <input type="email" class="form-control" id="inputEmail4" name="email"
+                                    placeholder="Email" value="{{user.email}}">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputEmail4">Phone No.</label>
+                                    <input type="phone" class="form-control" name="phone" id="inputEmail4"
+                                        placeholder="Phone" value="{{user.phone}}">
+                                </div>
+                            </div>
                     </div>
-                </div>
 
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+                        <input type="submit" class="btn btn-primary" value="update">
+                    </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -187,7 +130,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class=" modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -229,6 +172,8 @@
         </div>
     </div>
 </div>
+
+
 
 <style>
     body {
@@ -452,6 +397,13 @@
     }
 </style>
 <script>
+    var loadFile = function (event) {
+        var image = document.getElementById("output");
+        image.src = URL.createObjectURL(event.target.files[0]);
+    };
+
+</script>
+<script>
     (function () {
         'use strict'
         const forms = document.querySelectorAll('.requires-validation')
@@ -467,5 +419,30 @@
                 }, false)
             })
     })()
+
+</script>
+<script>
+    function profileInfoUpdate(userId) {
+        console.log("api calll")
+        console.log(userId)
+        $.ajax({
+            url: `/profileInformation/${userId}`,
+            method: 'post',
+            success: (response) => {
+                console.log(response);
+                Toastify({
+                    text: "Profile info updated successfully!",
+                    duration: 3000,
+                    newWindow: true,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "green",
+                    stopOnFocus: true
+                }).showToast();
+            }
+        })
+
+    }
 
 </script>
