@@ -802,5 +802,14 @@ module.exports={
             }).toArray()
             resolve(orders)
         })
+    },
+    singleOrderView: (orderId) => {
+        return new Promise(async(resolve,reject) => {
+            await db.get().collection(collection.ORDER_COLLECTION)
+            .findOne({_id: new ObjectId(orderId)})
+            .then((response) => {
+                resolve(response);
+            })
+        })
     }
 }

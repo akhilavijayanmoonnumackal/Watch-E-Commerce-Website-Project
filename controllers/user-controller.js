@@ -615,28 +615,18 @@ module.exports={
         }else{
             res.redirect('/login')
         }
+    },
+    singleOrderDetailUser: async(req,res) => {
+        if(req.session.loggedIn) {
+            let user = req.session.user;
+            let orderId = req.params.id;
+            let products = await productHelpers.getOrderedProducts(req.params.id);
+            userHelpers.singleOrderView(orderId).then((deliveryDetails) => {
+                res.render('user/singleOrderDetailUser', {admin:false,user,userHeader:true,orderId,products, deliveryDetails})
+            });
+        }else{
+            res.redirect('/login')
+        }
     }
-    // orderManagement: (req,res) => {
-    //     if(req.session.adminLoggedIn) {
-    //         adminHelpers.allOrders().then((order) => {
-    //             res.render('admin/orderManagement', {admin: true,adminName: req.session.adminName,order})
-    //         })
-    //     }else{
-    //         res.redirect('/admin/admin-login')
-    //     }
-    // },
-    // singleOrderDetail: async(req,res) => {
-    //     if(req.session.adminLoggedIn) {
-    //         let orderId = req.params.id;
-    //         let products = await productHelpers.getOrderedProducts(req.params.id);
-    //         console.log("products:", products);
-    //         adminHelpers.singleOrderView(orderId).then((deliveryDetails) => {
-    //             console.log("deliveryDetails: ",deliveryDetails);
-    //             res.render('admin/singleOrderDetail', {admin: true,adminName: req.session.adminName,products,deliveryDetails,orderId})
-    //         });                       
-    //     }else{
-    //         res.render('admin/admin-login');
-    //     }
-    // }
 }
 
