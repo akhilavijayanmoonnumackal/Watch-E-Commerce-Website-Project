@@ -151,89 +151,45 @@
 
 
 
-                        {{!-- ============= --}}
 
-                        <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-                            <div class="flex-w flex-m m-r-20 m-tb-5">
-                                <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
-                                    name="coupon" placeholder="Coupon Code">
-                                <div
-                                    class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-                                    Apply coupon
-                                </div>
-                                <br>
+
+                        <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                        <div class="payment_method">
+                            <div class="mb-25">
+                                <h5>Payment</h5>
                             </div>
-
-                            {{!-- <div class="mb-20 mt-5" style="font-size: 8px;">
-                                <h5>Grand Total: ₹ 30000</h5>
-                                <h5>Discount: ₹ 500</h5>
-
-                            </div>
-                            <div class="mb-20 mt-5" style="font-size: 8px;">
-                                <h4>Amount Payable: ₹ 30000</h4>
-                            </div> --}}
-                        </div>
-
-                        <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-                            <div class=" m-r-20 m-tb-5">
-                                <h5>Grant Total: ₹ 3000</h5>
-                                <h5>Discount: ₹ 500</h5>
-                                <hr>
-                                {{!-- <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
-                                    name="coupon" placeholder="Coupon Code"> --}}
-                                <div>
-                                    <h4>Amount Payable: ₹ 2400</h4>
-                                </div>
-
-                                {{!-- <div class="mb-20 mt-5" style="font-size: 8px;">
-                                    <h5>Grand Total: ₹ 30000</h5>
-                                    <h5>Discount: ₹ 500</h5>
+                            <div class="payment_option">
+                                <div class="custome-radio">
+                                    <input class="form-check-input" required="" type="radio" name="payment-method"
+                                        value="RAZORPAY" checked="">
+                                    <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse"
+                                        data-target="#bankTranfer" aria-controls="bankTranfer">Razorpay</label>
 
                                 </div>
-                                <div class="mb-20 mt-5" style="font-size: 8px;">
-                                    <h4>Amount Payable: ₹ 30000</h4>
+                                <div class="custome-radio">
+                                    <input class="form-check-input" required="" type="radio" name="payment-method"
+                                        value="COD" checked="">
+                                    <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse"
+                                        data-target="#checkPayment" aria-controls="checkPayment">COD</label>
+
+                                </div>
+                                {{!-- <div class="custome-radio">
+                                    <input class="form-check-input" required="" type="radio" name="payment-method"
+                                        value="PAYPAL" checked="">
+                                    <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse"
+                                        data-target="#paypal" aria-controls="paypal">Paypal</label>
                                 </div> --}}
                             </div>
-
-                            {{!-- ============= --}}
-
-                            <div class="bt-1 border-color-1 mt-30 mb-30"></div>
-                            <div class="payment_method">
-                                <div class="mb-25">
-                                    <h5>Payment</h5>
-                                </div>
-                                <div class="payment_option">
-                                    <div class="custome-radio">
-                                        <input class="form-check-input" required="" type="radio" name="payment-method"
-                                            value="RAZORPAY" checked="">
-                                        <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse"
-                                            data-target="#bankTranfer" aria-controls="bankTranfer">Razorpay</label>
-
-                                    </div>
-                                    <div class="custome-radio">
-                                        <input class="form-check-input" required="" type="radio" name="payment-method"
-                                            value="COD" checked="">
-                                        <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse"
-                                            data-target="#checkPayment" aria-controls="checkPayment">COD</label>
-
-                                    </div>
-                                    {{!-- <div class="custome-radio">
-                                        <input class="form-check-input" required="" type="radio" name="payment-method"
-                                            value="PAYPAL" checked="">
-                                        <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse"
-                                            data-target="#paypal" aria-controls="paypal">Paypal</label>
-                                    </div> --}}
-                                </div>
-                            </div>
-                            <button onclick="placeOrderSubmit()" type="submit"
-                                class="btn btn-fill-out btn-block mt-30">Place
-                                Order</button>
                         </div>
+                        <button onclick="placeOrderSubmit()" type="submit"
+                            class="btn btn-fill-out btn-block mt-30">Place
+                            Order</button>
                     </div>
-                    </form>
                 </div>
-
+                </form>
             </div>
+
+        </div>
         </div>
     </section>
 </main>
@@ -265,7 +221,7 @@
             "key": "rzp_test_266WOnlg6wbzrr", // Enter the Key ID generated from the Dashboard
             "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
             "currency": "INR",
-            "name": "Akhila",
+            "name": "Cozastore",
             "description": "Test Transaction",
             "image": "https://example.com/your_logo",
             "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1

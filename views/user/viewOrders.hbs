@@ -16,14 +16,15 @@
                                     <th scope="col">Sl. No.</th>
                                     {{!-- <th class="align-middle" scope="col">Order ID</th> --}}
                                     <th class="align-middle" scope="col">Date</th>
-                                    <th class="align-middle" scope="col">Billing Name</th>
+                                    {{!-- <th class="align-middle" scope="col">Billing Name</th> --}}
                                     <th class="align-middle" scope="col">Address</th>
-                                    <th class="align-middle" scope="col">Pincode</th>
-                                    <th class="align-middle" scope="col">Mobile</th>
+                                    {{!-- <th class="align-middle" scope="col">Pincode</th> --}}
+                                    {{!-- <th class="align-middle" scope="col">Mobile</th> --}}
                                     <th class="align-middle" scope="col">Total</th>
                                     <th class="align-middle" scope="col">Status</th>
                                     <th class="align-middle" scope="col">Payment Method</th>
                                     <th class="align-middle" scope="col">View Details</th>
+                                    <th class="align-middle" scope="col">Cancel</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,25 +33,27 @@
                                     <td scope="row">{{@index}}</td>
                                     <td>{{this.date}}</td>
                                     {{!-- <td><a class="fw-bold">{{this._id}}</a> </td> --}}
-                                    <td>{{this.deliveryDetails.name}}</td>
-                                    <td>{{this.deliveryDetails.address}}</td>
-                                    <td>{{this.deliveryDetails.pincode}}</td>
-                                    <td>{{this.deliveryDetails.mobile}}</td>
+                                    {{!-- <td>{{this.deliveryDetails.name}}</td> --}}
+                                    <td>
+                                        <span>{{this.deliveryDetails.name}},</span>
+                                        <span>{{this.deliveryDetails.address}}
+                                        </span><br>
+                                        <span>{{this.deliveryDetails.pincode}}</span>
+                                    </td>
+                                    {{!-- <td>{{this.deliveryDetails.address}}</td> --}}
+                                    {{!-- <td>{{this.deliveryDetails.pincode}}</td> --}}
+                                    {{!-- <td>{{this.deliveryDetails.mobile}}</td> --}}
                                     <td>₹{{this.totalAmount}}</td>
                                     <td>
-                                        <div class="dropdown">
+                                        <span class="badge badge-pill badge-soft-success">{{this.status}}</span>
+                                        {{!-- <div class="">
                                             <button class="btn btn-primary btn-xs dropdown-toggle" type="button"
                                                 id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                                                 aria-expanded="false">
                                                 {{this.status}}
                                             </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <a class="dropdown-item" href="#">Placed</a>
-                                                <a class="dropdown-item" href="#">Pending</a>
-                                                <a class="dropdown-item" href="#">Cancel</a>
-                                                {{!-- <div class="dropdown-divider"></div> --}}
-                                            </div>
-                                        </div>
+
+                                        </div> --}}
                                     </td>
                                     <td>
                                         <i class="material-icons md-payment font-xxl text-muted mr-5"></i>
@@ -59,6 +62,10 @@
                                     <td>
                                         <a href="/singleOrderDetailUser/{{this._id}}" class="btn btn-xs">
                                             View details</a>
+                                    </td>
+                                    <td>
+                                        <a href="" class="btn btn-xs" style="background-color: crimson;">
+                                            CANCEL</a>
                                     </td>
                                 </tr>
                                 {{/each}}
