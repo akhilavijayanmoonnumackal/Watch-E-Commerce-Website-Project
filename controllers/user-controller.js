@@ -674,6 +674,7 @@ module.exports={
     },
     cancelOrder:(req,res) =>{
         const orderId = req.params.id;
+        console.log("api call from cancel order !!!")
         userHelpers.cancelOrder(orderId).then(() => {
             res.redirect('/viewOrders');
         })

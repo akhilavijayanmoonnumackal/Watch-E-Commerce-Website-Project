@@ -66,7 +66,7 @@
                                     {{#if this.isCancelled}}
                                     <td>
                                         <a href="" class="btn btn-xs disabled" style="background-color: crimson;">
-                                            CANCEL ORDER</a>
+                                            ORDER CANCELLED</a>
                                     </td>
                                     {{else if this.isDelivered}}
                                     <td>
@@ -76,7 +76,8 @@
                                     </td>
                                     {{else}}
                                     <td>
-                                        <a href="" class="btn btn-xs cancelOrder" style="background-color: crimson;">
+                                        <a href="/cancelOrder/{{this._id}}" class="btn btn-xs cancelOrder"
+                                            style="background-color: crimson;">
                                             CANCEL ORDER</a>
                                     </td>
                                     {{/if}}
