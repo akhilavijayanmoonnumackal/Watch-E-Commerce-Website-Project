@@ -848,6 +848,27 @@ module.exports={
             })
         })
     },
+    // cancelOrder:(orderId) => {
+    //     return new Promise((resolve,reject) => {
+
+    //     })
+    // },
+
+    cancelOrder: (orderId) => {
+        return new Promise(async(resolve, reject) => {
+            try {
+                const response = await db.get().collection(collection.ORDER_COLLECTION)
+                    .updateOne({ _id: new ObjectId(orderId) }, { $set: { status: "Cancelled" } });
+                if (response.modifiedCount === 0) {
+                    throw new Error("Failed to cancel order");
+                }
+                resolve({ message: "Order cancelled successfully" });
+            } catch (error) {
+                reject(error);
+            }
+        });
+    },
+
     generateRazorpay: (orderId, total) => {
         return new Promise((resolve, reject) => {
             var options = {

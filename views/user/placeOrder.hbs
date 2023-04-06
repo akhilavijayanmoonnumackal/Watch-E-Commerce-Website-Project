@@ -7,204 +7,197 @@
                 </div>
             </div>
             <div class="row">
-                <form id="checkout-form">
-                    <div class="col-md-6">
-                        <div class="mb-25">
-                            <h4>DELIVERY ADDRESS</h4>
+                <div class="col-md-6">
+                    <div class="mb-25">
+                        <h4>DELIVERY ADDRESS</h4>
+                    </div>
+                    {{!-- {{#each user.address}}
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2 border ">
+                        <div class="p-3">
+                            <p> <b> {{this.name}} </b> <b class="pl-4 font-weight-normal">{{this.mobile}} </b> <a
+                                    type="button" onclick="addressRemove('{{this._id}}')"
+                                    class="text-danger border p-1 float-right"><b> DELETE</b></a></p>
+                            <p>{{this.address}} , {{this.city}} , {{this.district}} , {{this.pincode}}</p>
+
                         </div>
-                        {{!-- {{#each user.address}}
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2 border ">
-                            <div class="p-3">
-                                <p> <b> {{this.name}} </b> <b class="pl-4 font-weight-normal">{{this.mobile}} </b> <a
-                                        type="button" onclick="addressRemove('{{this._id}}')"
-                                        class="text-danger border p-1 float-right"><b> DELETE</b></a></p>
-                                <p>{{this.address}} , {{this.city}} , {{this.district}} , {{this.pincode}}</p>
+                    </div>
+                    {{/each}} --}}
+                    {{#each user.address}}
+                    <div class="div1 pl-4 pt-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                value="option1" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                                <p class="font-weight-bold">{{this.name}} - {{this.mobile}}</p>
 
-                            </div>
+                            </label>
                         </div>
-                        {{/each}} --}}
-                        {{#each user.address}}
-                        <div class="div1 pl-4 pt-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="addressId" id="exampleRadios1"
-                                    value="{{this._id}}" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                    <p class="font-weight-bold">{{this.name}} - {{this.mobile}}</p>
-
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label" for="exampleRadios1">
-                                    {{this.address}}
-                                </label>
-                                <br> <label class="form-check-label" for="exampleRadios1">
-                                    {{this.district}},{{this.state}}-{{this.pincode}}
-                                </label>
-                            </div>
-                            <div class="pt-4">
-                                <button type="submit" class="btn btn-warning btn-sm ml-2">DELIVERY HERE</button>
-                            </div>
+                        <div class="form-check">
+                            <label class="form-check-label" for="exampleRadios1">
+                                {{this.address}}
+                            </label>
+                            <br> <label class="form-check-label" for="exampleRadios1">
+                                {{this.district}},{{this.state}}-{{this.pincode}}
+                            </label>
                         </div>
-                        {{/each}}
+                        <div class="pt-4">
+                            <button type="submit" class="btn btn-warning btn-sm ml-2">DELIVERY HERE</button>
+                        </div>
+                    </div>
+                    {{/each}}
 
-                        {{!-- =====================form================== --}}
+                    {{!-- =====================form================== --}}
 
-                        <br>
+                    <br>
 
-                        <div class="col-md-9">
-                            <div class="profile-content">
-                                <p>
-                                    <button class="btn btn-primary" type="button" data-toggle="collapse"
-                                        data-target="#collapseExample" aria-expanded="false"
-                                        aria-controls="collapseExample">
-                                        + Add New Address
-                                    </button>
-                                </p>
-                                <div class="collapse" id="collapseExample">
-                                    <div class="card card-body">
+                    <div class="col-md-9">
+                        <div class="profile-content">
+                            <p>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                    data-target="#collapseExample" aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    + Add New Address
+                                </button>
+                            </p>
+                            <div class="collapse" id="collapseExample">
+                                <div class="card card-body">
 
 
-                                        <div class="col-md-12">
-                                            <div class="mb-25">
-                                                <h4>Billing Details</h4>
-                                            </div>
-                                            <form method="post" id="checkout-form">
-                                                <div class="row mb-4">
-                                                    <div class="col">
-                                                        <div class="form-group">
-                                                            <input required="" type="text" id="name"
-                                                                class="form-control" placeholder="Full name *"
-                                                                name="name" />
-                                                        </div>
-                                                    </div>
-                                                    {{!-- <div class="col">
-                                                        <div class="form-group">
-                                                            <input required="" type="text" id="form7Example2"
-                                                                class="form-control" name="lname"
-                                                                placeholder="Last name *" />
-                                                        </div>
-                                                    </div> --}}
-                                                </div>
-
-                                                <div class="row mb-4">
-                                                    <div class="col">
-                                                        <div class="form-group">
-                                                            <input required="" type="text" id="pincode"
-                                                                class="form-control" placeholder="Postcode / ZIP *"
-                                                                name="pincode" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-group">
-                                                            <input required="" type="phone" id="mobile"
-                                                                class="form-control" name="mobile"
-                                                                placeholder="Phone *" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <input required="" type="text" id="locality" class="form-control"
-                                                        name="locality" placeholder="Locality *" />
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <input required="" type="text" id="address" class="form-control"
-                                                        name="address" placeholder="Address *" />
-                                                </div>
-
-                                                <div class="row mb-4">
-                                                    <div class="col">
-                                                        <div class="form-group">
-                                                            <input required="" type="text" id="city"
-                                                                class="form-control"
-                                                                placeholder="City / District / Town *" name="city" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-group">
-                                                            <input required="" type="state" id="state"
-                                                                class="form-control" name="state"
-                                                                placeholder="State / County *" />
-                                                            <input type="text" name="userId" id="" value="{{user._id}}"
-                                                                hidden>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                {{!-- <div class="form-group">
-                                                    <input required="" type="text" name="phone"
-                                                        placeholder="Alternate Phone(Optional) *">
-                                                </div> --}}
-
-                                                <div class="form-check d-flex justify-content-center mb-2">
-                                                    <a href="/placeOrder"
-                                                        class="btn btn-light rounded font-sm mr-5 text-body hover-up">
-                                                        Cancel
-                                                    </a>
-                                                    {{!-- <button type="submit"
-                                                        class="btn btn-warning rounded font-sm hover-up">SAVE
-                                                        AND DELIVERY HERE</button> --}}
-                                                </div>
-                                                {{!--
-                                            </form> --}}
+                                    <div class="col-md-12">
+                                        <div class="mb-25">
+                                            <h4>Billing Details</h4>
                                         </div>
+                                        <form method="post" id="checkout-form">
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <input required="" type="text" id="name" class="form-control"
+                                                            placeholder="Full name *" name="name" />
+                                                    </div>
+                                                </div>
+                                                {{!-- <div class="col">
+                                                    <div class="form-group">
+                                                        <input required="" type="text" id="form7Example2"
+                                                            class="form-control" name="lname"
+                                                            placeholder="Last name *" />
+                                                    </div>
+                                                </div> --}}
+                                            </div>
 
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <input required="" type="text" id="pincode" class="form-control"
+                                                            placeholder="Postcode / ZIP *" name="pincode" />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <input required="" type="phone" id="mobile" class="form-control"
+                                                            name="mobile" placeholder="Phone *" />
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                            <div class="form-group">
+                                                <input required="" type="text" id="locality" class="form-control"
+                                                    name="locality" placeholder="Locality *" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input required="" type="text" id="address" class="form-control"
+                                                    name="address" placeholder="Address *" />
+                                            </div>
+
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <input required="" type="text" id="city" class="form-control"
+                                                            placeholder="City / District / Town *" name="city" />
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <input required="" type="state" id="state" class="form-control"
+                                                            name="state" placeholder="State / County *" />
+                                                        <input type="text" name="userId" id="" value="{{user._id}}"
+                                                            hidden>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {{!-- <div class="form-group">
+                                                <input required="" type="text" name="phone"
+                                                    placeholder="Alternate Phone(Optional) *">
+                                            </div> --}}
+
+                                            <div class="form-check d-flex justify-content-center mb-2">
+                                                <a href="/placeOrder"
+                                                    class="btn btn-light rounded font-sm mr-5 text-body hover-up">
+                                                    Cancel
+                                                </a>
+                                                {{!-- <button type="submit"
+                                                    class="btn btn-warning rounded font-sm hover-up">SAVE
+                                                    AND DELIVERY HERE</button> --}}
+                                            </div>
+                                            {{!--
+                                        </form> --}}
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-6">
-                        <div class="order_review">
-                            <div class="mb-20">
-                                <h4>Total Price</h4>
-                            </div>
-                            <div class="size-209 p-t-1">
-                                <span class="mtext-110 cl2" data-price={{total}} id="totalValue">
-                                    ₹ {{total}}
-                                </span>
-                            </div>
-
-
-
-
-
-                            <div class="bt-1 border-color-1 mt-30 mb-30"></div>
-                            <div class="payment_method">
-                                <div class="mb-25">
-                                    <h5>Payment</h5>
-                                </div>
-                                <div class="payment_option">
-                                    <div class="custome-radio">
-                                        <input class="form-check-input" required="" type="radio" name="payment-method"
-                                            value="RAZORPAY" checked="">
-                                        <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse"
-                                            data-target="#bankTranfer" aria-controls="bankTranfer">Razorpay</label>
-
-                                    </div>
-                                    <div class="custome-radio">
-                                        <input class="form-check-input" required="" type="radio" name="payment-method"
-                                            value="COD" checked="">
-                                        <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse"
-                                            data-target="#checkPayment" aria-controls="checkPayment">COD</label>
-
-                                    </div>
-                                    {{!-- <div class="custome-radio">
-                                        <input class="form-check-input" required="" type="radio" name="payment-method"
-                                            value="PAYPAL" checked="">
-                                        <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse"
-                                            data-target="#paypal" aria-controls="paypal">Paypal</label>
-                                    </div> --}}
-                                </div>
-                            </div>
-                            <button onclick="placeOrderSubmit()" type="submit" class="btn btn-fill-out btn-block mt-30"
-                                value="Place Order">Place
-                                Order</button>
+                </div>
+                <div class="col-md-6">
+                    <div class="order_review">
+                        <div class="mb-20">
+                            <h4>Total Price</h4>
                         </div>
+                        <div class="size-209 p-t-1">
+                            <span class="mtext-110 cl2" data-price={{total}} id="totalValue">
+                                ₹ {{total}}
+                            </span>
+                        </div>
+
+
+
+
+
+                        <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                        <div class="payment_method">
+                            <div class="mb-25">
+                                <h5>Payment</h5>
+                            </div>
+                            <div class="payment_option">
+                                <div class="custome-radio">
+                                    <input class="form-check-input" required="" type="radio" name="payment-method"
+                                        value="RAZORPAY" checked="">
+                                    <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse"
+                                        data-target="#bankTranfer" aria-controls="bankTranfer">Razorpay</label>
+
+                                </div>
+                                <div class="custome-radio">
+                                    <input class="form-check-input" required="" type="radio" name="payment-method"
+                                        value="COD" checked="">
+                                    <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse"
+                                        data-target="#checkPayment" aria-controls="checkPayment">COD</label>
+
+                                </div>
+                                {{!-- <div class="custome-radio">
+                                    <input class="form-check-input" required="" type="radio" name="payment-method"
+                                        value="PAYPAL" checked="">
+                                    <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse"
+                                        data-target="#paypal" aria-controls="paypal">Paypal</label>
+                                </div> --}}
+                            </div>
+                        </div>
+                        <button onclick="placeOrderSubmit()" type="submit"
+                            class="btn btn-fill-out btn-block mt-30">Place
+                            Order</button>
                     </div>
+                </div>
                 </form>
             </div>
 
@@ -216,7 +209,6 @@
 <script>
     function placeOrderSubmit() {
         console.log("apicall")
-
         $("#checkout-form").submit((e) => {
             e.preventDefault()
             $.ajax({

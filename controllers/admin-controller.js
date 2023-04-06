@@ -96,7 +96,6 @@ module.exports ={
         })
        }        
     },
-
     addProductPost:async(req,res)=>{
         try{
             console.log(req.files)        

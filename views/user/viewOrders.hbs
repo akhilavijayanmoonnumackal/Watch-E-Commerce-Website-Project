@@ -63,10 +63,23 @@
                                         <a href="/singleOrderDetailUser/{{this._id}}" class="btn btn-xs">
                                             View details</a>
                                     </td>
+                                    {{#if this.isCancelled}}
                                     <td>
-                                        <a href="" class="btn btn-xs" style="background-color: crimson;">
-                                            CANCEL</a>
+                                        <a href="" class="btn btn-xs disabled" style="background-color: crimson;">
+                                            CANCEL ORDER</a>
                                     </td>
+                                    {{else if this.isDelivered}}
+                                    <td>
+                                        <a href="" class="btn btn-xs disabled"
+                                            style="background-color: rgb(228, 143, 24);">
+                                            CANCEL ORDER</a>
+                                    </td>
+                                    {{else}}
+                                    <td>
+                                        <a href="" class="btn btn-xs cancelOrder" style="background-color: crimson;">
+                                            CANCEL ORDER</a>
+                                    </td>
+                                    {{/if}}
                                 </tr>
                                 {{/each}}
                             </tbody>

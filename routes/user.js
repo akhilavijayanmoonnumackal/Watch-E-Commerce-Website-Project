@@ -6,6 +6,7 @@ const productHelpers=require('../helpers/product-helpers')
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
 const adminController = require('../controllers/admin-controller');
+const { route } = require('./admin');
 
 /* GET home page. */
 router.get('/', controller.get);
@@ -38,6 +39,7 @@ router.post('/addAddress/:id', controller.addAddressPost);
 // router.post('/applyCoupon', controller.applyCoupon);
 router.get('/viewOrders', controller.viewOrders);
 router.get('/singleOrderDetailUser/:id', controller.singleOrderDetailUser);
+router.get('/cancelOrder/:id', controller.cancelOrder);
 router.post('/verifyPayment', controller.verifyPayment);
 
 

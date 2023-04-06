@@ -634,17 +634,32 @@ module.exports={
     //     const discount = coupon.discount
     //     const total = subtotal - discount
     //     return { success: true, message: 'Coupon code applied', total: total }
-    //     }   
-    
+    //     } 
+      
     viewOrders: async(req,res) => {
         if(req.session.loggedIn) {
-            let user = req.session.user;
-            let orders = await userHelpers.getUserOrders(req.session.user._id)            
+            const user = req.session.user;
+            const userId = req.session.user._id;
+            let orders = await userHelpers.getUserOrders(userId)   
+            orders.forEach(order => {
+                order.isCancelled = order.status === "cancelled"?true:false;
+                order.isDelivered = order.status === "delivered"?true:false;
+                date = new Date()
+            })         
             res.render('user/viewOrders', {admin:false,user,userHeader:true,orders})            
         }else{
             res.redirect('/login')
         }
     },
+    // viewOrders: async(req,res) => {
+    //     if(req.session.loggedIn) {
+    //         let user = req.session.user;
+    //         let orders = await userHelpers.getUserOrders(req.session.user._id)            
+    //         res.render('user/viewOrders', {admin:false,user,userHeader:true,orders})            
+    //     }else{
+    //         res.redirect('/login')
+    //     }
+    // },
     singleOrderDetailUser: async(req,res) => {
         if(req.session.loggedIn) {
             let user = req.session.user;
@@ -656,6 +671,12 @@ module.exports={
         }else{
             res.redirect('/login')
         }
+    },
+    cancelOrder:(req,res) =>{
+        const orderId = req.params.id;
+        userHelpers.cancelOrder(orderId).then(() => {
+            res.redirect('/viewOrders');
+        })
     },
     verifyPayment: (req,res) => {
         console.log(req.body);

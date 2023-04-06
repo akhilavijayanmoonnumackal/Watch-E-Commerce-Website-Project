@@ -30,6 +30,7 @@ router.get('/unlistcategory/:id', adminController.unlistcategory);
 router.post('/editCategory/:id', adminController.editCategoryPost);
 router.get('/view-products', adminController.viewProducts);
 router.get('/add-product', adminController.addProductGet);
+// router.route('/add-product').get(sessionChecker.checkforAdmin, adminController.addProductGet);
 router.post('/add-product', upload.array("image"), adminController.addProductPost);
 //router.get('/listCategoryOrUnlistCategory/:id', adminController.listCategoryOrUnlistCategory);
 router.get('/editProduct/:id', adminController.editProduct);
