@@ -446,15 +446,30 @@ module.exports ={
             res.redirect('/admin/coupon')
         }
     },
-    orderManagement: (req,res) => {
+    orderManagement: async(req,res) => {
         if(req.session.adminLoggedIn) {
-            adminHelpers.allOrders().then((order) => {
-                res.render('admin/orderManagement', {admin: true,adminName: req.session.adminName,order})
+            const orders = await adminHelpers.allOrders();
+            orders.forEach(order => {
+                order.isCancelled = order.status === "cancelled" || order.status === 'delivered' ? true:false;
+                order.isShipped = order.status === "shipped"?true:false;
+                order.isDelivered = order.status === "delivered"?true:false;
+                order.isPlaced = order.status === 'placed' || order.status === 'pending' ? true:false;
+                date = new Date()
             })
+                res.render('admin/orderManagement', {admin: true,adminName: req.session.adminName,orders})           
         }else{
             res.redirect('/admin/admin-login')
         }
     },
+    // orderManagement: (req,res) => {
+    //     if(req.session.adminLoggedIn) {
+    //         adminHelpers.allOrders().then((order) => {
+    //             res.render('admin/orderManagement', {admin: true,adminName: req.session.adminName,order})
+    //         })
+    //     }else{
+    //         res.redirect('/admin/admin-login')
+    //     }
+    // }
     singleOrderDetail: async(req,res) => {
         if(req.session.adminLoggedIn) {
             let orderId = req.params.id;
@@ -467,5 +482,12 @@ module.exports ={
         }else{
             res.render('admin/admin-login');
         }
+    },
+    cancelOrder:(req,res) => {
+        const orderId = req.params.id;
+        adminHelpers.cancelOrder(orderId).then(() => {
+            res.redirect('/orderManagement');
+        })
     }
+    
 }

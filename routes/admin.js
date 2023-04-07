@@ -44,5 +44,6 @@ router.get('/deactivateCoupon/:id', adminController.deactivateCoupon);
 router.post('/editCoupon/:id', adminController.editCouponPost);
 router.get('/orderManagement', adminController.orderManagement);
 router.get('/singleOrderDetail/:id', adminController.singleOrderDetail);
+router.get('/cancelOrder/:id', adminController.cancelOrder);
 
 module.exports = router;

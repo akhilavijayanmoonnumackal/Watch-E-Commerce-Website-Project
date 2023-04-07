@@ -381,5 +381,43 @@ module.exports={
                 resolve(response);
             })
         })
+    },
+    cancelOrder: (orderId) => {
+        return new Promise((resolve,reject) => {
+            orderId = new ObjectId(orderId)
+            db.get().collection(collection.ORDER_COLLECTION)
+            .updateOne(
+                {
+                    _id: orderId
+                },
+                {
+                    $set:{
+                        status: 'cancelled'
+                    }
+                }
+            ).then((response) => {
+                resolve(response);
+            })
+        })
     }
+
+    // cancelOrder:(orderId) => {
+    //     return new Promise((resolve,reject) => {
+    //         orderId= new ObjectId(orderId)
+    //         db.get().collection(collection.ORDER_COLLECTION)
+    //         .updateOne(
+    //         {
+    //             _id: orderId
+    //         },
+    //         {
+    //             $set: {
+    //                 status: 'cancelled'
+    //             }
+    //         }
+    //         ).then((response) => {
+    //             console.log(response)
+    //             resolve(response);
+    //         })
+    //     })
+    // }
 }

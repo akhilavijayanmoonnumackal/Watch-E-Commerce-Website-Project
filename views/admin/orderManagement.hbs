@@ -21,13 +21,15 @@
                                 <th class="align-middle" scope="col">Billing Name</th>
                                 <th class="align-middle" scope="col">Date</th>
                                 <th class="align-middle" scope="col">Total</th>
-                                <th class="align-middle" scope="col">Payment Status</th>
+                                <th class="align-middle" scope="col">Status</th>
                                 <th class="align-middle" scope="col">Payment Method</th>
                                 <th class="align-middle" scope="col">View Details</th>
+                                <th class="align-middle" scope="col">Cancel</th>
+                                <th class="align-middle" scope="col">Shipping</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each order}}
+                            {{#each orders}}
                             <tr>
                                 <td scope="row">{{@index}}</td>
                                 {{!-- <td class="text-center">
@@ -62,23 +64,8 @@
                                         </div>
                                     </div> --}}
                                     <div class="dropdown">
-                                        <button class="btn btn-primary btn-xs dropdown-toggle" type="button"
-                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            {{this.status}}
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item" href="#">Shipped</a>
-                                            <a class="dropdown-item" href="#">In Transit</a>
-                                            <a class="dropdown-item" href="#">Out for Delivery</a>
-                                            <a class="dropdown-item" href="#">Delivered</a>
-                                            <a class="dropdown-item" href="#">Cancel</a>
-                                            {{!-- <div class="dropdown-divider"></div> --}}
-
-                                        </div>
+                                        <span class="badge badge-pill badge-soft-success">{{this.status}}</span>
                                     </div>
-
-
                                 </td>
                                 <td>
                                     <i class="material-icons md-payment font-xxl text-muted mr-5"></i>
@@ -88,6 +75,28 @@
                                     <a href="/admin/singleOrderDetail/{{this._id}}" class="btn btn-xs">
                                         View details</a>
                                 </td>
+                                {{#if this.isCancelled}}
+                                <td>
+                                    <a href="/admin/singleOrderDetail/{{this._id}}" class="btn btn-xs disabled"
+                                        style="background-color: rgb(228, 24, 24);">
+                                        Order Cancelled</a>
+                                </td>
+                                {{else if this.isDelivered}}
+                                <td>
+                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(82, 228, 24);">
+                                        Cancel Order</a>
+                                </td>
+                                {{else if this.isShipped}}
+                                <td>
+                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(228, 143, 24);">
+                                        Order Shipped</a>
+                                </td>
+                                {{else}}
+                                <td>
+                                    <a href="/admin/cancelOrder/{{this._id}}" class="btn btn-xs disabled">
+                                        Cancel Order</a>
+                                </td>
+                                {{/if}}
                             </tr>
                             {{/each}}
                         </tbody>
