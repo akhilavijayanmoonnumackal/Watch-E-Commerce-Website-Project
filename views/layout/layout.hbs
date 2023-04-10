@@ -162,22 +162,7 @@
 
         /*---------------------------------------------*/
 
-        $('.js-addcart-detail').each(function () {
-            var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-            $(this).on('click', function () {
-                Toastify({
-                    text: 'Product is added to cart!',
-                    duration: 3000,
-                    gravity: 'bottom',
-                    position: 'center',
-                    backgroundColor: "linear-gradient(#e66465, #9198e5)",
-                    stopOnFocus: true,
-                    onClick: function () {
-                        console.log("apiCall");
-                    }
-                }).showToast();
-            });
-        });
+
 
 
     </script>

@@ -9,9 +9,11 @@ const adminController = require('../controllers/admin-controller');
 const { route } = require('./admin');
 
 /* GET home page. */
+// router.get('/', sessionChecker.userAuth, controller.get);
 router.get('/', controller.get);
 router.get('/login', controller.userLogin)
-router.post('/login',controller.userLoginPost)
+// router.post('/login',controller.userLoginPost);
+router.post('/login', controller.userLoginPost)
 router.get('/signup', controller.userSignup)
 router.post('/signup', controller.userSignupPost)
 router.get('/logout', controller.userLogout)
@@ -20,13 +22,13 @@ router.post('/send-otp',controller.sendOtp);
 router.post('/verify-otp',controller.verifyOtp);
 router.get('/shop',controller.shop);
 router.get('/productDetail/:id',controller.productDetail);
-router.get('/addToCart', controller.addToCart);
-router.get('/cart', controller.cartDetails);
+router.get('/addToCart/:id', controller.addToCart);
+router.get('/cart',sessionChecker.userAuth, controller.cartDetails);
 router.post('/change-product-quantity', controller.changeProductQuantity);
 //router.get('/checkout', controller.getTotalAmount);
 router.get('/remove-cart-product/:id', controller.removeProduct);
 //router.get('/wishList', controller.getWishList);
-router.get('/wishList', controller.wishListDetails);
+router.get('/wishList',sessionChecker.userAuth, controller.wishListDetails);
 router.get('/addToWishlist', controller.addToWishlist);
 router.get('/removeWishlistProduct/:id', controller.removeWishlistProduct);
 router.get('/place-order', controller.getPlaceOrder);

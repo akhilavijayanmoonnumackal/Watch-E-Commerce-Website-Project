@@ -86,7 +86,7 @@ module.exports={
                     products:{$elemMatch:
                     {productId}}
                 });
-                console.log(proExist);
+                // console.log(proExist);
             if (isCart) {
                 if(proExist){
                     db.get().collection(collection.CART_COLLECTION)
@@ -245,62 +245,7 @@ module.exports={
             })
         })
     },
-    // removeCartProduct: (details) => {
-    //     return new Promise((resolve, reject) => {
-    //         db.get().collection(collection.CART_COLLECTION)
-    //         .updateOne({_id:new ObjectId(details.cart) },
-    //         {
-    //             $pull: { products: { item:new ObjectId(details.product) } }
-    //         }
-    //         ).then((response) => {
-    //             resolve(removeProduct=true)
-    //         })
-    //     })
-    // },
-    // getTotalAmount: (userId) => {
-    //     return new Promise(async(resolve,reject)=>{
-    //         let total = await db.get().collection(collection.CART_COLLECTION)
-    //         .aggregate([
-    //             {
-    //                 '$match': { 'userId': userId }
-    //             },
-    //             {
-    //                 '$unwind': '$products'
-    //             },
-    //             {
-    //                 '$project': {
-    //                     'item': '$products.productId',
-    //                     'quantity': '$products.quantity'
-    //                 }
-    //             },
-    //             {
-    //                 '$lookup': {
-    //                     'from': collection.PRODUCT_COLLECTION,
-    //                     'localField': 'products.productId',
-    //                     'foreignField': '_id',
-    //                     'as': 'productDetails'
-    //                 }
-    //             },
-    //             {
-    //                 '$project': {
-    //                     'item': 1, quantity: 1, 'product': { '$arrayElemAt': ['$product', 0] }
-    //                 }
-    //             },
-    //             {
-    //                 '$group': {
-    //                     '_id': null,
-    //                     'total': { '$sum': { '$multiply': ['$quantity', { '$toInt': '$product.price' }] } }
-    //                 }
-    //             }
-    //         ]).toArray();
-    //         try {
-    //             console.log(total[0].total);
-    //             resolve(total[0].total)
-    //         }catch {
-    //             resolve(null)
-    //         }            
-    //     })
-    // },
+    
     get1TotalAmount: (userId) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -390,163 +335,6 @@ module.exports={
             }
         })
     },
-    // wishListDetails:(userId) => {
-    //     return new Promise(async(resolve,reject) => {
-    //         try {
-    //             userId=new ObjectId(userId);
-    //             let result = await db.get().collection(collections.WISHLIST_COLLECTION)
-    //         .aggregate(
-    //             [
-    //                 {
-    //                   '$match': {
-    //                     'userId': new ObjectId(userId)
-    //                   }
-    //                 }, {
-    //                   '$lookup': {
-    //                     'from': 'products', 
-    //                     'localField': 'products', 
-    //                     'foreignField': '_id', 
-    //                     'as': 'productDetails'
-    //                   }
-    //                 }, {
-    //                   '$project': {
-    //                     'productDetails': 1, 
-    //                     '_id': 0
-    //                   }
-    //                 }
-    //             ]
-    //         ).toArray();
-    //         console.log(result);
-    //         console.log("iiiiiiiiiiiiiiiiiiiiii",result.length);
-    //         if(result.length != 0) {
-    //             if(result.length===1) {
-    //                 if(result[0].proDetails.length===0) {
-    //                     console.log("yyyyyyyyyyyyyyyyyyy");
-    //                     console.log(`wishpro: ${result[0].proDetails.length}`);
-    //                     resolve(null)
-    //                 }                    
-    //             }
-    //             resolve(result)
-    //         }else{
-    //             resolve(null)
-    //         }
-    //     } catch {
-    //         resolve (null)
-    //         }                       
-    //     })
-    // },
-
-    // wishListDetails:(userId) => {
-    //     return new Promise(async(resolve,reject) => {
-    //         let result = await db.get().collection(collections.WISHLIST_COLLECTION)
-    //         .aggregate(
-    //             [
-    //                 {
-    //                   '$match': {
-    //                     'userId': new ObjectId(userId)
-    //                   }
-    //                 }, {
-    //                   '$lookup': {
-    //                     'from': 'products', 
-    //                     'localField': 'products', 
-    //                     'foreignField': '_id', 
-    //                     'as': 'productDetails'
-    //                   }
-    //                 }, {
-    //                   '$project': {
-    //                     'productDetails': 1, 
-    //                     '_id': 0
-    //                   }
-    //                 }
-    //             ]
-    //         ).toArray();
-    //         console.log("jjjjjjjjjjj",result.length);
-    //         if(result.length != 0) {
-    //             if(result.length===1) {
-    //                 if(result[0].proDetails.length===0) {
-    //                     console.log("yyyyyyyyyyyyyyyyyyy");
-    //                     console.log(`wishpro: ${result[0].proDetails.length}`);
-    //                     resolve(null)
-    //                 }                    
-    //             }
-    //             resolve(result)
-    //         }else{
-    //             resolve(null)
-    //         }
-    //     })
-    // },
-
-    // wishListDetails:(userId) => {
-    //     return new Promise(async(resolve,reject) => {
-    //         let result = await db.get().collection(collections.WISHLIST_COLLECTION)
-    //         .aggregate(
-    //             [
-    //                 {
-    //                   '$match': {
-    //                     'userId': new ObjectId(userId)
-    //                   }
-    //                 }, {
-    //                   '$lookup': {
-    //                     'from': 'products', 
-    //                     'localField': 'products', 
-    //                     'foreignField': '_id', 
-    //                     'as': 'productDetails'
-    //                   }
-    //                 }, {
-    //                   '$project': {
-    //                     'productDetails': 1, 
-    //                     '_id': 0
-    //                   }
-    //                 }
-    //             ]
-    //         ).toArray();
-    //         console.log(result[0].productDetails);
-    //         resolve(result[0].productDetails)
-    //     })
-    // },
-    // wishListDetails:(userId) => {
-    //     return new Promise(async(resolve,reject) => {
-    //         let result = await db.get().collection(collections.WISHLIST_COLLECTION)
-    //         .aggregate(
-    //             [
-    //                 {
-    //                   '$match': {
-    //                     'userId': new ObjectId(userId)
-    //                   }
-    //                 }, {
-    //                   '$unwind': {
-    //                     'path': '$products', 
-    //                     'preserveNullAndEmptyArrays': true
-    //                   }
-    //                 }, {
-    //                   '$lookup': {
-    //                     'from': 'products', 
-    //                     'localField': 'products', 
-    //                     'foreignField': '_id', 
-    //                     'as': 'productDetails'
-    //                   }
-    //                 }, {
-    //                   '$project': {
-    //                     'productDetails': 1, 
-    //                     '_id': 0
-    //                   }
-    //                 }
-    //               ]
-    //         ).toArray();
-    //         console.log("result",result);
-    //         console.log(result.length);
-    //         if(result.length!=0){
-    //             if(result.length===1) {
-    //                 if(result[0].productDetails.length===0){
-    //                     console.log(`wishDetails : ${result[0].productDetails.length}`);
-    //                     resolve(null)
-    //                 }
-    //             }
-    //         }
-    //         resolve(result)
-    //     })
-    // },
-
 
     wishListDetails:(userId) => {
         return new Promise(async(resolve,reject) => {
@@ -580,7 +368,7 @@ module.exports={
                   ]
             ).toArray();
             console.log("result",result);
-            console.log(result.length);
+            console.log("yyyyyyyyyy",result.length);
             if(result.length!=0){
                 if(result.length===1) {
                     if(result[0].productDetails.length===0){
@@ -598,6 +386,56 @@ module.exports={
             
         })
     },
+
+    // cartDetails: (userId) => {
+    //     return new Promise(async (resolve, reject) => {
+    //       try {
+    //         userId = new ObjectId(userId);
+    //         let cartItems = await db.get().collection(collection.CART_COLLECTION)
+    //         .aggregate([
+    //             {
+    //               '$match': {
+    //                 'userId': userId
+    //               }
+    //             }, {
+    //               '$unwind': {
+    //                 'path': '$products', 
+    //                 'preserveNullAndEmptyArrays': true
+    //               }
+    //             }, {
+    //               '$lookup': {
+    //                 'from': 'products', 
+    //                 'localField': 'products.productId', 
+    //                 'foreignField': '_id', 
+    //                 'as': 'proDetails'
+    //               }
+    //             }, {
+    //               '$project': {
+    //                 'proDetails': 1, 
+    //                 'products.quantity': 1, 
+    //                 '_id': 0
+    //               }
+    //             }
+    //           ]).toArray();
+    //         console.log(cartItems)
+    //         console.log("fdgffffffffffffffffffffff",cartItems.length);
+    //         if(cartItems.length!=0){
+    //             if(cartItems.length===1){
+    //                 if(cartItems[0].proDetails.length===0){
+    //                     console.log("noijas")
+    //                     console.log(`prodetailslength : ${cartItems[0].proDetails.length}`);
+    //                     resolve(null);
+    //                 }
+    //             }
+    //             resolve(cartItems)
+    //         }else{
+    //             resolve(null);
+    //         }
+    //       } catch {
+    //         resolve(null);
+    //         }
+    //     });
+    //   },
 
 
 
@@ -925,6 +763,19 @@ module.exports={
             }).then(() => {
                 resolve()
             })
+        })
+    },
+    getCartCountNew:(userId)=>{
+        return new Promise(async(resolve, reject)=>{
+            const cartCount = await db.get().collection(collection.CART_COLLECTION).find({userId: new ObjectId(userId)}).toArray();
+            resolve(cartCount[0].products.length);
+        })
+    },
+    wishlistCount:(userId)=>{
+        return new Promise(async(resolve, reject)=>{
+            const wishlistCount = await db.get().collection(collection.WISHLIST_COLLECTION).find({userId: new ObjectId(userId)}).toArray();
+            console.log(wishlistCount[0].products.length);
+            resolve(wishlistCount[0].products.length);
         })
     }
 }
