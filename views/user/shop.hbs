@@ -292,8 +292,9 @@
                         </div>
 
                         <div class="block2-txt-child2 flex-r p-t-3">
-                            <a href="/wishList" data-product="{{this._id}}"
-                                class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                            <a href="#" data-product="{{products._id}}"
+                                class="btn-addwish-b2 dis-block pos-relative js-addwish-b2"
+                                onclick="event.preventDefault(); addToWishlist('{{this._id}}')">
                                 <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
                                     alt="ICON">
                                 <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png"
@@ -527,49 +528,52 @@
 <!--===============================================================================================-->
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
 
+
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 
+{{!-- =============wishlist sample================= --}}
 <script>
-    $('.js-addwish-b2').on('click', function (e) {
-        e.preventDefault();
-    });
-
-    $('.js-addwish-b2').each(function () {
-        var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-        $(this).on('click', function () {
-            var productId = $(this).data('product');
-            $.get('/addToWishlist', { productId: productId }, function (response) {
-                if (response.success) {
-                    swal(nameProduct, "is added to wishlist!", "success");
-                    $(this).addClass('js-addedwish-b2');
-                    $(this).off('click');
+    function addToWishlist(proId) {
+        console.log(".0000000000000000")
+        $.ajax({
+            url: '/addToWishlist/' + proId,
+            method: 'get',
+            success: (response) => {
+                console.log(response)
+                console.log("yyyyyyyyyyy");
+                if (response.message === "guest") {
+                    console.log("////////api here!!!");
+                    $("#wishlist-count").load(window.location.href + " #wishlist-count");
+                    Toastify({
+                        text: 'Product added to cart!',
+                        duration: 3000,
+                        gravity: 'bottom',
+                        position: 'center',
+                        backgroundColor: "linear-gradient(#e66465, #9198e5)",
+                        stopOnFocus: true,
+                        // onClick: function () {
+                        //     console.log("apiCall");
+                        // }
+                    }).showToast();
                 } else {
-                    swal("Error", response.message, "error");
+                    location.href = '/login'
                 }
-            });
-        });
-    });
-</script>
-
-<script>
-    $('.js-addwish-b2').on('click', function (e) {
+            },
+            error: (error) => {
+                console.error(error);
+                // handle the error here
+            }
+        })
+    }
+    $(document).on('click', '.js-addWish-b2', (e) => {
+        console.log("777777777")
         e.preventDefault();
-    });
-    $('.js-addwish-b2').each(function () {
-        var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-        $(this).on('click', function () {
-            Toastify({
-                text: "Product is added to wishlist !",
-                duration: 3000,
-                gravity: "bottom",
-                position: "center",
-                backgroundColor: "linear-gradient(#e66465, #9198e5)",
-            }).showToast();
+        const el = $(this);
 
-            $(this).addClass('js-addedwish-b2');
-            $(this).off('click');
-        });
+        const productId = el.data('product');
+        console.log(productId);
+        addToWishlist(productId);
     });
 </script>
 

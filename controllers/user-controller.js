@@ -18,28 +18,49 @@ module.exports={
         let banner = await adminController.getAllBanners();
         if(req.session.loggedIn){
             let user=req.session.user;
+            cartCount = await userHelpers.getCartCountNew(req.session.user._id);
+            req.session.cartCount = parseInt(cartCount);
+            wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
+            req.session.wishlistCount = parseInt(wishlistCount);
+
             console.log(user);
-            let product = await userHelpers.cartDetails(req.session.user._id);
-            let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
-            
-            try{
-                cartCount = product.length;
-                wishlistCount = wishProduct.length;
-            }catch(err){
-                console.log(err)
-            }finally{
-                console.log(banner)
-                if(cartCount>0) {
-                    res.render('user/home',{admin:false,user,cartCount,banner, userHeader:true,wishlistCount}); 
-                }else{
-                    res.render('user/home',{admin:false,user,cartCount,banner, userHeader:true,wishlistCount}); 
-                }
-                   
-            }     
+            // let product = await userHelpers.cartDetails(req.session.user._id);
+            // let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
+            res.render('user/home',{admin:false,user,cartCount,banner, userHeader:true,wishlistCount});
+                 
         }else{
             res.render('user/home',{admin:false,cartCount,banner,wishlistCount, userHeader:true});  
         }      
     },
+
+    // get:async(req,res)=>{        
+    //     let cartCount = 0;
+    //     let wishlistCount = 0;
+    //     let banner = await adminController.getAllBanners();
+    //     if(req.session.loggedIn){
+    //         let user=req.session.user;
+    //         console.log(user);
+    //         let product = await userHelpers.cartDetails(req.session.user._id);
+    //         let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
+            
+    //         try{
+    //             cartCount = product.length;
+    //             wishlistCount = wishProduct.length;
+    //         }catch(err){
+    //             console.log(err)
+    //         }finally{
+    //             console.log(banner)
+    //             if(cartCount>0) {
+    //                 res.render('user/home',{admin:false,user,cartCount,banner, userHeader:true,wishlistCount}); 
+    //             }else{
+    //                 res.render('user/home',{admin:false,user,cartCount,banner, userHeader:true,wishlistCount}); 
+    //             }
+                   
+    //         }     
+    //     }else{
+    //         res.render('user/home',{admin:false,cartCount,banner,wishlistCount, userHeader:true});  
+    //     }      
+    // },
     // get:async(req,res)=>{        
     //     let count = 0;
     //     let banner = await adminController.getAllBanners();
@@ -144,35 +165,40 @@ module.exports={
             }
         })
     },  
+    // shop: async(req,res)=>{
+    //     let cartCount = 0;
+    //     let wishlistCount = 0;
+    //     if(req.session.loggedIn){
+    //         let user=req.session.user;
+    //         cartCount = await userHelpers.getCartCountNew(req.session.user._id);
+    //         req.session.cartCount = parseInt(cartCount);
+    //         wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
+    //         req.session.wishlistCount = parseInt(wishlistCount);
+    //         adminHelpers.getAllCategories().then((category) => {
+    //             productHelpers.viewProducts().then((products)=>{
+    //                 res.render('user/shop',{admin:false,products,user,category,cartCount,wishlistCount,userHeader:true});
+    //                 console.log(products);
+    //             })
+    //         })
+                                          
+    //     }
+    // },
     shop: async(req,res)=>{
         let cartCount = 0;
         let wishlistCount = 0;
         if(req.session.loggedIn){
             let user=req.session.user;
-            let product = await userHelpers.cartDetails(req.session.user._id);
-            let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
+            cartCount = await userHelpers.getCartCountNew(req.session.user._id);
+            req.session.cartCount = parseInt(cartCount);
+            wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
+            req.session.wishlistCount = parseInt(wishlistCount);
+            //let products = await userHelpers.cartDetails(req.session.user._id);
+            // let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
             // let wishlistCount = req.session.wishlistCount;
-            try{
-                cartCount = product.length; 
-                wishlistCount = wishProduct.length;
-            }catch{
-                console.log("err");
-            }finally{
-                if(cartCount>0) {
-                    adminHelpers.getAllCategories().then((category) => {
-                        productHelpers.viewProducts().then((products)=>{
-                            res.render('user/shop',{admin:false,products,user,category,cartCount,wishlistCount,userHeader:true});
-                            console.log(products);
-                        })
-                    })
-                    
-                }else{
-                    productHelpers.viewProducts().then((products)=>{
-                        res.render('user/shop',{admin:false,products,user,cartCount,wishlistCount,userHeader:true});
-                        console.log(products);
-                    })
-                }                
-            }
+            productHelpers.viewProducts().then((products)=>{
+                res.render('user/shop',{admin:false,user,cartCount,wishlistCount,userHeader:true,products});
+                console.log(products);
+            })
         }else{
             productHelpers.viewProducts().then((products)=>{
                 res.render('user/shop',{admin:false,products,cartCount,wishlistCount,userHeader:true});
@@ -180,6 +206,42 @@ module.exports={
             })
         }
     },
+    // shop: async(req,res)=>{
+    //     let cartCount = 0;
+    //     let wishlistCount = 0;
+    //     if(req.session.loggedIn){
+    //         let user=req.session.user;
+    //         let product = await userHelpers.cartDetails(req.session.user._id);
+    //         let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
+    //         // let wishlistCount = req.session.wishlistCount;
+    //         try{
+    //             cartCount = product.length; 
+    //             wishlistCount = wishProduct.length;
+    //         }catch{
+    //             console.log("err");
+    //         }finally{
+    //             if(cartCount>0) {
+    //                 adminHelpers.getAllCategories().then((category) => {
+    //                     productHelpers.viewProducts().then((products)=>{
+    //                         res.render('user/shop',{admin:false,products,user,category,cartCount,wishlistCount,userHeader:true});
+    //                         console.log(products);
+    //                     })
+    //                 })
+                    
+    //             }else{
+    //                 productHelpers.viewProducts().then((products)=>{
+    //                     res.render('user/shop',{admin:false,products,user,cartCount,wishlistCount,userHeader:true});
+    //                     console.log(products);
+    //                 })
+    //             }                
+    //         }
+    //     }else{
+    //         productHelpers.viewProducts().then((products)=>{
+    //             res.render('user/shop',{admin:false,products,cartCount,wishlistCount,userHeader:true});
+    //             console.log(products);
+    //         })
+    //     }
+    // },
 
     // get:async(req,res)=>{        
     //     let count = 0;
@@ -223,6 +285,46 @@ module.exports={
     //         })
     //     }
     // },
+    // productDetail:async(req,res)=>{
+    //     let cartCount=0;
+    //     let wishlistCount = 0;
+    //     let Id=req.params.id;
+    //     console.log(req.params.id);
+    //     if(req.session.loggedIn){
+    //         let user=req.session.user;
+    //         // let userName=req.session.user;
+    //         let Id=req.params.id;
+    //         console.log(req.params.id);
+    //         let product = await userHelpers.cartDetails(req.session.user._id);
+    //         let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
+    //         try{
+    //             cartCount = product.length;
+    //             wishlistCount = wishProduct.length;
+    //         }
+    //         catch{
+    //             console.log("err");
+    //         }finally{
+    //             if(cartCount>0) {
+    //                 productHelpers.getProductDetails(Id).then((product)=>{
+    //                     console.log(product);
+    //                     res.render('user/productDetail',{admin:false,cartCount, product,wishlistCount, user,userHeader:true});
+    //                 })
+    //             }else{
+    //                 productHelpers.getProductDetails(Id).then((product)=>{
+    //                 console.log(product);
+    //                 res.render('user/productDetail',{admin:false,cartCount, product,wishlistCount, user,userHeader:true});
+    //             })
+    //             }
+                
+    //         }
+    //     }else{
+    //         productHelpers.getProductDetails(Id).then((product)=>{
+    //             console.log(product);
+    //             res.render('user/productDetail',{admin:false,cartCount,wishlistCount, product,userHeader:true});
+    //         })
+    //     }       
+    // },
+
     productDetail:async(req,res)=>{
         let cartCount=0;
         let wishlistCount = 0;
@@ -230,31 +332,19 @@ module.exports={
         console.log(req.params.id);
         if(req.session.loggedIn){
             let user=req.session.user;
+            cartCount = await userHelpers.getCartCountNew(req.session.user._id);
+            req.session.cartCount = parseInt(cartCount);
+            wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
+            req.session.wishlistCount = parseInt(wishlistCount);
             // let userName=req.session.user;
             let Id=req.params.id;
             console.log(req.params.id);
-            let product = await userHelpers.cartDetails(req.session.user._id);
-            let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
-            try{
-                cartCount = product.length;
-                wishlistCount = wishProduct.length;
-            }
-            catch{
-                console.log("err");
-            }finally{
-                if(cartCount>0) {
-                    productHelpers.getProductDetails(Id).then((product)=>{
-                        console.log(product);
-                        res.render('user/productDetail',{admin:false,cartCount, product,wishlistCount, user,userHeader:true});
-                    })
-                }else{
-                    productHelpers.getProductDetails(Id).then((product)=>{
+            // let product = await userHelpers.cartDetails(req.session.user._id);
+            // let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
+            productHelpers.getProductDetails(Id).then((product)=>{
                     console.log(product);
-                    res.render('user/productDetail',{admin:false,cartCount, product,wishlistCount, user,userHeader:true});
-                })
-                }
-                
-            }
+                res.render('user/productDetail',{admin:false,cartCount,wishlistCount, product, user,userHeader:true});
+            })
         }else{
             productHelpers.getProductDetails(Id).then((product)=>{
                 console.log(product);
@@ -359,6 +449,9 @@ module.exports={
         console.log(`carrt count ::::: ${cartCount}`);
         let wishlistCount = req.session.wishlistCount;
         res.render('user/cart', {product,cartCount,wishlistCount,totalAmount,user, userHeader:true })
+        if(cartCount===0){
+            res.render('user/cartSvg', {product,cartCount,wishlistCount,totalAmount,user, userHeader:true })
+        }
     },
     
     changeProductQuantity: (req,res) => {
@@ -454,8 +547,7 @@ module.exports={
         let user=req.session.user;
         let products = await userHelpers.wishListDetails(req.session.user._id)
         let wishlistCount = req.session.wishlistCount;               
-        let cartCount = req.session.cartCount;  
-        
+        let cartCount = req.session.cartCount;          
         res.render('user/wishList', {admin:false,products,user,cartCount,userHeader:true,wishlistCount})                       
     },  
     
@@ -566,19 +658,94 @@ module.exports={
     //     }        
     // },
 
+    // addToWishlist : (req, res)=>{
+    //     if(req.session.loggedIn){
+    //         let productId = req.query.productId;
+    //         let userId = req.session.user._id;
+    //         userHelpers.addToWishlist(userId, productId).then((response)=>{
+    //             console.log(response)
+    //         })
+    //     }else{
+    //         res.redirect('/login');
+    //     }
+    // },
+    // addToWishlist : (req, res)=>{
+    //     if(req.session.loggedIn){
+    //         let productId = req.params.id;
+    //         let userId = req.session.user._id;
+            
+    //         userHelpers.addToWishlist(userId, productId).then((response)=>{
+    //             console.log(response);
+    //             res.json({
+    //                 message: "guest",
+    //                 success: true
+    //             })
+    //         })
+    //     }else{
+    //         res.redirect('/login');
+    //     }
+    // },
     addToWishlist : (req, res)=>{
         if(req.session.loggedIn){
-            let productId = req.query.productId;
+            let productId = req.params.id;
             let userId = req.session.user._id;
-            userHelpers.addToWishlist(userId, productId).then((response)=>{
-                console.log(response)
-            })
+            let quantity = 1;
+            try{
+                if(parseInt(req.quantity)>1){
+                    quantity=req.quantity
+                }
+                }catch(err){
+                    console.log(err);
+                }finally{
+                    userHelpers.addToWishlist(userId, productId).then((response)=>{
+                        console.log(response);
+                        res.json({
+                            message: "guest",
+                            success: true
+                        })
+                    });
+                }
+                console.log("wishQuantity",quantity)                        
         }else{
             res.redirect('/login');
-        }
-    },
+            }
+        },
 
-
+    // addToWishlist: (req, res) => {
+    //     if (req.session.loggedIn) {
+    //       const productId = req.params.id;
+    //       const userId = req.session.user._id;
+    //       let quantity = 1;
+      
+    //       try {
+    //         if (parseInt(req.quantity) > 1) {
+    //           quantity = req.quantity;
+    //         }
+    //       } catch (err) {
+    //         console.log(err);
+    //       } finally {
+    //         userHelpers.addToWishlist(userId, productId).then((response) => {
+    //           console.log(response);
+      
+    //           // Update wishlist count
+    //           const wishlistCountEl = document.querySelector('#wishlist-count');
+    //           const wishlistCount = parseInt(wishlistCountEl.innerHTML);
+    //           wishlistCountEl.innerHTML = wishlistCount + 1;
+      
+    //           res.json({
+    //             message: "guest",
+    //             success: true,
+    //           });
+    //         });
+    //       }
+      
+    //       console.log("wishQuantity", quantity);
+    //     } else {
+    //       res.redirect("/login");
+    //     }
+    //   },
+      
+    
     removeWishlistProduct: (req,res) => {
         console.log("ttttttttttttttt",req.params.id);
         const proId = req.params.id;

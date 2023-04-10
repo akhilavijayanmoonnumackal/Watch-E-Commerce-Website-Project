@@ -362,6 +362,7 @@ module.exports={
                     }, {
                       '$project': {
                         'productDetails': 1, 
+                        'products.quantity': 1, 
                         '_id': 0
                       }
                     }
@@ -484,10 +485,11 @@ module.exports={
     //     })
     // },
 
-    addToWishlist:(userId, productId)=>{
+    addToWishlist:(userId, productId,quantity)=>{
         return new Promise(async(resolve, reject)=>{
             userId = new ObjectId(userId);
             productId = new ObjectId(productId);
+            quantity=Number(quantity)
             const isWishList = await db.get().collection(collections.WISHLIST_COLLECTION).findOne({userId: userId});
             if(isWishList){
                 db.get().collection(collections.WISHLIST_COLLECTION)

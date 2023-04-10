@@ -274,6 +274,8 @@
     </div>
 </footer>
 
+
+
 <script>
     function viewDetails(id) {
         location.href = `/productDetail/${id}`
@@ -293,23 +295,6 @@
                     console.log("removed");
                 }
 
-            })
-        }
-    }
-
-    function removeProduct(proId, cartId) {
-        var check = confirm("Do you want to remove from cart?")
-        if (check) {
-            $.ajax({
-                url: `/remove-cart-product/${proId}`,
-                method: 'GET',
-                success: (response) => {
-                    $(proId).remove()
-                    let msg = name + " removed"
-                    $('#delete-msg').html(msg)
-                    location.reload();
-                    console.log("removed");
-                }
             })
         }
     }
