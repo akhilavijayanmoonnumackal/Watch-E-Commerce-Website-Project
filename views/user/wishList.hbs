@@ -282,21 +282,32 @@
     }
 
     function removeWishlistProduct(proId) {
-        var check = confirm("Do you want to remove this product from wishlist?")
-        if (check) {
-            $.ajax({
-                url: `/removeWishlistProduct/${proId}`,
-                method: 'GET',
-                success: (response) => {
-                    $(proId).remove()
-                    let msg = "product removed"
-                    $('#delete-msg').html(msg)
-                    location.reload();
-                    console.log("removed");
+        swal({
+            title: "Are you sure?",
+            text: "Do you want to remove this product from wishlist?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: `/removeWishlistProduct/${proId}`,
+                        method: 'GET',
+                        success: (response) => {
+                            $(proId).remove()
+                            let msg = "Product removed"
+                            $('#delete-msg').html(msg)
+                            location.reload();
+                            console.log("removed");
+                        }
+                    })
                 }
-
-            })
-        }
+            });
     }
+
+
+
+
 
 </script>
