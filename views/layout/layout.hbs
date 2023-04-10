@@ -68,7 +68,11 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js">
-    <link rel="stylesheet" href="https://code.jquery.com/jquery-3.5.1.js">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {{!--
+    <link rel="stylesheet" href="https://code.jquery.com/jquery-3.5.1.js"> --}}
     {{!--
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 
@@ -142,45 +146,19 @@
     <link href="https://cdn.jsdelivr.net/npm/toastify-js@1.10.0/dist/toastify.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.10.0/dist/toastify.min.js"></script>
 
-    <script>
-        $('.js-addwish-b2').on('click', function (e) {
-            e.preventDefault();
-        });
 
-        $('.js-addwish-b2').each(function () {
-            var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
-            $(this).on('click', function () {
-                Toastify({
-                    text: "Product is added to wishlist !",
-                    duration: 3000,
-                    gravity: "bottom",
-                    position: "center",
-                    backgroundColor: "linear-gradient(#e66465, #9198e5)",
-                }).showToast();
 
-                $(this).addClass('js-addedwish-b2');
-                $(this).off('click');
-            });
-        });
-    </script>
+
 
     <!--===============================================================================================-->
     <script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 
-    <script>
-        $('.js-pscroll').each(function () {
-            $(this).css('position', 'relative');
-            $(this).css('overflow', 'hidden');
-            var ps = new PerfectScrollbar(this, {
-                wheelSpeed: 1,
-                scrollingThreshold: 1000,
-                wheelPropagation: false,
-            });
+    <!--=====================================Wishlist==========================================================-->
 
-            $(window).on('resize', function () {
-                ps.update();
-            })
-        });
+
+
+    <script>
+
 
         /*---------------------------------------------*/
 

@@ -292,7 +292,7 @@ module.exports={
     
     addToCart: (req,res) => {
         if(req.session.loggedIn) {
-            //console.log("hello")
+            console.log("hello")
             let productId = req.query.productId;
             console.log(productId);
             // console.log("gotit");

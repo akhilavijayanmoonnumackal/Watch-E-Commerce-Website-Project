@@ -77,13 +77,21 @@
                                 </td>
                                 {{#if this.isCancelled}}
                                 <td>
-                                    <a href="/admin/singleOrderDetail/{{this._id}}" class="btn btn-xs disabled"
-                                        style="background-color: rgb(228, 24, 24);">
-                                        Order Cancelled</a>
+                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(228, 24, 24);">
+                                        Cancel Order</a>
                                 </td>
-                                {{else if this.isDelivered}}
+                                {{else}}
                                 <td>
-                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(82, 228, 24);">
+                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(228, 24, 24);"
+                                        data-toggle="modal" data-target="#cancel{{this._id}}">
+                                        Cancel Order</a>
+                                </td>
+                                {{/if}}
+
+                                {{#if this.isPlaced}}
+                                <td>
+                                    <a href="/admin/shipOrder/{{this._id}}" class=" btn btn-xs disabled"
+                                        style="background-color: rgb(82, 228, 24);">
                                         Cancel Order</a>
                                 </td>
                                 {{else if this.isShipped}}

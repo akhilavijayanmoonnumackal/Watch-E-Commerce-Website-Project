@@ -9,6 +9,7 @@
         </div>
 
         <div class="flex-w flex-sb-m p-b-52">
+
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                 <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*"><a
                         href="/shop">All Products</a>
@@ -16,6 +17,7 @@
                 </button>
 
                 {{#each category}}
+                {{#if this.status}}
                 <div id="item-container">
                     {{!-- <button class="category-btn" data-filter="all">All</button> --}}
                     <button class="category-btn" data-filter="{{this.name}}">{{this.name}}</button>
@@ -23,6 +25,7 @@
                     <button class="category-btn" data-filter="Category C">Category C</button> --}}
                     <!-- Add your items here -->
                 </div>
+                {{/if}}
                 {{/each}}
                 {{!-- {{#each category}}
                 <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
@@ -37,6 +40,7 @@
                     Smart Watches
                 </button> --}}
             </div>
+
 
             <div class="flex-w flex-c-m m-tb-10">
                 <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
@@ -259,6 +263,7 @@
             </div>
         </div>
 
+
         <div class="row isotope-grid">
             {{#each products}}
             {{#if this.status}}
@@ -472,8 +477,11 @@
     }
 </script>
 
+<!--===============================wishlist================================================================-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!--===============================================================================================-->
-<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>
+{{!--
+<script src="/vendor/jquery/jquery-3.2.1.min.js"></script> --}}
 <!--===============================================================================================-->
 <script src="/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
@@ -519,6 +527,8 @@
 <!--===============================================================================================-->
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 
 <script>
     $('.js-addwish-b2').on('click', function (e) {
@@ -542,10 +552,32 @@
     });
 </script>
 
+<script>
+    $('.js-addwish-b2').on('click', function (e) {
+        e.preventDefault();
+    });
+    $('.js-addwish-b2').each(function () {
+        var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+        $(this).on('click', function () {
+            Toastify({
+                text: "Product is added to wishlist !",
+                duration: 3000,
+                gravity: "bottom",
+                position: "center",
+                backgroundColor: "linear-gradient(#e66465, #9198e5)",
+            }).showToast();
+
+            $(this).addClass('js-addedwish-b2');
+            $(this).off('click');
+        });
+    });
+</script>
+
 
 
 <!--===============================================================================================-->
-<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js">
+</script>
 <script>
     $('.js-pscroll').each(function () {
         $(this).css('position', 'relative');
