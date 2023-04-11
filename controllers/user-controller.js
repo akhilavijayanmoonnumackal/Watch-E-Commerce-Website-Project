@@ -945,29 +945,36 @@ module.exports={
     //     } 
       
     viewOrders: async(req,res) => {
-        if(req.session.loggedIn) {
-            const user = req.session.user;
-            const userId = req.session.user._id;
-            let orders = await userHelpers.getUserOrders(userId)   
+        let user =req.session.user;
+        const userId = req.session.user._id;
+        let cartCount = req.session.cartCount;
+        let wishlistCount = req.session.wishlistCount;
+        let orders = await userHelpers.getUserOrders(userId)   
             orders.forEach(order => {
                 order.isCancelled = order.status === "cancelled"?true:false;
                 order.isDelivered = order.status === "delivered"?true:false;
                 date = new Date()
-            })         
-            res.render('user/viewOrders', {admin:false,user,userHeader:true,orders})            
-        }else{
-            res.redirect('/login')
-        }
+            }) 
+        res.render('user/viewOrders', {admin:false, user, cartCount, wishlistCount, userHeader:true,orders})
     },
+   
+
     // viewOrders: async(req,res) => {
     //     if(req.session.loggedIn) {
-    //         let user = req.session.user;
-    //         let orders = await userHelpers.getUserOrders(req.session.user._id)            
+    //         const user = req.session.user;
+    //         const userId = req.session.user._id;
+    //         let orders = await userHelpers.getUserOrders(userId)   
+    //         orders.forEach(order => {
+    //             order.isCancelled = order.status === "cancelled"?true:false;
+    //             order.isDelivered = order.status === "delivered"?true:false;
+    //             date = new Date()
+    //         })         
     //         res.render('user/viewOrders', {admin:false,user,userHeader:true,orders})            
     //     }else{
     //         res.redirect('/login')
     //     }
     // },
+
     singleOrderDetailUser: async(req,res) => {
         if(req.session.loggedIn) {
             let user = req.session.user;
