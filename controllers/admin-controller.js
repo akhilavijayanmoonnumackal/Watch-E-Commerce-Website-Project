@@ -495,6 +495,12 @@ module.exports ={
         adminHelpers.cancelOrder(orderId).then(() => {
             res.redirect('/admin/orderManagement');
         })
+    },
+    shipOrder: (req,res) => {
+        const orderId = req.params.id;
+        adminHelpers.shipOrder(orderId).then(() => {
+            res.redirect('/admin/orderManagement')
+        })
     }
     
 }

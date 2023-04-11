@@ -384,7 +384,7 @@ module.exports={
     },
     cancelOrder: (orderId) => {
         return new Promise((resolve,reject) => {
-            orderId = new ObjectId(orderId)
+            orderId = new ObjectId(orderId);
             db.get().collection(collection.ORDER_COLLECTION)
             .updateOne(
                 {
@@ -399,25 +399,23 @@ module.exports={
                 resolve(response);
             })
         })
+    },
+    shipOrder: (orderId) => {
+        return new Promise((resolve, reject) => {
+            orderId = new ObjectId(orderId);
+            db.get().collection(collection.ORDER_COLLECTION)
+            .updateOne(
+                {
+                    _id: orderId
+                },
+                {
+                    $set:{
+                        status: 'shipped'
+                    }
+                }
+            ).then((response) => {
+                resolve(response);
+            })
+        })
     }
-
-    // cancelOrder:(orderId) => {
-    //     return new Promise((resolve,reject) => {
-    //         orderId= new ObjectId(orderId)
-    //         db.get().collection(collection.ORDER_COLLECTION)
-    //         .updateOne(
-    //         {
-    //             _id: orderId
-    //         },
-    //         {
-    //             $set: {
-    //                 status: 'cancelled'
-    //             }
-    //         }
-    //         ).then((response) => {
-    //             console.log(response)
-    //             resolve(response);
-    //         })
-    //     })
-    // }
 }
