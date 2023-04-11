@@ -770,14 +770,32 @@ module.exports={
     getCartCountNew:(userId)=>{
         return new Promise(async(resolve, reject)=>{
             const cartCount = await db.get().collection(collection.CART_COLLECTION).find({userId: new ObjectId(userId)}).toArray();
-            resolve(cartCount[0].products.length);
+            try{
+                if(cartCount[0].products.length>=1){
+                    resolve(cartCount[0].products.length);
+                }else{
+                    resolve(0);
+                }
+            }catch(err){
+                console.log(err);
+                resolve(0);
+            }
         })
     },
+    
     wishlistCount:(userId)=>{
         return new Promise(async(resolve, reject)=>{
-            const wishlistCount = await db.get().collection(collection.WISHLIST_COLLECTION).find({userId: new ObjectId(userId)}).toArray();
-            console.log(wishlistCount[0].products.length);
-            resolve(wishlistCount[0].products.length);
+            try{
+                const wishlistCount = await db.get().collection(collection.WISHLIST_COLLECTION).find({userId: new ObjectId(userId)}).toArray();
+                if(wishlistCount[0].products.length>=1){
+                    resolve(wishlistCount[0].products.length);
+                }else{
+                    resolve(0);
+                }
+                // console.log(wishlistCount[0].products.length);
+            }catch(err){
+                resolve(0);
+            }
         })
     }
 }

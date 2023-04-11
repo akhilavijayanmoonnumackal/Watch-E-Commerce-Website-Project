@@ -32,6 +32,40 @@ module.exports={
             res.render('user/home',{admin:false,cartCount,banner,wishlistCount, userHeader:true});  
         }      
     },
+    // get:async(req,res)=>{        
+    //     let cartCount = 0;
+    //     let wishlistCount = 0;
+    //     let banner = await adminController.getAllBanners();
+    //     if(req.session.loggedIn){
+    //         let user=req.session.user;
+    //         cartCount = await userHelpers.getCartCountNew(req.session.user._id);
+    //         //req.session.cartCount = parseInt(cartCount);
+    //         wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
+    //         //req.session.wishlistCount = parseInt(wishlistCount);
+
+    //         try {
+    //             cartCount = product.length;
+    //             wishlistCount = products.length;
+    //         }catch(err){
+    //             console.log(err);
+    //         }finally{
+    //             if(cartCount>0 && wishlistCount>0) {
+    //                 res.render('user/home',{admin:false,user,cartCount,banner, userHeader:true,wishlistCount});
+    //             }else if(cartCount>0 && wishlistCount===0){
+    //                 res.render('user/home',{admin:false,user,cartCount,banner, userHeader:true,wishlistCount}); 
+    //             }
+                
+    //         }
+
+    //         //console.log(user);
+    //         // let product = await userHelpers.cartDetails(req.session.user._id);
+    //         // let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
+            
+                 
+    //     }else{
+    //         res.render('user/home',{admin:false,cartCount,banner,wishlistCount, userHeader:true});  
+    //     }      
+    // },
 
     // get:async(req,res)=>{        
     //     let cartCount = 0;
