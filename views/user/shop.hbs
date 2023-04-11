@@ -29,32 +29,27 @@
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                 <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*"><a
                         href="/shop">All Products</a>
-
                 </button>
 
                 {{#each category}}
-                {{#if this.status}}
-                <div id="item-container">
-                    {{!-- <button class="category-btn" data-filter="all">All</button> --}}
-                    <button class="category-btn" data-filter="{{this.name}}">{{this.name}}</button>
-                    {{!-- <button class="category-btn" data-filter="Category B">Category B</button>
-                    <button class="category-btn" data-filter="Category C">Category C</button> --}}
-                    <!-- Add your items here -->
-                </div>
-                {{/if}}
+                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".{{this._id}}">
+                    {{this.name}}
+                </button>
                 {{/each}}
-                {{!-- {{#each category}}
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                    data-filter=".{{this.name}}">{{this.name}}
-                </button>
-                {{/each}} --}}
-                {{!-- <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".Men">
-                    Men
-                </button>
 
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-                    Smart Watches
-                </button> --}}
+                {{!-- <ul>
+                    {{#each category}}
+                    {{#if this.status}}
+                    <li style="font-size: small;"><a href="/admin/category/{{this._id}}">{{this.name}}</a></li>
+                    {{/if}}
+                    {{/each}}
+                </ul> --}}
+
+
+                {{!-- <div id="item-container">
+                    <button class="category-btn" data-filter="{{this.name}}">{{this.name}}</button>
+                </div> --}}
+
             </div>
 
 
@@ -283,7 +278,7 @@
         <div class="row isotope-grid">
             {{#each products}}
             {{#if this.status}}
-            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{this.category}}">
                 <!-- Block2 -->
                 <div class="block2">
                     <div class="block2-pic hov-img0">

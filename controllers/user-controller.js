@@ -217,6 +217,29 @@ module.exports={
                                           
     //     }
     // },
+    // shop: async(req,res)=>{
+    //     let cartCount = 0;
+    //     let wishlistCount = 0;
+    //     if(req.session.loggedIn){
+    //         let user=req.session.user;
+    //         cartCount = await userHelpers.getCartCountNew(req.session.user._id);
+    //         req.session.cartCount = parseInt(cartCount);
+    //         wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
+    //         req.session.wishlistCount = parseInt(wishlistCount);
+    //         //let products = await userHelpers.cartDetails(req.session.user._id);
+    //         // let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
+    //         // let wishlistCount = req.session.wishlistCount;
+    //         productHelpers.viewProducts().then((products)=>{
+    //             res.render('user/shop',{admin:false,user,cartCount,wishlistCount,userHeader:true,products});
+    //             console.log(products);
+    //         })
+    //     }else{
+    //         productHelpers.viewProducts().then((products)=>{
+    //             res.render('user/shop',{admin:false,products,cartCount,wishlistCount,userHeader:true});
+    //             console.log(products);
+    //         })
+    //     }
+    // },
     shop: async(req,res)=>{
         let cartCount = 0;
         let wishlistCount = 0;
@@ -226,18 +249,19 @@ module.exports={
             req.session.cartCount = parseInt(cartCount);
             wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
             req.session.wishlistCount = parseInt(wishlistCount);
-            //let products = await userHelpers.cartDetails(req.session.user._id);
-            // let wishProduct = await userHelpers.wishListDetails(req.session.user._id);
-            // let wishlistCount = req.session.wishlistCount;
-            productHelpers.viewProducts().then((products)=>{
-                res.render('user/shop',{admin:false,user,cartCount,wishlistCount,userHeader:true,products});
-                console.log(products);
+            adminHelpers.getAllCategories().then((category) => {
+                productHelpers.viewProducts().then((products)=>{
+                    res.render('user/shop',{admin:false,user,cartCount,category, wishlistCount, userHeader:true,products});
+                    console.log(products);
+                })
             })
         }else{
-            productHelpers.viewProducts().then((products)=>{
-                res.render('user/shop',{admin:false,products,cartCount,wishlistCount,userHeader:true});
-                console.log(products);
-            })
+            adminHelpers.getAllCategories().then((category) => {
+                productHelpers.viewProducts().then((products)=>{
+                    res.render('user/shop',{admin:false,products,cartCount,category,wishlistCount,userHeader:true});
+                    console.log(products);
+                })
+            })            
         }
     },
     // shop: async(req,res)=>{
