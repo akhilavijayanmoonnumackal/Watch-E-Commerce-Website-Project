@@ -493,7 +493,7 @@ module.exports ={
     cancelOrder:(req,res) => {
         const orderId = req.params.id;
         adminHelpers.cancelOrder(orderId).then(() => {
-            res.redirect('/orderManagement');
+            res.redirect('/admin/orderManagement');
         })
     }
     

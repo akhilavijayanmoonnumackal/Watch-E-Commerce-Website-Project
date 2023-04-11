@@ -10,12 +10,7 @@
                     <table class="table align-middle table-nowrap mb-0">
                         <thead class="table-light">
                             <tr>
-                                {{!-- <th scope="col" class="text-center">
-                                    <div class="form-check align-middle">
-                                        <input class="form-check-input" type="checkbox" id="transactionCheck01">
-                                        <label class="form-check-label" for="transactionCheck01"></label>
-                                    </div>
-                                </th> --}}
+
                                 <th scope="col">Sl. No.</th>
                                 <th class="align-middle" scope="col">Order ID</th>
                                 <th class="align-middle" scope="col">Billing Name</th>
@@ -32,12 +27,6 @@
                             {{#each orders}}
                             <tr>
                                 <td scope="row">{{@index}}</td>
-                                {{!-- <td class="text-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="transactionCheck02">
-                                        <label class="form-check-label" for="transactionCheck02"></label>
-                                    </div>
-                                </td> --}}
                                 <td><a class="fw-bold">{{this._id}}</a> </td>
                                 <td>{{this.deliveryDetails.name}}</td>
                                 <td>
@@ -47,22 +36,6 @@
                                     ₹{{this.totalAmount}}
                                 </td>
                                 <td>
-                                    {{!-- <span class="badge badge-pill badge-soft-success">{{this.status}}</span> --}}
-                                    {{!-- <div class="dropdown">
-                                        <span class="badge badge-pill badge-soft-success dropdown-toggle" role="button"
-                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            {{this.status}}
-                                        </span>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <a class="badge badge-pill badge-soft-success dropdown-toggle"
-                                                href="#">Shipped</a>
-                                            <a class="badge badge-pill badge-soft-success dropdown-toggle"
-                                                href="#">Delivered</a>
-                                            <a class="badge badge-pill badge-soft-success dropdown-toggle"
-                                                href="#">Cancel</a>
-                                        </div>
-                                    </div> --}}
                                     <div class="dropdown">
                                         <span class="badge badge-pill badge-soft-success">{{this.status}}</span>
                                     </div>
@@ -82,17 +55,18 @@
                                 </td>
                                 {{else}}
                                 <td>
-                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(228, 24, 24);"
-                                        data-toggle="modal" data-target="#cancel{{this._id}}">
+                                    <a href="" class="btn btn-xs" style="background-color: rgb(228, 24, 24);"
+                                        data-toggle="modal" data-target="#cancelOrder{{this._id}}">
                                         Cancel Order</a>
                                 </td>
                                 {{/if}}
 
                                 {{#if this.isPlaced}}
                                 <td>
-                                    <a href="/admin/shipOrder/{{this._id}}" class=" btn btn-xs disabled"
+                                    <a href="/admin/shipOrder/{{this._id}}" class=" btn btn-xs shipOrder"
+                                        data-toggle="modal" data-target="#shipOrder{{this._id}}"
                                         style="background-color: rgb(82, 228, 24);">
-                                        Cancel Order</a>
+                                        Ship Order</a>
                                 </td>
                                 {{else if this.isShipped}}
                                 <td>
@@ -113,4 +87,58 @@
             </div> <!-- table-responsive end// -->
         </div>
     </div>
+
+
+    <!-- Modal cancel order confirmation -->
+    {{#each orders}}
+    <div class="modal fade" id="cancelOrder{{this._id}}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Cancel Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Do you want to cancel this order?
+                </div>
+                <div class="modal-footer">
+                    <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">No</button></a>
+                    <a href="/admin/cancelOrder/{{this._id}}"><button type="button"
+                            class="btn btn-primary">Yes</button></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+
+    <!-- Modal ship order confirmation -->
+    {{#each orders}}
+    <div class="modal fade" id="shipOrder{{this._id}}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Ship Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Do you want to ship this order?
+                </div>
+                <div class="modal-footer">
+                    <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">No</button></a>
+                    <a href="/admin/shipOrder/{{this._id}}"><button type="button"
+                            class="btn btn-primary">Yes</button></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
 </main>
