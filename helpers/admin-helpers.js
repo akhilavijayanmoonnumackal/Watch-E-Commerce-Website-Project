@@ -417,5 +417,23 @@ module.exports={
                 resolve(response);
             })
         })
+    },
+    orderDelivered: (orderId) => {
+        return new Promise((resolve,reject) => {
+            orderId = new ObjectId(orderId);
+            db.get().collection(collection.ORDER_COLLECTION)
+            .updateOne(
+                {
+                    _id: orderId
+                },
+                {
+                    $set:{
+                        status: 'delivered'
+                    }
+                }
+            ).then((response) => {
+                resolve(response);
+            })
+        })
     }
 }

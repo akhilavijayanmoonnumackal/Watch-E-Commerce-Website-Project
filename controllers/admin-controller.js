@@ -501,6 +501,12 @@ module.exports ={
         adminHelpers.shipOrder(orderId).then(() => {
             res.redirect('/admin/orderManagement')
         })
+    },
+    orderDelivered: (req,res) => {
+        const orderId = req.params.id;
+        adminHelpers.orderDelivered(orderId).then(() => {
+            res.redirect('/admin/orderManagement');
+        })
     }
     
 }

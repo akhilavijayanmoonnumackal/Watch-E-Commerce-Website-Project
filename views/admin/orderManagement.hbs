@@ -65,18 +65,25 @@
                                 <td>
                                     <a href="/admin/shipOrder/{{this._id}}" class=" btn btn-xs shipOrder"
                                         data-toggle="modal" data-target="#shipOrder{{this._id}}"
-                                        style="background-color: rgb(82, 228, 24);">
+                                        style="background-color: rgb(219, 217, 53);">
                                         Ship Order</a>
                                 </td>
                                 {{else if this.isShipped}}
                                 <td>
-                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(228, 143, 24);">
-                                        Order Shipped</a>
+                                    <a href="" class="btn btn-xs deliverOrder" data-toggle="modal"
+                                        data-target="#deliveryOrder{{this._id}}"
+                                        style=" background-color: rgb(228, 143, 24);">
+                                        Deliver Order</a>
                                 </td>
-                                {{else}}
+                                {{else if this.isDelivered}}
                                 <td>
-                                    <a href="/admin/cancelOrder/{{this._id}}" class="btn btn-xs disabled">
-                                        Cancel Order</a>
+                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(57, 150, 20);">
+                                        Order Delivered</a>
+                                </td>
+                                {{else if this.isCancelled}}
+                                <td>
+                                    <a href="" class="btn btn-xs disabled">
+                                        Ship Order</a>
                                 </td>
                                 {{/if}}
                             </tr>
@@ -134,6 +141,33 @@
                 <div class="modal-footer">
                     <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">No</button></a>
                     <a href="/admin/shipOrder/{{this._id}}"><button type="button"
+                            class="btn btn-primary">Yes</button></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
+
+    <!-- Modal delivery order confirmation -->
+    {{#each orders}}
+    <div class="modal fade" id="deliveryOrder{{this._id}}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Order Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Do you want to make this order delivered?
+                </div>
+                <div class="modal-footer">
+                    <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">No</button></a>
+                    <a href="/admin/orderDelivered/{{this._id}}"><button type="button"
                             class="btn btn-primary">Yes</button></a>
 
                 </div>

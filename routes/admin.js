@@ -46,5 +46,6 @@ router.get('/orderManagement', adminController.orderManagement);
 router.get('/singleOrderDetail/:id', adminController.singleOrderDetail);
 router.get('/cancelOrder/:id', adminController.cancelOrder);
 router.get('/shipOrder/:id', adminController.shipOrder);
+router.get('/orderDelivered/:id', adminController.orderDelivered);
 
 module.exports = router;
