@@ -77,6 +77,7 @@
                                     {{else}}
                                     <td>
                                         <a href="/cancelOrder/{{this._id}}" class="btn btn-xs cancelOrder"
+                                            data-toggle="modal" data-target="#cancelOrder{{this._id}}"
                                             style="background-color: crimson;">
                                             CANCEL ORDER</a>
                                     </td>
@@ -91,6 +92,32 @@
         </div>
     </div>
 </section>
+
+
+<!-- Modal order cancel confirmation-->
+{{#each orders}}
+<div class="modal fade" id="cancelOrder{{this._id}}" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Cancel Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to cancel your order?
+            </div>
+            <div class="modal-footer">
+                <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button></a>
+                <a href="/cancelOrder/{{this._id}}"><button type="button" class="btn btn-primary">Confirm</button></a>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
 
 <!-- Footer -->
 <footer class="bg3 p-t-75 p-b-32">
