@@ -2,6 +2,21 @@
     .wrap-pic-w img {
         min-width: 25%;
     }
+
+    .toastify-icon:before {
+        content: "\2713";
+        font-size: 24px;
+        color: #fff;
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: middle;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        background-color: #28a745;
+    }
 </style>
 <section class="sec-product-detail bg0 p-t-65 p-b-60">
     <div class="container">
@@ -223,9 +238,69 @@
     });
 </script>
 <!--===============================================================================================-->
+
 <script src="/js/main.js"></script>
 
 {{!-- ============================================== --}}
 <script>
+    function addToCart(proId) {
+        console.log("api calll")
+        $.ajax({
+            url: '/addToCart/' + proId,
+            method: 'get',
+            success: (response) => {
+                console.log(response);
+                console.log(response.message);
+                console.log("came")
+                if (response.message === "guest") {
+                    console.log("api here!!!");
+                    // if(response.message==="guest"){
+                    // let count = $('#cart-count').html();
+                    // count = parseInt(count) + 1
+                    $("#cart-count").load(window.location.href + " #cart-count");
+                    // $('#cart-count').html(count);
+                    Toastify({
+                        text: 'Product added to cart !',
+                        duration: 3000,
+                        gravity: 'bottom',
+                        position: 'center',
+                        backgroundColor: "black",
+                        stopOnFocus: true,
+                        // Add an icon to the notification
+                        className: "toastify-icon",
+                        close: false,
+                        // onClick: function () {
+                        //     console.log("apiCall");
+                        // }
+                    }).showToast();
+
+                    // }else{
+                    //     //location.href = '/login'
+                    //     console.log(response)
+                    //     console.log(response.status)
+                    //     console.log(response.message)
+                    // }
+                } else {
+                    location.href = '/login'
+                }
+            },
+            error: (xhr, status, error) => {
+                console.error(error);
+                // handle the error here
+            }
+        })
+    }
+
+
+    $('.js-addcart-btn').on('click', (e) => {
+        console.log("working")
+        e.preventDefault();
+        const el = document.querySelector('#addToCart');
+        const clickedBtn = $(this);
+        const productId = el.dataset.product;
+        console.log(productId);
+        addToCart(productId);
+    });
+
 
 </script>

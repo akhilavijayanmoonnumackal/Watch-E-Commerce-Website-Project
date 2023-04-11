@@ -8,11 +8,6 @@ module.exports = {
             res.redirect('/');
         }
         else{
-            // get user with userEmail
-            // extract userId from the user document
-            // get cart or wishList with the userId
-            // after you get cartProduct count , save that count in session. such as 1. req.session.cartCount, 2. req.session.wishlistCount           
-            // you can retrieve count in every page from that session
             next();
         }
     },

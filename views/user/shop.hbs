@@ -1,3 +1,19 @@
+<style>
+    .toastify-icon:before {
+        content: "\2713";
+        font-size: 24px;
+        color: #fff;
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: middle;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        background-color: #28a745;
+    }
+</style>
 <!-- Product -->
 
 <section class="bg0 p-t-23 p-b-140">
@@ -546,12 +562,15 @@
                     console.log("////////api here!!!");
                     $("#wishlist-count").load(window.location.href + " #wishlist-count");
                     Toastify({
-                        text: 'Product added to cart!',
+                        text: 'Product added to wishlist !',
                         duration: 3000,
                         gravity: 'bottom',
                         position: 'center',
-                        backgroundColor: "linear-gradient(#e66465, #9198e5)",
+                        backgroundColor: "black",
                         stopOnFocus: true,
+                        // Add an icon to the notification
+                        className: "toastify-icon",
+                        close: false,
                         // onClick: function () {
                         //     console.log("apiCall");
                         // }
@@ -569,7 +588,7 @@
     $(document).on('click', '.js-addWish-b2', (e) => {
         console.log("777777777")
         e.preventDefault();
-        const el = $(this);
+        const el = $(e.target);
 
         const productId = el.data('product');
         console.log(productId);
