@@ -56,56 +56,43 @@
                                 </div>
                                 <div class="col-md-9">
                                     <div class="mb-4">
-                                        <div class="mb-4">
-                                            {{!-- <label class="form-label">Category</label> --}}
-                                            {{!-- <input type="text" class="form-control" id="catgName"
-                                                aria-describedby="emailHelp" name="name" value="{{this.name}}"
-                                                required /> --}}
-                                            <label for=" exampleInputEmail1">Category Name</label>
-                                            <input type="text" class="form-control" id="catgName"
-                                                aria-describedby="emailHelp" name="name" value="{{category.name}}"
-                                                required />
+                                        <label class="form-label">Category</label>
+                                        <select class="form-select" name="category" id="catgName">
 
-                                            {{!-- <select class="form-select" name="category" id="catgName">
-                                                <option value="">Select a Category</option>
-                                                {{#each category}}
-                                                <option value="{{this._id}}">{{this.name}} </option>
-                                                {{/each}}
-                                            </select> --}}
-                                        </div>
-                                        {{!-- <div class="mb-4">
-                                            <label class="form-label">Category</label>
-                                            <input type="text" class="form-control" name="name" value="{{this.name}}"
-                                                required>
-                                        </div> --}}
-                                    </div>
-                                </div> <!-- col.// -->
-                            </div> <!-- row.// -->
-                            <hr class=" mb-4 mt-0">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <h6>4. Media</h6>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="mb-4">
-                                        <label for="image" class="form-label">Images</label>
-                                        <input type="file" name="image" multiple class="form-control"
-                                            onchange="viewImage(event)">
-                                        <div class="d-flex">
-                                            {{#each product.image}}
-                                            <img src="{{this}}" alt="" style="width: 50px;height:auto" id="imgView"
-                                                class="pt-3">
+                                            <option value="">Select a Category</option>
+                                            {{#each category}}
+                                            {{#if this.status}}
+                                            <option value="{{this._id}}">{{this.name}} </option>
+                                            {{/if}}
                                             {{/each}}
-                                        </div>
+                                        </select>
                                     </div>
-                                    <div class="img-container" style="display: flex;">
-                                    </div> <!-- col.// -->
-                                </div> <!-- .row end// -->
+                                </div>
+                                <hr class=" mb-4 mt-0">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h6>4. Media</h6>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="mb-4">
+                                            <label for="image" class="form-label">Images</label>
+                                            <input type="file" name="image" multiple class="form-control"
+                                                onchange="viewImage(event)">
+                                            <div class="d-flex">
+                                                {{#each product.image}}
+                                                <img src="{{this}}" alt="" style="width: 50px;height:auto" id="imgView"
+                                                    class="pt-3">
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                        <div class="img-container" style="display: flex;">
+                                        </div> <!-- col.// -->
+                                    </div> <!-- .row end// -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </form>
     </section> <!-- content-main end// -->
 </main>

@@ -315,36 +315,43 @@ module.exports ={
             })
         
     },
-    editProductPost: (req,res) => {
-        // try {
-            
-            productHelpers.updateProduct(req.params.id,req.body).then(async()=>{
-                console.log("api CALl 1st")
-                console.log(req.files.length);
-                let imgUrls = []
-                for(let i=0;i<req.files.length;i++){
-                    let result = await cloudinary.uploader.upload(req.files[i].path);
-                    imgUrls.push(result.url);
-                }
-                console.log("api call")
-                console.log(imgUrls)
-                if(imgUrls) {
-                    productHelpers.updateProductImages(req.params.id, imgUrls).then(()=>{
-                        res.redirect('/admin/view-products');
-                    })
-                }else{
-                    res.redirect('/admin/view-products');
-                }
-            })
-        // }catch(err){
-        //     console.log("error",err);
-        //     res.redirect('/admin/view-products');
-        // }
-        // let id = req.params.id;
-        // productHelpers.updateProduct(req.params.id,req.body).then(() => {
-        //     res.redirect('/admin/view-products')
-        //     if(req.files.image)
-        // })
+    // editProductPost: (req,res) => {            
+    //         productHelpers.updateProduct(req.params.id,req.body).then(async()=>{
+    //             console.log("api CALl 1st")
+    //             console.log(req.files.length);
+    //             let imgUrls = []
+    //             for(let i=0;i<req.files.length;i++){
+    //                 let result = await cloudinary.uploader.upload(req.files[i].path);
+    //                 imgUrls.push(result.url);
+    //             }
+    //             console.log("api call")
+    //             console.log(imgUrls)
+    //             if(imgUrls) {
+    //                 productHelpers.updateProductImages(req.params.id, imgUrls).then(()=>{
+    //                     res.redirect('/admin/view-products');
+    //                 })
+    //             }else{
+    //                 res.redirect('/admin/view-products');
+    //             }
+    //         })
+    // },
+
+    editProductPost: async(req,res) => {     
+        try {
+            let imgUrls = []
+            for(let i=0;i<req.files.length;i++){
+                let result = await cloudinary.uploader.upload(req.files[i].path);
+                imgUrls.push(result.url);
+            }
+            if(imgUrls.length!==0){
+                productHelpers.updateProductImages(req.params.id, imgUrls)
+            }
+            productHelpers.updateProduct(req.params.id,req.body)
+        }catch(err){
+            console.log(err);
+        }finally{
+            res.redirect('/admin/view-products');
+        }       
     },
     listProduct : (req,res) => {
         productHelpers.listProduct(req.params.id).then(() => {
