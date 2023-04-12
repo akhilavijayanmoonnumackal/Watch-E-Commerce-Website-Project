@@ -27,7 +27,7 @@
                             {{#each orders}}
                             <tr>
                                 <td scope="row">{{@index}}</td>
-                                <td><a class="fw-bold">{{this._id}}</a> </td>
+                                <td><a class="fw-bold">{{this._id}}</a></td>
                                 <td>{{this.deliveryDetails.name}}</td>
                                 <td>
                                     {{this.date}}
@@ -79,6 +79,11 @@
                                 <td>
                                     <a href="" class="btn btn-xs disabled" style="background-color: rgb(57, 150, 20);">
                                         Order Delivered</a>
+                                </td>
+                                {{else if this.isReturned}}
+                                <td>
+                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(199, 72, 82);">
+                                        Order Returned</a>
                                 </td>
                                 {{else if this.isCancelled}}
                                 <td>

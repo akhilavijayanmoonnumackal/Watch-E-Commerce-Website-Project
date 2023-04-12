@@ -569,6 +569,26 @@ module.exports={
             })
         })
     },
+    returnOrder: (orderId) => {
+        return new Promise((resolve, reject) => {
+            orderId = new ObjectId(orderId);
+            db.get().collection(collection.ORDER_COLLECTION)
+            .updateOne(
+                {
+                    _id: orderId
+                },
+                {
+                    $set:{
+                        status: 'returned'
+                    }
+                }
+            ).then((response) => {
+                resolve(response);
+            }).catch(() => {
+                reject();
+            })
+        })
+    },
     generateRazorpay: (orderId, total) => {
         return new Promise((resolve, reject) => {
             var options = {

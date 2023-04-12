@@ -38,6 +38,7 @@ router.post('/addAddress/:id', controller.addAddressPost);
 router.get('/viewOrders',sessionChecker.userAuth, controller.viewOrders);
 router.get('/singleOrderDetailUser/:id',sessionChecker.userAuth, controller.singleOrderDetailUser);
 router.get('/cancelOrder/:id', controller.cancelOrder);
+router.get('/returnOrder/:id', sessionChecker.userAuth, controller.returnOrder);
 router.post('/verifyPayment', controller.verifyPayment);
 router.get('/forgotPassword', controller.getForgotPassword);
 router.post('/forgotPassword-otp', controller.forgotPasswordOtp);

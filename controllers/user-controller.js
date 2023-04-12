@@ -434,6 +434,12 @@ module.exports={
             res.redirect('/viewOrders');
         })
     },
+    returnOrder: async(req,res) =>{
+        const orderId = req.params.id;
+        userHelpers.returnOrder(orderId).then(() => {
+            res.redirect('/viewOrders');
+        })
+    },
     verifyPayment: (req,res) => {
         console.log(req.body);
         userHelpers.verifyPayment(req.body).then(() => {

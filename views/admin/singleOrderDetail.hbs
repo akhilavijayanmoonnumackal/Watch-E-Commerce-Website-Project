@@ -17,18 +17,6 @@
                             </span> <br>
                             <small class="text-muted">Order ID: {{this.orderId}}</small>
                         </div>
-                        <div class="col-lg-6 col-md-6 ms-auto text-md-end">
-                            <select class="form-select d-inline-block mb-lg-0 mb-15 mw-200">
-                                <option>Change status</option>
-                                <option>Awaiting payment</option>
-                                <option>Confirmed</option>
-                                <option>Shipped</option>
-                                <option>Delivered</option>
-                            </select>
-                            <a class="btn btn-primary" href="#">Save</a>
-                            <a class="btn btn-secondary print ms-2" href="#"><i
-                                    class="icon material-icons md-print"></i></a>
-                        </div>
                     </div>
                     {{/if}}
                 </header> <!-- card-header end// -->
@@ -48,7 +36,6 @@
                                             data-cfemail="e2838e879aa2879a838f928e87cc818d8f">[email&#160;protected]</template>
                                         <br> +91{{this.deliveryDetails.deliveryDetails.mobile}}
                                     </p>
-                                    <a href="#">View profile</a>
                                 </div>
                             </article>
                         </div> <!-- col// -->
@@ -64,7 +51,6 @@
                                         <br> Status:
                                         {{this.deliveryDetails.status}}
                                     </p>
-                                    <a href="#">Download info</a>
                                 </div>
                             </article>
                         </div> <!-- col// -->
@@ -79,7 +65,6 @@
                                         Address: {{this.deliveryDetails.deliveryDetails.address}} <br> Po Box
                                         {{this.deliveryDetails.deliveryDetails.pincode}}
                                     </p>
-                                    <a href="#">View profile</a>
                                 </div>
                             </article>
                         </div> <!-- col// -->
@@ -113,7 +98,6 @@
                                             {{!-- <td class="text-end"> ₹ {{this.proDetails.[0].total}} </td> --}}
                                             <td class="text-end"> ₹ {{mathMulti this.products.quantity
                                                 this.proDetails.[0].price}} </td>
-
                                         </tr>
                                         {{/each}}
                                         <tr>
@@ -136,7 +120,7 @@
                                                         <dt class="text-muted">Status:</dt>
                                                         <dd>
                                                             <span
-                                                                class="badge rounded-pill alert-success text-success">{{this.status}}</span>
+                                                                class="badge rounded-pill alert-success text-success">{{this.deliveryDetails.status}}</span>
                                                         </dd>
                                                     </dl>
                                                 </article>
@@ -147,27 +131,6 @@
                             </div> <!-- table-responsive// -->
                         </div> <!-- col// -->
                         <div class="col-lg-1"></div>
-                        {{!-- <div class="col-lg-4">
-                            <div class="box shadow-sm bg-light">
-                                <h6 class="mb-15">Payment info</h6>
-                                <p>
-                                    <img src="assets/imgs/card-brands/2.png" class="border" height="20"> Master Card
-                                    ****
-                                    ****
-                                    4768 <br>
-                                    Business name: Grand Market LLC <br>
-                                    Phone: +1 (800) 555-154-52
-                                </p>
-                            </div>
-                            <div class="h-25 pt-4">
-                                <div class="mb-3">
-                                    <label>Notes</label>
-                                    <textarea class="form-control" name="notes" id="notes"
-                                        placeholder="Type some note"></textarea>
-                                </div>
-                                <button class="btn btn-primary">Save note</button>
-                            </div>
-                        </div> <!-- col// --> --}}
                     </div>
                 </div> <!-- card-body end// -->
 
