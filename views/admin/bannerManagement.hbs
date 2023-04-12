@@ -22,7 +22,7 @@
 
                       <div class="text-center">
                         <div class="table-responsive">
-                          <table class="table table-striped" style="width: 100%;">
+                          <table class="table table-striped" style="width: 100%;" id="bannerTable">
                             <thead>
                               <tr>
                                 <th scope="col">ID</th>
@@ -75,3 +75,8 @@
   </div>
   <!-- [ Main Content ] end -->
 </main>
+<script>
+  $(document).ready(function () {
+    $('#bannerTable').DataTable();
+  });
+</script>

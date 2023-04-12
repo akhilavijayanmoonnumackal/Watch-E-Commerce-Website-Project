@@ -4,6 +4,7 @@ const serviceSid ='VA218ea587d1416b936118cbbf7aed37f5'
 const client = require('twilio')(accountSid, authToken);
 require('dotenv')
 
+
 module.exports = { 
     sendOtp : (mobile) =>{
         return new Promise((resolve, reject) =>{

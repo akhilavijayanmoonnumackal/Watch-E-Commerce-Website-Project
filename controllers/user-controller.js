@@ -952,8 +952,11 @@ module.exports={
         let orders = await userHelpers.getUserOrders(userId)   
             orders.forEach(order => {
                 order.isCancelled = order.status === "cancelled"?true:false;
-                order.isDelivered = order.status === "delivered"?true:false;
-                date = new Date()
+                order.isDelivered = order.status === "delivered"?true:false;               
+                const months = ["JAN","FEB","MARCH","APRIL","MAY","JUNE","JULY","AUG","SEP","OCT","NOV","DEC"];
+                for(let i=0;i<orders.length;i++){
+                    orders[i].date = orders[i].date.getDate()+'-'+months[orders[i].date.getMonth()]+'-'+orders[i].date.getFullYear();
+                }
             }) 
         res.render('user/viewOrders', {admin:false, user, cartCount, wishlistCount, userHeader:true,orders})
     },

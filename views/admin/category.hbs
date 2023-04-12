@@ -10,7 +10,7 @@
             <h4 class="py-4 text-center">Category Management</h4>
             <div class="col-md-9">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="catgTable">
                         <thead>
                             <tr>
                                 <th class="text-center">
@@ -156,3 +156,9 @@
     </div>
 </div>
 {{/each}}
+
+<script>
+    $(document).ready(function () {
+        $('#catgTable').DataTable();
+    });
+</script>
