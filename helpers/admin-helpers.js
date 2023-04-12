@@ -97,15 +97,6 @@ module.exports={
             });
         })
     },
-    // bannerList: (bannerId) => {
-    //     return new Promise((resolve,reject) => {
-    //         db.get().collection(collection.BANNER_COLLECTION)
-    //         .updateOne({_id:new ObjectId(bannerId)}, {$set: {status:false}})
-    //         .then((response) => {
-    //             resolve();
-    //         })
-    //     })
-    // },
     getBanners: () => {    //1
         return new Promise(async(resolve, reject) => {
             let banner = await db.get().collection(collection.BANNER_COLLECTION)
@@ -122,20 +113,6 @@ module.exports={
             })
         })
     },
-    // bannerUnlist: (bannerId) => {
-    //     return new Promise((resolve, reject) => {
-    //         db.get().collection(collection.BANNER_COLLECTION)
-    //         .updateOne({_id: new ObjectId(bannerId)},
-    //         {
-    //             $set:
-    //             {
-    //                 status: false
-    //             }
-    //         }).then((response) => {
-    //             resolve();
-    //         })
-    //     })
-    // },
     bannerList:(bannerId) => {    //1
         return new Promise((resolve, reject) => {
             db.get().collection(collection.BANNER_COLLECTION)
@@ -166,20 +143,6 @@ module.exports={
             })
         })
     },
-
-    // isCategoryNameExist: (name) => {
-    //     return new Promise(async(resolve,reject) => {
-    //         const category = await db.get().collection(collection.CATEGORY_COLLECTION)
-    //         .findOne({name: name.trim().toLowerCase() });    
-    //         if(category) {
-    //             resolve(category)
-    //             console.log("category name", category);
-    //         }else{
-    //             resolve()
-    //         }
-    //     })
-    // },
-
     isCategoryNameExist: (name) => {
         return new Promise(async(resolve,reject) => {
             const category = await db.get().collection(collection.CATEGORY_COLLECTION)
@@ -192,16 +155,6 @@ module.exports={
             }
         })
     },
-
-    
-    // allCategories: () => {
-    //     return new Promise(async(resolve,reject) => {
-    //         let category = await db.get().collection(collection.CATEGORY_COLLECTION)
-    //         .find().toArray();
-    //         resolve(category);
-    //     })
-    // },
-
     allCategories: () => {
         return new Promise(async(resolve,reject) => {
             try {
@@ -251,21 +204,6 @@ module.exports={
             })
         })
     },
-    // bannerList:(bannerId) => {    //1
-    //     return new Promise((resolve, reject) => {
-    //         db.get().collection(collection.BANNER_COLLECTION)
-    //         .updateOne({_id: new ObjectId(bannerId)},
-    //         {
-    //             $set:
-    //             {
-    //                 status:true
-    //             }
-    //         }).then((response) => {
-    //             console.log(response);
-    //             resolve();
-    //         })
-    //     })
-    // }
     categoryList: (categoryId) => {
         return new Promise((resolve,reject) => {
             db.get().collection(collection.CATEGORY_COLLECTION)

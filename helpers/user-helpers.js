@@ -388,103 +388,6 @@ module.exports={
         })
     },
 
-    // cartDetails: (userId) => {
-    //     return new Promise(async (resolve, reject) => {
-    //       try {
-    //         userId = new ObjectId(userId);
-    //         let cartItems = await db.get().collection(collection.CART_COLLECTION)
-    //         .aggregate([
-    //             {
-    //               '$match': {
-    //                 'userId': userId
-    //               }
-    //             }, {
-    //               '$unwind': {
-    //                 'path': '$products', 
-    //                 'preserveNullAndEmptyArrays': true
-    //               }
-    //             }, {
-    //               '$lookup': {
-    //                 'from': 'products', 
-    //                 'localField': 'products.productId', 
-    //                 'foreignField': '_id', 
-    //                 'as': 'proDetails'
-    //               }
-    //             }, {
-    //               '$project': {
-    //                 'proDetails': 1, 
-    //                 'products.quantity': 1, 
-    //                 '_id': 0
-    //               }
-    //             }
-    //           ]).toArray();
-    //         console.log(cartItems)
-    //         console.log("fdgffffffffffffffffffffff",cartItems.length);
-    //         if(cartItems.length!=0){
-    //             if(cartItems.length===1){
-    //                 if(cartItems[0].proDetails.length===0){
-    //                     console.log("noijas")
-    //                     console.log(`prodetailslength : ${cartItems[0].proDetails.length}`);
-    //                     resolve(null);
-    //                 }
-    //             }
-    //             resolve(cartItems)
-    //         }else{
-    //             resolve(null);
-    //         }
-    //       } catch {
-    //         resolve(null);
-    //         }
-    //     });
-    //   },
-
-
-
-    // addToWishlist:(userId, productId, wishQuantity)=>{
-    //     return new Promise(async(resolve, reject)=>{
-    //         userId = new ObjectId(userId);
-    //         productId = new ObjectId(productId);
-    //         wishQuantity=Number(wishQuantity)
-    //         const isWishList = await db.get().collection(collections.WISHLIST_COLLECTION).findOne({userId: userId});
-    //         const proWishExist = await db.get().collection(collection.WISHLIST_COLLECTION)
-    //         .findOne(
-    //             {
-    //                 userId:userId,
-    //                 products:{$elemMatch:{productId}}
-    //             }
-    //         );
-    //         console.log(proWishExist);
-    //         if(isWishList){
-    //             if(proWishExist) {
-    //                 db.get().collection(collections.WISHLIST_COLLECTION)
-    //                 .updateOne(
-    //                     {
-    //                         userId: userId
-    //                     },
-    //                     {
-    //                         $push:{
-    //                             products: productId
-    //                         }
-    //                     }
-    //                 )
-    //                 .then((response)=>{
-    //                     resolve(response);
-    //                 });                
-    //         }else{
-    //             let wishList={
-    //                 userId : userId,
-    //                 products : [productId],
-    //             }
-    //             db.get().collection(collections.WISHLIST_COLLECTION)
-    //             .insertOne(wishList)
-    //             .then((response)=>{
-    //                 resolve(response);
-    //                 });
-    //             }
-    //         }
-    //     })
-    // },
-
     addToWishlist:(userId, productId,quantity)=>{
         return new Promise(async(resolve, reject)=>{
             userId = new ObjectId(userId);
@@ -542,38 +445,6 @@ module.exports={
             })
         })
     },
-
-    // placeOrder: (order, products, totalPrice) => {
-    //     return new Promise((resolve,reject) => {
-    //         console.log(order,products,totalPrice);
-    //         let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
-    //         let orderObj = {
-    //             deliveryDetails: {
-    //                 name: order.name,
-    //                 mobile: order.mobile,
-    //                 address: order.address,
-    //                 pincode: order.pincode
-    //             },
-    //             userId: new ObjectId(order.userId),
-    //             PaymentMethod: order['payment-method'],
-    //             products: products,
-    //             totalAmount: totalPrice,
-    //             status: status,
-    //             date: new Date()
-    //         }
-
-    //         db.get().collection(collection.ORDER_COLLECTION)
-    //         .insertOne(orderObj)
-    //         .then((response) => {
-    //             db.get().collection(collection.CART_COLLECTION)
-    //             .deleteOne({ userId: new ObjectId(order.userId)})
-    //             .then((response2)=>{
-    //                 console.log(response2)
-    //                 resolve(response.insertedId)
-    //             })
-    //         })
-    //     })
-    // },
     placeOrder: (order, products, totalPrice) => {
         return new Promise((resolve,reject) => {
             console.log(order,products,totalPrice);
@@ -661,15 +532,6 @@ module.exports={
             }
         })
     },
-    
-    // getCartProductList: (userId) => {
-    //     return new Promise(async(resolve,reject) => {
-    //        let cart = await db.get().collection(collection.CART_COLLECTION)
-    //        .findOne({user:new ObjectId(userId)})
-    //        console.log(cart);
-    //        resolve(cart.products)
-    //     })
-    // }
     getUserOrders: (userId) => {
         return new Promise(async(resolve, reject) => {
             let orders = await db.get().collection(collection.ORDER_COLLECTION)
@@ -707,22 +569,6 @@ module.exports={
             })
         })
     },
-
-    // cancelOrder: (orderId) => {
-    //     return new Promise(async(resolve, reject) => {
-    //         try {
-    //             const response = await db.get().collection(collection.ORDER_COLLECTION)
-    //                 .updateOne({ _id: new ObjectId(orderId) }, { $set: { status: "Cancelled" } });
-    //             if (response.modifiedCount === 0) {
-    //                 throw new Error("Failed to cancel order");
-    //             }
-    //             resolve({ message: "Order cancelled successfully" });
-    //         } catch (error) {
-    //             reject(error);
-    //         }
-    //     });
-    // },
-
     generateRazorpay: (orderId, total) => {
         return new Promise((resolve, reject) => {
             var options = {

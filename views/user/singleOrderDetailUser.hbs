@@ -18,7 +18,7 @@
                             </span> <br>
                             <small class="text-muted">Order ID: {{this.orderId}}</small>
                         </div>
-                        <div class="col-lg-6 col-md-6 ms-auto text-md-end">
+                        {{!-- <div class="col-lg-6 col-md-6 ms-auto text-md-end">
                             <select class="form-select d-inline-block mb-lg-0 mb-15 mw-200">
                                 <option>Change status</option>
                                 <option>Awaiting payment</option>
@@ -29,7 +29,7 @@
                             <a class="btn btn-primary" href="#">Save</a>
                             <a class="btn btn-secondary print ms-2" href="#"><i
                                     class="icon material-icons md-print"></i></a>
-                        </div>
+                        </div> --}}
                     </div>
                     {{/if}}
                 </header> <!-- card-header end// -->
@@ -49,7 +49,7 @@
                                             data-cfemail="e2838e879aa2879a838f928e87cc818d8f">[email&#160;protected]</template>
                                         <br> +91{{this.deliveryDetails.deliveryDetails.mobile}}
                                     </p>
-                                    <a href="#">View profile</a>
+                                    <a href="/userProfile">View profile</a>
                                 </div>
                             </article>
                         </div> <!-- col// -->
@@ -65,7 +65,7 @@
                                         <br> Status:
                                         {{this.deliveryDetails.status}}
                                     </p>
-                                    <a href="#">Download info</a>
+                                    {{!-- <a href="#">Download info</a> --}}
                                 </div>
                             </article>
                         </div> <!-- col// -->
@@ -80,7 +80,7 @@
                                         Address: {{this.deliveryDetails.deliveryDetails.address}} <br> Po Box
                                         {{this.deliveryDetails.deliveryDetails.pincode}}
                                     </p>
-                                    <a href="#">View profile</a>
+                                    <a href="/userProfile">View profile</a>
                                 </div>
                             </article>
                         </div> <!-- col// -->

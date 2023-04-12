@@ -186,33 +186,6 @@ module.exports ={
             resolve(banners);
         })
     },
-  
-    // addCategoryPost: async(req,res) => {        
-    //     console.log("ttttttttttttttttttt",req.body);
-    //     let name=req.body.name.trim().toLowerCase();
-    //     console.log(name);
-    //     //let data=req.body
-
-    //     const categoryNameExist = await adminHelpers.isCategoryNameExist(name)
-    //     if(categoryNameExist) {
-    //         console.log("categoryNameExist", categoryNameExist);
-    //         console.log("exist");
-    //         res.redirect('/admin/category')
-    //     }else{
-    //         await adminHelpers.addCategory(req.body).then((response) => {
-    //             res.redirect('/admin/category');
-    //         })
-            
-    //     }
-    // },
-
-    // addCategoryPost: (req,res) => {
-    //     adminHelpers.addCategory(req.body).then((response) => {
-    //         res.redirect('/admin/category');
-    //     })
-    // },
-
-
     addCategoryPost: async (req, res) => {
         console.log("ttttttttttttttttttt", req.body);
         let name = req.body.name;
@@ -229,9 +202,7 @@ module.exports ={
             res.redirect('/admin/category');
           });
         }
-      },
-
-      
+      },      
       categoryManagement: (req, res) => {
         if (req.session.adminLoggedIn) {
           const message = req.query.message;
@@ -243,37 +214,6 @@ module.exports ={
           res.redirect("/admin/login");
         }
       },
-      
-      
-    // addCategoryPost: async(req,res) => {        
-    //     console.log("ttttttttttttttttttt",req.body);
-    //     let name=req.body.name
-    //     console.log(name);
-    //     //let data=req.body
-
-    //     const categoryNameExist = await adminHelpers.isCategoryNameExist(name)
-    //     if(categoryNameExist) {
-    //         console.log("categoryNameExist", categoryNameExist);
-    //         console.log("exist");
-    //         res.redirect('/admin/category?message=Exist')
-    //     }else{
-    //         await adminHelpers.addCategory(req.body).then((response) => {
-    //             res.redirect('/admin/category');
-    //         })
-            
-    //     }
-    // },  
-    // categoryManagement: (req,res) => {
-    //     if(req.session.adminLoggedIn){
-    //         const message = req.query.message
-    //         console.log("message",message);
-    //         adminHelpers.allCategories().then((category) => {
-    //             res.render('admin/category', {admin:true, adminName:req.session.adminName,category})
-    //         })
-    //         }else{
-    //             res.redirect('/admin/login')
-    //         }       
-    // },
     listcategory: (req,res) => {
         adminHelpers.categoryList(req.params.id).then(() => {
             res.redirect('back');
@@ -301,11 +241,6 @@ module.exports ={
             res.redirect('/admin/category')
         }
     },
-    // editProduct: async(req,res) => {
-    //     let product = await productHelpers.getProductDetails(req.params.id)
-    //     console.log("product: ",product);
-    //     res.render('admin/editProduct',{admin:true, adminName:req.session.adminName,product});
-    // },
     editProduct: async(req,res) => {
         let product = await productHelpers.getProductDetails(req.params.id);
         adminHelpers.allCategories().then((category) => {
@@ -314,26 +249,6 @@ module.exports ={
             })
         
     },
-    // editProductPost: (req,res) => {            
-    //         productHelpers.updateProduct(req.params.id,req.body).then(async()=>{
-    //             console.log("api CALl 1st")
-    //             console.log(req.files.length);
-    //             let imgUrls = []
-    //             for(let i=0;i<req.files.length;i++){
-    //                 let result = await cloudinary.uploader.upload(req.files[i].path);
-    //                 imgUrls.push(result.url);
-    //             }
-    //             console.log("api call")
-    //             console.log(imgUrls)
-    //             if(imgUrls) {
-    //                 productHelpers.updateProductImages(req.params.id, imgUrls).then(()=>{
-    //                     res.redirect('/admin/view-products');
-    //                 })
-    //             }else{
-    //                 res.redirect('/admin/view-products');
-    //             }
-    //         })
-    // },
 
     editProductPost: async(req,res) => {     
         try {
@@ -362,59 +277,6 @@ module.exports ={
             res.redirect('back');
         })
     },
-    
-    // editBannerPost: async (req,res) => {     //1
-    //     try{
-    //         adminHelpers.updateBanner(req.param.id, req.body);
-    //         let result = await cloudinary.uploader.upload(req.file.path);
-    //         if(result.url) {
-    //             adminHelpers.updateBannerImages(req.params.id, result.url);
-    //         }
-    //     }catch(err){
-    //         console.log("error", err);
-    //     }finally{
-    //         res.redirect('/admin/bannerManagement');
-    //     }
-    // },
-
-    // updateBanner:(bannerId, banner) =>{
-    //     return new Promise((resolve, reject => {
-    //         db.get().collection(collection.BANNER_COLLECTION)
-    //         .updateOne({_id:new ObjectId(bannerId)},
-    //         {
-    //             $set: {
-    //                 head: banner.head,
-    //                 text: banner.text
-    //             }
-    //         });
-    //     }))
-    // },
-    // updateBannerImages: (bannerId,bannerUrl) => {
-    //     return new Promise((resolve, reject) => {
-    //         db.get().collection(collection.BANNER_COLLECTION)
-    //         .updateOne({_id: new ObjectId(bannerId)},
-    //         {
-    //             $set: 
-    //             {
-    //                 image: bannerUrl
-    //             }
-    //         })
-    //     })
-    // },
-    // addBannerPost:async(req,res) => {           //1
-    //     try {
-    //         //console.log(req.files);
-    //             adminHelpers.addBanner(req.body,async(id) => {
-    //                 let result = await cloudinary.uploader.upload(req.file.path);
-    //                 adminHelpers.updateBannerImages(id,result.url);
-    //             })
-    //     }catch(err){
-    //         console.log(err);
-    //     }finally{
-    //         res.redirect('/admin/bannerManangement');
-    //     }
-    // }
-
     getCoupons: (req,res) => {
         if(req.session.adminLoggedIn) {
             adminHelpers.getAllCoupons().then((coupon) => {
@@ -452,30 +314,26 @@ module.exports ={
             res.redirect('/admin/coupon')
         }
     },
-    orderManagement: async(req,res) => {
-        if(req.session.adminLoggedIn) {
-            const orders = await adminHelpers.allOrders();
-            orders.forEach(order => {
-                order.isCancelled = order.status === "cancelled" || order.status === 'delivered' ? true:false;
-                order.isShipped = order.status === "shipped"?true:false;
-                order.isDelivered = order.status === "delivered"?true:false;
-                order.isPlaced = order.status === 'placed' || order.status === 'pending' ? true:false;
-                date = new Date()
-            })
-                res.render('admin/orderManagement', {admin: true,adminName: req.session.adminName,orders})           
-        }else{
-            res.redirect('/admin/admin-login')
+    orderManagement: async(req, res) => {
+        if (req.session.adminLoggedIn) {
+          const orders = await adminHelpers.allOrders();
+          orders.forEach(order => {
+            order.isCancelled = order.status === "cancelled" || order.status === 'delivered' ? true : false;
+            order.isShipped = order.status === "shipped" ? true : false;
+            order.isDelivered = order.status === "delivered" ? true : false;
+            order.isPlaced = order.status === 'placed' || order.status === 'pending' ? true : false;
+      
+            // Check if the `date` property is a valid Date object
+            if (order.date instanceof Date && !isNaN(order.date.valueOf())) {
+              const months = ["JAN","FEB","MARCH","APRIL","MAY","JUNE","JULY","AUG","SEP","OCT","NOV","DEC"];
+              order.date = order.date.getDate() + '-' + months[order.date.getMonth()] + '-' + order.date.getFullYear();
+            }
+          });
+          res.render('admin/orderManagement', { admin: true, adminName: req.session.adminName, orders });
+        } else {
+          res.redirect('/admin/admin-login');
         }
-    },
-    // orderManagement: (req,res) => {
-    //     if(req.session.adminLoggedIn) {
-    //         adminHelpers.allOrders().then((order) => {
-    //             res.render('admin/orderManagement', {admin: true,adminName: req.session.adminName,order})
-    //         })
-    //     }else{
-    //         res.redirect('/admin/admin-login')
-    //     }
-    // }
+      },
     singleOrderDetail: async(req,res) => {
         if(req.session.adminLoggedIn) {
             let orderId = req.params.id;
@@ -515,10 +373,5 @@ module.exports ={
             }
             res.render('admin/sales', {admin: true,adminName: req.session.adminName, orders})
         })               
-    } 
-    // salesReport: (req,res) => {
-    //     if(req.session.adminLoggedIn) {
-    //         res.render('admin/sales', {admin: true,adminName: req.session.adminName})
-    //     }        
-    // }    
+    }   
 }
