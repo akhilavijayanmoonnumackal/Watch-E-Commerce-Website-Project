@@ -4,6 +4,7 @@ const { response } = require('../app');
 const { productDetail } = require('../controllers/user-controller');
 const { reject } = require('bcrypt/promises');
 const async = require('hbs/lib/async');
+// const { default: orders } = require('razorpay/dist/types/orders');
 const ObjectId=require('mongodb-legacy').ObjectId;
 
 module.exports = {
@@ -197,6 +198,28 @@ module.exports = {
             } catch{
                 resolve(null)
             }
+        })
+    },
+    getAllSales: () => {
+        return new Promise(async(resolve, reject) => {
+            let orders = await db.get().collection(collection.ORDER_COLLECTION)
+            .aggregate([
+                {
+                  '$match': {
+                    'status': 'delivered'
+                  }
+                }, 
+                {
+                  '$lookup': {
+                    'from': 'user', 
+                    'localField': 'userId', 
+                    'foreignField': '_id', 
+                    'as': 'userDetails'
+                  }
+                }
+              ]).toArray()
+              console.log("orders",orders);
+              resolve(orders)
         })
     }    
 }

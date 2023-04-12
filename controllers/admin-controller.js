@@ -46,10 +46,9 @@ module.exports ={
         })
     },
     dashBoard:(req,res)=>{
-
         if(req.session.adminLoggedIn){
             console.log(req.session.adminName);
-            res.render('admin/dashboard', {admin:true, adminName:req.session.adminName});
+            res.render('admin/dashboard', {admin:true,adminHeader:true, adminName:req.session.adminName});
         }else{
             res.redirect('/admin/admin-login');
         }
@@ -507,6 +506,19 @@ module.exports ={
         adminHelpers.orderDelivered(orderId).then(() => {
             res.redirect('/admin/orderManagement');
         })
-    }
-    
+    },
+    salesReport: (req,res) => {
+        productHelpers.getAllSales().then((orders) => {
+            const months = ["JAN","FEB","MARCH","APRIL","MAY","JUNE","JULY","AUG","SEP","OCT","NOV","DEC"];
+            for(let i=0;i<orders.length;i++){
+                orders[i].date = orders[i].date.getDate()+'-'+months[orders[i].date.getMonth()]+'-'+orders[i].date.getFullYear();
+            }
+            res.render('admin/sales', {admin: true,adminName: req.session.adminName, orders})
+        })               
+    } 
+    // salesReport: (req,res) => {
+    //     if(req.session.adminLoggedIn) {
+    //         res.render('admin/sales', {admin: true,adminName: req.session.adminName})
+    //     }        
+    // }    
 }

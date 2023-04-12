@@ -1,0 +1,48 @@
+<main class="main-wrap">
+    <div class="card mb-4">
+        <header class="card-header">
+            <h4 class="card-title">Sales</h4>
+
+        </header>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table align-middle table-nowrap mb-0" id="example">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Sl. No.</th>
+                            <th class="align-middle" scope="col">Date</th>
+                            <th class="align-middle" scope="col">Order ID</th>
+                            <th class="align-middle" scope="col">User Name</th>
+                            <th class="align-middle" scope="col">Price</th>
+                            <th class="align-middle" scope="col">Payment Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each orders}}
+                        <tr>
+                            <td scope="row">{{@index}}</td>
+                            <td>{{this.date}}</td>
+                            <td><a class="fw-bold">{{this._id}}</a> </td>
+                            <td>{{this.userDetails.[0].name}}</td>
+                            <td>₹{{this.totalAmount}}</td>
+                            <td>
+                                <i class="material-icons md-payment font-xxl text-muted mr-5"></i>
+                                {{this.PaymentMethod}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+
+            </div> <!-- table-responsive end// -->
+        </div>
+    </div>
+</main>
+
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>

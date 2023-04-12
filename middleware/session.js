@@ -19,6 +19,13 @@ module.exports = {
             next()
         }
     },
+    adminAuth: (req,res,next) => {
+        if(req.session.adminLoggedIn){
+            next()
+        }else{
+            res.redirect('/admin/admin-login')
+        }
+    },
     userAuth: async(req, res, next)=>{
         if(req.session.loggedIn){
             // get user with req.session.userDetails

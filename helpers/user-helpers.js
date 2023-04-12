@@ -590,7 +590,7 @@ module.exports={
                 products: products,
                 totalAmount: totalPrice,
                 status: status,
-                date: new Date().toLocaleString()
+                date: new Date()
             }
 
             db.get().collection(collection.ORDER_COLLECTION)

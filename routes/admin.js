@@ -47,5 +47,7 @@ router.get('/singleOrderDetail/:id', adminController.singleOrderDetail);
 router.get('/cancelOrder/:id', adminController.cancelOrder);
 router.get('/shipOrder/:id', adminController.shipOrder);
 router.get('/orderDelivered/:id', adminController.orderDelivered);
+router.get('/salesReport', sessionChecker.adminAuth, adminController.salesReport);
+// router.get('/salesReport', adminController.salesReport);
 
 module.exports = router;
