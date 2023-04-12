@@ -769,7 +769,8 @@ module.exports={
     },
     getCartCountNew:(userId)=>{
         return new Promise(async(resolve, reject)=>{
-            const cartCount = await db.get().collection(collection.CART_COLLECTION).find({userId: new ObjectId(userId)}).toArray();
+            const cartCount = await db.get().collection(collection.CART_COLLECTION)
+            .find({userId: new ObjectId(userId)}).toArray();
             try{
                 if(cartCount[0].products.length>=1){
                     resolve(cartCount[0].products.length);
@@ -786,7 +787,8 @@ module.exports={
     wishlistCount:(userId)=>{
         return new Promise(async(resolve, reject)=>{
             try{
-                const wishlistCount = await db.get().collection(collection.WISHLIST_COLLECTION).find({userId: new ObjectId(userId)}).toArray();
+                const wishlistCount = await db.get().collection(collection.WISHLIST_COLLECTION)
+                .find({userId: new ObjectId(userId)}).toArray();
                 if(wishlistCount[0].products.length>=1){
                     resolve(wishlistCount[0].products.length);
                 }else{
@@ -795,6 +797,23 @@ module.exports={
                 // console.log(wishlistCount[0].products.length);
             }catch(err){
                 resolve(0);
+            }
+        })
+    },
+    newPasswordUpdate: (userId, password) => {
+        return new Promise(async(resolve, reject) => {
+            try {
+                password.password = await bcrypt.hash(password.password,10);
+                db.get().collection(collection.USER_COLLECTION).updateOne({_id:new ObjectId(userId)},
+                    {
+                        $set: {
+                            password: password.password
+                        }
+                    }).then((response) => {
+                        resolve(response)
+                    }) 
+            }catch(err){
+                console.log(err);
             }
         })
     }

@@ -525,7 +525,7 @@ module.exports={
             console.log("come")
             let count = await userHelpers.getCartCount(userId)
             console.log("go")
-            console.log(count);
+            console.log("counttttttttttttttttttttttttttttttttt",count);
             if(count!=0){
                 response.total=await userHelpers.get1TotalAmount(userId)
                 console.log(response.total);
@@ -1005,6 +1005,47 @@ module.exports={
             console.log(err);
             res.json({ status: false, errMsg:'' })
         })
+    },
+    getForgotPassword: (req,res) => {
+        res.render('user/forgotPassword', {loginErr:req.session.loginErr});
+        req.session.loginErr=false;
+    },
+    forgotPasswordOtp:(req,res) => {
+        req.session.mobile = req.body.phone;
+       userHelpers.checkForUser(req.body.phone).then(async (user) =>{
+        if(user){
+            req.session.user = user;
+            await twilioApi.sendOtpForForgotPass(req.body.phone);
+            // res.json(true)
+            res.render('user/forgotSetNewPassword', {admin:false,user,userHeader:true})
+        }else{  
+            req.session.user = null;
+            req.session.otpLoginErr = "The phone number is not registerd with any account";
+            res.json(false);
+        }
+       
+       })
+
+    },
+    forgotPasswordVerify:(req,res) => {
+        twilioApi.verifyOtpForForgotPass(req.session.mobile, req.body.otp).then((result) =>{
+            if(result === "approved"){
+                req.session.loggedIn=true;
+                res.json({status : true}) 
+
+            }
+            else{               
+                res.json({status : false})
+            }
+        })
+    },
+    newPasswordUpdate: (req,res) => {
+        res.render('user/forgotSetNewPassword', {admin:false,userHeader:true})
+    },
+    newPasswordUpdatePost: async(req,res) => {
+        password = await userHelpers.newPasswordUpdate(req.session.user._id,req.body);
+        req.session.destroy();
+        res.redirect('/login');
     }
 }
 

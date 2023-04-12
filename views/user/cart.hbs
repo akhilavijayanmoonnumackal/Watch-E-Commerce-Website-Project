@@ -40,11 +40,12 @@
                                     <button class="cart-item-count ml-3"
                                         style="background-color: #cd9b68 ; color:aliceblue; width: 3vh;" type="button"
                                         onclick="changeQuantity('{{this.proDetails.[0]._id}}',1)">+</button>
-
                                 </td>
                                 <td class="column-5">
-                                    <span id="{{this.proDetails.[0]._id}}total">{{mathMulti this.products.quantity
-                                        this.proDetails.[0].price}}</span>
+                                    <span id="{{this.proDetails.[0]._id}}total">
+                                        {{mathMulti this.products.quantity
+                                        this.proDetails.[0].price}}
+                                    </span>
                                 </td>
                                 <td>
                                     <button type="button" onclick="removeProduct('{{this.proDetails.[0]._id}}')"

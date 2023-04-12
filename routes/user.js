@@ -44,6 +44,13 @@ router.get('/viewOrders',sessionChecker.userAuth, controller.viewOrders);
 router.get('/singleOrderDetailUser/:id', controller.singleOrderDetailUser);
 router.get('/cancelOrder/:id', controller.cancelOrder);
 router.post('/verifyPayment', controller.verifyPayment);
+router.get('/forgotPassword', controller.getForgotPassword);
+router.post('/forgotPassword-otp', controller.forgotPasswordOtp);
+router.post('/forgotPasswordVerify', controller.forgotPasswordVerify);
+router.get('/newPasswordUpdate', controller.newPasswordUpdate);
+router.post('/newPasswordUpdatePost', controller.newPasswordUpdatePost);
+
+
 
 
 // router.get('/shop', (req,res)=>{
