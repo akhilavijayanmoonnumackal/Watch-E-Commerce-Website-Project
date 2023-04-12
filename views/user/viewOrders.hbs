@@ -3,6 +3,7 @@
         <div>
             <br><br><br><br>
         </div>
+        {{#if orders}}
         <div class="card mb-4">
             <header class="card-header">
                 <h4 class="card-title">All Orders</h4>
@@ -10,6 +11,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <div class="table-responsive">
+
                         <table class="table align-middle table-nowrap mb-0">
                             <thead class="table-light">
                                 <tr>
@@ -86,10 +88,40 @@
                                 {{/each}}
                             </tbody>
                         </table>
+
+                        {{else}}
+                        {{!-- <div class="container-fluid  mt-100">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card"> --}}
+
+                                        <div class="card-body cart">
+                                            <div class="col-sm-12 empty-cart-cls text-center">
+                                                <img src="images/orderSvg.png" class="img-fluid mb-4 mr-3"
+                                                    style="width: 209px;height:197px">
+                                                <h3><strong>You have no orders</strong></h3>
+                                                <h4>Buy something to make me happy :)</h4>
+                                                <a href=" /shop" class="btn btn-primary cart-btn-transform m-3"
+                                                    data-abc="true">continue
+                                                    shopping</a>
+                                            </div>
+                                        </div>
+                                        {{!--
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> --}}
+
+
+
+
                     </div>
                 </div> <!-- table-responsive end// -->
             </div>
         </div>
+
+        {{/if}}
     </div>
 </section>
 
