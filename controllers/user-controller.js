@@ -308,8 +308,12 @@ module.exports={
         res.render('user/placeOrder',{admin:false,user,total,wishlistCount, userHeader:true})
     },
     postPlaceOrder: async(req,res) => {
+        // console.log(req.body)
+        req.body.userId = req.session.user._id;
+        const address = await userHelpers.findAddr(req.body.userId, req.body.addrDetails);
         let products= await userHelpers.getCartProductList(req.body.userId)
         let totalPrice = await userHelpers.get1TotalAmount(req.body.userId)
+        req.body.address = address;
         userHelpers.placeOrder(req.body,products,totalPrice).then((orderId) => {
             console.log(orderId);
             if(req.body['payment-method'] === 'COD') {
@@ -369,7 +373,7 @@ module.exports={
         userHelpers.updateAddress(req.body,req.params.id);
         let user = await userHelpers.findUser(req.params.id);
         req.session.user = user;
-        res.redirect('/manageAddress');
+        res.redirect('back');
     },
     // applyCoupon : async(req,res) => {
     //     if(req.session.loggedIn) {

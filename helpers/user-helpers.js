@@ -451,10 +451,10 @@ module.exports={
             let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
             let orderObj = {
                 deliveryDetails: {
-                    name: order.name,
-                    mobile: order.mobile,
-                    address: order.address,
-                    pincode: order.pincode
+                    name: order.address.name,
+                    mobile: order.address.mobile,
+                    address: order.address.address,
+                    pincode: order.address.pincode
                 },
                 userId: new ObjectId(order.userId),
                 PaymentMethod: order['payment-method'],
@@ -681,6 +681,27 @@ module.exports={
             }catch(err){
                 console.log(err);
             }
+        })
+    },
+    findAddr:(userId, addrId)=>{
+        return new Promise(async(resolve, reject)=>{
+            userId = new ObjectId(userId);
+            addrId = new ObjectId(addrId);
+            const address = await db.get().collection(collection.USER_COLLECTION)
+            .findOne(
+                {
+                    _id: userId,
+                    address: {$elemMatch: {_id: addrId}}
+                },
+                {
+                    projection: {
+                        _id: 0, // exclude the default _id field
+                        'address.$': 1 // include only the matching element of the address array
+                    }
+                }
+            )
+            // console.log("selected address: ",address.address);
+            resolve(address.address[0]);
         })
     }
 }

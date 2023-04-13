@@ -1,4 +1,4 @@
 
 .env
-node_modules/
-api/twilio.js
+/node_modules
+
