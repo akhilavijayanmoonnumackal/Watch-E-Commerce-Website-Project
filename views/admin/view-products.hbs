@@ -6,6 +6,7 @@
                         style="background-color: #c89237;">Add
                         Product</a></div>
             </div>
+            <h4 class="py-4 text-center">Product Management</h4>
             <div class=" mt-5">
                 <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px"
                     id="uproductTable">
@@ -22,7 +23,7 @@
                     <tbody>
                         {{#each products}}
                         <tr>
-                            <td>{{@index}}</td>
+                            <td>{{increment @index}}</td>
 
                             <td>
                                 <a class="itemside" href="#">

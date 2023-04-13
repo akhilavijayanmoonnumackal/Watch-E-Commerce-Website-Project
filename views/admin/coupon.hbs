@@ -7,6 +7,7 @@
                     Coupon</a>
 
             </div>
+            <h4 class="py-4 text-center">Coupon Management</h4>
             <table class="table mt-5 pt-3" id="couponTable">
                 <thead class="thead-dark">
                     <tr>
@@ -21,7 +22,7 @@
                 <tbody>
                     {{#each coupon}}
                     <tr>
-                        <td scope="row">{{@index}}</td>
+                        <td scope="row">{{increment @index}}</td>
                         <td>{{this.code}}</td>
                         <td>₹{{this.discount}}</td>
                         <td>{{this.expDate}}</td>

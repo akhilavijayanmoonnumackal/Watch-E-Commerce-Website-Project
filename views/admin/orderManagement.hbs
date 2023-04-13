@@ -26,7 +26,7 @@
                         <tbody>
                             {{#each orders}}
                             <tr>
-                                <td scope="row">{{@index}}</td>
+                                <td scope="row">{{increment @index}}</td>
                                 <td><a class="fw-bold">{{this._id}}</a></td>
                                 <td>{{this.deliveryDetails.name}}</td>
                                 <td>

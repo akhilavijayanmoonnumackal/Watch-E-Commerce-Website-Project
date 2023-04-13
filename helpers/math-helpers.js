@@ -3,5 +3,8 @@ module.exports = {
         num1=parseFloat(num1)
         num2=parseFloat(num2)
         return num1*num2;
+    },
+    increment : (value) => {
+        return parseInt(value)+1;
     }
 }
