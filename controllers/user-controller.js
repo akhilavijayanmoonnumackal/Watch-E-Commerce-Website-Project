@@ -161,8 +161,7 @@ module.exports={
                 res.render('user/productDetail',{admin:false,cartCount,wishlistCount, product,userHeader:true});
             })
         }       
-    },
-    
+    },    
     addToCart: (req,res) => {
         if(req.session.loggedIn) {
             console.log("hello")

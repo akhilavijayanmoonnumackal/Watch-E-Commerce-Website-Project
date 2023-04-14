@@ -3,14 +3,14 @@ const collection=require('../config/collections');
 const bcrypt=require('bcrypt');
 const adminHelpers=require('../helpers/admin-helpers');
 const userHelpers=require('../helpers/user-helpers');
-const { response } = require('express');
+// const { response } = require('express');
 const { LogInstance } = require('twilio/lib/rest/serverless/v1/service/environment/log');
 const productHelpers = require('../helpers/product-helpers');
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
 const { ObjectId } = require('mongodb');
-const { reject } = require('bcrypt/promises');
-const async = require('hbs/lib/async');
+// const { reject } = require('bcrypt/promises');
+// const async = require('hbs/lib/async');
 let adminHeader;
 
 module.exports ={
@@ -112,13 +112,14 @@ module.exports ={
         })       
      },
     addProductPost:async(req,res)=>{
+        console.log("uuuuuuuuuuuuuu");
         try{
-            console.log(req.files)        
+            console.log(req.files);      
                 const imgUrl = [];
                 for(let i=0;i<req.files.length;i++){
                     const result = await cloudinary.uploader.upload(req.files[i].path);
                     imgUrl.push(result.url);
-                    console.log(result.url);
+                    console.log("result.urliiiiiiiiiiiiiiiii",result.url);
                 }
                 productHelpers.addProduct(req.body,async(id) => {
                     productHelpers.addProductImages(id,imgUrl).then((response) => {
