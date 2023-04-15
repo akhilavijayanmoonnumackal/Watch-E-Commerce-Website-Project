@@ -37,32 +37,32 @@
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" name="name" placeholder="Your Full Name"
                                         id="name" onkeyup="validateName()" />
-                                    <span id="name-error" class="validation-label"></span>
+                                    <span id="name-error" class="validation-label" style="color: red;"></span>
                                 </div>
                                 <div class="form-group first">
                                     <label for="username">Email</label>
                                     <input type="text" class="form-control" name="email"
                                         placeholder=" your-email@gmail.com" id="email" onkeyup="validateEmail()" />
-                                    <span id="email-error" class="validation-label"></span>
+                                    <span id="email-error" class="validation-label" style="color: red;"></span>
                                 </div>
                                 <div class="form-group last mb-3">
                                     <label for="password">Password</label>
                                     <input type="password" class="form-control" name="password"
                                         placeholder=" Your Password" id="password" onkeyup="validatePassword()" />
-                                    <span id="password-error" class="validation-label"></span>
+                                    <span id="password-error" class="validation-label" style="color: red;"></span>
                                 </div>
                                 <div class="form-group last mb-3">
                                     <label for="password">Re-Enter Password</label>
                                     <input type="password" class="form-control" placeholder="Your Password"
                                         id="repassword" onkeyup="validateRePassword()" />
-                                    <span id="repassword-error" class="validation-label"></span>
+                                    <span id="repassword-error" class="validation-label" style="color: red;"></span>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="phone">Mobile</label>
                                     <input type="phone" class="form-control" name="phone"
                                         placeholder="your-mobile number without country code" id="phone"
                                         onkeyup="validateMobileNumber()" />
-                                    <span id="phone-error" class="validation-label"></span>
+                                    <span id="phone-error" class="validation-label" style="color: red;"></span>
                                 </div>
 
                                 <div class="d-sm-flex mb-5 align-items-center"><span class="ml-auto"><a href="/login"
@@ -72,15 +72,7 @@
 
                                 <input type="submit" value="SignUp" class="btn btn-block py-2 btn-primary"
                                     onclick="return validateForm()" />
-                                <span id="submit-error" class="validation-label"></span>
-
-                                {{!-- <div class="">
-                                    <a href="#" class="btn btn-block py-2 btn-facebook">
-                                        <span class="icon-facebook mr-3"></span> Login with OTP
-                                    </a>
-                                    {{!-- <a href="#" class="btn btn-block py-2 btn-google"><span
-                                            class="icon-google mr-3"></span> Login with Google</a> --}}
-                                </div> --}}
+                                <span id="submit-error" class="validation-label" style="color: red;"></span>
                             </form>
                         </div>
                     </div>
@@ -181,6 +173,7 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main.js"></script>
+
 
 </body>
 
