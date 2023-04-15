@@ -32,7 +32,7 @@
                             <tbody>
                                 {{#each orders}}
                                 <tr>
-                                    <td scope="row">{{@index}}</td>
+                                    <td scope="row">{{increment @index}}</td>
                                     <td>{{this.date}}</td>
                                     <td>
                                         <span>{{this.deliveryDetails.name}},</span>
