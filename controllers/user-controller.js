@@ -496,28 +496,77 @@ module.exports={
         req.session.destroy();
         res.redirect('/login');
     },
-    search: (req, res) => {
+    search: async(req, res) => {        
         const searchValue = req.query.search;
-        productHelpers.search({ search: searchValue }).then((products) => {
-          if (products.length > 0) {
-            // res.json({
-            //   status: 'success',
-            //   products: products
-            // });
-            res.render('user/shop', {admin:false,userHeader:true,products})
-          } else {
-            res.json({
-              status: 'error',
-              message: 'No matching products found'
-            });
-          }
-        }).catch((err) => {
-          res.json({
-            status: 'error',
-            message: err.message
-          });
-        });
-      }
+        let cartCount = 0;
+        let wishlistCount = 0;
+        if(req.session.loggedIn) {
+            let user=req.session.user;
+            cartCount = await userHelpers.getCartCountNew(req.session.user._id);
+            req.session.cartCount = parseInt(cartCount);
+            wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
+            req.session.wishlistCount = parseInt(wishlistCount);
+            productHelpers.search({ search: searchValue }).then((products) => {
+                if (products.length > 0) {
+                  res.render('user/shop', {admin:false,userHeader:true,products,user,cartCount,wishlistCount})
+                } else {
+                  res.json({
+                    status: 'error',
+                    message: 'No matching products found'
+                  });
+                }
+              }).catch((err) => {
+                res.json({
+                  status: 'error',
+                  message: err.message
+                });
+              });
+        }else{
+            productHelpers.search({ search: searchValue }).then((products) => {
+                if (products.length > 0) {
+                  res.render('user/shop', {admin:false,userHeader:true,products,cartCount,wishlistCount})
+                } else {
+                  res.json({
+                    status: 'error',
+                    message: 'No matching products found'
+                  });
+                }
+              }).catch((err) => {
+                res.json({
+                  status: 'error',
+                  message: err.message
+                });
+              });
+        }        
+    }
+    // search: (req, res) => {
+        
+    //     const searchValue = req.query.search;
+    //     let cartCount = 0;
+    //     let wishlistCount = 0;
+    //     if(req.session.loggedIn) {
+
+    //     }
+    //     productHelpers.search({ search: searchValue }).then((products) => {
+    //       if (products.length > 0) {
+    //         // res.json({
+    //         //   status: 'success',
+    //         //   products: products
+    //         // });
+    //         res.render('user/shop', {admin:false,userHeader:true,products})
+    //       } else {
+    //         res.json({
+    //           status: 'error',
+    //           message: 'No matching products found'
+    //         });
+    //       }
+    //     }).catch((err) => {
+    //       res.json({
+    //         status: 'error',
+    //         message: err.message
+    //       });
+    //     });
+    //   }
       
 }
 
