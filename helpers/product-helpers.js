@@ -183,5 +183,21 @@ module.exports = {
               console.log("orders",orders);
               resolve(orders)
         })
-    }    
+    },
+    search: (details) => {
+        return new Promise(async(resolve, reject) => {
+          try {
+            const searchValue = details.search;
+            const products = await db.get().collection(collection.PRODUCT_COLLECTION)
+              .find({
+                'name': { $regex: `.*${searchValue}.*`, $options: 'i' } 
+              }).toArray();
+            resolve(products);
+          } catch (err) {
+            reject(err);
+          }            
+        })
+      }
+      
+
 }

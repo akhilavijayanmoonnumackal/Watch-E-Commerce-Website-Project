@@ -495,6 +495,29 @@ module.exports={
         password = await userHelpers.newPasswordUpdate(req.session.user._id,req.body);
         req.session.destroy();
         res.redirect('/login');
-    }
+    },
+    search: (req, res) => {
+        const searchValue = req.query.search;
+        productHelpers.search({ search: searchValue }).then((products) => {
+          if (products.length > 0) {
+            // res.json({
+            //   status: 'success',
+            //   products: products
+            // });
+            res.render('user/shop', {admin:false,userHeader:true,products})
+          } else {
+            res.json({
+              status: 'error',
+              message: 'No matching products found'
+            });
+          }
+        }).catch((err) => {
+          res.json({
+            status: 'error',
+            message: err.message
+          });
+        });
+      }
+      
 }
 

@@ -37,23 +37,57 @@
                 </button>
                 {{/each}}
 
-                {{!-- <ul>
-                    {{#each category}}
-                    {{#if this.status}}
-                    <li style="font-size: small;"><a href="/admin/category/{{this._id}}">{{this.name}}</a></li>
-                    {{/if}}
-                    {{/each}}
-                </ul> --}}
+            </div>
 
+            {{!-- <div class="col-search  main-menu-padding-1">
+                <form action="" method="" class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" name="search" class="form-control"
+                            value="{{searchValue}}" id="search" placeholder="Product Name.." />
+                        <button class=" icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search" type=" submit">
+                            <i class="icon-search">Search</i>
+                        </button>
+                    </div>
 
-                {{!-- <div id="item-container">
-                    <button class="category-btn" data-filter="{{this.name}}">{{this.name}}</button>
-                </div> --}}
-
+                </form>
+            </div> --}}
+            {{!-- <div class="col-search  main-menu-padding-1">
+                <form action="" method="" class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" name="q" class="form-control" value="{{searchValue}}"
+                            id="search" placeholder="Product Name.." />
+                        <datalist id="search_terms">
+                            {{#each products}}
+                            <option value="{{this.name}}">{{this.name}}</option>
+                            {{/each}}
+                        </datalist>
+                        <button class=" icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search" type="submit">
+                            <i class="icon-search">Search</i>
+                        </button>
+                    </div>
+                </form>
+            </div> --}}
+            <div class="col-search  main-menu-padding-1">
+                <form action="/search" method="GET" class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" name="search" class="form-control"
+                            value="{{searchValue}}" id="search" placeholder="Product Name.." />
+                        <datalist id="search_terms">
+                            {{#each products}}
+                            <option value="{{this.name}}">{{this.name}}</option>
+                            {{/each}}
+                        </datalist>
+                        <button class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search" type="submit">
+                            <i class="icon-search">Search</i>
+                        </button>
+                    </div>
+                </form>
             </div>
 
 
-            <div class="flex-w flex-c-m m-tb-10">
+
+
+            {{!-- <div class="flex-w flex-c-m m-tb-10">
                 <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
                     <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
                     <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
@@ -77,7 +111,7 @@
                     <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product"
                         placeholder="Search">
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Filter -->
             <div class="dis-none panel-filter w-full p-t-10">
