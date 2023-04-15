@@ -469,7 +469,7 @@ module.exports={
             res.render('user/forgotSetNewPassword', {admin:false,user,userHeader:true})
         }else{  
             req.session.user = null;
-            req.session.otpLoginErr = "The phone number is not registerd with any account";
+            req.session.loginErr = "The phone number is not registerd with any account";
             res.json(false);
         }
        

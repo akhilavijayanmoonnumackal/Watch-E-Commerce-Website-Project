@@ -8,8 +8,9 @@
                         <p class="text-white-50 mb-3">Please enter your registered mobile number</p>
                     </div>
                     {{#if loginErr}}
-                    <b class="h5 error">{{loginErr}}</b>
+                    <b class="h5 error" style="color: red;">{{loginErr}}</b>
                     {{/if}}
+                    <br><br>
                     {{!-- --FORM -- --}}
                     <form id="send-otp" action="">
                         <div class="form-group first">

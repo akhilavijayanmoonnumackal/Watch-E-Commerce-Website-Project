@@ -45,7 +45,6 @@ router.post('/forgotPassword-otp', controller.forgotPasswordOtp);
 router.post('/forgotPasswordVerify', controller.forgotPasswordVerify);
 router.get('/newPasswordUpdate', controller.newPasswordUpdate);
 router.post('/newPasswordUpdatePost', controller.newPasswordUpdatePost);
-// router.post('/search', controller.search);
 router.get('/search', controller.search);
 
 
