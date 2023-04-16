@@ -197,7 +197,5 @@ module.exports = {
             reject(err);
           }            
         })
-      }
-      
-
+    }
 }
