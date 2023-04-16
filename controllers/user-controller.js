@@ -135,20 +135,23 @@ module.exports={
     //     }
     // },
 
-    shop: async(req,res)=>{
-        
+    // Define an endpoint for displaying the shop page
+    shop: async(req,res)=>{        
         try {
             let cartCount = 0;
             let wishlistCount = 0;
             let filter = req.query.filter;
             console.log(filter, "hiin akilaa");
+
+            // Check if the user is logged in
             if(req.session.loggedIn){
-                //let filter = req.query.filter;
                 let user=req.session.user;
+                // Get the number of items in the cart and wishlist for the user
                 cartCount = await userHelpers.getCartCountNew(req.session.user._id);
                 req.session.cartCount = parseInt(cartCount);
                 wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
                 req.session.wishlistCount = parseInt(wishlistCount);
+                // If there is a filter, get the filtered products and render the shop page
                 if(filter) {
                     adminHelpers.getAllCategories().then(async(category) => {
                         var products= await productHelpers.getFilteredPro(filter);
@@ -156,6 +159,7 @@ module.exports={
                         console.log(products);                       
                     })
                 }else{
+                    // Otherwise, get all products and render the shop page
                     adminHelpers.getAllCategories().then((category) => {
                         productHelpers.viewProducts().then((products)=>{
                             res.render('user/shop',{admin:false,user,cartCount,category, wishlistCount, userHeader:true,products});
@@ -164,6 +168,7 @@ module.exports={
                     })
                 }                    
             }else{
+                // If the user is not logged in
                 if(filter) {
                     adminHelpers.getAllCategories().then(async(category) => {
                         var products=await productHelpers.getFilteredPro(filter);

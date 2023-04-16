@@ -198,9 +198,35 @@ module.exports = {
           }            
         })
     },
+    // getFilteredPro: async(filter) => {
+    //     if(filter === 'high') {
+    //         filter = -1;
+    //     }else{
+    //         filter = 1;
+    //     }
+    //     let products = await db.get().collection(collection.PRODUCT_COLLECTION)
+    //     .find({status: true}).sort({price: filter}).toArray();
+    //     return products;
+    // }
     getFilteredPro: async(filter) => {
         if(filter === 'high') {
             filter = -1;
+        }else if(filter === '₹0.00 - ₹5000.00'){
+            let products = await db.get().collection(collection.PRODUCT_COLLECTION)
+                .find({status: true, price: {$gte: 0, $lte: 5000}}).toArray();
+                return products;
+        }else if(filter === '₹5000.00 - ₹25000.00'){
+            let products = await db.get().collection(collection.PRODUCT_COLLECTION)
+                .find({status: true, price: {$gte: 5000, $lte: 25000}}).toArray();
+                return products;
+        }else if(filter === '₹25000.00 - ₹50000.00'){
+            let products = await db.get().collection(collection.PRODUCT_COLLECTION)
+                .find({status: true, price: {$gte: 25000, $lte: 50000}}).toArray();
+                return products;
+        }else if(filter === 'above50000'){
+            let products = await db.get().collection(collection.PRODUCT_COLLECTION)
+                .find({status: true, price: {$gte: 50000}}).toArray();
+                return products;
         }else{
             filter = 1;
         }
