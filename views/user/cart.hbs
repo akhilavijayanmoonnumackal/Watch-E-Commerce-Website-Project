@@ -357,9 +357,11 @@
                 } else {
                     console.log(response.total);
                     document.getElementById(proId).innerHTML = quantity + count
+                    console.log("ppppppppp", count)
                     document.getElementById(`${proId}total`).innerHTML = (quantity + count) *
                         document.getElementById(`price${proId}`).innerHTML;
                     document.getElementById('totalValue').innerHTML = response.total;
+                    console.log("bbbbbbbbbbbbbb", response.total)
                 }
             }
         })

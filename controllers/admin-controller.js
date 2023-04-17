@@ -9,6 +9,7 @@ const productHelpers = require('../helpers/product-helpers');
 const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
 const { ObjectId } = require('mongodb');
+const async = require('hbs/lib/async');
 // const { reject } = require('bcrypt/promises');
 // const async = require('hbs/lib/async');
 let adminHeader;
@@ -315,15 +316,24 @@ module.exports ={
     //         res.render('admin/login');
     //     }
     // },
-    getCoupons: (req,res) => {
-        adminHelpers.getAllCoupons().then((coupon) => {
-            res.render('admin/coupon', {admin: true, adminName:req.session.adminName,coupon})
-        })
+    // getCoupons: (req,res) => {
+    //     adminHelpers.getAllCoupons().then((coupon) => {
+    //         res.render('admin/coupon', {admin: true, adminName:req.session.adminName,coupon})
+    //     })
+    // },
+    getCoupons: async(req,res) => {
+        let coupons = await adminHelpers.getAllCoupons();
+        coupons.forEach(coupon => {
+            coupon.deactivated = coupon.status === 'DEACTIVATED'?true:false;
+            coupon.expired = coupon.status === 'EXPIRED'?true:false;
+        });
+        console.log("567890-09876567890-=", coupons);
+        res.render('admin/coupon', {admin: true, adminName:req.session.adminName, coupons});
     },
     addCouponPost: (req,res) => {
-        let code = req.body.code;
-        adminHelpers.addCoupon(req.body).then((response) => {
-            res.redirect('/admin/coupon', );
+        //let code = req.body.code;
+        adminHelpers.addCoupon(req.body).then(() => {
+            res.redirect('/admin/coupon');
         })
     },
     activateCoupon: (req,res) => {

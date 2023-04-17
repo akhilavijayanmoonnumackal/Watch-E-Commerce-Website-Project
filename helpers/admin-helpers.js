@@ -236,20 +236,58 @@ module.exports={
     },
     getAllCoupons: () => {
         return new Promise(async(resolve,reject) => {
-            let coupon = await db.get().collection(collection.COUPON_COLLECTION)
+            const coupons = await db.get().collection(collection.COUPON_COLLECTION)
             .find().toArray();
-            resolve(coupon);
-        })
-    },
-    addCoupon: (coupon) => {
-        coupon.status=true;
-        return new Promise((resolve,reject) => {
-            db.get().collection(collection.COUPON_COLLECTION)
-            .insertOne(coupon).then((data) => {
-                resolve(data)
+            const newDate = new Date();
+            coupons.forEach(coupon => {
+                if(coupon.date < newDate) {
+                    coupon.status = "EXPIRED";
+                }
+                const months = ["JAN", "FEB", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUG", "SEP", "OCT", "NOV", "DEC"];
+                const dateObj = new Date(coupon.date);
+                const day = dateObj.getDate().toString().padStart(2, "0");
+                const month = months[dateObj.getMonth()];
+                const year = dateObj.getFullYear();
+                coupon.date = `${day}-${month}-${year}`;
+
             })
+            resolve(coupons);
         })
     },
+    addCoupon: (coupon) => {       
+        return new Promise(async(resolve,reject) => {
+            coupon.discount = Number(coupon.discount);
+            coupon.date = new Date(coupon.date);
+            coupon.status=true;
+            const newDate = new Date();
+            if(coupon.date < newDate) {
+                coupon.status = 'EXPIRED';
+            }
+            const couponExist = await db.get().collection(collection.COUPON_COLLECTION)
+            .findOne({ code: coupon.code});
+            if(couponExist) {
+                resolve(null);
+            }else{
+                db.get().collection(collection.COUPON_COLLECTION)
+                .insertOne(coupon).then((response) => {
+                resolve();
+                })
+            }   
+        })
+    },
+    // addCoupon: (coupon) => {       
+    //     return new Promise((resolve,reject) => {
+    //         coupon.discount = Number(coupon.discount);
+    //         coupon.date = new Date(coupon.date);
+    //         coupon.status=true;
+    //         const newDate = new Date();
+            
+    //         db.get().collection(collection.COUPON_COLLECTION)
+    //         .insertOne(coupon).then((response) => {
+    //             resolve(response);
+    //         })
+    //     })
+    // },
     couponActivate: (couponId) => {
         return new Promise((resolve,reject) => {
             db.get().collection(collection.COUPON_COLLECTION)
@@ -259,8 +297,8 @@ module.exports={
                 {
                     status:true
                 }
-            }).then((response) => {
-                console.log(response);
+            }).then(() => {
+                //console.log(response);
                 resolve();
             })
         })
@@ -272,10 +310,10 @@ module.exports={
             {
                 $set:
                 {
-                    status:false
+                    status:'DEACTIVATED'
                 }
-            }).then((response) => {
-                console.log(response);
+            }).then(() => {
+                //console.log(response);
                 resolve();
             })
         })
