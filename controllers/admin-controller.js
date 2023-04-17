@@ -358,6 +358,13 @@ module.exports ={
             res.redirect('/admin/coupon')
         }
     },
+    deleteCoupon: (req,res) => {
+        const couponId = req.params.id;
+        adminHelpers.deleteCoupon(couponId).then(() => {
+            // res.json({status: true})
+            res.redirect('back')
+        })
+    },
     // orderManagement: async(req, res) => {
     //     if (req.session.adminLoggedIn) {
     //       const orders = await adminHelpers.allOrders();

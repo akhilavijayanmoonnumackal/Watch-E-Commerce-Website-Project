@@ -36,6 +36,7 @@ router.post('/addCoupon', adminController.addCouponPost);
 router.get('/activateCoupon/:id', adminController.activateCoupon);
 router.get('/deactivateCoupon/:id', adminController.deactivateCoupon);
 router.post('/editCoupon/:id', adminController.editCouponPost);
+router.get('/deleteCoupon/:id', adminController.deleteCoupon);
 router.get('/orderManagement', sessionChecker.adminAuth, adminController.orderManagement);
 router.get('/singleOrderDetail/:id', sessionChecker.adminAuth, adminController.singleOrderDetail);
 router.get('/cancelOrder/:id', adminController.cancelOrder);

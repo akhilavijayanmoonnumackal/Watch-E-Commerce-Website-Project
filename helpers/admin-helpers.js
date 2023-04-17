@@ -338,6 +338,39 @@ module.exports={
             })
         })
     },
+    deleteCoupon:(couponId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.COUPON_COLLECTION)
+            .deleteOne(
+                {
+                    _id: new ObjectId(couponId)
+                }
+                ).then((response) => {
+                    console.log("tttt",response);
+                    resolve()
+                })
+        })
+    },
+    // removeProduct: (userId, proId) => {
+    //     return new Promise((resolve, reject) => {
+    //         db.get().collection(collection.CART_COLLECTION)
+    //         .updateOne(
+    //             {
+    //                 userId: new ObjectId(userId)
+    //             },
+    //             {
+    //                 $pull: { 
+    //                     products: { productId: new ObjectId(proId) } 
+    //                 }
+    //             }
+    //         ).then((response) => {
+    //             console.log(response)
+    //             resolve()
+    //         }).catch((err)=>{
+    //             console.log(err);
+    //         })
+    //     })
+    // }
     allOrders: () => {
         return new Promise(async(resolve,reject) => {
             try {
