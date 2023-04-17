@@ -251,14 +251,10 @@
             success: (response) => {
                 console.log(response);
                 console.log(response.message);
-                console.log("came")
+                //console.log("came")
                 if (response.message === "guest") {
                     console.log("api here!!!");
-                    // if(response.message==="guest"){
-                    // let count = $('#cart-count').html();
-                    // count = parseInt(count) + 1
                     $("#cart-count").load(window.location.href + " #cart-count");
-                    // $('#cart-count').html(count);
                     Toastify({
                         text: 'Product added to cart !',
                         duration: 3000,
@@ -269,17 +265,7 @@
                         // Add an icon to the notification
                         className: "toastify-icon",
                         close: false,
-                        // onClick: function () {
-                        //     console.log("apiCall");
-                        // }
                     }).showToast();
-
-                    // }else{
-                    //     //location.href = '/login'
-                    //     console.log(response)
-                    //     console.log(response.status)
-                    //     console.log(response.message)
-                    // }
                 } else {
                     location.href = '/login'
                 }
@@ -290,7 +276,6 @@
             }
         })
     }
-
 
     $('.js-addcart-btn').on('click', (e) => {
         console.log("working")
