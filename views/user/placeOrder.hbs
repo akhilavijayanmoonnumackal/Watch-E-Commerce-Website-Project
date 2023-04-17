@@ -51,11 +51,6 @@
 
                         <br>
 
-
-
-
-
-
                         <div class="col-md-9">
                             <div class="profile-content">
                                 <p>
@@ -73,9 +68,25 @@
                 {{!--
                 </form> --}}
             </div>
+            {{!-- =====================coupon======================= --}}
             <div class="col-md-6">
                 <div class="order_review">
                     <div class="mb-20">
+                        <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+                            <div class="flex-w flex-m m-r-20 m-tb-5">
+                                <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
+                                    name="coupon" placeholder="Coupon Code">
+
+                                <div
+                                    class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+                                    Apply coupon
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        {{!-- ================================================= --}}
+
                         <h4>Total Price</h4>
                     </div>
                     <div class="size-209 p-t-1">
@@ -83,10 +94,6 @@
                             ₹ {{total}}
                         </span>
                     </div>
-
-
-
-
 
                     <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                     <div class="payment_method">
@@ -116,11 +123,13 @@
                             </div> --}}
                         </div>
                     </div>
+
                     <button onclick="placeOrderSubmit()" type="submit" class="btn btn-fill-out btn-block mt-30">Place
                         Order</button>
                 </div>
             </div>
             </form>
+
         </div>
 
         </div>
@@ -268,6 +277,7 @@
             method: 'post',
             success: (response) => {
                 if (response.status) {
+                    console.log("hhhhhhhhhhhhhhhhhh", response);
                     location.href = '/orderSuccess'
                 } else {
                     alert("Payment Failed")
