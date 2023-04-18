@@ -360,9 +360,29 @@ module.exports={
         let wishlistCount = req.session.wishlistCount;
         res.render('user/placeOrder',{admin:false,user,total,wishlistCount, userHeader:true})
     },
+    // postPlaceOrder: async(req,res) => {
+    //     // console.log(req.body)
+    //     req.body.userId = req.session.user._id;
+    //     const address = await userHelpers.findAddr(req.body.userId, req.body.addrDetails);
+    //     let products= await userHelpers.getCartProductList(req.body.userId)
+    //     let totalPrice = await userHelpers.get1TotalAmount(req.body.userId)
+    //     req.body.address = address;
+    //     userHelpers.placeOrder(req.body,products,totalPrice).then((orderId) => {
+    //         console.log(orderId);
+    //         if(req.body['payment-method'] === 'COD') {
+    //             res.json({ codSuccess: true})
+    //         }else{
+    //             userHelpers.generateRazorpay(orderId,totalPrice).then((response) => {
+    //                 res.json(response)
+    //             })
+    //         }
+    //     })
+    //     console.log(req.body);
+    // },
     postPlaceOrder: async(req,res) => {
         // console.log(req.body)
         req.body.userId = req.session.user._id;
+        req.body.userName = req.session.user;
         const address = await userHelpers.findAddr(req.body.userId, req.body.addrDetails);
         let products= await userHelpers.getCartProductList(req.body.userId)
         let totalPrice = await userHelpers.get1TotalAmount(req.body.userId)
@@ -592,35 +612,35 @@ module.exports={
                 });
               });
         }        
+    },
+    couponApply: (req,res) => {
+        const userId = req.session.user._id;
+        console.log("api call 4567890987654567890-0987654");
+        userHelpers.couponApply(req.body.couponCode, userId).then((coupon) => {
+            console.log(coupon)
+            if(coupon) {
+                if(coupon === "couponExist") {
+                    res.json({
+                        status:"success",
+                        message: "coupon is already used !!",
+                        used: true,
+                        coupon : coupon
+                    })
+                }else{
+                    console.log("everything as planned")
+                    res.json({
+                        status:"success",
+                        coupon:coupon,
+                        total: coupon.discount
+                    })
+                }
+            }else{
+                res.json({
+                    status: "coupon is not valid!"
+                })
+            }
+        });
     }
-    // search: (req, res) => {
-        
-    //     const searchValue = req.query.search;
-    //     let cartCount = 0;
-    //     let wishlistCount = 0;
-    //     if(req.session.loggedIn) {
-
-    //     }
-    //     productHelpers.search({ search: searchValue }).then((products) => {
-    //       if (products.length > 0) {
-    //         // res.json({
-    //         //   status: 'success',
-    //         //   products: products
-    //         // });
-    //         res.render('user/shop', {admin:false,userHeader:true,products})
-    //       } else {
-    //         res.json({
-    //           status: 'error',
-    //           message: 'No matching products found'
-    //         });
-    //       }
-    //     }).catch((err) => {
-    //       res.json({
-    //         status: 'error',
-    //         message: err.message
-    //       });
-    //     });
-    //   }
       
 }
 

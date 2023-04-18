@@ -445,36 +445,124 @@ module.exports={
             })
         })
     },
-    placeOrder: (order, products, totalPrice) => {
-        return new Promise((resolve,reject) => {
-            console.log(order,products,totalPrice);
-            let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
-            let orderObj = {
-                deliveryDetails: {
-                    name: order.address.name,
-                    mobile: order.address.mobile,
-                    address: order.address.address,
-                    pincode: order.address.pincode
-                },
-                userId: new ObjectId(order.userId),
-                PaymentMethod: order['payment-method'],
-                products: products,
-                totalAmount: totalPrice,
-                status: status,
-                date: new Date()
-            }
+    // placeOrder: (order, products, totalPrice) => {
+    //     return new Promise((resolve,reject) => {
+    //         console.log(order,products,totalPrice);
+    //         let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
+    //         let orderObj = {
+    //             deliveryDetails: {
+    //                 name: order.address.name,
+    //                 mobile: order.address.mobile,
+    //                 address: order.address.address,
+    //                 pincode: order.address.pincode
+    //             },
+    //             userId: new ObjectId(order.userId),
+    //             PaymentMethod: order['payment-method'],
+    //             products: products,
+    //             totalAmount: totalPrice,
+    //             status: status,
+    //             date: new Date()
+    //         }
 
-            db.get().collection(collection.ORDER_COLLECTION)
-            .insertOne(orderObj)
-            .then((response) => {
-                db.get().collection(collection.CART_COLLECTION)
-                .deleteOne({ userId: new ObjectId(order.userId)})
-                .then((response2)=>{
-                    console.log(response2)
-                    resolve(response.insertedId)
-                })
+    //         db.get().collection(collection.ORDER_COLLECTION)
+    //         .insertOne(orderObj)
+    //         .then((response) => {
+    //             db.get().collection(collection.CART_COLLECTION)
+    //             .deleteOne({ userId: new ObjectId(order.userId)})
+    //             .then((response2)=>{
+    //                 console.log(response2)
+    //                 resolve(response.insertedId)
+    //             })
+    //         })
+    //     })
+    // },
+    placeOrder: (order, products, totalPrice) => {
+        return new Promise(async(resolve,reject) => {
+            console.log(order,products,totalPrice);
+            if(order.coupon) {
+                const coupon = await db.get().collection(collection.COUPON_COLLECTION)
+                .findOne({code:order.coupon});
+                const couponCode = order.coupon;
+                try {
+                    const couponExist = await db.get().collection(collection.USER_COLLECTION)
+                    .findOne(
+                        {
+                        _id: new ObjectId(order.userId),
+                        usedCoupons: { $elemMatch: { couponCode}}
+                    }
+                    )
+                    if(!couponExist) {
+                        db.get().collection(collection.USER_COLLECTION)
+                        .updateOne(
+                            {
+                                _id: new ObjectId(order.userId)
+                            },
+                            {
+                                $push: { usedCoupons: {couponCode}}
+                            }
+                        )
+                        .then(() => {}).catch(() => {});
+                    }
+                }catch(err){
+                    console.log(err);
+                }finally{
+                    let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
+                    let orderObj = {
+                        deliveryDetails: {
+                            name: order.address.name,
+                            mobile: Number(order.address.mobile),
+                            address: order.address.address,
+                            pincode: Number(order.address.pincode)
+                        },
+                        userId: new ObjectId(order.userId),
+                        PaymentMethod: order['payment-method'],
+                        products: products,
+                        coupon: coupon,
+                        totalAmount: totalPrice,
+                        status: status,
+                        date: new Date()
+                    }
+        
+                    db.get().collection(collection.ORDER_COLLECTION)
+                    .insertOne(orderObj)
+                    .then((response) => {
+                        db.get().collection(collection.CART_COLLECTION)
+                        .deleteOne({ userId: new ObjectId(order.userId)})
+                        .then((response2)=>{
+                            console.log(response2)
+                            resolve(response.insertedId)
+                        });
+                    });
+                }
+                }else{
+                    let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
+                    let orderObj = {
+                        deliveryDetails: {
+                            name: order.address.name,
+                            mobile: Number(order.address.mobile),
+                            address: order.address.address,
+                            pincode: Number(order.address.pincode)
+                        },
+                        userId: new ObjectId(order.userId),
+                        PaymentMethod: order['payment-method'],
+                        products: products,
+                        totalAmount: totalPrice,
+                        status: status,
+                        date: new Date()
+                    }
+        
+                    db.get().collection(collection.ORDER_COLLECTION)
+                    .insertOne(orderObj)
+                    .then((response) => {
+                        db.get().collection(collection.CART_COLLECTION)
+                        .deleteOne({ userId: new ObjectId(order.userId)})
+                        .then((response2)=>{
+                            console.log(response2)
+                            resolve(response.insertedId)
+                        });
+                    });
+                }          
             })
-        })
     },
     findUser: (userId) => {
         return new Promise(async(resolve,reject) => {
@@ -702,6 +790,27 @@ module.exports={
             )
             // console.log("selected address: ",address.address);
             resolve(address.address[0]);
+        })
+    },
+    couponApply: (couponCode, userId) => {
+        return new Promise(async(resolve, reject) => {
+            const couponExist = await db.get().collection(collection.USER_COLLECTION)
+            .findOne({
+                _id: new ObjectId(userId),
+                usedCoupons: { $elemMatch: { couponCode}}
+            })
+            const coupon = await db.get().collection(collection.COUPON_COLLECTION)
+            .findOne({ code: couponCode});
+            if(coupon) {
+                if(couponExist) {
+                    console.log("coupon exists")
+                    resolve("couponExist");
+                }else{
+                    resolve(coupon);
+                }
+            }else{
+                resolve(null);
+            }
         })
     }
 }

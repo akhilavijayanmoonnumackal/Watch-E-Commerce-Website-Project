@@ -208,31 +208,20 @@
                     <div class="order_review">
                         <div class="mb-20">
                             {{!-- <form id="myForm" method="post"> --}}
-                                {{!-- <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-                                    <div class="flex-w flex-m m-r-20 m-tb-5">
-                                        <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5"
-                                            type="text" name="coupon" placeholder="Coupon Code" id="couponCode">
-
-                                        <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5"
-                                            onclick="applyCoupon()">
-                                            Apply coupon
-                                        </div>
-                                    </div>
-
-                                    <span id="invalidCoupon" class="text-danger"></span>
-                                </div> --}}
-
                                 <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
                                     <div class="flex-w flex-m m-r-20 m-tb-5">
                                         <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5"
                                             type="text" name="coupon" placeholder="Coupon Code" id="couponCode">
+
                                         <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5"
                                             onclick="applyCoupon()">
                                             Apply coupon
                                         </div>
                                     </div>
+
                                     <span id="invalidCoupon" class="text-danger"></span>
                                 </div>
+
                                 {{!--
                             </form> --}}
                             <br>
@@ -253,14 +242,15 @@
                                 </dl>
                                 <dl class="dlist">
                                     <dt>Grand total:</dt>
-                                    <dd><strong id="strong"><b class="h5">₹ {{total}}</b></strong>
-                                        <input type="text" id="totalCost" name="totalCost" value="{{total}}" hidden>
+                                    <dd><strong id="strong"><b class="h5" id="total">₹ {{total}}</b></strong>
+                                        <input type="text" name="totalCost" value="{{total}}" hidden>
                                     </dd>
                                 </dl>
                             </article>
                             <br><br>
 
-                            <div class="bt-1 border-color-1 mt-30 mb-30"></div>
+                            <div class=" bt-1 border-color-1 mt-30 mb-30">
+                            </div>
                             <br>
                             <hr>
                             <div class="payment_method">
@@ -382,28 +372,42 @@
     function applyCoupon() {
         const code = document.getElementById('couponCode').value;
 
+
         $.ajax({
             url: '/couponApply',
             type: 'post',
             data: { 'couponCode': code },
             success: function (response) {
+                console.log(response)
+                const coupon = response.coupon;
                 if (response.status === 'success') {
-                    const coupon = response.coupon;
-                    if (coupon.status === 'DEACTIVATED' || coupon.status === 'EXPIRED') {
+                    console.log("status is success");
+                    if (response.used === true) {
+                        console.log("first condition for used : true")
+                        document.getElementById('invalidCoupon').innerHTML = response.message;
+                    } else if (coupon.status === 'DEACTIVATED' || coupon.status === 'EXPIRED') {
+                        console.log("condition 2 status : deactiveated");
+                        console.log("nnnnnnnnnnnn", response.status);
+                        const coupon = response.coupon;
+                        //if (coupon.status === 'DEACTIVATED' || coupon.status === 'EXPIRED') {
                         $('#invalidCoupon').html('Coupon Deactivated or Expired');
-
+                        //}
                     } else {
+                        console.log("everything as planned")
                         const couponAmt = parseInt(coupon.discount);
-                        totalCost = totalCost - couponAmt;
-                        $('input[name="totalCost"]').val(totalCost);
-                        $('#strong').html(`Rs.${totalCost}`);
+                        totalCost = parseInt(totalCost) - couponAmt;
+                        console.log("iiiiiiiiiiiii", totalCost);
+                        document.getElementById('total').innerHTML = `₹ ${totalCost}`;
+                        //document.getElementById('strong').innerHTML = ;
+                        //$('input[name="totalCost"]').val(totalCost);
+                        //$('#strong').html(`Rs.${ totalCost } `);
                         $('#invalidCoupon').html("");
-                        $('#couponName').html(coupon.code);
-                        $('#couponPrice').html(`Rs.${couponAmt}`);
+                        //$('#couponName').html(coupon.code);
+                        $('#couponPrice').html(`Rs.${couponAmt} `);
                         $('#couponCode').val(code);
                     }
                 } else {
-                    $('#invalidCoupon').html(response.status);
+                    document.getElementById('invalidCoupon').innerHTML = response.message;
                 }
             },
             error: function (err) {
@@ -417,7 +421,6 @@
         console.log("apicall")
         $("#checkout-form").submit((e) => {
             e.preventDefault();
-            const paymentMethod;
 
             $.ajax({
                 url: '/place-order',
