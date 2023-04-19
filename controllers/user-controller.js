@@ -640,6 +640,12 @@ module.exports={
                 })
             }
         });
+    },
+    getWallet: (req,res) => {
+        if(req.session.user) {
+            let user = req.session.user;
+            res.render('user/wallet', {admin:false,user,userHeader:true})
+        }
     }
       
 }

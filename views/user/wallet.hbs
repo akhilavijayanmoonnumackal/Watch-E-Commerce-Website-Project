@@ -220,6 +220,18 @@
         margin-right: 5px;
     }
 </style>
+<style>
+    img {
+        max-width: 100%;
+    }
+
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+</style>
 
 <div class="container">
     <div class="p-b-10">
@@ -236,15 +248,8 @@
             <div class="profile-sidebar">
                 <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    {{!-- <label class="-label" for="file">
-                        <span class="glyphicon glyphicon-camera"></span>
-                        <span>Change Image</span>
-                    </label> --}}
-                    {{!-- <input id="file" type="file" onchange="loadFile(event)" /> --}}
                     <img src="images/profile.png" class="img-responsive" id="output" alt="">
                 </div>
-
-
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
                         {{user.name}}
@@ -253,15 +258,6 @@
                         Customer
                     </div>
                 </div>
-                <!-- END SIDEBAR USER TITLE -->
-                <!-- SIDEBAR BUTTONS -->
-                {{!-- <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-success btn-sm">Follow</button>
-                    <button type="button" class="btn btn-danger btn-sm">Message</button>
-                </div> --}}
-                <!-- END SIDEBAR BUTTONS -->
-
-
                 <div class="portlet light bordered">
                     <div>
                         <div class="margin-top-20 profile-desc-link">
@@ -273,8 +269,6 @@
 
                             <a href="/userProfile" class="mb-3">Profile
                                 Information</a>
-
-                            {{!-- <a href="/account">Profile Information</a> --}}
                         </div>
                         <div class="margin-top-20 profile-desc-link">
                             <i class="icon material-icons md-store"></i>
@@ -298,128 +292,38 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
+
         <div class="col-md-9">
             <div class="profile-content">
-                <p>
-                    <button class="btn btn-primary" type="button" aria-expanded="false" aria-controls="collapseExample"
-                        data-toggle="modal" data-target="#exampleModalCenter">
-                        +Add Address
-                    </button>
-                </p>
-                {{#each user.address}}
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-2 border ">
-                    <div class="p-3">
-                        <p> <b> {{this.name}} </b> <b class="pl-4 font-weight-normal">{{this.mobile}} </b> <a
-                                type="button" onclick="addressRemove('{{this._id}}')"
-                                class="text-danger border p-1 float-right"><b> DELETE</b></a></p>
-                        <p>{{this.address}} , {{this.city}} , {{this.district}} , {{this.pincode}}</p>
-
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="card">
+                            <a class="img-card"
+                                href="http://www.fostrap.com/2016/03/bootstrap-3-carousel-fade-effect.html">
+                                <img src="images/wallet.png" />
+                            </a>
+                            <div class="card-content">
+                                <h4 class="card-title">
+                                    <a href="http://www.fostrap.com/2016/03/bootstrap-3-carousel-fade-effect.html">
+                                        My Wallet
+                                    </a>
+                                </h4>
+                                <p class="">
+                                    Total Wallet Amount:
+                                </p>
+                            </div>
+                            <br><br>
+                            <div class="card-read-more">
+                                <a href="/" class="btn btn-link btn-block" style="color: rgb(233, 141, 75);">
+                                    Continue shopping!!!
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                {{/each}}
-
-
             </div>
         </div>
     </div>
 </div>
-</div>
-
-
-<!-- Modal -->
-<div class=" modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add Address</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                {{!-- <form action="/admin/addAddress/{{user._id}}" method="post"> --}}
-                    <form action="/addAddress/{{user._id}}" method="post" id="checkout-form">
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="form-group">
-                                    <input required="" type="text" id="name" class="form-control"
-                                        placeholder="Full name *" name="name" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="form-group">
-                                    <input required="" type="text" id="pincode" class="form-control"
-                                        placeholder="Postcode / ZIP *" name="pincode" />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <input required="" type="phone" id="mobile" class="form-control" name="mobile"
-                                        placeholder="Phone *" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <input required="" type="text" id="locality" class="form-control" name="locality"
-                                placeholder="Locality *" />
-                        </div>
-
-                        <div class="form-group">
-                            <input required="" type="text" id="address" class="form-control" name="address"
-                                placeholder="Address *" />
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col">
-                                <div class="form-group">
-                                    <input required="" type="text" id="city" class="form-control"
-                                        placeholder="City / District / Town *" name="city" />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <input required="" type="state" id="state" class="form-control" name="state"
-                                        placeholder="State / County *" />
-                                    {{!-- <input type="text" name="userId" id="" value="{{user._id}}" hidden> --}}
-                                </div>
-                            </div>
-                        </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<script>
-    (function () {
-        'use strict'
-        const forms = document.querySelectorAll('.requires-validation')
-        Array.from(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-
-</script>

@@ -46,6 +46,7 @@ router.post('/forgotPasswordVerify', controller.forgotPasswordVerify);
 router.get('/newPasswordUpdate', controller.newPasswordUpdate);
 router.post('/newPasswordUpdatePost', controller.newPasswordUpdatePost);
 router.get('/search', controller.search);
+router.get('/wallet', controller.getWallet);
 
 // coupon_routes
 router.post('/couponApply', sessionChecker.userAuth, controller.couponApply);

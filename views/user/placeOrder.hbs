@@ -389,7 +389,6 @@
                         console.log("condition 2 status : deactiveated");
                         console.log("nnnnnnnnnnnn", response.status);
                         const coupon = response.coupon;
-                        //if (coupon.status === 'DEACTIVATED' || coupon.status === 'EXPIRED') {
                         $('#invalidCoupon').html('Coupon Deactivated or Expired');
                         //}
                     } else {
@@ -398,9 +397,6 @@
                         totalCost = parseInt(totalCost) - couponAmt;
                         console.log("iiiiiiiiiiiii", totalCost);
                         document.getElementById('total').innerHTML = `₹ ${totalCost}`;
-                        //document.getElementById('strong').innerHTML = ;
-                        //$('input[name="totalCost"]').val(totalCost);
-                        //$('#strong').html(`Rs.${ totalCost } `);
                         $('#invalidCoupon').html("");
                         //$('#couponName').html(coupon.code);
                         $('#couponPrice').html(`Rs.${couponAmt} `);
