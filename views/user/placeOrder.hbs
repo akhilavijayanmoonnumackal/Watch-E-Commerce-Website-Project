@@ -245,6 +245,8 @@
                                     <dd><strong id="strong"><b class="h5" id="total">₹ {{total}}</b></strong>
                                         <input type="text" name="totalCost" value="{{total}}" hidden>
                                     </dd>
+                                    <input type="number" hidden id="totalAmount" class="form-control"
+                                        name="totalAmount">
                                 </dl>
                             </article>
                             <br><br>
@@ -366,6 +368,7 @@
 
 <script>
     let totalCost = parseInt(document.getElementsByName('totalCost')[0].value);
+    // let totalAmount = document.getElementById('totalAmount').value;
     console.log("jjjjjjjjjjjjj", totalCost);
     let coupon;
 
@@ -397,6 +400,7 @@
                         totalCost = parseInt(totalCost) - couponAmt;
                         console.log("iiiiiiiiiiiii", totalCost);
                         document.getElementById('total').innerHTML = `₹ ${totalCost}`;
+                        document.getElementById('totalAmount').value = totalCost;
                         $('#invalidCoupon').html("");
                         //$('#couponName').html(coupon.code);
                         $('#couponPrice').html(`Rs.${couponAmt} `);

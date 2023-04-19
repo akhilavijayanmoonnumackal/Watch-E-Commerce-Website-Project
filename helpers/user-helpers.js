@@ -279,7 +279,7 @@ module.exports={
                   }
                 ]).toArray()
                 try{
-                    console.log("total", total[0].total)
+                    console.log("total", total[0].total);
                     //console.log(cartItems.length);
                     resolve(total[0].total);
                 }catch{

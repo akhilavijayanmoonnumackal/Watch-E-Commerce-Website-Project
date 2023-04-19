@@ -380,12 +380,13 @@ module.exports={
     //     console.log(req.body);
     // },
     postPlaceOrder: async(req,res) => {
-        // console.log(req.body)
+        console.log("toal%^&*()(*&^%^&*()(*&^%^&*()somethiogn", req.body)
         req.body.userId = req.session.user._id;
         req.body.userName = req.session.user;
         const address = await userHelpers.findAddr(req.body.userId, req.body.addrDetails);
-        let products= await userHelpers.getCartProductList(req.body.userId)
-        let totalPrice = await userHelpers.get1TotalAmount(req.body.userId)
+        let products= await userHelpers.getCartProductList(req.body.userId);
+        // let totalPrice = await userHelpers.get1TotalAmount(req.body.userId);
+        let totalPrice = req.body.totalAmount;
         req.body.address = address;
         userHelpers.placeOrder(req.body,products,totalPrice).then((orderId) => {
             console.log(orderId);
