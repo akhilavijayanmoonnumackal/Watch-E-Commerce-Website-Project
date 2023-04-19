@@ -400,6 +400,30 @@ module.exports={
     //     })
     //     console.log(req.body);
     // },
+    // postPlaceOrder: async(req,res) => {
+    //     console.log("toal%^&*()(*&^%^&*()(*&^%^&*()somethiogn", req.body)
+    //     req.body.userId = req.session.user._id;
+    //     req.body.userName = req.session.user;
+    //     const address = await userHelpers.findAddr(req.body.userId, req.body.addrDetails);
+    //     let products= await userHelpers.getCartProductList(req.body.userId);
+    //     // let totalPrice = await userHelpers.get1TotalAmount(req.body.userId);
+    //     let totalPrice = req.body.totalAmount;
+    //     req.body.address = address;
+    //     //const cart= cart.products;
+    //     userHelpers.placeOrder(req.body,products,totalPrice).then((orderId) => {
+    //         console.log(orderId);
+    //         if(req.body['payment-method'] === 'COD') {
+    //             productHelpers.decreamentStock(products).then(() => {}).catch(() =>{});
+    //             res.json({ codSuccess: true})
+    //         }else{
+    //             userHelpers.generateRazorpay(orderId,totalPrice).then((response) => {
+    //                 productHelpers.decreamentStock(products).then(() => {}).catch(() =>{});
+    //                 res.json(response)
+    //             })
+    //         }
+    //     })
+    //     console.log(req.body);
+    // },
     postPlaceOrder: async(req,res) => {
         console.log("toal%^&*()(*&^%^&*()(*&^%^&*()somethiogn", req.body)
         req.body.userId = req.session.user._id;
@@ -417,6 +441,7 @@ module.exports={
                 res.json({ codSuccess: true})
             }else{
                 userHelpers.generateRazorpay(orderId,totalPrice).then((response) => {
+                    productHelpers.decreamentStock(products).then(() => {}).catch((err) =>console.log(err));
                     res.json(response)
                 })
             }
