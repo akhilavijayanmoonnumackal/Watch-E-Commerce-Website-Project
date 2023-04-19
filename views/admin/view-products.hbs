@@ -37,10 +37,14 @@
                                     </div>
                                 </a>
                             </td>
+                            {{#if this.stock}}
                             <td><span>{{this.stock}}</span></td>
+                            {{else}}
+                            <td class="text-danger">out of stock</td>
+                            {{/if}}
                             <td><span>{{this.price}}</span></td>
                             {{#if this.status}}
-                            <td> <a href="/admin/unlistProduct/{{this._id}}" class="btn btn-danger btn-sm">UNLIST</a>
+                            <td><a href="/admin/unlistProduct/{{this._id}}" class="btn btn-danger btn-sm">UNLIST</a>
                             </td>
                             {{else}}
                             <td><a href="/admin/listProduct/{{this._id}}" class="btn btn-warning btn-sm"
