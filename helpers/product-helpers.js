@@ -236,5 +236,28 @@ module.exports = {
         let products = await db.get().collection(collection.PRODUCT_COLLECTION)
         .find({status: true}).sort({price: filter}).toArray();
         return products;
+    },
+    decreamentStock:(proDetails) => {
+        return new Promise(async(resolve,reject) => {
+            try {
+                for(let i=0;i<proDetails.length;i++){
+                    await db.get().collection(collection.PRODUCT_COLLECTION)
+                    .updateOne(
+                        {
+                            _id: proDetails[i].productId
+                        },
+                        {
+                            $inc: {
+                                "stock": -proDetails[i].quantity
+                            }
+                        }
+                    )
+                }
+                resolve();
+            }
+            catch{
+                resolve();
+            }
+        })
     }
 }
