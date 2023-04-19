@@ -57,6 +57,7 @@ module.exports = {
         })
     },
     updateProduct: (proId,proDetail) => {
+        proDetail.stock = parseInt(proDetail.stock);;
         proDetail.price = parseInt(proDetail.price);
         proDetail.category = new ObjectId(proDetail.category);
         proDetail.status =true;
@@ -69,6 +70,7 @@ module.exports = {
                 {
                     name:proDetail.name,
                     description:proDetail.description,
+                    stock:proDetail.stock,
                     price:proDetail.price,
                     category:proDetail.category
                 }
