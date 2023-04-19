@@ -15,6 +15,7 @@
                             <th scope="col">No:</th>
 
                             <th scope="col">Product Name</th>
+                            <th scope="col">Stock</th>
                             <th scope="col">Price</th>
                             <th scope="col">Status</th>
                             <th scope="col">Edit</th>
@@ -36,6 +37,7 @@
                                     </div>
                                 </a>
                             </td>
+                            <td><span>{{this.stock}}</span></td>
                             <td><span>{{this.price}}</span></td>
                             {{#if this.status}}
                             <td> <a href="/admin/unlistProduct/{{this._id}}" class="btn btn-danger btn-sm">UNLIST</a>

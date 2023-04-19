@@ -17,6 +17,7 @@ module.exports = {
         })
     },
     addProduct:(product,callback)=>{
+        product.stock = parseInt(product.stock);
         product.price = parseInt(product.price);
         product.category = new ObjectId(product.category);
         product.status =true;
