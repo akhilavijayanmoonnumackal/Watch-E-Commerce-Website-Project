@@ -430,10 +430,11 @@ module.exports ={
         
           const orders = await adminHelpers.allOrders();
           orders.forEach(order => {
-            order.isCancelled = order.status === "cancelled" || order.status === 'delivered' ? true : false;
+            order.isCancelled = order.status === "cancelled" || order.status === 'delivered' || order.status === "returned"? true : false;
             order.isShipped = order.status === "shipped" ? true : false;
             order.isDelivered = order.status === "delivered" ? true : false;
             order.isPlaced = order.status === 'placed' || order.status === 'pending' ? true : false;
+            order.isReturned = order.status === 'returned' ? true : false;
       
             // Check if the `date` property is a valid Date object
             if (order.date instanceof Date && !isNaN(order.date.valueOf())) {

@@ -1,3 +1,10 @@
+<style>
+    .disabled {
+        pointer-events: none;
+        opacity: 0.5;
+        /* optional - to indicate the element is disabled */
+    }
+</style>
 <main class="main-wrap">
     <div class="card mb-4">
         <header class="card-header">
@@ -55,8 +62,9 @@
                                 </td>
                                 {{else}}
                                 <td>
-                                    <a href="" class="btn btn-xs" style="background-color: rgb(228, 24, 24);"
-                                        data-toggle="modal" data-target="#cancelOrder{{this._id}}">
+                                    <a href="" class="btn btn-xs cancelOrder"
+                                        style="background-color: rgb(228, 24, 24);" data-toggle="modal"
+                                        data-target="#cancelOrder{{this._id}}">
                                         Cancel Order</a>
                                 </td>
                                 {{/if}}
@@ -70,7 +78,7 @@
                                 </td>
                                 {{else if this.isShipped}}
                                 <td>
-                                    <a href="" class="btn btn-xs deliverOrder" data-toggle="modal"
+                                    <a class="btn btn-xs deliverOrder" data-toggle="modal"
                                         data-target="#deliveryOrder{{this._id}}"
                                         style=" background-color: rgb(228, 143, 24);">
                                         Deliver Order</a>

@@ -60,7 +60,7 @@
                                     {{else if this.isDelivered}}
                                     <td>
                                         <a href="" class="btn btn-xs cancelOrder"
-                                            style="background-color: rgb(205, 121, 121);" data-toggle="modal"
+                                            style="background-color: rgb(121, 42, 42);" data-toggle="modal"
                                             data-target="#returnOrder{{this._id}}">
                                             RETURN ORDER</a>
                                     </td>
@@ -72,9 +72,8 @@
                                     </td>
                                     {{else}}
                                     <td>
-                                        <a href="/cancelOrder/{{this._id}}" class="btn btn-xs cancelOrder"
-                                            data-toggle="modal" data-target="#cancelOrder{{this._id}}"
-                                            style="background-color: crimson;">
+                                        <a class="btn btn-xs cancelOrder" data-toggle="modal"
+                                            data-target="#cancelOrder{{this._id}}" style="background-color: crimson;">
                                             CANCEL ORDER</a>
                                     </td>
                                     {{/if}}
@@ -159,7 +158,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                Do you want to return your order?
+                Do you want to return your order?<br>
+                If the order successfully returned (<small>you can check the order status</small>)
             </div>
             <div class="modal-footer">
                 <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button></a>
@@ -245,7 +245,8 @@
                 </h4>
 
                 <p class="stext-107 cl7 size-201">
-                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on
+                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us
+                    on
                     (+1) 96 716 6879
                 </p>
 

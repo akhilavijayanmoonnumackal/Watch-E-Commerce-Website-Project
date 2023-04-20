@@ -558,6 +558,7 @@ module.exports={
         orders.forEach(order => {
           order.isCancelled = order.status === "cancelled" ? true : false;
           order.isDelivered = order.status === "delivered" ? true : false;
+          order.isReturned = order.status === 'returned' ? true : false;
       
           const months = ["JAN", "FEB", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUG", "SEP", "OCT", "NOV", "DEC"];
           const dateObj = new Date(order.date);
