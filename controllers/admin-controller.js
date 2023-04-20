@@ -24,10 +24,29 @@ module.exports ={
         res.redirect('/admin/dashboard')
         }else{
             let admin=req.session.admin;
-            res.render('admin/admin-login', {adminLoginErr:req.session.adminLoginErr,admin,adminHeader:true});
             req.session.adminLoginErr=false
+            res.render('admin/admin-login', {adminLoginErr:req.session.adminLoginErr,admin,adminHeader:true});
+            
         }
     },
+    // adminLoginPost:(req,res)=>{
+    //     // console.log("arrived");
+    //     console.log(req.body)
+    //     adminHelpers.adminLogin(req.body).then((response)=>{
+    //         console.log(response)
+    //         if(response.status){
+    //             req.session.adminName=response.admin.adminName;
+    //             req.session.admin = response.admin;
+    //             let admin = req.session.admin
+    //             req.session.adminEmail=req.body.email;
+    //             req.session.adminLoggedIn=true;
+    //             res.redirect('/admin/dashboard', {admin, adminHeader:true, adminName:req.session.adminName});
+    //         }else{
+    //             req.session.adminLoginErr="Invalid username or password"
+    //             res.redirect('/admin');
+    //         }
+    //     })
+    // },
     adminLoginPost:(req,res)=>{
         // console.log("arrived");
         console.log(req.body)
@@ -39,7 +58,7 @@ module.exports ={
                 let admin = req.session.admin
                 req.session.adminEmail=req.body.email;
                 req.session.adminLoggedIn=true;
-                res.render('admin/dashboard', {admin, adminHeader:true, adminName:req.session.adminName});
+                res.redirect('/admin');
             }else{
                 req.session.adminLoginErr="Invalid username or password"
                 res.redirect('/admin');
@@ -67,7 +86,7 @@ module.exports ={
             console.log("iufdfghjkljhgfdghooooooooooo", totalEarnings);
             res.render('admin/dashboard', {admin:true,adminHeader:true, usersCount, total, totalOrdersDelivered, totalEarnings, adminName:req.session.adminName});
         }).catch(() => {
-            res.render('admin/dashboard', {admin:true,adminHeader:true, adminName:req.session.adminName});
+            res.render('admin/dashboard', {admin:true,adminHeader:true, usersCount, total, totalOrdersDelivered, totalEarnings, adminName:req.session.adminName});
         })    
     },
     // dashBoard:(req,res)=>{

@@ -46,5 +46,5 @@ router.get('/orderDelivered/:id', adminController.orderDelivered);
 router.get('chart-details', adminController.chartDetails);
 
 
-
+router.get('/salesReport', adminController.salesReport);
 module.exports = router;
