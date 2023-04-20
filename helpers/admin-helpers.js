@@ -541,5 +541,26 @@ module.exports={
             console.log("graphhhhhhhh", result);
             resolve(result);
         })
+    },
+    ordersGraph: () => {
+        return new Promise(async(resolve, reject) => {
+            let result = await db.get().collection(collection.ORDER_COLLECTION)
+            .aggregate([
+                {
+                  '$group': {
+                    '_id': '$status', 
+                    'count': {
+                      '$sum': 1
+                    }
+                  }
+                }, {
+                  '$sort': {
+                    '_id': 1
+                  }
+                }
+              ]).toArray();
+              console.log("pie chart", result);
+              resolve(result);
+        })
     }
 }

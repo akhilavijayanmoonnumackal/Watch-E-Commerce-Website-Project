@@ -195,4 +195,29 @@
             }
         }
     });
+
+    const pie = document.getElementById('pieChart');
+
+    let status = response.data.orderStatus;
+    console.log("this is status---", status)
+    let statusCount = [];
+    let orderStatus = []
+    status.forEach((item) => {
+        orderStatus.push(item._id)
+        statusCount.push(item.count)
+    })
+    console.log("this is last  status---", status)
+    //console.log("this is status---", status)
+    new Chart(pie, {
+        type: 'doughnut',
+        data: {
+            labels: orderStatus,
+            datasets: [{
+                label: 'Order count',
+                data: statusCount,
+
+                hoverOffset: 4
+            }]
+        }
+    });
 </script>

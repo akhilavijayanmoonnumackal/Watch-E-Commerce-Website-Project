@@ -43,7 +43,8 @@ router.get('/singleOrderDetail/:id', sessionChecker.adminAuth, adminController.s
 router.get('/cancelOrder/:id', adminController.cancelOrder);
 router.get('/shipOrder/:id', adminController.shipOrder);
 router.get('/orderDelivered/:id', adminController.orderDelivered);
-router.get('chart-details', adminController.chartDetails);
+
+router.get('/chart-details', adminController.chartDetails);
 
 
 router.get('/salesReport', adminController.salesReport);
