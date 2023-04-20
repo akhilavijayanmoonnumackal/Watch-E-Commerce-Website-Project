@@ -225,6 +225,12 @@ module.exports ={
             resolve(banners);
         })
     },
+    deleteBanner: (req,res) => {
+        const bannerId = req.params.id;
+        adminHelpers.deleteBanner(bannerId).then(() => {
+            res.redirect('back');
+        })
+    },
     addCategoryPost: async (req, res) => {
         console.log("ttttttttttttttttttt", req.body);
         let name = req.body.name;

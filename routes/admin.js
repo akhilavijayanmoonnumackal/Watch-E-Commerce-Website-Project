@@ -19,6 +19,7 @@ router.get('/list-banner/:id', adminController.listBanner);
 router.get('/unlist-banner/:id', adminController.unlistBanner);
 router.get('/edit-banner/:id', adminController.editBanner);
 router.post('/edit-banner/:id', adminController.editBannerPost);
+router.get('/deleteBanner/:id', adminController.deleteBanner);
 router.post('/addCategory', adminController.addCategoryPost);
 router.get('/category', sessionChecker.adminAuth, adminController.categoryManagement);
 router.get('/listcategory/:id', adminController.listcategory);
@@ -43,6 +44,7 @@ router.get('/cancelOrder/:id', adminController.cancelOrder);
 router.get('/shipOrder/:id', adminController.shipOrder);
 router.get('/orderDelivered/:id', adminController.orderDelivered);
 router.get('chart-details', adminController.chartDetails);
+
 
 
 module.exports = router;

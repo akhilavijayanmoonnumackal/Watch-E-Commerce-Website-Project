@@ -143,6 +143,19 @@ module.exports={
             })
         })
     },
+    deleteBanner: (bannerId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.BANNER_COLLECTION)
+            .deleteOne(
+                {
+                    _id: new ObjectId(bannerId)
+                }
+            ).then((response) => {
+                console.log("rtyuioxcvvvvvvvvvvv",response);
+                resolve()
+            })
+        })
+    },
     isCategoryNameExist: (name) => {
         return new Promise(async(resolve,reject) => {
             const category = await db.get().collection(collection.CATEGORY_COLLECTION)

@@ -31,6 +31,7 @@
                                 <th scope="col">Banner text</th>
                                 <th scope="col">Update</th>
                                 <th scope="col">status</th>
+                                <th scope="col">Delete</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -54,6 +55,10 @@
                                   <a href="/admin/list-banner/{{this._id}}" class="btn btn-warning btn-sm">LISTED</a>
                                 </td>
                                 {{/if}}
+                                <td>
+                                  <a href="/admin/deleteBanner/{{this._id}}" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Do you want to delete?')">Delete</a>
+                                </td>
 
                               </tr>
                               {{/each}}
