@@ -329,6 +329,35 @@ module.exports={
             res.redirect('/login');
             }
         },
+        // addToCart: (req,res) => {
+        //     if(req.session.loggedIn) {
+        //         console.log("hello")
+        //         let productId = req.params.id;
+        //         console.log(productId);
+        //         // console.log("gotit");
+        //         let userId = req.session.user._id;
+        //         let quantity= 1;
+        //         try{
+        //             if(parseInt(req.quantity)>1){
+        //                 quantity=req.quantity
+        //             }
+        //         }catch(err){
+        //             console.log(err);
+        //         }finally{
+        //             userHelpers.addToCart(userId,productId,quantity).then((response) => {
+        //                 console.log(response);
+        //                 res.json({
+        //                     message: "guest",
+        //                     success: true
+        //                 })
+        //             });
+        //         }
+        //         // console.log(quantity)
+                
+        //     }else{
+        //         res.redirect('/login');
+        //     }
+        // }
     removeWishlistProduct: (req,res) => {
         console.log("ttttttttttttttt",req.params.id);
         const proId = req.params.id;

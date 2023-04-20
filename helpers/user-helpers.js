@@ -387,41 +387,82 @@ module.exports={
             
         })
     },
-
     addToWishlist:(userId, productId,quantity)=>{
         return new Promise(async(resolve, reject)=>{
             userId = new ObjectId(userId);
             productId = new ObjectId(productId);
             quantity=Number(quantity)
-            const isWishList = await db.get().collection(collections.WISHLIST_COLLECTION).findOne({userId: userId});
+            const isWishList = await db.get().collection(collection.WISHLIST_COLLECTION)
+            .findOne({userId: userId, products: productId});
             if(isWishList){
-                db.get().collection(collections.WISHLIST_COLLECTION)
-                .updateOne(
-                    {
-                        userId: userId
-                    },
-                    {
-                        $push:{
-                            products: productId
-                        }
-                    }
-                )
-                .then((response)=>{
-                    resolve(response);
-                });
+                resolve({message: "Product already exists in wishlist"})
             }else{
-                let wishList={
-                    userId : userId,
-                    products : [productId],
-                }
-                db.get().collection(collections.WISHLIST_COLLECTION)
-                .insertOne(wishList)
-                .then((response)=>{
-                    resolve(response);
-                });
+                const wishlist = await db.get().collection(collection.WISHLIST_COLLECTION)
+                .findOne({userId: userId});
+                if(wishlist){
+                    db.get().collection(collection.WISHLIST_COLLECTION)
+                    .updateOne(
+                        {
+                            userId: userId
+                        },
+                        {
+                            $push:{
+                                products: productId
+                            }
+                        }                            
+                    )
+                    .then((response)=>{
+                        resolve(response);
+                    });
+                }else{
+                    let wishList={
+                        userId : userId,
+                        products : [productId],
+                    }
+                    db.get().collection(collection.WISHLIST_COLLECTION)
+                    .insertOne(wishList)
+                    .then((response) => {
+                        resolve(response);
+                    });
+                }               
             }
         })
+    
     },
+    // addToWishlist:(userId, productId,quantity)=>{
+    //     return new Promise(async(resolve, reject)=>{
+    //         userId = new ObjectId(userId);
+    //         productId = new ObjectId(productId);
+    //         quantity=Number(quantity)
+    //         const isWishList = await db.get().collection(collections.WISHLIST_COLLECTION).findOne({userId: userId});
+    //         if(isWishList){
+    //             db.get().collection(collections.WISHLIST_COLLECTION)
+    //             .updateOne(
+    //                 {
+    //                     userId: userId
+    //                 },
+    //                 {
+    //                     $push:{
+    //                         products: productId
+    //                     }
+    //                 }
+    //             )
+    //             .then((response)=>{
+    //                 resolve(response);
+    //             });
+    //         }else{
+    //             let wishList={
+    //                 userId : userId,
+    //                 products : [productId],
+    //             }
+    //             db.get().collection(collections.WISHLIST_COLLECTION)
+    //             .insertOne(wishList)
+    //             .then((response)=>{
+    //                 resolve(response);
+    //             });
+    //         }
+    //     })
+    // },
 
 
     removeWishlistProduct:(userId, proId) => {
