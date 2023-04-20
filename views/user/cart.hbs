@@ -1,4 +1,10 @@
-<!-- Shoping Cart -->
+<style>
+    .disabled {
+        pointer-events: none;
+        opacity: 0.5;
+        /* optional - to indicate the element is disabled */
+    }
+</style><!-- Shoping Cart -->
 <div>
     <br>
     <br>
@@ -22,10 +28,49 @@
                             </tr>
 
                             {{#each product}}
+                            {{!-- {{#if this.products.stock}} --}}
                             <tr class="table_row">
                                 <td class="column-1">
                                     <div class="how-itemcart1">
                                         <img src="{{proDetails.[0].image.[0]}}" alt="IMG">
+                                    </div>
+                                </td>
+                                <td class="column-2">{{this.proDetails.[0].name}}</td>
+                                <td class="column-3" id="price{{this.proDetails.[0]._id}}">
+                                    {{this.proDetails.[0].price}}
+                                </td>
+                                <td class="column-4">
+                                    <button class="cart-item-count mr-3" style="background-color: #cd9b68 ;
+                                        color:aliceblue; width: 3vh;" type="button"
+                                        onclick="changeQuantity('{{this.proDetails.[0]._id}}',-1)">-</button>
+                                    <span id="{{this.proDetails.[0]._id}}">{{this.products.quantity}}</span>
+                                    <button class="cart-item-count ml-3"
+                                        style="background-color: #cd9b68 ; color:aliceblue; width: 3vh;" type="button"
+                                        onclick="changeQuantity('{{this.proDetails.[0]._id}}',1)">+</button>
+
+                                </td>
+                                <td class="column-5">
+                                    <span id="{{this.proDetails.[0]._id}}total">
+                                        {{mathMulti this.products.quantity
+                                        this.proDetails.[0].price}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button type="button" onclick="removeProduct('{{this.proDetails.[0]._id}}')"
+                                        class="btn btn-danger">Remove</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <div class="text-center text-success">
+                                    <h4 id="delete-msg" class="font-italic"></h4>
+                                </div>
+                            </tr>
+                            {{!-- {{else}}
+                            <tr class="table_row disabled">
+                                <td class="column-1">
+                                    <div class="how-itemcart1">
+                                        <img src="{{proDetails.[0].image.[0]}}" alt="IMG">
+                                        <span class="text-danger" style="font-weight: bold;">out of stock</span>
                                     </div>
                                 </td>
                                 <td class="column-2">{{this.proDetails.[0].name}}</td>
@@ -57,6 +102,7 @@
                                     <h4 id="delete-msg" class="font-italic"></h4>
                                 </div>
                             </tr>
+                            {{/if}} --}}
                             {{/each}}
 
                         </table>

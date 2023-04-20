@@ -259,5 +259,16 @@ module.exports = {
                 resolve();
             }
         })
+    },
+    totalOrdersDelivered:() => {
+        return new Promise(async(resolve,reject) => {
+            try{
+                const orderDeliveredCount = await db.get().collection(collection.ORDER_COLLECTION)
+                .countDocuments();
+                resolve(orderDeliveredCount);
+            }catch{
+                resolve(0);
+            }
+        })
     }
 }

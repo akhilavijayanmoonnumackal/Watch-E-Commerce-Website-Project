@@ -55,9 +55,25 @@ module.exports ={
     //     }
     // },
     dashBoard:(req,res)=>{
-        console.log(req.session.adminName);
+        adminHelpers.getUsersCount().then(async(usersCount) => {
+            const total = await adminHelpers.getLastMonthTotal();
+            const totalOrdersDelivered = await productHelpers.totalOrdersDelivered();
+            let totalEarnings = 0;
+            totalEarnings = await adminHelpers.getOrderTotalPrice();
+            console.log(req.session.adminName);
+            console.log("iufdfghjkljhgfdghooooooooooo", usersCount);
+            console.log("iufdfghjkljhgfdghooooooooooo", total);
+            console.log("iufdfghjkljhgfdghooooooooooo", totalOrdersDelivered);
+            console.log("iufdfghjkljhgfdghooooooooooo", totalEarnings);
+            res.render('admin/dashboard', {admin:true,adminHeader:true, usersCount, total, totalOrdersDelivered, totalEarnings, adminName:req.session.adminName});
+        }).catch(() => {
             res.render('admin/dashboard', {admin:true,adminHeader:true, adminName:req.session.adminName});
+        })    
     },
+    // dashBoard:(req,res)=>{
+    //     console.log(req.session.adminName);
+    //         res.render('admin/dashboard', {admin:true,adminHeader:true, adminName:req.session.adminName});
+    // },
     adminLogout:(req,res)=>{
         // req.session.destroy();
         req.session.adminLoggedIn=false;
@@ -451,5 +467,11 @@ module.exports ={
             }
             res.render('admin/sales', {admin: true,adminName: req.session.adminName, orders})
         })               
+    },
+    chartDetails: async(req,res) => {
+        let delivers = await adminHelpers.deliverGraph();
+        let orderStatus = await adminHelpers.ordersGraph();
+        console.log(delivers, orderStatus);
+        res.json({delivers, orderStatus});
     }   
 }

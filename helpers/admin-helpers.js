@@ -444,5 +444,89 @@ module.exports={
                 resolve(response);
             })
         })
+    },
+    getUsersCount: () => { 
+        return new Promise(async(resolve, reject) => {
+            const users = await db.get().collection(collection.USER_COLLECTION)
+            .find().toArray();
+            const usersCount = users.length>0?users.length : 0;
+            console.log("userCount", usersCount);
+            resolve(usersCount)
+            console.log("876456789hjgfghjk", usersCount);
+        }).catch(() => {
+            reject(null);
+        });
+    },
+    getLastMonthTotal: () => {
+        return new Promise(async(resolve,reject) => {
+            const newDate = new Date();
+            const year = newDate.getFullYear();
+            const month = newDate.getMonth();
+            const day = newDate.getDate();
+            const total = await db.get().collection(collection.ORDER_COLLECTION)
+            .aggregate([
+                {
+                  '$match': {
+                    'status': 'delivered', 
+                    'date': {
+                      '$gte': new Date()
+                    }
+                  }
+                }, {
+                  '$group': {
+                    '_id': null, 
+                    'totalCost': {
+                      '$sum': '$totalAmount'
+                    }
+                  }
+                }
+              ]).toArray();
+              console.log("uuuuuuuuuuuuuuu",total);
+            resolve(total);
+        })
+    },
+    getOrderTotalPrice:() => {
+        return new Promise(async(resolve,reject) => {
+            const totalOrderPrice = await db.get().collection(collection.ORDER_COLLECTION)
+            .aggregate([
+                {
+                  '$match': {
+                    'status': 'delivered'
+                  }
+                }, {
+                  '$group': {
+                    '_id': null, 
+                    'totalCost': {
+                      '$sum': '$totalAmount'
+                    }
+                  }
+                }
+              ]).toArray();
+              console.log("TotalAmounttttttttttt", totalOrderPrice[0].totalCost);
+            resolve(totalOrderPrice[0].totalCost);
+        })
+    },
+    deliverGraph: () => {
+        return new Promise(async(resolve, reject) => {
+            let result = await db.get().collection(collection.ORDER_COLLECTION)
+            .aggregate([
+                {
+                  '$match': {
+                    'status': 'delivered'
+                  }
+                }, {
+                  '$group': {
+                    '_id': {
+                      '$month': '$date'
+                    }, 
+                    'count': {
+                      '$sum': 1
+                    }
+                  }
+                }
+            ]).toArray();
+            console.log("graphhhhhhhh", result);
+            resolve(result);
+        })
     }
 }
