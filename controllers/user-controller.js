@@ -584,6 +584,7 @@ module.exports={
         let orderId = req.params.id;
         let products = await productHelpers.getOrderedProducts(req.params.id);
         userHelpers.singleOrderView(orderId).then((deliveryDetails) => {
+            console.log("yyyyyyyyyyyyyyyyyyyy",deliveryDetails);
             res.render('user/singleOrderDetailUser', {admin:false,user,userHeader:true,orderId,products, deliveryDetails,cartCount,wishlistCount});
             if(products.length===0){
                 res.render('user/cartSvg', {admin:false,user,userHeader:true,products, deliveryDetails,cartCount,wishlistCount})

@@ -1,13 +1,14 @@
 <main class="main-wrap">
+
     <div class="card mb-4">
         <header class="card-header">
+            <button id="download" class=" mt-15 btn btn-suucess ">Download invoice</button>
             <h4 class="card-title">Sales</h4>
-
         </header>
         <div class="card-body">
             <div class="table-responsive">
 
-                <table class="table align-middle table-nowrap mb-0" id="example">
+                <table class="table align-middle table-nowrap mb-0" id="container_content">
                     <thead class="table-light">
                         <tr>
                             <th scope="col">Sl. No.</th>
@@ -45,4 +46,17 @@
     $(document).ready(function () {
         $('#example').DataTable();
     });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+    window.onload = function () {
+        document.getElementById('download').addEventListener("click", () => {
+            let invoice = this.document.getElementById('container_content')
+            console.log(invoice);
+            console.log(window);
+            html2pdf().from(invoice).save()
+        })
+    }
 </script>

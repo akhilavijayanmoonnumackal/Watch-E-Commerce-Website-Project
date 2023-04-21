@@ -1,14 +1,20 @@
 <section class="bg0 p-t-23 p-b-140">
     <div class="container">
         <div><br><br><br><br><br></div>
+
         {{!-- <form action="/admin/singleOrderDetail/{{this._id}}" method="post" enctype="multipart/form-data"> --}}
             <div class="content-header">
                 <div>
                     <h2 class="content-title card-title">Order detail</h2>
                     <p>Details for Order ID: {{this.orderId}}</p>
                 </div>
+                <div>
+                    <button id="download" class=" mt-15 btn btn-suucess">Download
+                        invoice</button>
+                </div>
             </div>
-            <div class="card">
+
+            <div class="card" id="container_content">
                 <header class="card-header">
                     {{#if deliveryDetails}}
                     <div class="row align-items-center">
@@ -53,6 +59,8 @@
                                         <br> Status:
                                         {{this.deliveryDetails.status}}
                                     </p>
+
+
                                     {{!-- <a href="#">Download info</a> --}}
                                 </div>
                             </article>
@@ -143,3 +151,15 @@
         </form>
     </div>
 </section> <!-- content-main end// -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+    window.onload = function () {
+        document.getElementById('download').addEventListener("click", () => {
+            let invoice = this.document.getElementById('container_content')
+            console.log(invoice);
+            console.log(window);
+            html2pdf().from(invoice).save()
+        })
+    }
+</script>
