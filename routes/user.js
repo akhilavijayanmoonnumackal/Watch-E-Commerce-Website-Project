@@ -8,6 +8,7 @@ const upload = require('../utils/multer');
 const adminController = require('../controllers/admin-controller');
 const { route } = require('./admin');
 
+
 /* GET home page. */
 router.get('/', controller.get);
 router.get('/login', controller.userLogin)
@@ -20,6 +21,9 @@ router.post('/send-otp',controller.sendOtp);
 router.post('/verify-otp',controller.verifyOtp);
 router.get('/shop',controller.shop);
 router.get('/productDetail/:id',controller.productDetail);
+
+//cart & wishlist
+
 router.get('/addToCart/:id', controller.addToCart);
 router.get('/cart',sessionChecker.userAuth, controller.cartDetails);
 router.post('/change-product-quantity', controller.changeProductQuantity);
@@ -32,9 +36,8 @@ router.post('/place-order', controller.postPlaceOrder);
 router.get('/orderSuccess', controller.orderSuccess);
 router.get('/userProfile',sessionChecker.userAuth, controller.userProfile);
 router.post('/profileInformation/:id', controller.editProfileInfo);
-router.get('/manageAddress', controller.getAddress);
+router.get('/manageAddress', sessionChecker.userAuth, controller.getAddress);
 router.post('/addAddress/:id', controller.addAddressPost);
-// router.post('/applyCoupon', controller.applyCoupon);
 router.get('/viewOrders',sessionChecker.userAuth, controller.viewOrders);
 router.get('/singleOrderDetailUser/:id',sessionChecker.userAuth, controller.singleOrderDetailUser);
 router.get('/cancelOrder/:id', controller.cancelOrder);
@@ -46,7 +49,7 @@ router.post('/forgotPasswordVerify', controller.forgotPasswordVerify);
 router.get('/newPasswordUpdate', controller.newPasswordUpdate);
 router.post('/newPasswordUpdatePost', controller.newPasswordUpdatePost);
 router.get('/search', controller.search);
-router.get('/wallet', controller.getWallet);
+router.get('/wallet', sessionChecker.userAuth, controller.getWallet);
 
 // coupon_routes
 router.post('/couponApply', sessionChecker.userAuth, controller.couponApply);

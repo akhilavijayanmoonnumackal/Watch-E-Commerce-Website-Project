@@ -9,6 +9,7 @@ const async = require('hbs/lib/async');
 const Razorpay = require('razorpay');
 const { resolve } = require('path');
 const { log } = require('console');
+const { userInfo } = require('os');
 //const { use } = require('../routes/user')
 
 var instance = new Razorpay({
@@ -852,6 +853,14 @@ module.exports={
             }else{
                 resolve(null);
             }
+        })
+    },
+    getOrders: (userId) => {
+        return new Promise(async(resolve, reject) => {
+            userId = new ObjectId(userId);
+            const orders = await db.get().collection(collection.ORDER_COLLECTION)
+            .find()
+            
         })
     }
 }

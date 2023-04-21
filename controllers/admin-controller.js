@@ -80,6 +80,7 @@ module.exports ={
             let totalEarnings = 0;
             totalEarnings = await adminHelpers.getOrderTotalPrice();
             console.log(req.session.adminName);
+            console.log("kkkkkkkkkkkkkkkkkkkkkkkkk87634567889", total);
             console.log("iufdfghjkljhgfdghooooooooooo", usersCount);
             console.log("iufdfghjkljhgfdghooooooooooo", total);
             console.log("iufdfghjkljhgfdghooooooooooo", totalOrdersDelivered);
@@ -495,6 +496,7 @@ module.exports ={
         })               
     },
     chartDetails: async(req,res) => {
+        console.log('jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
         let delivers = await adminHelpers.deliverGraph();
         let orderStatus = await adminHelpers.ordersGraph();
         console.log(delivers, orderStatus);

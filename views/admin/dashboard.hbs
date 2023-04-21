@@ -35,7 +35,7 @@
                         <div class="text">
                             <h6 class="mb-1 card-title">Orders</h6><span>{{totalOrdersDelivered}}</span>
                             <span class="text-sm">
-                                Excluding orders in transit
+                                Including orders in transit
                             </span>
                         </div>
                     </article>
@@ -70,56 +70,18 @@
                 </div>
             </div>
         </div>
+        <br>
         <div class="row">
 
             <div class="col-xl-8 col-lg-12">
-                <div class="card mb-4">
-                    <article class="card-body">
-                        <h5 class="card-title">Sale statistics</h5>
-                        <canvas id="myChart" height="120px"></canvas>
-                    </article>
-                </div>
                 <div class="row">
+                    <h1 class="" style="font-size: large;">Sales Chart</h1>
                     <div>
                         <canvas id="myChart"></canvas>
                     </div>
-
-
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-12">
-                <div class="card mb-4">
-                    <article class="card-body">
-                        <h5 class="card-title">Revenue Base on Area</h5>
-                        <canvas id="myChart2" height="217"></canvas>
-                    </article>
-                </div>
-                <div class="card mb-4">
-                    <article class="card-body">
-                        <h5 class="card-title">Marketing Chanel</h5>
-                        <span class="text-muted font-xs">Facebook</span>
-                        <div class="progress mb-3">
-                            <div class="progress-bar" role="progressbar" style="width: 15%">15%</div>
-                        </div>
-                        <span class="text-muted font-xs">Instagram</span>
-                        <div class="progress mb-3">
-                            <div class="progress-bar" role="progressbar" style="width: 65%">65% </div>
-                        </div>
-                        <span class="text-muted font-xs">Google</span>
-                        <div class="progress mb-3">
-                            <div class="progress-bar" role="progressbar" style="width: 51%"> 51% </div>
-                        </div>
-                        <span class="text-muted font-xs">Twitter</span>
-                        <div class="progress mb-3">
-                            <div class="progress-bar" role="progressbar" style="width: 80%"> 80%</div>
-                        </div>
-                        <span class="text-muted font-xs">Other</span>
-                        <div class="progress mb-3">
-                            <div class="progress-bar" role="progressbar" style="width: 80%"> 80%</div>
-                        </div>
-                    </article>
-                </div>
-            </div>
+
         </div>
 
         <div class="pagination-area mt-30 mb-50">
@@ -157,67 +119,72 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    const ctx = document.getElementById('myChart');
+        (function () {
+            const ctx = document.getElementById('myChart');
 
-    $.ajax({
-        method: 'get',
-        url: '/admin/chart-details',
-        success: function (response) {
-            console.log("this is response ------ ", response.data)
-            let result = response.data.delivers;
-            let MonthlyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            $.ajax({
+                method: 'get',
+                url: '/admin/chart-details',
+                success: ((response) => {
+                    console.log("this is response ------&&& ", response)
+                    let result = response.delivers;
+                    let MonthlyData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-            result.forEach((item) => {
-                MonthlyData[item._id - 1] = item.count;
-            })
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log("Error: " + errorThrown);
-        }
-    });
+                    for (let i = 0; i < result.length; i++) {
+                        MonthlyData[result[i]._id - 1] = result[i].count;
+                    }
+                    console.log("this is console  ", MonthlyData);
 
-
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-                label: '# of Delivers',
-                data: MonthlyData,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                            datasets: [{
+                                label: '# of Delivers',
+                                data: MonthlyData,
+                                borderWidth: 1,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)',
+                                    'rgba(255, 205, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(201, 203, 207, 0.2)',
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)',
+                                    'rgba(255, 205, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(201, 203, 207)',
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(54, 162, 235)'
+                                ],
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }),
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("Error: " + errorThrown);
                 }
-            }
-        }
-    });
-
-    const pie = document.getElementById('pieChart');
-
-    let status = response.data.orderStatus;
-    console.log("this is status---", status)
-    let statusCount = [];
-    let orderStatus = []
-    status.forEach((item) => {
-        orderStatus.push(item._id)
-        statusCount.push(item.count)
-    })
-    console.log("this is last  status---", status)
-    //console.log("this is status---", status)
-    new Chart(pie, {
-        type: 'doughnut',
-        data: {
-            labels: orderStatus,
-            datasets: [{
-                label: 'Order count',
-                data: statusCount,
-
-                hoverOffset: 4
-            }]
-        }
-    });
+            })
+        })();
 </script>

@@ -482,7 +482,7 @@ module.exports={
                   '$match': {
                     'status': 'delivered', 
                     'date': {
-                      '$gte': new Date()
+                      '$lte': newDate
                     }
                   }
                 }, {
@@ -521,6 +521,7 @@ module.exports={
     },
     deliverGraph: () => {
         return new Promise(async(resolve, reject) => {
+            console.log('lllllllllllllllllllllllllllllllllllllllllllllllllllllll');
             let result = await db.get().collection(collection.ORDER_COLLECTION)
             .aggregate([
                 {

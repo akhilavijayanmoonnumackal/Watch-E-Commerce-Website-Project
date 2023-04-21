@@ -510,14 +510,21 @@ module.exports={
             res.redirect('/userProfile')
         }
     },
+    // getAddress: (req,res) => {
+    //     if(req.session.user) {
+    //         let user = req.session.user;
+    //         res.render('user/manageAddress', {admin:false,user,userHeader:true})
+    //     }else{
+    //         res.redirect('/');
+    //     }
+    // },
     getAddress: (req,res) => {
-        if(req.session.user) {
-            let user = req.session.user;
-            res.render('user/manageAddress', {admin:false,user,userHeader:true})
-        }else{
-            res.redirect('/');
-        }
-    },
+        let user = req.session.user;
+        let cartCount = req.session.cartCount;
+        let wishlistCount = req.session.wishlistCount;
+        res.render('user/manageAddress', {admin:false,user, cartCount, wishlistCount, userHeader:true})
+        
+    }, 
     addAddressPost: async(req,res) => {
         console.log(req.params.id);
         console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
@@ -720,12 +727,34 @@ module.exports={
             }
         });
     },
-    getWallet: (req,res) => {
-        if(req.session.user) {
-            let user = req.session.user;
-            res.render('user/wallet', {admin:false,user,userHeader:true})
+    getWallet: async(req,res) => { 
+        let user = req.session.user;
+        let cartCount = req.session.cartCount;
+        let wishlistCount = req.session.wishlistCount;
+        const userId = req.session.user._id;
+        const orders = await userHelpers.getOrders(userId);
+        orders.forEach(order => {
+            if(order.status === 'pending' && !order.refunded){
+                userHelpers.toWallet(userId, "online-payment-failed", order.totalCost)
+                .then(() => {}).catch(() => {});
+            }
+        });
+        const wallet = await userHelpers.getWallet(userId);
+        const totalAmount = await userHelpers.totalWalletAmount(userId);
+        wallet.forEach(wal => {
+            const newDate = new Date(wal.date);
+            const year = newDate.getFullYear();
+            const month = newDate.getMonth()+1;
+            const day = newDate.getDate();
+            const formDate = `${ day < 10 ? '0' + day: day}-${month < 10 ? '0' + month: month}-${year}`;
+            wal.date = formDate; 
+        });
+        if(wallet) {
+            res.render('user/wallet', {admin:false, user, cartCount, wishlistCount, totalAmount, wallet, userHeader:true})     
+        }else{
+            res.render('user/wallet', {admin:false, user, cartCount, wishlistCount, userHeader:true})     
         }
-    }
-      
+          
+    }   
 }
 
