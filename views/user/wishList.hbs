@@ -1,3 +1,23 @@
+<style>
+    .wrap-pic-w img {
+        min-width: 25%;
+    }
+
+    .toastify-icon:before {
+        content: "\2713";
+        font-size: 24px;
+        color: #fff;
+        display: inline-block;
+        margin-right: 5px;
+        vertical-align: middle;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        background-color: #28a745;
+    }
+</style>
 <div class="container">
     <section class="content-main">
         {{#if products}}
@@ -31,6 +51,7 @@
                             <tr>
                                 <th>Item</th>
                                 <th>Price</th>
+                                <th>Cart</th>
 
                                 {{!-- <th>Status</th>
                                 <th>Registered</th> --}}
@@ -55,6 +76,16 @@
                                 </td>
                                 <td width="15%" class="price" style="padding: 2%;margin-left:2%">
                                     {{this.productDetails.[0].price}}</td>
+
+                                <td class="text-end">
+                                    <button
+                                        class="btn btn-sm btn-brand rounded font-sm mt-15 js-addcart-detail js-addcart-btn btn-addcart-btn"
+                                        style="margin-left:-30px" type="submit"
+                                        onclick="addToCart('{{this.productDetails.[0]._id}}')" id="addToCart"
+                                        data-product="{{product._id}}">
+                                        Add to cart
+                                    </button>
+                                </td>
 
                                 <td class="text-end">
                                     <a href="/productDetail/{{this.productDetails.[0]._id}}"
@@ -306,8 +337,50 @@
             });
     }
 
+</script>
+<script>
+    function addToCart(proId) {
+        console.log("api calll")
+        $.ajax({
+            url: '/addToCart/' + proId,
+            method: 'get',
+            success: (response) => {
+                console.log(response);
+                console.log(response.message);
+                //console.log("came")
+                if (response.message === "guest") {
+                    console.log("api here!!!");
+                    $("#cart-count").load(window.location.href + " #cart-count");
+                    Toastify({
+                        text: 'Product added to cart !',
+                        duration: 3000,
+                        gravity: 'bottom',
+                        position: 'center',
+                        backgroundColor: "black",
+                        stopOnFocus: true,
+                        // Add an icon to the notification
+                        className: "toastify-icon",
+                        close: false,
+                    }).showToast();
+                } else {
+                    location.href = '/login'
+                }
+            },
+            error: (xhr, status, error) => {
+                console.error(error);
+                // handle the error here
+            }
+        })
+    }
 
-
-
+    $('.js-addcart-btn').on('click', (e) => {
+        console.log("working")
+        e.preventDefault();
+        const el = document.querySelector('#addToCart');
+        const clickedBtn = $(this);
+        const productId = el.dataset.product;
+        console.log(productId);
+        addToCart(productId);
+    });
 
 </script>
