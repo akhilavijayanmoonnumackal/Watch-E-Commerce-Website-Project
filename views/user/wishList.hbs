@@ -48,14 +48,14 @@
 
                     <table class="table table-hover">
                         <thead>
-                            <tr>
+                            <tr class="text-left">
                                 <th>Item</th>
                                 <th>Price</th>
                                 <th>Cart</th>
 
                                 {{!-- <th>Status</th>
                                 <th>Registered</th> --}}
-                                <th class="text-end"> View Details</th>
+                                <th> View Details</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -74,30 +74,33 @@
                                         </div>
                                     </a>
                                 </td>
-                                <td width="15%" class="price" style="padding: 2%;margin-left:2%">
+                                {{!-- <td width="15%" class="price mt-15" style="padding: 2%;margin-left:2%"> --}}
+                                <td width="15%" class="price mt-15 text-left"
+                                    style="padding-left: 10px;padding-top:35px">
                                     {{this.productDetails.[0].price}}</td>
 
-                                <td class="text-end">
+                                <td class="text-left">
                                     <button
                                         class="btn btn-sm btn-brand rounded font-sm mt-15 js-addcart-detail js-addcart-btn btn-addcart-btn"
-                                        style="margin-left:-30px" type="submit"
-                                        onclick="addToCart('{{this.productDetails.[0]._id}}')" id="addToCart"
-                                        data-product="{{product._id}}">
-                                        Add to cart
+                                        type="submit" onclick="addToCart('{{this.productDetails.[0]._id}}')"
+                                        id="addToCart" data-product="{{product._id}}"><i class="zmdi zmdi-shopping-cart"
+                                            style="color:white;margin-top:12px"> </i>
+                                        {{!-- Add to cart --}}
                                     </button>
                                 </td>
 
-                                <td class="text-end">
+                                <td class="text-left">
                                     <a href="/productDetail/{{this.productDetails.[0]._id}}"
                                         class="btn btn-sm btn-brand rounded font-sm mt-15"
                                         onclick="viewDetails('{{this._id}}')">View
                                         Details</a>
                                 </td>
-                                <td>
+                                <td class="text-left">
                                     <button type="button"
                                         onclick="removeWishlistProduct('{{this.productDetails.[0]._id}}')"
                                         class="btn btn-sm" style="margin: 7%;">x</button>
-                                    {{!-- <a href="/removeWishlistProduct/{{this.productDetails.[0]._id}}">X</a> --}}
+                                    {{!-- <a href="/removeWishlistProduct/{{this.productDetails.[0]._id}}">X</a>
+                                    --}}
                                 </td>
                             </tr>
                             <tr>
