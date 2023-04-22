@@ -6,190 +6,181 @@
     }
 </style>
 <main class="main-wrap">
-    <div class="card mb-4">
-        <header class="card-header">
-            <h4 class="card-title">All Orders</h4>
+    <section>
+        <br><br><br>
+        <div class="container">
+            <h4 class="py-4 text-center">All Orders</h4>
+            <div class="mt-5">
+                <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px"
+                    id="orderTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Sl. No.</th>
+                            <th class="align-middle" scope="col">Order ID</th>
+                            <th class="align-middle" scope="col">Billing Name</th>
+                            <th class="align-middle" scope="col">Date</th>
+                            <th class="align-middle" scope="col">Total</th>
+                            <th class="align-middle" scope="col">Status</th>
+                            <th class="align-middle" scope="col">Payment Method</th>
+                            <th class="align-middle" scope="col">View Details</th>
+                            <th class="align-middle" scope="col">Cancel</th>
+                            <th class="align-middle" scope="col">Shipping</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each orders}}
+                        <tr>
+                            <td scope="row">{{increment @index}}</td>
+                            <td><a class="fw-bold">{{this._id}}</a></td>
+                            <td>{{this.deliveryDetails.name}}</td>
+                            <td>
+                                {{this.date}}
+                            </td>
+                            <td>
+                                ₹{{this.totalAmount}}
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <span class="badge badge-pill badge-soft-success">{{this.status}}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <i class="material-icons md-payment font-xxl text-muted mr-5"></i>
+                                {{this.PaymentMethod}}
+                            </td>
+                            <td>
+                                <a href="/admin/singleOrderDetail/{{this._id}}" class="btn btn-xs">
+                                    View details</a>
+                            </td>
+                            {{#if this.isCancelled}}
+                            <td>
+                                <a href="" class="btn btn-xs disabled" style="background-color: rgb(228, 24, 24);">
+                                    Cancelled Order</a>
+                            </td>
+                            {{else}}
+                            <td>
+                                <a href="" class="btn btn-xs cancelOrder" style="background-color: rgb(228, 24, 24);"
+                                    data-toggle="modal" data-target="#cancelOrder{{this._id}}">
+                                    Cancel Order</a>
+                            </td>
+                            {{/if}}
 
-        </header>
-        <div class="card-body">
-            <div class="table-responsive">
-                <div class="table-responsive">
-                    <table class="table align-middle table-nowrap mb-0" id="orderTable">
-                        <thead class="table-light">
-                            <tr>
+                            {{#if this.isPlaced}}
+                            <td>
+                                <a href="/admin/shipOrder/{{this._id}}" class=" btn btn-xs shipOrder"
+                                    data-toggle="modal" data-target="#shipOrder{{this._id}}"
+                                    style="background-color: rgb(219, 217, 53);">
+                                    Ship Order</a>
+                            </td>
+                            {{else if this.isShipped}}
+                            <td>
+                                <a class="btn btn-xs deliverOrder" data-toggle="modal"
+                                    data-target="#deliveryOrder{{this._id}}"
+                                    style=" background-color: rgb(228, 143, 24);">
+                                    Deliver Order</a>
+                            </td>
+                            {{else if this.isDelivered}}
+                            <td>
+                                <a href="" class="btn btn-xs disabled" style="background-color: rgb(57, 150, 20);">
+                                    Order Delivered</a>
+                            </td>
+                            {{else if this.isReturned}}
+                            <td>
+                                <a href="" class="btn btn-xs disabled" style="background-color: rgb(199, 72, 82);">
+                                    Order Returned</a>
+                            </td>
+                            {{else if this.isCancelled}}
+                            <td>
+                                <a href="" class="btn btn-xs disabled">
+                                    Ship Order</a>
+                            </td>
+                            {{/if}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
 
-                                <th scope="col">Sl. No.</th>
-                                <th class="align-middle" scope="col">Order ID</th>
-                                <th class="align-middle" scope="col">Billing Name</th>
-                                <th class="align-middle" scope="col">Date</th>
-                                <th class="align-middle" scope="col">Total</th>
-                                <th class="align-middle" scope="col">Status</th>
-                                <th class="align-middle" scope="col">Payment Method</th>
-                                <th class="align-middle" scope="col">View Details</th>
-                                <th class="align-middle" scope="col">Cancel</th>
-                                <th class="align-middle" scope="col">Shipping</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each orders}}
-                            <tr>
-                                <td scope="row">{{increment @index}}</td>
-                                <td><a class="fw-bold">{{this._id}}</a></td>
-                                <td>{{this.deliveryDetails.name}}</td>
-                                <td>
-                                    {{this.date}}
-                                </td>
-                                <td>
-                                    ₹{{this.totalAmount}}
-                                </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <span class="badge badge-pill badge-soft-success">{{this.status}}</span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <i class="material-icons md-payment font-xxl text-muted mr-5"></i>
-                                    {{this.PaymentMethod}}
-                                </td>
-                                <td>
-                                    <a href="/admin/singleOrderDetail/{{this._id}}" class="btn btn-xs">
-                                        View details</a>
-                                </td>
-                                {{#if this.isCancelled}}
-                                <td>
-                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(228, 24, 24);">
-                                        Cancelled Order</a>
-                                </td>
-                                {{else}}
-                                <td>
-                                    <a href="" class="btn btn-xs cancelOrder"
-                                        style="background-color: rgb(228, 24, 24);" data-toggle="modal"
-                                        data-target="#cancelOrder{{this._id}}">
-                                        Cancel Order</a>
-                                </td>
-                                {{/if}}
-
-                                {{#if this.isPlaced}}
-                                <td>
-                                    <a href="/admin/shipOrder/{{this._id}}" class=" btn btn-xs shipOrder"
-                                        data-toggle="modal" data-target="#shipOrder{{this._id}}"
-                                        style="background-color: rgb(219, 217, 53);">
-                                        Ship Order</a>
-                                </td>
-                                {{else if this.isShipped}}
-                                <td>
-                                    <a class="btn btn-xs deliverOrder" data-toggle="modal"
-                                        data-target="#deliveryOrder{{this._id}}"
-                                        style=" background-color: rgb(228, 143, 24);">
-                                        Deliver Order</a>
-                                </td>
-                                {{else if this.isDelivered}}
-                                <td>
-                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(57, 150, 20);">
-                                        Order Delivered</a>
-                                </td>
-                                {{else if this.isReturned}}
-                                <td>
-                                    <a href="" class="btn btn-xs disabled" style="background-color: rgb(199, 72, 82);">
-                                        Order Returned</a>
-                                </td>
-                                {{else if this.isCancelled}}
-                                <td>
-                                    <a href="" class="btn btn-xs disabled">
-                                        Ship Order</a>
-                                </td>
-                                {{/if}}
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-            </div> <!-- table-responsive end// -->
-        </div>
-    </div>
-
-
-    <!-- Modal cancel order confirmation -->
-    {{#each orders}}
-    <div class="modal fade" id="cancelOrder{{this._id}}" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Cancel Confirmation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Do you want to cancel this order?
-                </div>
-                <div class="modal-footer">
-                    <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">No</button></a>
-                    <a href="/admin/cancelOrder/{{this._id}}"><button type="button"
-                            class="btn btn-primary">Yes</button></a>
-
-                </div>
             </div>
         </div>
-    </div>
-    {{/each}}
-
-
-    <!-- Modal ship order confirmation -->
-    {{#each orders}}
-    <div class="modal fade" id="shipOrder{{this._id}}" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Ship Confirmation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Do you want to ship this order?
-                </div>
-                <div class="modal-footer">
-                    <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">No</button></a>
-                    <a href="/admin/shipOrder/{{this._id}}"><button type="button"
-                            class="btn btn-primary">Yes</button></a>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/each}}
-
-
-    <!-- Modal delivery order confirmation -->
-    {{#each orders}}
-    <div class="modal fade" id="deliveryOrder{{this._id}}" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Order Confirmation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Do you want to make this order delivered?
-                </div>
-                <div class="modal-footer">
-                    <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">No</button></a>
-                    <a href="/admin/orderDelivered/{{this._id}}"><button type="button"
-                            class="btn btn-primary">Yes</button></a>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    {{/each}}
+    </section>
 </main>
 
+<!-- Modal cancel order confirmation -->
+{{#each orders}}
+<div class="modal fade" id="cancelOrder{{this._id}}" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Cancel Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to cancel this order?
+            </div>
+            <div class="modal-footer">
+                <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">No</button></a>
+                <a href="/admin/cancelOrder/{{this._id}}"><button type="button" class="btn btn-primary">Yes</button></a>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+
+
+<!-- Modal ship order confirmation -->
+{{#each orders}}
+<div class="modal fade" id="shipOrder{{this._id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Ship Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to ship this order?
+            </div>
+            <div class="modal-footer">
+                <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">No</button></a>
+                <a href="/admin/shipOrder/{{this._id}}"><button type="button" class="btn btn-primary">Yes</button></a>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
+
+<!-- Modal delivery order confirmation -->
+{{#each orders}}
+<div class="modal fade" id="deliveryOrder{{this._id}}" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Order Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to make this order delivered?
+            </div>
+            <div class="modal-footer">
+                <a href=""><button type="button" class="btn btn-secondary" data-dismiss="modal">No</button></a>
+                <a href="/admin/orderDelivered/{{this._id}}"><button type="button"
+                        class="btn btn-primary">Yes</button></a>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{/each}}
 <script>
     $(document).ready(function () {
         $('#orderTable').DataTable();
