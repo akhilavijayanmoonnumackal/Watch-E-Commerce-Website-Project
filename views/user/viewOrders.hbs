@@ -1,119 +1,88 @@
 <section class="bg0 p-t-23 p-b-140">
     <div class="container">
         <div>
-            <br><br><br><br>
+            <br><br><br>
         </div>
         {{#if orders}}
-        <div class="card mb-4">
-            <header class="card-header">
-                <h4 class="card-title">All Orders</h4>
-            </header>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <div class="table-responsive">
-
-                        <table class="table align-middle table-nowrap mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th scope="col">Sl. No.</th>
-                                    {{!-- <th class="align-middle" scope="col">Order ID</th> --}}
-                                    <th class="align-middle" scope="col">Date</th>
-                                    {{!-- <th class="align-middle" scope="col">Billing Name</th> --}}
-                                    <th class="align-middle" scope="col">Address</th>
-                                    {{!-- <th class="align-middle" scope="col">Pincode</th> --}}
-                                    {{!-- <th class="align-middle" scope="col">Mobile</th> --}}
-                                    <th class="align-middle" scope="col">Total</th>
-                                    <th class="align-middle" scope="col">Status</th>
-                                    <th class="align-middle" scope="col">Payment Method</th>
-                                    <th class="align-middle" scope="col">View Details</th>
-                                    <th class="align-middle" scope="col">Cancel</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each orders}}
-                                <tr>
-                                    <td scope="row">{{increment @index}}</td>
-                                    <td>{{this.date}}</td>
-                                    <td>
-                                        <span>{{this.deliveryDetails.name}},</span>
-                                        <span>{{this.deliveryDetails.address}}
-                                        </span><br>
-                                        <span>{{this.deliveryDetails.pincode}}</span>
-                                    </td>
-                                    <td>₹{{this.totalAmount}}</td>
-                                    <td>
-                                        <span class="badge badge-pill badge-soft-success">{{this.status}}</span>
-                                    </td>
-                                    <td>
-                                        <i class="material-icons md-payment font-xxl text-muted mr-5"></i>
-                                        {{this.PaymentMethod}}
-                                    </td>
-                                    <td>
-                                        <a href="/singleOrderDetailUser/{{this._id}}" class="btn btn-xs">
-                                            View details</a>
-                                    </td>
-                                    {{#if this.isCancelled}}
-                                    <td>
-                                        <a href="" class="btn btn-xs disabled" style="background-color: crimson;">
-                                            ORDER CANCELLED</a>
-                                    </td>
-                                    {{else if this.isDelivered}}
-                                    <td>
-                                        <a href="" class="btn btn-xs cancelOrder"
-                                            style="background-color: rgb(121, 42, 42);" data-toggle="modal"
-                                            data-target="#returnOrder{{this._id}}">
-                                            RETURN ORDER</a>
-                                    </td>
-                                    {{else if this.isReturned}}
-                                    <td>
-                                        <a href="" class="btn btn-xs disabled"
-                                            style="background-color: rgb(205, 121, 121);">
-                                            ORDER RETURNED</a>
-                                    </td>
-                                    {{else}}
-                                    <td>
-                                        <a class="btn btn-xs cancelOrder" data-toggle="modal"
-                                            data-target="#cancelOrder{{this._id}}" style="background-color: crimson;">
-                                            CANCEL ORDER</a>
-                                    </td>
-                                    {{/if}}
-                                </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
-
-                        {{else}}
-                        {{!-- <div class="container-fluid  mt-100">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card"> --}}
-
-                                        <div class="card-body cart">
-                                            <div class="col-sm-12 empty-cart-cls text-center">
-                                                <img src="images/orderSvg.png" class="img-fluid mb-4 mr-3"
-                                                    style="width: 209px;height:197px">
-                                                <h3><strong>You have no orders</strong></h3>
-                                                <h4>Buy something to make me happy :)</h4>
-                                                <a href=" /shop" class="btn btn-primary cart-btn-transform m-3"
-                                                    data-abc="true">continue
-                                                    shopping</a>
-                                            </div>
-                                        </div>
-                                        {{!--
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div> --}}
-
-
-
-
+        <div class="row">
+            <h4 class="py-4 text-center">All Orders</h4>
+            <div class="mt-5">
+                <table class="table table-striped table-bordered table-responsive mt-5 display" style="padding-top:30px"
+                    id="allOrderTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Sl. No.</th>
+                            <th class="align-middle" scope="col">Date</th>
+                            <th class="align-middle" scope="col">Address</th>
+                            <th class="align-middle" scope="col">Total</th>
+                            <th class="align-middle" scope="col">Status</th>
+                            <th class="align-middle" scope="col">Payment Method</th>
+                            <th class="align-middle" scope="col">View Details</th>
+                            <th class="align-middle" scope="col">Cancel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each orders}}
+                        <tr>
+                            <td scope="row">{{increment @index}}</td>
+                            <td>{{this.date}}</td>
+                            <td>
+                                <span>{{this.deliveryDetails.name}},</span>
+                                <span>{{this.deliveryDetails.address}}
+                                </span><br>
+                                <span>{{this.deliveryDetails.pincode}}</span>
+                            </td>
+                            <td>₹{{this.totalAmount}}</td>
+                            <td>
+                                <span class="badge badge-pill badge-soft-success">{{this.status}}</span>
+                            </td>
+                            <td>
+                                <i class="material-icons md-payment font-xxl text-muted mr-5"></i>
+                                {{this.PaymentMethod}}
+                            </td>
+                            <td>
+                                <a href="/singleOrderDetailUser/{{this._id}}" class="btn btn-xs">
+                                    View details</a>
+                            </td>
+                            {{#if this.isCancelled}}
+                            <td>
+                                <a href="" class="btn btn-xs disabled" style="background-color: crimson;">
+                                    ORDER CANCELLED</a>
+                            </td>
+                            {{else if this.isDelivered}}
+                            <td>
+                                <a href="" class="btn btn-xs cancelOrder" style="background-color: rgb(121, 42, 42);"
+                                    data-toggle="modal" data-target="#returnOrder{{this._id}}">
+                                    RETURN ORDER</a>
+                            </td>
+                            {{else if this.isReturned}}
+                            <td>
+                                <a href="" class="btn btn-xs disabled" style="background-color: rgb(205, 121, 121);">
+                                    ORDER RETURNED</a>
+                            </td>
+                            {{else}}
+                            <td>
+                                <a class="btn btn-xs cancelOrder" data-toggle="modal"
+                                    data-target="#cancelOrder{{this._id}}" style="background-color: crimson;">
+                                    CANCEL ORDER</a>
+                            </td>
+                            {{/if}}
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{else}}
+                <div class="card-body cart">
+                    <div class="col-sm-12 empty-cart-cls text-center">
+                        <img src="images/orderSvg.png" class="img-fluid mb-4 mr-3" style="width: 209px;height:197px">
+                        <h3><strong>You have no orders</strong></h3>
+                        <h4>Buy something to make me happy :)</h4>
+                        <a href=" /shop" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue
+                            shopping</a>
                     </div>
-                </div> <!-- table-responsive end// -->
+                </div>
             </div>
         </div>
-
         {{/if}}
     </div>
 </section>
@@ -322,3 +291,8 @@
         </div>
     </div>
 </footer>
+<script>
+    $(document).ready(function () {
+        $('#allOrderTable').DataTable();
+    });
+</script>
