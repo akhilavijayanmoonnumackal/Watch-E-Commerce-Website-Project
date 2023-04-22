@@ -407,6 +407,7 @@ module.exports ={
             res.redirect('back')
         })
     },
+    
     // orderManagement: async(req, res) => {
     //     if (req.session.adminLoggedIn) {
     //       const orders = await adminHelpers.allOrders();
