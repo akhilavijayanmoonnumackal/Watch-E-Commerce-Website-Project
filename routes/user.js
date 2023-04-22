@@ -23,7 +23,6 @@ router.get('/shop',controller.shop);
 router.get('/productDetail/:id',controller.productDetail);
 
 //cart & wishlist
-
 router.get('/addToCart/:id', controller.addToCart);
 router.get('/cart',sessionChecker.userAuth, controller.cartDetails);
 router.post('/change-product-quantity', controller.changeProductQuantity);
@@ -31,24 +30,37 @@ router.get('/remove-cart-product/:id', controller.removeProduct);
 router.get('/wishList',sessionChecker.userAuth, controller.wishListDetails);
 router.get('/addToWishlist/:id', controller.addToWishlist);
 router.get('/removeWishlistProduct/:id', controller.removeWishlistProduct);
+
+//place-order_routes
 router.get('/place-order',sessionChecker.userAuth, controller.getPlaceOrder);
 router.post('/place-order', controller.postPlaceOrder);
+router.post('/verifyPayment', controller.verifyPayment);
 router.get('/orderSuccess', controller.orderSuccess);
+
+//userProfile_routes
 router.get('/userProfile',sessionChecker.userAuth, controller.userProfile);
 router.post('/profileInformation/:id', controller.editProfileInfo);
 router.get('/manageAddress', sessionChecker.userAuth, controller.getAddress);
 router.post('/addAddress/:id', controller.addAddressPost);
+
+//allOrders_routes
 router.get('/viewOrders',sessionChecker.userAuth, controller.viewOrders);
 router.get('/singleOrderDetailUser/:id',sessionChecker.userAuth, controller.singleOrderDetailUser);
 router.get('/cancelOrder/:id', controller.cancelOrder);
 router.get('/returnOrder/:id', sessionChecker.userAuth, controller.returnOrder);
-router.post('/verifyPayment', controller.verifyPayment);
+// router.post('/verifyPayment', controller.verifyPayment);
+
+//forgotPassword_routes
 router.get('/forgotPassword', controller.getForgotPassword);
 router.post('/forgotPassword-otp', controller.forgotPasswordOtp);
 router.post('/forgotPasswordVerify', controller.forgotPasswordVerify);
 router.get('/newPasswordUpdate', controller.newPasswordUpdate);
 router.post('/newPasswordUpdatePost', controller.newPasswordUpdatePost);
+
+//search_routes
 router.get('/search', controller.search);
+
+//wallet_routes
 router.get('/wallet', sessionChecker.userAuth, controller.getWallet);
 
 // coupon_routes

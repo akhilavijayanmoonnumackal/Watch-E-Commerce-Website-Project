@@ -561,7 +561,6 @@ module.exports={
         let cartCount = req.session.cartCount;
         let wishlistCount = req.session.wishlistCount;
         let orders = await userHelpers.getUserOrders(userId);
-      
         orders.forEach(order => {
           order.isCancelled = order.status === "cancelled" ? true : false;
           order.isDelivered = order.status === "delivered" ? true : false;
