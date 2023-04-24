@@ -694,10 +694,12 @@ module.exports={
                 if (products.length > 0) {
                   res.render('user/shop', {admin:false,userHeader:true,products,user,cartCount,wishlistCount})
                 } else {
-                  res.json({
-                    status: 'error',
-                    message: 'No matching products found'
-                  });
+                //   res.json({
+                //     status: 'error',
+                //     message: 'No matching products found'
+                //   });
+                // }
+                res.render('user/searchEmpty', {admin:false,userHeader:true,products,user,cartCount,wishlistCount})
                 }
               }).catch((err) => {
                 res.json({
