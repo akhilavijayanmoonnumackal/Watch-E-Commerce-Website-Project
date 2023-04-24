@@ -252,7 +252,9 @@ module.exports={
         let cartCount = req.session.cartCount;
         console.log(`carrt count ::::: ${cartCount}`);
         let wishlistCount = req.session.wishlistCount;
-        res.render('user/cart', {product,cartCount,wishlistCount,totalAmount,user, userHeader:true })
+        
+        res.render('user/cart', {product,cartCount,wishlistCount,totalAmount,user, userHeader:true, errCheckOut:req.session.checkOutErr })
+        req.session.checkOutErr=false
         if(cartCount===0){
             res.render('user/cartSvg', {product,cartCount,wishlistCount,totalAmount,user, userHeader:true })
         }
@@ -383,11 +385,33 @@ module.exports={
 
 
     },
+    // getPlaceOrder: async(req,res) => {
+    //     let user = req.session.user;
+    //     let total = await userHelpers.get1TotalAmount(req.session.user._id);    
+    //     let wishlistCount = req.session.wishlistCount;
+    //     console.log("uuuuuuuuuuuuuuuuuuuuuu", user);
+    //     res.render('user/placeOrder',{admin:false,user,total,wishlistCount, userHeader:true})
+    // },
     getPlaceOrder: async(req,res) => {
         let user = req.session.user;
+        let outOfStock = false;
         let total = await userHelpers.get1TotalAmount(req.session.user._id);    
         let wishlistCount = req.session.wishlistCount;
-        res.render('user/placeOrder',{admin:false,user,total,wishlistCount, userHeader:true})
+        let products = await userHelpers.cartDetailsPlaceOrder(req.session.user._id)
+        console.log("uuuuuuuuuuuuuuuuuuuuuu", products);
+        for(let i=0;i<products.length;i++){
+            if(products[i].proDetails.stock===0){
+                outOfStock=true;
+            }
+        }
+        if(outOfStock) {
+            console.log("out of stockkkkkkkkkkkkkkkkkkkkkkkkkk");
+            req.session.checkOutErr = "Product is out of stock";
+            res.redirect('/cart')
+        }else{
+            res.render('user/placeOrder',{admin:false,user,total,wishlistCount,products, userHeader:true})
+        }
+       
     },
     // postPlaceOrder: async(req,res) => {
     //     // console.log(req.body)

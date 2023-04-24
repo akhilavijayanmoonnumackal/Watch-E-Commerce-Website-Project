@@ -12,5 +12,11 @@ module.exports = {
             const result = num1-num2;
             return result;
         }
+    },
+    isEqual: (num1, num2) => {
+        return num1==num2;
+    },
+    isNotEqual: (num1, num2) => {
+        return num1!==num2;
     }
 }

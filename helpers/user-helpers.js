@@ -183,6 +183,56 @@ module.exports={
             }
         });
       },
+    cartDetailsPlaceOrder: (userId) => {
+        return new Promise(async (resolve, reject) => {
+          try {
+            userId = new ObjectId(userId);
+            let cartItems = await db.get().collection(collection.CART_COLLECTION)
+            .aggregate([
+                {
+                  '$match': {
+                    'userId': userId
+                  }
+                }, {
+                  '$unwind': {
+                    'path': '$products', 
+                    'preserveNullAndEmptyArrays': true
+                  }
+                }, {
+                  '$lookup': {
+                    'from': 'products', 
+                    'localField': 'products.productId', 
+                    'foreignField': '_id', 
+                    'as': 'proDetails'
+                  }
+                }, {
+                  '$project': {
+                    'proDetails': 1, 
+                    'products.quantity': 1, 
+                     'proDetails':{$arrayElemAt: ['$proDetails',0]},
+                    '_id': 0
+                  }
+                }
+              ]).toArray();
+            console.log(cartItems)
+            console.log("fdgffffffffffffffffffffff",cartItems.length);
+            if(cartItems.length!=0){
+                if(cartItems.length===1){
+                    if(cartItems[0].proDetails.length===0){
+                        console.log("noijas")
+                        console.log(`prodetailslength : ${cartItems[0].proDetails.length}`);
+                        resolve(null);
+                    }
+                }
+                resolve(cartItems)
+            }else{
+                resolve(null);
+            }
+          } catch {
+            resolve(null);
+            }
+        });
+      },
     getCartCount: (userId) => {
         return new Promise(async (resolve,reject) => {
             let count = 0
