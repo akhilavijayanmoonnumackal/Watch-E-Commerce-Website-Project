@@ -769,6 +769,99 @@ module.exports={
             })
         })
     },
+    orderTotalCost: (orderId) => {
+        return new Promise(async(resolve, reject) => {
+            orderId= new ObjectId(orderId);
+            const total = await db.get().collection(collection.ORDER_COLLECTION)
+            .aggregate(
+                [
+                    {
+                      '$match': {
+                        '_id': orderId
+                      }
+                    }, {
+                      '$group': {
+                        '_id': null, 
+                        'total': {
+                          '$sum': '$totalAmount'
+                        }
+                      }
+                    }
+                  ]
+            ).toArray();
+            try {
+                resolve(total);
+            }catch{
+                resolve(null);
+            }
+        })
+    },
+    toWallet: (userId, source, amount) => {
+        return new Promise((resolve, reject) => {
+            userId= new ObjectId(userId);
+            receipt = {
+                userId: userId,
+                source : source,
+                amount : Number(amount)
+            }
+            db.get().collection(collection.WALLET_COLLECTION)
+            .insertOne(receipt).then(() => {
+                db.get().collection(collection.ORDER_COLLECTION)
+                .updateOne(
+                    {
+                        userId: userId,
+                        status: "pending"
+                    },
+                    {
+                        $set: {
+                            refunded : true
+                        }
+                    }
+                ).then(() => {
+                    resolve();
+                })
+            })
+            .catch(() => {
+                reject();
+            })
+        })
+    },
+    getWallet: (userId) => {
+        return new Promise((resolve, reject) => {
+            userId = new ObjectId(userId);
+            const userWallet = db.get().collection(collection.WALLET_COLLECTION)
+            .find({userId: userId}).toArray();
+            console.log("userWallet", userWallet);
+            resolve(userWallet);
+        });
+    },
+    totalWalletAmount: (userId) => {
+        return new Promise(async(resolve, reject) => {
+            userId = new ObjectId(userId);
+            const totalWallet = await db.get().collection(collection.WALLET_COLLECTION)
+            .aggregate(
+                [
+                    {
+                      '$match': {
+                        'userId': new ObjectId('userId')
+                      }
+                    }, {
+                      '$group': {
+                        '_id': null, 
+                        'total': {
+                          '$sum': '$amount'
+                        }
+                      }
+                    }
+                  ]
+            ).toArray();
+            try {
+                resolve(totalWallet[0].total);
+            }catch{
+                resolve(0);
+            }
+        })
+    },
     generateRazorpay: (orderId, total) => {
         return new Promise((resolve, reject) => {
             var options = {

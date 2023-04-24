@@ -9,6 +9,7 @@ const productHelpers = require('../helpers/product-helpers');
 const adminHelpers = require('../helpers/admin-helpers');
 const adminController = require('./admin-controller');
 const async = require('hbs/lib/async');
+const { ObjectId } = require('mongodb');
 let userHeader;
 
 module.exports={
@@ -19,6 +20,7 @@ module.exports={
         if(req.session.loggedIn){
             let user=req.session.user;
             cartCount = await userHelpers.getCartCountNew(req.session.user._id);
+            console.log("cartCounttttttttttttt", cartCount);
             req.session.cartCount = parseInt(cartCount);
             wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
             req.session.wishlistCount = parseInt(wishlistCount);
@@ -621,9 +623,22 @@ module.exports={
             res.redirect('/viewOrders');
         })
     },
+    // returnOrder: async(req,res) =>{
+    //     const orderId = req.params.id;
+    //     userHelpers.returnOrder(orderId).then(() => {
+    //         res.redirect('/viewOrders');
+    //     })
+    // },
     returnOrder: async(req,res) =>{
         const orderId = req.params.id;
+        let userId = req.session.user._id;
+        const totalAmount = await userHelpers.orderTotalCost(orderId);
         userHelpers.returnOrder(orderId).then(() => {
+            userHelpers.toWallet(userId, "returned", totalAmount[0].total).then(() => {
+                res.redirect('/viewOrders');
+            })
+        })
+        .catch(() => {
             res.redirect('/viewOrders');
         })
     },
@@ -754,33 +769,68 @@ module.exports={
         });
     },
     getWallet: async(req,res) => { 
-        let user = req.session.user;
+        const userId = req.session.user._id;
+        const user = await db.get().collection(collection.USER_COLLECTION)
+        .findOne({ _id: new ObjectId(userId) });
         let cartCount = req.session.cartCount;
         let wishlistCount = req.session.wishlistCount;
-        const userId = req.session.user._id;
-        const orders = await userHelpers.getOrders(userId);
-        orders.forEach(order => {
-            if(order.status === 'pending' && !order.refunded){
-                userHelpers.toWallet(userId, "online-payment-failed", order.totalCost)
-                .then(() => {}).catch(() => {});
-            }
-        });
-        const wallet = await userHelpers.getWallet(userId);
-        const totalAmount = await userHelpers.totalWalletAmount(userId);
-        wallet.forEach(wal => {
-            const newDate = new Date(wal.date);
-            const year = newDate.getFullYear();
-            const month = newDate.getMonth()+1;
-            const day = newDate.getDate();
-            const formDate = `${ day < 10 ? '0' + day: day}-${month < 10 ? '0' + month: month}-${year}`;
-            wal.date = formDate; 
-        });
-        if(wallet) {
-            res.render('user/wallet', {admin:false, user, cartCount, wishlistCount, totalAmount, wallet, userHeader:true})     
-        }else{
-            res.render('user/wallet', {admin:false, user, cartCount, wishlistCount, userHeader:true})     
-        }
+        const orders = await db.get().collection(collection.ORDER_COLLECTION)
+        .find({userId: new ObjectId(userId), status: 'pending', refunded: { $ne: true } }).toArray();
+
+        orders.forEach(async (order) => {
+            await db.get().collection(collection.WALLET_COLLECTION).insertOne({
+              userId: new ObjectId(userId),
+              source: 'online-payment-failed',
+              amount: order.totalCost
+            });
+            await db.get().collection(collection.ORDER_COLLECTION).updateOne(
+                { _id: order._id },
+                { $set: { refunded: true } }
+            );
+        })
+
+        const wallet = await db.get().collection(collection.WALLET_COLLECTION).find({ userId: new ObjectId(userId) }).toArray();
+        const totalAmount = await db.get().collection(collection.WALLET_COLLECTION).aggregate(
+            [
+                { 
+                    $match: { 
+                        userId: new ObjectId(userId) 
+                    } 
+                },
+                { $group: { 
+                    _id: null, 
+                    total: { $sum: '$amount' } 
+                    } 
+                }
+            ]).toArray().then(data => data.length ? data[0].total : 0);
+
+            res.render('user/wallet', { admin:false, user, cartCount, wishlistCount, totalAmount, wallet, userHeader:true});
           
-    }   
+    } 
+    // getWallet: async(req,res) => { 
+    //     let user = req.session.user;
+    //     const userId = req.session.user._id;
+    //     let cartCount = req.session.cartCount;
+    //     console.log("oooooooooooooooo", cartCount);
+    //     console.log("oooooooooooooooo", user);
+    //     let wishlistCount = req.session.wishlistCount;
+    //     const orders = await userHelpers.getOrders(userId);
+        
+    //     orders.forEach(order => {
+    //         if(order.status === 'pending' && !order.refunded){
+    //             userHelpers.toWallet(userId, "online-payment-failed", order.totalCost)
+    //             .then(() => {}).catch(() => {});
+    //         }
+    //     });
+    //     const wallet = await userHelpers.getWallet(userId);
+    //     const totalAmount = await userHelpers.totalWalletAmount(userId);
+    //     if(wallet) {
+    //         console.log("wallettttttttttt", wallet);
+    //         res.render('user/wallet', {admin:false, user, cartCount, wishlistCount, totalAmount, wallet, userHeader:true})     
+    //     }else{
+    //         res.render('user/wallet', {admin:false, user, cartCount, wishlistCount, userHeader:true})     
+    //     }
+          
+    // }   
 }
 
