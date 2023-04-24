@@ -1,74 +1,83 @@
-<!-- [ Main Content ] start -->
-<div class="pcoded-main-container">
-    <div class="pcoded-wrapper">
-        <div class="pcoded-content">
-            <div class="pcoded-inner-content">
-                <div class="main-body">
-                    <div class="page-wrapper">
+<main class="main-wrap">
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
 
-                        <!-- [ breadcrumb ] start -->
+                            <!-- [ breadcrumb ] start -->
 
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card">
-                                    <div class="card-body ">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card">
+                                        <div class="card-body ">
 
-                                        <form action="/admin/edit-banner/{{banner._id}}" method="post"
-                                            enctype="multipart/form-data">
+                                            <form action="/admin/edit-banner/{{banner._id}}" method="post">
 
-                                            <div class="rows">
+                                                <div class="rows">
 
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                    <h4 class="text-primary">Edit Banners</h4>
-                                                </div>
-
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="fullName">Banner Image</label>
-                                                        <input type="file" class="form-control" id="fullName"
-                                                            name="image" />
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <h4 class="text-primary">Edit Banners</h4>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="eMail">Bannner Head</label>
-                                                        <input type="text" class="form-control" id="head" name="head"
-                                                            value="{{banner.head}}" />
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="fullName">Banner Image</label>
+                                                            <input type="file" class="form-control" id="fullName"
+                                                                name="image" />
+                                                            <img src="{{banner.image}}" alt=""
+                                                                style="width: 50px;height:auto" id="imgView"
+                                                                class="pt-3">
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                    <div class="form-group">
-                                                        <label for="eMail">Banner text</label>
-                                                        <input type="text" class="form-control" id="text" name="text"
-                                                            value="{{banner.text}}" />
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="eMail">Bannner Head</label>
+                                                            <input type="text" class="form-control" id="head"
+                                                                name="head" value="{{banner.head}}" />
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                    <div class="text-right mt-3">
-
-                                                        {{! <button type="submit" id="submit"
-                                                            class="btn-primary p-2">Update</button> }}
-                                                        <button type="submit"
-                                                            class="btn btn-primary btn-block">Update</button>
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="eMail">Banner text</label>
+                                                            <input type="text" class="form-control" id="text"
+                                                                name="text" value="{{banner.text}}" />
+                                                        </div>
                                                     </div>
+
+                                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                        <div class="text-right mt-3">
+
+                                                            {{! <button type="submit" id="submit"
+                                                                class="btn-primary p-2">Update</button> }}
+                                                            <button type="submit"
+                                                                class="btn btn-primary btn-block">Update</button>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
+                                            </form>
 
-                                            </div>
-                                        </form>
-
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
+                            <!-- [ Main Content ] end -->
                         </div>
-                        <!-- [ Main Content ] end -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- [ Main Content ] end -->
+    <!-- [ Main Content ] end -->
+</main>
+<script>
+    function viewImage(event) {
+        document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
+    }
+</script>

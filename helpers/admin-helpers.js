@@ -73,6 +73,7 @@ module.exports={
         
     },
     updateBannerImages: (bannerId,bannerUrl) => {        //1
+        console.log("999999999999999999", bannerUrl);
         return new Promise((resolve,reject) => {
             db.get().collection(collection.BANNER_COLLECTION)
             .updateOne({_id: new ObjectId(bannerId)},
@@ -85,6 +86,7 @@ module.exports={
         }) 
     },
     updateBanner: (bannerId,banner) => {    //1
+        console.log("tttttttttttttttt", banner);
         return new Promise((resolve,reject) => {
             db.get().collection(collection.BANNER_COLLECTION)
             .updateOne({_id: new ObjectId(bannerId)},
@@ -94,9 +96,13 @@ module.exports={
                     head: banner.head,
                     text: banner.text
                 }
-            });
+            }).then((response) => {
+                console.log("888888888888uuuuuu", response);
+                resolve(response);
+            })
         })
     },
+
     getBanners: () => {    //1
         return new Promise(async(resolve, reject) => {
             let banner = await db.get().collection(collection.BANNER_COLLECTION)
@@ -109,6 +115,7 @@ module.exports={
             db.get().collection(collection.BANNER_COLLECTION)
             .findOne({_id: new ObjectId(bannerId)})
             .then((response) => {
+                console.log("uuuuuuuuuuuuuuuuuuuuuyyyyyyyyyyyyy", response);
                 resolve(response);
             })
         })

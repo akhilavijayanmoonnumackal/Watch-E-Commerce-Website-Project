@@ -10,6 +10,9 @@ const cloudinary = require('../utils/cloudinary');
 const upload = require('../utils/multer');
 const { ObjectId } = require('mongodb');
 const async = require('hbs/lib/async');
+const file = require('fileupload/lib/modules/file');
+const { response } = require('express');
+const { log } = require('handlebars/runtime');
 // const { reject } = require('bcrypt/promises');
 // const async = require('hbs/lib/async');
 let adminHeader;
@@ -211,16 +214,20 @@ module.exports ={
             res.redirect('back');
         })
     },
-    editBanner:(req,res) => {     //1
-        adminHelpers.getBannerDetails(req.params.id);
+    editBanner:async(req,res) => {     //1
+        console.log("rtrrrrrrr", req.params.id);
+        //adminHelpers.getBannerDetails(req.params.id);
+        let banner =await adminHelpers.getBannerDetails(req.params.id).then();
+        console.log("banner", banner);
         res.render('admin/edit-banner', {admin:true, adminName:req.session.adminName,banner})
     },
     editBannerPost: async (req,res) => {     //1
+        console.log("00000000000000", req.body);
         try{
-            adminHelpers.updateBanner(req.param.id, req.body);
+            await adminHelpers.updateBanner(req.param.id, req.body);
             let result = await cloudinary.uploader.upload(req.file.path);
             if(result.url) {
-                adminHelpers.updateBannerImages(req.params.id, result.url);
+                await adminHelpers.updateBannerImages(req.params.id, result.url);
             }
         }catch(err){
             console.log("error", err);
@@ -228,6 +235,43 @@ module.exports ={
             res.redirect('/admin/bannerManagement');
         }
     },
+    // editBannerPost: async (req,res) => {     //1
+    //     console.log("555555555555555555",req.body);
+    //     try{
+    //         //adminHelpers.updateBanner(req.param.id, req.body);
+    //         let imgUrl=[];
+    //         for(let i=0;i<req.files.length;i++){
+    //             let result = await cloudinary.uploader.upload(req.file.path);
+    //             imgUrl.push(result.url);
+    //         }
+    //         if(imgUrl.length!==0){
+    //             adminHelpers.updateBannerImages(req.param.id, imgUrl)
+    //         }
+    //         adminHelpers.updateBanner(req.param.id, req.body);
+    //     }catch(err){
+    //         console.log("error", err);
+    //     }finally{
+    //         res.redirect('/admin/bannerManagement');
+    //     }
+    // },
+    // editProductPost: async(req,res) => {     
+    //     try {
+    //         let imgUrls = []
+    //         for(let i=0;i<req.files.length;i++){
+    //             let result = await cloudinary.uploader.upload(req.files[i].path);
+    //             imgUrls.push(result.url);
+    //         }
+    //         if(imgUrls.length!==0){
+    //             productHelpers.updateProductImages(req.params.id, imgUrls)
+    //         }
+    //         productHelpers.updateProduct(req.params.id,req.body)
+    //     }catch(err){
+    //         console.log(err);
+    //     }finally{
+    //         res.redirect('/admin/view-products');
+    //     }       
+    // }
+    
     getBannerDetails: (bannerId) => {
         return new Promise((resolve, reject) => {
             db.get().collection(collection.BANNER_COLLECTION)
