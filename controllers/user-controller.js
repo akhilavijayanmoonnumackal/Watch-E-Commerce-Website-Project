@@ -503,7 +503,7 @@ module.exports={
         let totalPrice = Number(req.body.totalAmount);
         req.body.address = address;
         //const cart= cart.products;
-        userHelpers.placeOrder(req.body,products,totalPrice).then((orderId) => {
+        userHelpers.placeOrder(req.body,products,totalPrice).then(async(orderId) => {
             console.log(orderId);
             if(req.body['payment-method'] === 'COD') {
                 productHelpers.decreamentStock(products).then(() => {}).catch(() =>{});
@@ -512,7 +512,8 @@ module.exports={
                 for(let i=0;i<products.length;i++){
                     productHelpers.decreamentStock(products).then(() => {}).catch((err) =>console.log(err));
                 }
-                let wallet = userHelpers.updateWallet(req.session.user._id,totalPrice)
+                await userHelpers.updateWallet(req.session.user._id,totalPrice)
+                console.log("total priceeeeeeeeeeee", totalPrice);
                 res.json({walletSuccess:true})
             }else{
                 userHelpers.generateRazorpay(orderId,totalPrice).then((response) => {
@@ -819,23 +820,24 @@ module.exports={
             );
         })
 
-        const wallet = await db.get().collection(collection.WALLET_COLLECTION).find({ userId: new ObjectId(userId) }).toArray();
+        const wallet = await db.get().collection(collection.WALLET_COLLECTION).findOne({ userId: new ObjectId(userId) });
         console.log("wallettttt", wallet);
-        const totalAmount = await db.get().collection(collection.WALLET_COLLECTION).aggregate(
-            [
-                { 
-                    $match: { 
-                        userId: new ObjectId(userId) 
-                    } 
-                },
-                { $group: { 
-                    _id: null, 
-                    total: { $sum: '$amount' } 
-                    } 
-                }
-            ]).toArray().then(data => data.length ? data[0].total : 0);
+        let userWallet = wallet.amount;
+        // const totalAmount = await db.get().collection(collection.WALLET_COLLECTION).aggregate(
+        //     [
+        //         { 
+        //             $match: { 
+        //                 userId: new ObjectId(userId) 
+        //             } 
+        //         },
+        //         { $group: { 
+        //             _id: null, 
+        //             total: { $sum: '$amount' } 
+        //             } 
+        //         }
+        //     ]).toArray().then(data => data.length ? data[0].total : 0);
 
-            res.render('user/wallet', { admin:false, user, cartCount, wishlistCount, totalAmount, wallet, userHeader:true});
+            res.render('user/wallet', { admin:false, user, cartCount, wishlistCount, wallet, userHeader:true, userWallet});
           
     } 
     // getWallet: async(req,res) => { 

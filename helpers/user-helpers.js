@@ -889,13 +889,15 @@ module.exports={
     updateWallet: (userId, total) => {
         return new Promise(async(resolve, reject) => {
             let orderTotal = parseInt(total)
+            console.log("Orderrrrrrrrrr",orderTotal);
             let wallet = await db.get().collection(collection.WALLET_COLLECTION)
-            .updateOne({ _id : new ObjectId(userId)},
+            .updateOne({ userId : new ObjectId(userId)},
             {
                 $inc: {
                     amount : -orderTotal
                 }
             })
+            console.log("wallet.amountttttttttttttt", wallet);
             resolve(wallet.amount)
         })
     },
