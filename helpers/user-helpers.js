@@ -627,7 +627,7 @@ module.exports={
                     });
                 }
                 }else{
-                    let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
+                    let status = order['payment-method'] === 'COD' || 'wallet' ? 'placed' : 'pending'
                     let orderObj = {
                         deliveryDetails: {
                             name: order.address.name,
@@ -698,6 +698,30 @@ module.exports={
                 resolve(response)
             })
             
+        })
+    },
+    removeProfileAddress: (userId, addrId) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.USER_COLLECTION)
+            .updateOne(
+                {
+                    _id: new ObjectId(userId),
+                    "address._id": new ObjectId(addrId)
+                },
+                {
+                    $pull:{
+                        address: 
+                        {
+                            _id: new ObjectId(addrId)
+                        }
+                    }
+                }
+            ).then((response) => {
+                console.log("Address removedddddddddddddd");
+                resolve()
+            }).catch((err) => {
+                console.log(err);
+            })
         })
     },
     getCartProductList: (userId) => {
@@ -860,6 +884,19 @@ module.exports={
             }catch{
                 resolve(0);
             }
+        })
+    },
+    updateWallet: (userId, total) => {
+        return new Promise(async(resolve, reject) => {
+            let orderTotal = parseInt(total)
+            let wallet = await db.get().collection(collection.WALLET_COLLECTION)
+            .updateOne({ _id : new ObjectId(userId)},
+            {
+                $inc: {
+                    amount : -orderTotal
+                }
+            })
+            resolve(wallet.amount)
         })
     },
     generateRazorpay: (orderId, total) => {

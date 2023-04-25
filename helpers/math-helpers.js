@@ -14,9 +14,12 @@ module.exports = {
         }
     },
     isEqual: (num1, num2) => {
-        return num1==num2;
+        return num1 == num2;
     },
     isNotEqual: (num1, num2) => {
-        return num1!==num2;
+        return num1 !== num2;
+    },
+    lessEqual: (num1, num2) => {
+        return num1 <= num2;
     }
 }

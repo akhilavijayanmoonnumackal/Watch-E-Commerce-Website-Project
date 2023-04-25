@@ -396,11 +396,25 @@ module.exports={
     // },
     getPlaceOrder: async(req,res) => {
         let user = req.session.user;
+        let userId = req.session.user._id;
         let outOfStock = false;
         let total = await userHelpers.get1TotalAmount(req.session.user._id);    
         let wishlistCount = req.session.wishlistCount;
         let products = await userHelpers.cartDetailsPlaceOrder(req.session.user._id)
         console.log("uuuuuuuuuuuuuuuuuuuuuu", products);
+        const totalAmount = await db.get().collection(collection.WALLET_COLLECTION).aggregate(
+            [
+                { 
+                    $match: { 
+                        userId: new ObjectId(userId) 
+                    } 
+                },
+                { $group: { 
+                    _id: null, 
+                    total: { $sum: '$amount' } 
+                    } 
+                }
+            ]).toArray().then(data => data.length ? data[0].total : 0);
         for(let i=0;i<products.length;i++){
             if(products[i].proDetails.stock===0){
                 outOfStock=true;
@@ -411,7 +425,7 @@ module.exports={
             req.session.checkOutErr = "Product is out of stock";
             res.redirect('/cart')
         }else{
-            res.render('user/placeOrder',{admin:false,user,total,wishlistCount,products, userHeader:true})
+            res.render('user/placeOrder',{admin:false,user,total,wishlistCount,products, userHeader:true, totalAmount})
         }
        
     },
@@ -494,6 +508,12 @@ module.exports={
             if(req.body['payment-method'] === 'COD') {
                 productHelpers.decreamentStock(products).then(() => {}).catch(() =>{});
                 res.json({ codSuccess: true})
+            }else if(req.body['payment-method'] === 'wallet'){
+                for(let i=0;i<products.length;i++){
+                    productHelpers.decreamentStock(products).then(() => {}).catch((err) =>console.log(err));
+                }
+                let wallet = userHelpers.updateWallet(req.session.user._id,totalPrice)
+                res.json({walletSuccess:true})
             }else{
                 userHelpers.generateRazorpay(orderId,totalPrice).then((response) => {
                     productHelpers.decreamentStock(products).then(() => {}).catch((err) =>console.log(err));
@@ -559,6 +579,16 @@ module.exports={
         req.session.user = user;
         res.redirect('back');
     },
+    removeProfileAddress: (req,res) => {
+        console.log("req.params.idddddddddd", req.params.id);
+        const addrId = req.params.id;
+        const userId = req.session.user._id;
+        userHelpers.removeProfileAddress(userId, addrId).then(() => {
+            console.log("addresssssssssss");
+            res.json({ status: true})
+        })
+    },
+    
     // applyCoupon : async(req,res) => {
     //     if(req.session.loggedIn) {
     //         let code = req.body.code;
@@ -790,6 +820,7 @@ module.exports={
         })
 
         const wallet = await db.get().collection(collection.WALLET_COLLECTION).find({ userId: new ObjectId(userId) }).toArray();
+        console.log("wallettttt", wallet);
         const totalAmount = await db.get().collection(collection.WALLET_COLLECTION).aggregate(
             [
                 { 

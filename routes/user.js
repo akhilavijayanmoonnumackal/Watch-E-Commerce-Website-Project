@@ -42,6 +42,7 @@ router.get('/userProfile',sessionChecker.userAuth, controller.userProfile);
 router.post('/profileInformation/:id', controller.editProfileInfo);
 router.get('/manageAddress', sessionChecker.userAuth, controller.getAddress);
 router.post('/addAddress/:id', controller.addAddressPost);
+router.get('/removeProfileAddress/:id', controller.removeProfileAddress);
 
 //allOrders_routes
 router.get('/viewOrders',sessionChecker.userAuth, controller.viewOrders);
