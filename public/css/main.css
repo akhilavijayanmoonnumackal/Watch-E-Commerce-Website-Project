@@ -2114,7 +2114,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .block2-pic:hover .block2-btn {
-  bottom: 20px;
+  bottom: 80px;
 }
 
 /*---------------------------------------------*/
@@ -2194,7 +2194,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .cl3 {
-  color: #666;
+  color: black;
 }
 
 .cl4 {
@@ -2206,7 +2206,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .cl6 {
-  color: #888;
+  color: black;
 }
 
 .cl7 {
@@ -2741,11 +2741,11 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .bg0 {
-  background-color: #fff;
+  background-color: #e6e6e6;
 }
 
 .bg1 {
-  background-color: #b68a42;
+  background-color: rgb(157, 49, 102);
 }
 
 .bg2 {

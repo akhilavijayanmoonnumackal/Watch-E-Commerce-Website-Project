@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                 <div class="m-l-25 m-r--38 m-lr-0-xl">
-                    <div class="wrap-table-shopping-cart">
+                    <div class="wrap-table-shopping-cart" style="border-color: black;">
                         {{#if product}}
                         <table class="table-shopping-cart">
                             <tr class="table_head">
@@ -114,19 +114,20 @@
 
             <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
                 <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
-                    <h4 class="mtext-109 cl2 p-b-30">
+                    <h4 class="mtext-109 cl2 p-b-30" style="color: black;">
                         Cart Totals
                     </h4>
 
                     <div class="flex-w flex-t p-t-27 p-b-33">
                         <div class="size-208">
-                            <span class="mtext-101 cl2">
+                            <span class="mtext-101 cl2" style="color: black;">
                                 Total:
                             </span>
                         </div>
 
                         <div class="size-209 p-t-1">
-                            <span class="mtext-110 cl2" data-price={{totalAmount}} id="totalValue">
+                            <span class="mtext-110 cl2" data-price={{totalAmount}} id="totalValue"
+                                style="color: black;">
                                 Rs.{{totalAmount}}
                             </span>
                         </div>
@@ -145,13 +146,10 @@
                         Proceed to Checkout
                     </button> --}}
                     {{else}}
-                    <div class="container-fluid  mt-100">
+                    <div class="container-fluid  mt-30">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
-                                    {{!-- <div class="card-header">
-                                        <h5>Cart</h5>
-                                    </div> --}}
                                     <div class="card-body cart">
                                         <div class="col-sm-12 empty-cart-cls text-center">
                                             <img src="images/cartSvg.png" width="130" height="130"
@@ -165,6 +163,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                         </div>
@@ -315,14 +314,11 @@
             </div>
 
             <p class="stext-107 cl6 txt-center">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy;
-                <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i
-                    class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                    target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com"
-                    target="_blank">ThemeWagon</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with
+                <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+                    href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila
+                    Vijayan</a>
             </p>
         </div>
     </div>

@@ -55,9 +55,7 @@
 <section class="bg0 p-t-23 p-b-140">
     <div class="container">
         <div class="p-b-10">
-            <h3 class="ltext-103 cl5 text-white ">
-                `
-            </h3>
+            <br><br>
         </div>
 
         <div class="flex-w flex-sb-m p-b-52">
@@ -194,7 +192,7 @@
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l ">
                                 <a href="/productDetail/{{this._id}}" class=" stext-104 cl4 hov-cl1 trans-04
-                                js-name-b2 p-b-6">
+                                js-name-b2 p-b-6" style="color: rgb(157,49,102)">
                                     {{this.name}}
                                 </a>
                                 <span class="stext-105 cl3">
@@ -430,14 +428,11 @@
             </div>
 
             <p class="stext-107 cl6 txt-center">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy;
-                <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i
-                    class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                    target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com"
-                    target="_blank">ThemeWagon</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with
+                <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+                    href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila
+                    Vijayan</a>
             </p>
         </div>
     </div>
@@ -597,7 +592,7 @@
         const paginationElement = document.querySelector('.pagination');
         let pageLinks = '';
         for (let i = 1; i <= totalPages; i++) {
-            pageLinks += `<ul style="list-style-type: none;"><li class="page-item${i === page ? ' active' : ''}"><a class="page-link" style="color: white;background-color:black;" href="?page=${i}">${i}</a></li></ul>`;
+            pageLinks += `<ul style="list-style-type: none;"><li class="page-item${i === page ? ' active' : ''}"><a class="page-link" style="color: white;background-color: rgb(157,49,102);" href="?page=${i}">${i}</a></li></ul>`;
         }
         paginationElement.innerHTML = pageLinks;
     });

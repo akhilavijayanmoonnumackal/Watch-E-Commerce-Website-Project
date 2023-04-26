@@ -972,7 +972,7 @@ module.exports={
     getCartCountNew:(userId)=>{
         return new Promise(async(resolve, reject)=>{
             const cartCount = await db.get().collection(collection.CART_COLLECTION)
-            .find({userId: new ObjectId(userId)}).toArray();
+            .find({userId: new ObjectId(userId)}).toArray();            
             try{
                 if(cartCount[0].products.length>=1){
                     resolve(cartCount[0].products.length);
