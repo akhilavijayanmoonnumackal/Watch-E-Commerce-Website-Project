@@ -221,16 +221,6 @@ module.exports = {
           }            
         })
     },
-    // getFilteredPro: async(filter) => {
-    //     if(filter === 'high') {
-    //         filter = -1;
-    //     }else{
-    //         filter = 1;
-    //     }
-    //     let products = await db.get().collection(collection.PRODUCT_COLLECTION)
-    //     .find({status: true}).sort({price: filter}).toArray();
-    //     return products;
-    // }
     getFilteredPro: async(filter) => {
         if(filter === 'high') {
             filter = -1;
