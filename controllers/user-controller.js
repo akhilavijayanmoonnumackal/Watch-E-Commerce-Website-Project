@@ -88,7 +88,7 @@ module.exports={
                         req.session.user=response.user;
                         res.redirect('/');
                     }else if(response.isBlocked == false){
-                        req.session.loginErr="user is blocked !!";
+                        req.session.loginErr="Your account is blocked !!";
                         res.redirect('/login');
                     }                      
             }else{
@@ -771,11 +771,6 @@ module.exports={
                 if (products.length > 0) {
                   res.render('user/shop', {admin:false,userHeader:true,products,user,cartCount,wishlistCount})
                 } else {
-                //   res.json({
-                //     status: 'error',
-                //     message: 'No matching products found'
-                //   });
-                // }
                 res.render('user/searchEmpty', {admin:false,userHeader:true,products,user,cartCount,wishlistCount})
                 }
               }).catch((err) => {
@@ -789,10 +784,7 @@ module.exports={
                 if (products.length > 0) {
                   res.render('user/shop', {admin:false,userHeader:true,products,cartCount,wishlistCount})
                 } else {
-                  res.json({
-                    status: 'error',
-                    message: 'No matching products found'
-                  });
+                res.render('user/searchEmpty', {admin:false,userHeader:true,products,cartCount,wishlistCount})
                 }
               }).catch((err) => {
                 res.json({
