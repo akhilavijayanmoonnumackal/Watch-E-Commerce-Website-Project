@@ -79,12 +79,13 @@
                                     {{this.proDetails.[0].price}}
                                 </td>
                                 <td class="column-4">
-                                    <button class="cart-item-count mr-3" style="background-color: #cd9b68 ;
+                                    <button class="cart-item-count mr-3" style="background-color:rgb(157,49,102);
                                         color:aliceblue; width: 3vh;" type="button"
                                         onclick="changeQuantity('{{this.proDetails.[0]._id}}',-1)">-</button>
                                     <span id="{{this.proDetails.[0]._id}}">{{this.products.quantity}}</span>
                                     <button class="cart-item-count ml-3"
-                                        style="background-color: #cd9b68 ; color:aliceblue; width: 3vh;" type="button"
+                                        style="background-color:rgb(157,49,102); color:aliceblue; width: 3vh;"
+                                        type="button"
                                         onclick="changeQuantity('{{this.proDetails.[0]._id}}',1)">+</button>
                                 </td>
                                 <td class="column-5">
@@ -135,8 +136,8 @@
                         {{errCheckOut}}
                     </p>
                     {{/if}}
-                    <a href="/place-order" class=" flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04
-                        pointer">Proceed to Checkout</a>
+                    <a href="/place-order" class=" flex-c-m stext-101 cl0 size-116  bor14 hov-btn3 p-lr-15 trans-04
+                        pointer" style="background-color: rgb(157,49,102);">Proceed to Checkout</a>
 
                     {{!-- <button
                         class=" flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"><a
@@ -155,10 +156,11 @@
                                         <div class="col-sm-12 empty-cart-cls text-center">
                                             <img src="images/cartSvg.png" width="130" height="130"
                                                 class="img-fluid mb-4 mr-3">
-                                            <h3><strong>Your cart is Empty</strong></h3>
+                                            <h3><strong>YOUR CART IS EMPTY</strong></h3>
                                             <h4>Add something to make me happy :)</h4>
                                             <a href="/shop" class="btn btn-primary cart-btn-transform m-3"
-                                                data-abc="true">continue
+                                                data-abc="true"
+                                                style="background-color: rgb(157,49,102);border-color:rgb(157,49,102)">continue
                                                 shopping</a>
                                         </div>
                                     </div>

@@ -66,6 +66,7 @@
                                                 <td class="text-left">
                                                     <button
                                                         class="btn btn-sm btn-brand rounded font-sm mt-15 js-addcart-detail js-addcart-btn btn-addcart-btn"
+                                                        style="background-color: rgb(157,49,102);border-color:rgb(157,49,102)"
                                                         type="submit"
                                                         onclick="addToCart('{{this.productDetails.[0]._id}}')"
                                                         id="addToCart" data-product="{{product._id}}"><i
@@ -78,6 +79,7 @@
                                                 <td class="text-left">
                                                     <a href="/productDetail/{{this.productDetails.[0]._id}}"
                                                         class="btn btn-sm btn-brand rounded font-sm mt-15"
+                                                        style="background-color: rgb(157,49,102);border-color:rgb(157,49,102)"
                                                         onclick="viewDetails('{{this._id}}')">View
                                                         Details</a>
                                                 </td>
@@ -110,7 +112,8 @@
                                                 <h3><strong>Your wishlist is Empty</strong></h3>
                                                 <h4>Add something to make me happy :)</h4>
                                                 <a href="/shop" class="btn btn-primary cart-btn-transform m-3"
-                                                    data-abc="true">continue
+                                                    data-abc="true"
+                                                    style="background-color: rgb(157,49,102);border-color:rgb(157,49,102)">continue
                                                     shopping</a>
                                             </div>
                                         </div>
