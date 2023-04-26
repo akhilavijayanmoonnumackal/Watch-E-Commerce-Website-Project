@@ -426,7 +426,15 @@
                 //console.log("came")
                 if (response.message === "guest") {
                     console.log("api here!!!");
-                    $("#cart-count").load(window.location.href + " #cart-count");
+                    //$("#cart-count").load(window.location.href + " #cart-count");
+                    //document.getElementById('cart-count').innerHTML = parseInt(response.cartCount);
+                    var iconHeaderItems = document.querySelector('.js-show-cart');
+                    iconHeaderItems.setAttribute('data-notify', response.cartCount);
+                    //for (var i = 0; i < iconHeaderItems.length; i++) {
+                    //    console.log(iconHeaderItems[i]);
+                    //    console.log("arriced here !!%^&*()");
+                    //    iconHeaderItems[i].setAttribute('data-notify', response.cartCount);
+                    //}
                     Toastify({
                         text: 'Product added to cart !',
                         duration: 3000,

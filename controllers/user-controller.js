@@ -287,11 +287,13 @@ module.exports={
             }catch(err){
                 console.log(err);
             }finally{
-                userHelpers.addToCart(userId,productId,quantity).then((response) => {
+                userHelpers.addToCart(userId,productId,quantity).then(async(response) => {
+                    const cartCount = await userHelpers.getCartCountNew(userId);
                     console.log(response);
                     res.json({
                         message: "guest",
-                        success: true
+                        success: true,
+                        cartCount: cartCount
                     })
                 });
             }
