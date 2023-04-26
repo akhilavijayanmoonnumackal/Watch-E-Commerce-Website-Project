@@ -1246,7 +1246,7 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 
 @media (max-width: 991px) {
   .item-slick1 {
-    height: calc(100vh - 70px) !important;
+    height: calc(50vh - 100px) !important;
   }
 }
 
@@ -2105,7 +2105,7 @@ input.num-product::-webkit-inner-spin-button {
 .block2-btn {
   position: absolute;
   bottom: -50px;
-  left: 34%;
+  left: 50%;
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
