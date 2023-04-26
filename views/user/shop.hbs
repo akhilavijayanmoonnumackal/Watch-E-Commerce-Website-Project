@@ -519,20 +519,20 @@
                 console.log("yyyyyyyyyyy");
                 if (response.message === "guest") {
                     console.log("////////api here!!!");
-                    $("#wishlist-count").load(window.location.href + " #wishlist-count");
+                    var iconItems = document.querySelectorAll('.js-show-wishlist');
+                    for (let i = 0; i < iconItems.length; i++) {
+                        iconItems[i].setAttribute('data-notify', response.wishlistCount);
+                    }
                     Toastify({
                         text: 'Product added to wishlist !',
                         duration: 3000,
-                        gravity: 'bottom',
+                        gravity: 'top',
                         position: 'center',
                         backgroundColor: "black",
                         stopOnFocus: true,
                         // Add an icon to the notification
                         className: "toastify-icon",
                         close: false,
-                        // onClick: function () {
-                        //     console.log("apiCall");
-                        // }
                     }).showToast();
                 } else {
                     location.href = '/login'

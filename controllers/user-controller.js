@@ -49,6 +49,14 @@ module.exports={
             res.redirect('/');
         }
     },
+    // userSignupPost:(req,res)=>{
+    //     userHelpers.doSignUp(req.body).then((response)=>{
+    //         req.session.loggedIn=true;
+    //         req.session.user=response;
+    //         console.log(req.session.user);
+    //         res.render('user/login')
+    //     })
+    // },
     userSignupPost:(req,res)=>{
         userHelpers.doSignUp(req.body).then((response)=>{
             req.session.loggedIn=true;
@@ -376,11 +384,13 @@ module.exports={
                 }catch(err){
                     console.log(err);
                 }finally{
-                    userHelpers.addToWishlist(userId, productId).then((response)=>{
+                    userHelpers.addToWishlist(userId, productId).then(async(response)=>{
+                        wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
                         console.log(response);
                         res.json({
                             message: "guest",
-                            success: true
+                            success: true,
+                            wishlistCount: wishlistCount
                         })
                     });
                 }
