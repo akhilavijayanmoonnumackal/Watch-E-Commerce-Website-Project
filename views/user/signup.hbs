@@ -32,6 +32,14 @@
                             <div class="text-center mb-5">
                                 <h3 class="text-uppercase">SignUp to <strong>CozaStore</strong></h3>
                             </div>
+                            {{!-- {{#if signupErr}}
+                            <p class="text-center validation-label">{{signupErr}}</p>
+                            {{/if}} --}}
+                            {{#if signupErr}}
+                            <p class="text-center validation-label" style="color: red;">
+                                <strong>{{signupErr}}</strong>
+                            </p>
+                            {{/if}}
                             <form action="/signup" method="post">
                                 <div class="form-group last mb-3">
                                     <label for="name">Name</label>

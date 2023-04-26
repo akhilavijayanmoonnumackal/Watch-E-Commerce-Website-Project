@@ -42,11 +42,19 @@ module.exports={
             req.session.loginErr=false
         }
     },
+    // userSignup:(req,res)=>{
+    //     if(!req.session.loggedIn){
+    //         res.render('user/signup');           
+    //     }else{
+    //         res.redirect('/');
+    //     }
+    // },
     userSignup:(req,res)=>{
-        if(!req.session.loggedIn){
-            res.render('user/signup');           
+        if(req.session.loggedIn===true){
+            res.redirect('/');           
         }else{
-            res.redirect('/');
+            res.render('user/signup', {user:true, signupErr:req.session.signupErr});
+            req.session.signupErr=false;
         }
     },
     // userSignupPost:(req,res)=>{
@@ -59,10 +67,16 @@ module.exports={
     // },
     userSignupPost:(req,res)=>{
         userHelpers.doSignUp(req.body).then((response)=>{
-            req.session.loggedIn=true;
-            req.session.user=response;
-            console.log(req.session.user);
-            res.render('user/login')
+            if(response){
+                req.session.loggedIn=true;
+                req.session.user=response.name;
+                req.session.userDetails=response;
+                console.log(req.session.user);
+                res.render('user/login')
+            }else{
+                req.session.signupErr="User Already Exist !!!"
+                res.redirect('/signup')
+            }            
         })
     },
     userLoginPost:(req,res)=>{

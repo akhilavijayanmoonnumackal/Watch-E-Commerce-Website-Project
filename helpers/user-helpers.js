@@ -18,16 +18,40 @@ var instance = new Razorpay({
 });
 
 module.exports={
+    // doSignUp:(userData)=>{
+    //     //console.log(userData);
+    //     return new Promise(async(resolve, reject)=>{
+    //         userData.password=await bcrypt.hash(userData.password,10);
+    //         userData.userStatus = true;
+    //         db.get().collection(collection.USER_COLLECTION).insertOne(userData).then(async(data)=>{
+    //             //resolve(data.insertedId)
+    //             dataDoc=await db.get().collection(collection.USER_COLLECTION).findOne({_id:data.insertedId});
+    //             resolve(dataDoc);
+    //         })           
+    //     })
+        
+    // },
     doSignUp:(userData)=>{
         //console.log(userData);
         return new Promise(async(resolve, reject)=>{
-            userData.password=await bcrypt.hash(userData.password,10);
-            userData.userStatus = true;
-            db.get().collection(collection.USER_COLLECTION).insertOne(userData).then(async(data)=>{
+            userData.phone = Number(userData.phone);
+            const phoneExist = await db.get().collection(collection.USER_COLLECTION)
+            .findOne({ phone: userData.phone});
+            const emailExist = await db.get().collection(collection.USER_COLLECTION)
+            .findOne({ email: userData.email});
+            if(phoneExist || emailExist) {
+                const response = false;
+                resolve(response);
+            }else{
+                userData.password=await bcrypt.hash(userData.password,10);
+                userData.userStatus = true;
+                db.get().collection(collection.USER_COLLECTION).insertOne(userData).then(async(data)=>{
                 //resolve(data.insertedId)
-                dataDoc=await db.get().collection(collection.USER_COLLECTION).findOne({_id:data.insertedId});
-                resolve(dataDoc);
-            })           
+                    dataDoc=await db.get().collection(collection.USER_COLLECTION).findOne({_id:data.insertedId});
+                    resolve(dataDoc);
+                })  
+            }
+                     
         })
         
     },
