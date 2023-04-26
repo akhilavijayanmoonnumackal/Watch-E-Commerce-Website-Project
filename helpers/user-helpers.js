@@ -1044,5 +1044,12 @@ module.exports={
             .find()
             
         })
-    }
+    },
+    getProductCount:()=>{
+        return new Promise(async(resolve,reject)=>{
+          let productCount = await db.get().collection(collection.PRODUCT_COLLECTION).countDocuments()
+          console.log(productCount);
+          resolve(productCount);
+      })
+      }
 }

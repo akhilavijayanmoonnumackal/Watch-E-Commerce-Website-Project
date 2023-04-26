@@ -9,10 +9,16 @@ const ObjectId=require('mongodb-legacy').ObjectId;
 
 module.exports = {
 
-    viewProducts:() => {
+    viewProducts:(currentPage) => {
+        const page = parseInt(currentPage);
+        const limit = 8
+        const skip = (page - 1) * limit;
+
         return new Promise(async(resolve,reject)=>{
             let products=await db.get().collection(collection.PRODUCT_COLLECTION)
-            .find().toArray();
+            .find() .limit(limit)
+            .skip(skip)
+            .toArray();
             resolve(products);
         })
     },
@@ -166,6 +172,19 @@ module.exports = {
             }
         })
     },
+    getOrderDetails:(orderId)=>{
+        return new Promise(async(resolve,reject)=>{
+          let orderDetails = await db.get().collection(collection.ORDER_COLLECTION).findOne({_id: new ObjectId(orderId)})
+          console.log('MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+          try{
+            console.log(orderDetails);
+            resolve(orderDetails)
+          }catch(err){
+            resolve(0)
+          }
+          
+        })
+      },
     getAllSales: () => {
         return new Promise(async(resolve, reject) => {
             let orders = await db.get().collection(collection.ORDER_COLLECTION)

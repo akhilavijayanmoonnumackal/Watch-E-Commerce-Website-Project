@@ -262,13 +262,32 @@
                 {{/each}}
             </div>
 
-            <!-- Load more -->
-            <div class="flex-c-m flex-w w-full p-t-45">
+            <!-- Pagination -->
+            {{!-- <div class="flex-c-m flex-w w-full p-t-45">
                 <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
                     Load More
                 </a>
+            </div> --}}
+            {{!-- <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="text-center" style="border-radius: 30px;">
+                        <div class="col d-flex justify-content-center pagination ">
+                        </div>
+                        <input type="text" id="totalCount" value="{{totalCount}}" hidden>
+                        <input type="text" id="currentPage" value="{{currentPage}}" hidden>
+                    </div>
+                </div>
+            </div> --}}
+
+            <div class="col-md-12 text-center">
+                <div class="text-center" style="border-radius: 30px;">
+                    <div class="col d-flex justify-content-center pagination ">
+                    </div>
+                    <input type="text" id="totalCount" value="{{totalCount}}" hidden>
+                    <input type="text" id="currentPage" value="{{currentPage}}" hidden>
+                </div>
             </div>
-        </div>
+
 </section>
 
 
@@ -564,5 +583,22 @@
 
     filterButton.addEventListener("click", () => {
         filterOptions.classList.toggle("show");
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const totalCountInput = document.getElementById('totalCount');
+        const totalCount = Number(totalCountInput.value);
+        const currentPageInput = document.getElementById('currentPage');
+        const currentPage = Number(currentPageInput.value);
+        const totalPages = Math.ceil(totalCount / 8);
+        let page = currentPage || 1;
+        const paginationElement = document.querySelector('.pagination');
+        let pageLinks = '';
+        for (let i = 1; i <= totalPages; i++) {
+            pageLinks += `<ul style="list-style-type: none;"><li class="page-item${i === page ? ' active' : ''}"><a class="page-link" style="color: white;background-color:black;" href="?page=${i}">${i}</a></li></ul>`;
+        }
+        paginationElement.innerHTML = pageLinks;
     });
 </script>

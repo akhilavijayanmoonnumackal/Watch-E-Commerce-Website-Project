@@ -29,7 +29,7 @@
         color: #88B04B;
         font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
         font-weight: 900;
-        font-size: 40px;
+        font-size: 30px;
         margin-bottom: 10px;
     }
 
@@ -58,17 +58,63 @@
 </style>
 
 <body>
+    <br>
     <div class="card">
-        <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+        <div style="border-radius:200px; height:180px; width:200px; background: #F8FAF5; margin:0 auto;">
             <i class="checkmark">✓</i>
         </div>
-        <h1>Success</h1>
-        <p>We received your purchase request;<br /> we'll be in touch shortly!</p>
+        <h1>ORDER CONFIRMED!</h1>
+        <p class="text-dark">Hello {{orderDetails.deliveryDetails.name}},</p><br>
+        <p>We received your purchase request;<br /> we'll be in touch shortly!</p><br>
+        <p class="text-dark">Your Order ID: {{orderDetails._id}}</p><br>
+        <p class="text-dark">Delivering to: {{orderDetails.deliveryDetails.address}} </p>
+    </div>
+
+    <div class="text-center">
+        <br>
+        <a href="/" class="btn btn-sm height-auto px-3 py-2 btn-primary mx-2">BACK TO SHOP</a>
+        <a href="/viewOrders" class="btn btn-sm height-auto px-3 py-2 btn-primary mx-2">VIEW ORDERS</a>
+    </div>
+
+
+
+
+    {{!-- <div class="col-md-12 text-center mt-3">
+
+        <a href="/viewOrders" class="btn btn-primary mt-5">BACK TO SHOP</a>
     </div>
     <div class="col-md-12 text-center mt-3">
 
-        <a href="/viewOrders" class="btn btn-primary mt-5">View Orders</a>
-    </div>
+        <a href="/viewOrders" class="btn btn-primary mt-5">VIEW ORDERS</a>
+    </div> --}}
 </body>
 
 </html>
+
+{{!-- <div class="card">
+    <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+        <i class="checkmark">✓</i>
+    </div>
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <span class="icon-check_circle display-3 text-success"></span>
+                    <div>
+                        <h6 class=" text-black">ORDER CONFIRMED!</h6>
+                    </div>
+                    <p class="text-dark">Hello {{orderDetails.deliveryDetails.name}},</p>
+                    <p class="lead mb-3 text-dark">Sit Back And Relax. Your Order is Confirmed on {{date}}.</p>
+                    <p class="text-dark">Your Order ID: {{orderDetails._id}}.</p>
+                    <p class="text-dark">Delivering to: {{orderDetails.deliveryDetails.address}}. </p>
+                    <div class="d-flex justify-content-center">
+                        <p><a href="/user-shop" class="btn btn-sm height-auto px-3 py-2 btn-primary mx-2">Back to
+                                shop</a></p>
+                        <p><a href="/user-order" class="btn btn-sm height-auto px-3 py-2 btn-primary mx-2">View Order
+                                Details</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}

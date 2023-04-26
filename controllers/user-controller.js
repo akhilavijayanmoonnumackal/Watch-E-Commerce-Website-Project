@@ -138,16 +138,70 @@ module.exports={
     // },
 
     // Define an endpoint for displaying the shop page
+    // shop: async(req,res)=>{        
+    //     try {
+    //         let cartCount = 0;
+    //         let wishlistCount = 0;
+    //         let filter = req.query.filter;
+    //         console.log(filter, "hiin akilaa");
+
+    //         // Check if the user is logged in
+    //         if(req.session.loggedIn){
+    //             let user=req.session.user;
+    //             // Get the number of items in the cart and wishlist for the user
+    //             cartCount = await userHelpers.getCartCountNew(req.session.user._id);
+    //             req.session.cartCount = parseInt(cartCount);
+    //             wishlistCount = await userHelpers.wishlistCount(req.session.user._id);
+    //             req.session.wishlistCount = parseInt(wishlistCount);
+    //             // If there is a filter, get the filtered products and render the shop page
+    //             if(filter) {
+    //                 adminHelpers.getAllCategories().then(async(category) => {
+    //                     var products= await productHelpers.getFilteredPro(filter);
+    //                     res.render('user/shop',{admin:false,user,cartCount,category, wishlistCount, userHeader:true,products});
+    //                     console.log(products);                       
+    //                 })
+    //             }else{
+    //                 // Otherwise, get all products and render the shop page
+    //                 adminHelpers.getAllCategories().then((category) => {
+    //                     productHelpers.viewProducts().then((products)=>{
+    //                         res.render('user/shop',{admin:false,user,cartCount,category, wishlistCount, userHeader:true,products});
+    //                         console.log(products);
+    //                     })
+    //                 })
+    //             }                    
+    //         }else{
+    //             // If the user is not logged in
+    //             if(filter) {
+    //                 adminHelpers.getAllCategories().then(async(category) => {
+    //                     var products=await productHelpers.getFilteredPro(filter);
+    //                     res.render('user/shop',{admin:false,cartCount,category, wishlistCount, userHeader:true,products});
+    //                     console.log(products);                       
+    //                 })
+    //             }else{
+    //                 adminHelpers.getAllCategories().then((category) => {
+    //                     productHelpers.viewProducts().then((products)=>{
+    //                         res.render('user/shop',{admin:false,products,cartCount,category,wishlistCount,userHeader:true});
+    //                         console.log(products);
+    //                     })
+    //                 })
+    //             }                          
+    //         }
+    //     } catch(err) {
+    //         console.log(err);
+    //     }       
+    // },
     shop: async(req,res)=>{        
         try {
             let cartCount = 0;
             let wishlistCount = 0;
             let filter = req.query.filter;
-            console.log(filter, "hiin akilaa");
-
+            console.log(filter, "hiin akhilaa");
+            let currentPage = req.query.page || 1 ;
+            let totalCount = await userHelpers.getProductCount()
             // Check if the user is logged in
             if(req.session.loggedIn){
                 let user=req.session.user;
+                // let currentPage = req.query.page || 1 ;
                 // Get the number of items in the cart and wishlist for the user
                 cartCount = await userHelpers.getCartCountNew(req.session.user._id);
                 req.session.cartCount = parseInt(cartCount);
@@ -157,14 +211,14 @@ module.exports={
                 if(filter) {
                     adminHelpers.getAllCategories().then(async(category) => {
                         var products= await productHelpers.getFilteredPro(filter);
-                        res.render('user/shop',{admin:false,user,cartCount,category, wishlistCount, userHeader:true,products});
+                        res.render('user/shop',{admin:false,user,cartCount,category, wishlistCount, totalCount, userHeader:true,products});
                         console.log(products);                       
                     })
                 }else{
                     // Otherwise, get all products and render the shop page
                     adminHelpers.getAllCategories().then((category) => {
-                        productHelpers.viewProducts().then((products)=>{
-                            res.render('user/shop',{admin:false,user,cartCount,category, wishlistCount, userHeader:true,products});
+                        productHelpers.viewProducts(currentPage).then((products)=>{
+                            res.render('user/shop',{admin:false,user,cartCount,category,currentPage,totalCount, wishlistCount, userHeader:true,products});
                             console.log(products);
                         })
                     })
@@ -179,8 +233,8 @@ module.exports={
                     })
                 }else{
                     adminHelpers.getAllCategories().then((category) => {
-                        productHelpers.viewProducts().then((products)=>{
-                            res.render('user/shop',{admin:false,products,cartCount,category,wishlistCount,userHeader:true});
+                        productHelpers.viewProducts(currentPage).then((products)=>{
+                            res.render('user/shop',{admin:false, products,currentPage, totalCount, cartCount, category, wishlistCount, userHeader:true});
                             console.log(products);
                         })
                     })
@@ -504,6 +558,7 @@ module.exports={
         req.body.address = address;
         //const cart= cart.products;
         userHelpers.placeOrder(req.body,products,totalPrice).then(async(orderId) => {
+            req.session.orderId= orderId;
             console.log(orderId);
             if(req.body['payment-method'] === 'COD') {
                 productHelpers.decreamentStock(products).then(() => {}).catch(() =>{});
@@ -524,9 +579,36 @@ module.exports={
         })
         console.log(req.body);
     },
-    orderSuccess: (req,res) => {
-        res.render('user/orderSuccess', {user:req.session.user})
+    // orderSuccess: (req,res) => {
+        
+    //     res.render('user/orderSuccess', {user:req.session.user})
+    // },
+    orderSuccess: async(req,res) => {
+        try{
+            // let user = req.session.user;
+            // let cartCount = req.session.cartCount;
+            // let wishlistCount = req.session.wishlistCount;
+            let orderId = req.session.orderId;
+            console.log("uuuuuuuuuuuuuuuuu", orderId);
+            let orderDetails = await productHelpers.getOrderDetails(orderId);
+            // const months = ["JAN", "FEB", "MAR","APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+            // let date = orderDetails.date.getDate() + "-" + months[orderDetails.date.getMonth()] + "-" + orderDetails.date.getFullYear()
+            // res.render('user/orderSuccess', {user, cartCount, wishlistCount, orderDetails, userHeader:true})
+            res.render('user/orderSuccess', {user:req.session.user, orderDetails})
+        }catch(err){
+            console.log(err);
+            // res.redirect('/login')
+        }
+        
     },
+   
+    // getAddress: (req,res) => {
+    //     let user = req.session.user;
+    //     let cartCount = req.session.cartCount;
+    //     let wishlistCount = req.session.wishlistCount;
+    //     res.render('user/manageAddress', {admin:false,user, cartCount, wishlistCount, userHeader:true})
+        
+    // },
     // userProfile: async(req,res) => {
     //     if(req.session.loggedIn) {
     //         let userDetails = req.session.user;

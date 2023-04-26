@@ -35,7 +35,7 @@ router.get('/removeWishlistProduct/:id', controller.removeWishlistProduct);
 router.get('/place-order',sessionChecker.userAuth, controller.getPlaceOrder);
 router.post('/place-order', controller.postPlaceOrder);
 router.post('/verifyPayment', controller.verifyPayment);
-router.get('/orderSuccess', controller.orderSuccess);
+router.get('/orderSuccess',sessionChecker.userAuth, controller.orderSuccess);
 
 //userProfile_routes
 router.get('/userProfile',sessionChecker.userAuth, controller.userProfile);
