@@ -18,144 +18,170 @@
         background-color: #28a745;
     }
 </style>
-<div class="container">
-    <section class="content-main">
-        {{#if products}}
-        <div class="p-b-10">
-            <h3 class="ltext-103 cl5 text-white ">
-                `
-            </h3>
-            <h3 class="ltext-103 cl5 text-white">
-                `
-            </h3>
-        </div>
-        <div class="content-header">
-            <h2 class="content-title fs-4">My Wishlist</h2>
-            {{!-- <div>
-                <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a>
-            </div> --}}
-        </div>
-        <div class="card mb-4">
-            {{!-- <header class="card-header">
-                <div class="row gx-3">
-                    <div class="col-lg-4 col-md-6 me-auto">
-                        <input type="text" placeholder="Search..." class="form-control">
-                    </div>
-                </div>
-            </header> <!-- card-header end// --> --}}
-            <div class="col-12">
-                <div class="table-responsive">
-
-                    <table class="table table-hover">
-                        <thead>
-                            <tr class="text-left">
-                                <th>Item</th>
-                                <th>Price</th>
-                                <th>Cart</th>
-
-                                {{!-- <th>Status</th>
-                                <th>Registered</th> --}}
-                                <th> View Details</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each products}}
-                            <tr>
-                                <td width="40%">
-                                    <a href="/productDetail/{{this.productDetails.[0]._id}}" class="item-center"
-                                        onclick="viewDetails('{{this._id}}')">
-                                        <div class="left">
-                                            <img src="{{this.productDetails.[0].image.[0]}}" class="img-sm "
-                                                alt="Userpic">
-                                        </div>
-                                        <div class="info pl-3">
-                                            <h6 class="mb-0 title">{{this.productDetails.[0].name}}</h6>
-                                        </div>
-                                    </a>
-                                </td>
-                                {{!-- <td width="15%" class="price mt-15" style="padding: 2%;margin-left:2%"> --}}
-                                <td width="15%" class="price mt-15 text-left"
-                                    style="padding-left: 10px;padding-top:35px">
-                                    {{this.productDetails.[0].price}}</td>
-
-                                <td class="text-left">
-                                    <button
-                                        class="btn btn-sm btn-brand rounded font-sm mt-15 js-addcart-detail js-addcart-btn btn-addcart-btn"
-                                        type="submit" onclick="addToCart('{{this.productDetails.[0]._id}}')"
-                                        id="addToCart" data-product="{{product._id}}"><i class="zmdi zmdi-shopping-cart"
-                                            style="color:white;margin-top:12px"> </i>
-                                        {{!-- Add to cart --}}
-                                    </button>
-                                </td>
-
-                                <td class="text-left">
-                                    <a href="/productDetail/{{this.productDetails.[0]._id}}"
-                                        class="btn btn-sm btn-brand rounded font-sm mt-15"
-                                        onclick="viewDetails('{{this._id}}')">View
-                                        Details</a>
-                                </td>
-                                <td class="text-left">
-                                    <button type="button"
-                                        onclick="removeWishlistProduct('{{this.productDetails.[0]._id}}')"
-                                        class="btn btn-sm" style="margin: 7%;">x</button>
-                                    {{!-- <a href="/removeWishlistProduct/{{this.productDetails.[0]._id}}">X</a>
-                                    --}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <div class="text-center text-success">
-                                    <h4 id="delete-msg" class="font-italic"></h4>
+<div class="bg0 p-t-75 p-b-85">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+                <div class="m-l-25 m-r--38 m-lr-0-xl">
+                    {{!-- <div class="wrap-table-shopping-cart"> --}}
+                        {{!-- <section class="content-main"> --}}
+                            {{#if products}}
+                            <table class="table-shopping-cart">
+                                <div class="p-b-10">
+                                    <h3 class="ltext-103 cl5 text-white ">
+                                        `
+                                    </h3>
+                                    <h3 class="ltext-103 cl5 text-white">
+                                        `
+                                    </h3>
                                 </div>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table> <!-- table-responsive.// -->
-                </div>
-            </div> <!-- card-body end// -->
-        </div> <!-- card end// -->
-        {{else}}
-        <div class="container-fluid  mt-100">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        {{!-- <div class="card-header">
-                            <h5>Cart</h5>
-                        </div> --}}
-                        <div class="card-body cart">
-                            <div class="col-sm-12 empty-cart-cls text-center">
-                                <img src="images/wishlistsvg.png" width="130" height="130" class="img-fluid mb-4 mr-3">
-                                <h3><strong>Your wishlist is Empty</strong></h3>
-                                <h4>Add something to make me happy :)</h4>
-                                <a href="/shop" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue
-                                    shopping</a>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="content-header">
+                                    <h2 class="content-title fs-4">My Wishlist</h2>
+                                    {{!-- <div>
+                                        <a href="#" class="btn btn-primary"><i class="material-icons md-plus"></i>
+                                            Create
+                                            new</a>
+                                    </div> --}}
+                                </div>
+                                <div class="card mb-4">
+                                    {{!-- <header class="card-header">
+                                        <div class="row gx-3">
+                                            <div class="col-lg-4 col-md-6 me-auto">
+                                                <input type="text" placeholder="Search..." class="form-control">
+                                            </div>
+                                        </div>
+                                    </header> <!-- card-header end// --> --}}
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr class="text-left">
+                                                        <th>Item</th>
+                                                        <th>Price</th>
+                                                        <th>Cart</th>
+
+                                                        {{!-- <th>Status</th>
+                                                        <th>Registered</th> --}}
+                                                        <th> View Details</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {{#each products}}
+                                                    <tr>
+                                                        <td width="40%">
+                                                            <a href="/productDetail/{{this.productDetails.[0]._id}}"
+                                                                class="item-center"
+                                                                onclick="viewDetails('{{this._id}}')">
+                                                                <div class="left">
+                                                                    <img src="{{this.productDetails.[0].image.[0]}}"
+                                                                        class="img-sm " alt="Userpic">
+                                                                </div>
+                                                                <div class="info pl-3">
+                                                                    <h6 class="mb-0 title">
+                                                                        {{this.productDetails.[0].name}}
+                                                                    </h6>
+                                                                </div>
+                                                            </a>
+                                                        </td>
+                                                        {{!-- <td width="15%" class="price mt-15"
+                                                            style="padding: 2%;margin-left:2%">
+                                                            --}}
+                                                        <td width="15%" class="price mt-15 text-left"
+                                                            style="padding-left: 10px;padding-top:35px">
+                                                            {{this.productDetails.[0].price}}</td>
+
+                                                        <td class="text-left">
+                                                            <button
+                                                                class="btn btn-sm btn-brand rounded font-sm mt-15 js-addcart-detail js-addcart-btn btn-addcart-btn"
+                                                                type="submit"
+                                                                onclick="addToCart('{{this.productDetails.[0]._id}}')"
+                                                                id="addToCart" data-product="{{product._id}}"><i
+                                                                    class="zmdi zmdi-shopping-cart"
+                                                                    style="color:white;margin-top:12px">
+                                                                </i>
+                                                                {{!-- Add to cart --}}
+                                                            </button>
+                                                        </td>
+
+                                                        <td class="text-left">
+                                                            <a href="/productDetail/{{this.productDetails.[0]._id}}"
+                                                                class="btn btn-sm btn-brand rounded font-sm mt-15"
+                                                                onclick="viewDetails('{{this._id}}')">View
+                                                                Details</a>
+                                                        </td>
+                                                        <td class="text-left">
+                                                            <button type="button"
+                                                                onclick="removeWishlistProduct('{{this.productDetails.[0]._id}}')"
+                                                                class="btn btn-sm" style="margin: 7%;">x</button>
+                                                            {{!-- <a
+                                                                href="/removeWishlistProduct/{{this.productDetails.[0]._id}}">X</a>
+                                                            --}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <div class="text-center text-success">
+                                                            <h4 id="delete-msg" class="font-italic"></h4>
+                                                        </div>
+                                                    </tr>
+                                                    {{/each}}
+                                                </tbody>
+                                            </table> <!-- table-responsive.// -->
+                                        </div>
+                                    </div> <!-- card-body end// -->
+                                </div> <!-- card end// -->
+                                {{else}}
+                                <div class="container-fluid  mt-100">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                {{!-- <div class="card-header">
+                                                    <h5>Cart</h5>
+                                                </div> --}}
+                                                <div class="card-body cart">
+                                                    <div class="col-sm-12 empty-cart-cls text-center">
+                                                        <img src="images/wishlistsvg.png" width="130" height="130"
+                                                            class="img-fluid mb-4 mr-3">
+                                                        <h3><strong>Your wishlist is Empty</strong></h3>
+                                                        <h4>Add something to make me happy :)</h4>
+                                                        <a href="/shop" class="btn btn-primary cart-btn-transform m-3"
+                                                            data-abc="true">continue
+                                                            shopping</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/if}}
+
+
+
+                                {{!-- <div class="pagination-area mt-15 mb-50">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination justify-content-start">
+                                            <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">02</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">03</a></li>
+                                            <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">16</a></li>
+                                            <li class="page-item"><a class="page-link" href="#"><i
+                                                        class="material-icons md-chevron_right"></i></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div> --}}
+                            </table>
+                            {{!--
+
+                        </section> <!-- content-main end// --> --}}
+                        {{!-- </div> --}}
                 </div>
             </div>
         </div>
-        {{/if}}
-
-
-
-        <div class="pagination-area mt-15 mb-50">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-start">
-                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                    <li class="page-item"><a class="page-link" href="#">02</a></li>
-                    <li class="page-item"><a class="page-link" href="#">03</a></li>
-                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#">16</a></li>
-                    <li class="page-item"><a class="page-link" href="#"><i
-                                class="material-icons md-chevron_right"></i></a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </section> <!-- content-main end// -->
+    </div>
 </div>
-
 
 <!-- Footer -->
 <footer class="bg3 p-t-75 p-b-32">
@@ -231,7 +257,10 @@
                 </h4>
 
                 <p class="stext-107 cl7 size-201">
-                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on
+                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or
+                    call
+                    us
+                    on
                     (+1) 96 716 6879
                 </p>
 
@@ -297,8 +326,8 @@
             <p class="stext-107 cl6 txt-center">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 Copyright &copy;
-                <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with <i
-                    class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with
+                <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
                     target="_blank">Colorlib</a> &amp; distributed by <a href="https://themewagon.com"
                     target="_blank">ThemeWagon</a>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
