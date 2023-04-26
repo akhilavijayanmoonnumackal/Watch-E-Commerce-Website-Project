@@ -41,13 +41,14 @@
                                     {{this.proDetails.[0].price}}
                                 </td>
                                 <td class="column-4">
-                                    <button class="cart-item-count mr-3 " style="background-color: #cd9b68 ;
+                                    <button class="cart-item-count mr-3 " style="background-color:rgb(157,49,102);
                                         color:aliceblue; width: 3vh;" type="button"
                                         onclick="changeQuantity('{{this.proDetails.[0]._id}}',-1)" disabled>-</button>
                                     <span id="{{this.proDetails.[0]._id}}">{{this.products.quantity}}</span>
                                     <button class="cart-item-count ml-3"
-                                        style="background-color: #cd9b68 ; color:aliceblue; width: 3vh;" type="button"
-                                        onclick="changeQuantity('{{this.proDetails.[0]._id}}',1)" disabled>+</button>
+                                        style="background-color:rgb(157,49,102);color:aliceblue; width: 3vh;"
+                                        type="button" onclick="changeQuantity('{{this.proDetails.[0]._id}}',1)"
+                                        disabled>+</button>
 
                                 </td>
                                 <td class="column-5">

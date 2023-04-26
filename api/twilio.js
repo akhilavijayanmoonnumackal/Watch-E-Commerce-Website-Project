@@ -29,6 +29,17 @@ module.exports = {
             });
         })
     },
+    resendOtp: (mobile) => {
+        return new Promise((resolve, reject) =>{
+            client.verify.v2.services(serviceSid)
+            .verifications
+            .create({to:`+91${mobile}`, channel: 'sms'})
+            .then(verification => {
+                console.log(verification.status)
+                resolve(verification.status)
+            });
+        })
+    },
 
     sendOtpForForgotPass : (mobile) =>{
         return new Promise((resolve, reject) =>{

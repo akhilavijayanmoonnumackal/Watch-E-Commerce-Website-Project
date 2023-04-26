@@ -19,6 +19,7 @@ router.get('/logout', controller.userLogout)
 router.route('/otp-login').get(sessionChecker.checkforUser,controller.otpLogin)
 router.post('/send-otp',controller.sendOtp);
 router.post('/verify-otp',controller.verifyOtp);
+router.post('/resend-otp',controller.resendOtp);
 router.get('/shop',controller.shop);
 router.get('/productDetail/:id',controller.productDetail);
 

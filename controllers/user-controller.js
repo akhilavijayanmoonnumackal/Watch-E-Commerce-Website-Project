@@ -104,10 +104,18 @@ module.exports={
         req.session.loggedIn=false;
         res.redirect('/login');
     },
+    // otpLogin : (req, res) =>{
+    //    res.render('user/otp-login',{"loginErr": req.session.otpLoginErr});
+    //    req.session.otpLoginErr = false;
+    // },
     otpLogin : (req, res) =>{
-       res.render('user/otp-login',{"loginErr": req.session.otpLoginErr});
-       req.session.otpLoginErr = false;
-    },
+        if(req.session.loggedIn) {
+            res.redirect('/');
+        }else{
+            res.render('user/otp-login',{"loginErr": req.session.otpLoginErr});
+            req.session.otpLoginErr = false;
+        }        
+     },
     sendOtp: (req, res)=>{       
        req.session.mobile = req.body.phone;
        userHelpers.checkForUser(req.body.phone).then(async (user) =>{
@@ -134,7 +142,21 @@ module.exports={
             }
         })
     },  
-    
+    resendOtp: (req,res) => {
+        req.session.mobile = req.body.phone;
+        userHelpers.checkForUser(req.body.phone).then(async (user) =>{
+        if(user){
+            req.session.user = user;
+            await twilioApi.sendOtp(req.body.phone);
+            res.json(true)
+        }else{  
+            req.session.user = null;
+            req.session.otpLoginErr = "The phone number is not registerd with any account";
+            res.json(false);
+        }
+       
+       })
+    },
     shop: async(req,res)=>{        
         try {
             let cartCount = 0;

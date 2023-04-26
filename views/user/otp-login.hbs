@@ -19,7 +19,8 @@
                                 placeholder="Enter mobile number without country code" id="phone">
                         </div>
                         <input type="submit" value="Request OTP" class="btn btn-block py-2 btn-primary"
-                            data-toggle="modal" data-target="#exampleModalCenter">
+                            data-toggle="modal" data-target="#exampleModalCenter"
+                            style="background-color: rgb(157,49,102);">
                     </form>
                 </div>
             </div>
@@ -48,7 +49,12 @@
                                 <input type="text" name="otp" class=" form-control" placeholder="Enter OTP"
                                     id="inputPassword2">
                             </div>
-                            <input type="submit" value="Verify OTP" class="btn btn-block py-2 btn-primary">
+                            <input type="submit" value="Verify OTP" class="btn btn-block py-2 btn-primary"
+                                style="background-color: rgb(157,49,102);">
+                            <input type="btn" value="Resend OTP" id="resend-otp" style="cursor: pointer;">
+                            <div class=" timer" style="display: none;">Resend OTP in <span id="timer"></span>
+                            </div>
+
                         </form>
                     </div>
                 </div>
@@ -57,7 +63,8 @@
     </div>
 </div>
 
-<script src="mainotp.js"></script>
+{{!--
+<script src="mainotp.js"></script> --}}
 
 <script>
     const verifyButton = document.getElementById('verify');
@@ -90,6 +97,7 @@
                     location.href = '/';
                 }
                 else {
+                    resetTimer();
                     location.reload();
                 }
             }
@@ -97,5 +105,52 @@
     })
     const modal = document.querySelector('.modal');
     const closeButton = document.querySelector('.close-modal');
+
+</script>
+<script>
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+
+</script>
+<script>
+    function resetTimer() {
+        $('.timer').hide();
+        $('#resend-otp').show();
+    }
+
+    $('#resend-otp').click(() => {
+        $.ajax({
+            url: '/resend-otp',
+            method: 'post',
+            data: $('#send-otp').serialize(),
+            success: (res) => {
+                if (res) {
+                    $('.timer').show();
+                    $('#resend-otp').hide();
+                    var fiveMinutes = 60 * 5,
+                        display = document.querySelector('#timer');
+                    startTimer(fiveMinutes, display);
+                }
+                else {
+                    location.reload();
+                }
+            }
+        })
+    });
+
 
 </script>
