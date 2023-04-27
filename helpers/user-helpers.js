@@ -34,7 +34,8 @@ module.exports={
     doSignUp:(userData)=>{
         //console.log(userData);
         return new Promise(async(resolve, reject)=>{
-            userData.phone = Number(userData.phone);
+            // userData.phone = Number(userData.phone);
+            userData.phone = userData.phone;
             const phoneExist = await db.get().collection(collection.USER_COLLECTION)
             .findOne({ phone: userData.phone});
             const emailExist = await db.get().collection(collection.USER_COLLECTION)
