@@ -34,24 +34,22 @@
                         <td class="text-success">{{this.date}}</td>
                         {{/if}}
                         <td>
-                            <a href="" class="btn btn-primary" data-toggle="modal"
+                            <a href="/admin/editCoupon/{{this._id}}" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#exampleModalCenterEdit">Edit</a>
-                            {{!-- <a href="/admin/delete-product/{{this._id}}" class="btn btn-danger"
-                                onclick="return confirm('Do you want to delete{{this.Name}}?')">Delete</a> --}}
                         </td>
                         {{#if this.deactivated}}
                         <td>
-                            <a href="/admin/activateCoupon/{{this._id}}" class="btn btn-success">Activate</a>
+                            <a href="/admin/activateCoupon/{{this._id}}" class="btn btn-success btn-sm">Activate</a>
                         </td>
                         {{else if this.expired}}
-                        <td><a class="btn btn-danger disabled">expired</a></td>
+                        <td><a class="btn btn-danger btn-sm disabled">expired</a></td>
                         {{else}}
                         <td>
-                            <a href="/admin/deactivateCoupon/{{this._id}}" class="btn btn-warning">Deactivate</a>
+                            <a href="/admin/deactivateCoupon/{{this._id}}" class="btn btn-warning btn-sm">Deactivate</a>
                         </td>
                         {{/if}}
                         <td>
-                            <a href="/admin/deleteCoupon/{{this._id}}" class="btn btn-danger"
+                            <a href="/admin/deleteCoupon/{{this._id}}" class="btn btn-danger btn-sm"
                                 onclick="return confirm('Do you want to delete?')">Delete</a>
                         </td>
                     </tr>

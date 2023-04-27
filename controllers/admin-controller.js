@@ -32,24 +32,6 @@ module.exports ={
             
         }
     },
-    // adminLoginPost:(req,res)=>{
-    //     // console.log("arrived");
-    //     console.log(req.body)
-    //     adminHelpers.adminLogin(req.body).then((response)=>{
-    //         console.log(response)
-    //         if(response.status){
-    //             req.session.adminName=response.admin.adminName;
-    //             req.session.admin = response.admin;
-    //             let admin = req.session.admin
-    //             req.session.adminEmail=req.body.email;
-    //             req.session.adminLoggedIn=true;
-    //             res.redirect('/admin/dashboard', {admin, adminHeader:true, adminName:req.session.adminName});
-    //         }else{
-    //             req.session.adminLoginErr="Invalid username or password"
-    //             res.redirect('/admin');
-    //         }
-    //     })
-    // },
     adminLoginPost:(req,res)=>{
         // console.log("arrived");
         console.log(req.body)
@@ -68,14 +50,6 @@ module.exports ={
             }
         })
     },
-    // dashBoard:(req,res)=>{
-    //     if(req.session.adminLoggedIn){
-    //         console.log(req.session.adminName);
-    //         res.render('admin/dashboard', {admin:true,adminHeader:true, adminName:req.session.adminName});
-    //     }else{
-    //         res.redirect('/admin/admin-login');
-    //     }
-    // },
     dashBoard:(req,res)=>{
         adminHelpers.getUsersCount().then(async(usersCount) => {
             const total = await adminHelpers.getLastMonthTotal();
@@ -93,10 +67,6 @@ module.exports ={
             res.render('admin/dashboard', {admin:true,adminHeader:true, usersCount, total, totalOrdersDelivered, totalEarnings, adminName:req.session.adminName});
         })    
     },
-    // dashBoard:(req,res)=>{
-    //     console.log(req.session.adminName);
-    //         res.render('admin/dashboard', {admin:true,adminHeader:true, adminName:req.session.adminName});
-    // },
     adminLogout:(req,res)=>{
         // req.session.destroy();
         req.session.adminLoggedIn=false;
@@ -121,30 +91,12 @@ module.exports ={
             res.redirect('/admin/user-management');
         })
     },
-    // viewProducts:(req,res)=>{
-    //     if(req.session.adminLoggedIn){
-    //         productHelpers.viewProducts().then((products)=>{
-    //             console.log(products);
-    //             res.render('admin/view-products',{admin:true, products,adminName:req.session.adminName});
-    //         })
-    //     }else{
-    //         res.redirect('/admin/admin-login')
-    //     }
-    // },
     viewProducts:(req,res)=>{
         productHelpers.viewProducts().then((products)=>{
             console.log(products);
             res.render('admin/view-products',{admin:true, products,adminName:req.session.adminName});
         })
     },
-    // addProductGet: async(req,res)=>{
-    //    if(req.session.adminLoggedIn){
-    //     adminHelpers.allCategories().then((category) => {
-    //         console.log("category: ",category);
-    //         res.render('admin/add-product',{admin:true,category, adminName:req.session.adminName});
-    //     })
-    //    }        
-    // },
     addProductGet: async(req,res)=>{
         adminHelpers.allCategories().then((category) => {
             console.log("category: ",category);
@@ -172,16 +124,6 @@ module.exports ={
             res.redirect('/admin/view-products');
         }
     },
-    // bannerManagement:(req,res) => {       //1
-    //     if(req.session.adminLoggedIn){
-    //         adminHelpers.getBanners().then((banner) => {
-    //             //console.log(banner);
-    //             res.render('admin/bannerManagement', {admin:true,banner,adminName:req.session.adminName})
-    //         })
-    //     }else{
-    //         res.redirect('/admin/admin-login')
-    //     }
-    // },
     bannerManagement:(req,res) => {       //1
         adminHelpers.getBanners().then((banner) => {
             res.render('admin/bannerManagement', {admin:true,banner,adminName:req.session.adminName})
@@ -254,23 +196,7 @@ module.exports ={
     //         res.redirect('/admin/bannerManagement');
     //     }
     // },
-    // editProductPost: async(req,res) => {     
-    //     try {
-    //         let imgUrls = []
-    //         for(let i=0;i<req.files.length;i++){
-    //             let result = await cloudinary.uploader.upload(req.files[i].path);
-    //             imgUrls.push(result.url);
-    //         }
-    //         if(imgUrls.length!==0){
-    //             productHelpers.updateProductImages(req.params.id, imgUrls)
-    //         }
-    //         productHelpers.updateProduct(req.params.id,req.body)
-    //     }catch(err){
-    //         console.log(err);
-    //     }finally{
-    //         res.redirect('/admin/view-products');
-    //     }       
-    // }
+
     
     getBannerDetails: (bannerId) => {
         return new Promise((resolve, reject) => {
@@ -312,17 +238,6 @@ module.exports ={
           });
         }
       },      
-    //   categoryManagement: (req, res) => {
-    //     if (req.session.adminLoggedIn) {
-    //       const message = req.query.message;
-    //       console.log("message", message);
-    //       adminHelpers.allCategories().then((category) => {
-    //         res.render("admin/category", {admin: true,adminName: req.session.adminName,category,message});
-    //       });
-    //     } else {
-    //       res.redirect("/admin/login");
-    //     }
-    //   },
     categoryManagement: (req, res) => {
         const message = req.query.message;
           console.log("message", message);
@@ -348,9 +263,6 @@ module.exports ={
                 res.render('/admin/category', {admin: true,adminName: req.session.adminName,category})
             })
             console.log("id:",req.params.id );
-            // .then((response) => {
-            //     console.log(response);
-            // })
         } catch(err) {
             console.log(err);
         } finally {
@@ -393,20 +305,6 @@ module.exports ={
             res.redirect('back');
         })
     },
-    // getCoupons: (req,res) => {
-    //     if(req.session.adminLoggedIn) {
-    //         adminHelpers.getAllCoupons().then((coupon) => {
-    //             res.render('admin/coupon', {admin: true, adminName:req.session.adminName,coupon})
-    //         })
-    //     }else{
-    //         res.render('admin/login');
-    //     }
-    // },
-    // getCoupons: (req,res) => {
-    //     adminHelpers.getAllCoupons().then((coupon) => {
-    //         res.render('admin/coupon', {admin: true, adminName:req.session.adminName,coupon})
-    //     })
-    // },
     getCoupons: async(req,res) => {
         let coupons = await adminHelpers.getAllCoupons();
         coupons.forEach(coupon => {
