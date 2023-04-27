@@ -522,8 +522,12 @@ module.exports={
                   }
                 }
               ]).toArray();
-              console.log("TotalAmounttttttttttt", totalOrderPrice[0].totalCost);
-            resolve(totalOrderPrice[0].totalCost);
+              if(totalOrderPrice[0]) {
+                resolve(totalOrderPrice[0].totalCost);
+              }else{
+                resolve(0);
+              }
+            
         })
     },
     deliverGraph: () => {
