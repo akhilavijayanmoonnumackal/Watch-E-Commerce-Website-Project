@@ -99,10 +99,16 @@ module.exports ={
             res.render('admin/view-products',{admin:true, products,adminName:req.session.adminName});
         })
     },
+    viewAdminProducts:(req,res)=>{
+        productHelpers.viewAdminProducts().then((products)=>{
+            console.log(products);
+            res.render('admin/view-products',{admin:true, products,adminName:req.session.adminName});
+        })
+    },
     addProductGet: async(req,res)=>{
         adminHelpers.allCategories().then((category) => {
             console.log("category: ",category);
-            res.render('admin/add-product',{admin:true,category, adminName:req.session.adminName});
+            res.redirect('/admin')
         })       
      },
     addProductPost:async(req,res)=>{

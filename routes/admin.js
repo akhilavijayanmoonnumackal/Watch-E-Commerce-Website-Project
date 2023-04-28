@@ -31,7 +31,7 @@ router.get('/unlistcategory/:id', sessionChecker.adminAuth, adminController.unli
 router.post('/editCategory/:id', sessionChecker.adminAuth, adminController.editCategoryPost);
 
 //products_router
-router.get('/view-products', sessionChecker.adminAuth, adminController.viewProducts);
+router.get('/view-products', sessionChecker.adminAuth, adminController.viewAdminProducts);
 router.get('/add-product', sessionChecker.adminAuth, adminController.addProductGet);
 router.post('/add-product', sessionChecker.adminAuth, upload.array("image"), adminController.addProductPost);
 router.get('/editProduct/:id', sessionChecker.adminAuth, adminController.editProduct);

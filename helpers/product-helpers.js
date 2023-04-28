@@ -22,6 +22,18 @@ module.exports = {
             resolve(products);
         })
     },
+
+    viewAdminProducts:() => {
+        return new Promise(async(resolve,reject)=>{
+            let products=await db.get().collection(collection.PRODUCT_COLLECTION)
+            .find() 
+            .toArray();
+            resolve(products);
+        })
+    },
+
+
+
     addProduct:(product,callback)=>{
         product.stock = parseInt(product.stock);
         product.price = parseInt(product.price);
