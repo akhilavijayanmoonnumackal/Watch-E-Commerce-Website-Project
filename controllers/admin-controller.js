@@ -26,9 +26,11 @@ module.exports ={
         if(req.session.adminLoggedIn){
         res.redirect('/admin/dashboard')
         }else{
-            let admin=req.session.admin;
+            //let admin=req.session.admin;
+            
+            res.render('admin/admin-login', {adminLoginErr:req.session.adminLoginErr,adminHeader:true});
             req.session.adminLoginErr=false
-            res.render('admin/admin-login', {adminLoginErr:req.session.adminLoginErr,admin,adminHeader:true});
+            
             
         }
     },
