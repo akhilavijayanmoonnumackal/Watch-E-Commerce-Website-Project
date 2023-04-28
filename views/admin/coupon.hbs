@@ -15,7 +15,7 @@
                         <th scope="col">Code</th>
                         <th scope="col">Discount</th>
                         <th scope="col">Expiry Date</th>
-                        <th scope="col">Edit</th>
+                        {{!-- <th scope="col">Edit</th> --}}
                         <th scope="col">Updation</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -33,10 +33,10 @@
                         {{else}}
                         <td class="text-success">{{this.date}}</td>
                         {{/if}}
-                        <td>
+                        {{!-- <td>
                             <a href="/admin/editCoupon/{{this._id}}" class="btn btn-primary btn-sm" data-toggle="modal"
                                 data-target="#exampleModalCenterEdit">Edit</a>
-                        </td>
+                        </td> --}}
                         {{#if this.deactivated}}
                         <td>
                             <a href="/admin/activateCoupon/{{this._id}}" class="btn btn-success btn-sm">Activate</a>
