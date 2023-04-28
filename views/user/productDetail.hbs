@@ -152,7 +152,6 @@
                                     onclick="addToCart('{{this._id}}'')" id="addToCart" data-product="{{product._id}}">
                                     Add to cart
                                 </button>
-
                                 <a href="#" data-product="{{product._id}}"
                                     class="btn-addwish-b2 dis-block pos-relative js-addwish-b2"
                                     style="margin: 20px;width:50px;"
@@ -162,6 +161,16 @@
                                     <img class="icon-heart2 dis-block trans-04 ab-t-l"
                                         src="/images/icons/icon-heart-02.png" alt="ICON">
                                 </a>
+
+                                {{!-- <a href="#" data-product="{{product._id}}"
+                                    class="btn-addwish-b2 dis-block pos-relative js-addwish-b2"
+                                    style="margin: 20px;width:50px;"
+                                    onclick="event.preventDefault(); addToWishlist('{{product._id}}')">
+                                    <img class="icon-heart1 dis-block trans-04" src="/images/icons/icon-heart-01.png"
+                                        alt="ICON">
+                                    <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                        src="/images/icons/icon-heart-02.png" alt="ICON">
+                                </a> --}}
                             </div>
                         </div>
                     </div>
@@ -319,8 +328,6 @@
 </footer>
 
 
-
-
 {{!-- =============================================================================================== --}}
 
 <script>
@@ -421,10 +428,7 @@
                 //console.log("came")
                 if (response.message === "guest") {
                     console.log("api here!!!");
-                    //$("#cart-count").load(window.location.href + " #cart-count");
-                    //document.getElementById('cart-count').innerHTML = parseInt(response.cartCount);
                     var iconHeaderItems = document.querySelectorAll('.js-show-cart');
-                    //iconHeaderItems.setAttribute('data-notify', response.cartCount);
                     for (var i = 0; i < iconHeaderItems.length; i++) {
                         console.log(iconHeaderItems[i]);
                         console.log("arriced here !!%^&*()");
@@ -475,20 +479,20 @@
                 console.log("yyyyyyyyyyy");
                 if (response.message === "guest") {
                     console.log("////////api here!!!");
-                    $("#wishlist-count").load(window.location.href + " #wishlist-count");
+                    var iconItems = document.querySelectorAll('.js-show-wishlist');
+                    for (let i = 0; i < iconItems.length; i++) {
+                        iconItems[i].setAttribute('data-notify', response.wishlistCount);
+                    }
                     Toastify({
                         text: 'Product added to wishlist !',
                         duration: 3000,
-                        gravity: 'bottom',
+                        gravity: 'top',
                         position: 'center',
-                        backgroundColor: "black",
+                        backgroundColor: "linear-gradient(90deg, rgba(0,36,3,1) 0%, rgba(157,49,102,1) 42%, rgba(255,0,69,1) 100%)",
                         stopOnFocus: true,
                         // Add an icon to the notification
                         className: "toastify-icon",
                         close: false,
-                        // onClick: function () {
-                        //     console.log("apiCall");
-                        // }
                     }).showToast();
                 } else {
                     location.href = '/login'
