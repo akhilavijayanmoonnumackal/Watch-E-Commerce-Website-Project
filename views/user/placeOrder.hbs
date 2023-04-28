@@ -272,10 +272,10 @@
                                         {{/if}}
                                     </div> --}}
                                     <p>
-                                        {{totalAmount}}
-                                        {{wallet}}
+                                        Wallet Balance: ₹{{wallet}}
+                                        {{!-- {{wallet}} --}}
                                     </p>
-                                    {{#if (lessEqual total totalAmount)}} <div class="custome-radio">
+                                    {{#if (lessEqual total wallet)}} <div class="custome-radio">
 
                                         <input class="form-check-input" id="wallet" required="" type="radio"
                                             name="payment-method" onclick="validateSubmit()" value="wallet" checked="">

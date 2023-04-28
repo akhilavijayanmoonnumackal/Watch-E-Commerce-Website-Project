@@ -779,9 +779,31 @@ module.exports={
             })
         })
     },
+    // cancelOrder:(orderId) => {
+    //     return new Promise((resolve,reject) => {
+    //         orderId= new ObjectId(orderId)
+    //         db.get().collection(collection.ORDER_COLLECTION)
+    //         .updateOne(
+    //         {
+    //             _id: orderId
+    //         },
+    //         {
+    //             $set: {
+    //                 status: 'cancelled'
+    //             }
+    //         }
+    //         ).then((response) => {
+                
+    //             console.log("ppppppppppppppppppppppppppppppppppppppp",response)
+    //             resolve(response);
+    //         })
+    //     })
+    // },
     cancelOrder:(orderId) => {
-        return new Promise((resolve,reject) => {
+        return new Promise(async(resolve,reject) => {
             orderId= new ObjectId(orderId)
+            let order=await db.get().collection(collection.ORDER_COLLECTION)
+            .findOne({_id:new ObjectId(orderId)})
             db.get().collection(collection.ORDER_COLLECTION)
             .updateOne(
             {
@@ -793,7 +815,24 @@ module.exports={
                 }
             }
             ).then((response) => {
-                console.log(response)
+                if(order.PaymentMethod === 'wallet' || order.PaymentMethod==='RAZORPAY') {
+                    let wallet = db.get().collection(collection.WALLET_COLLECTION)
+                    .findOne({ userId: new ObjectId(order.userId)})
+                    if(wallet){
+                        db.get().collection(collection.WALLET_COLLECTION)
+                        .updateOne({ userId: new ObjectId(order.userId) },
+                        {
+                            $inc: {amount:order.totalAmount}
+                        })
+                    }else{
+                        db.get().collection(collection.WALLET_COLLECTION)
+                        .updateOne({userId: new ObjectId(order.userId) },
+                        {
+                            $set: {amount:order.totalAmount }
+                        })
+                    }
+                }
+                console.log("ppppppppppppppppppppppppppppppppppppppp",response)
                 resolve(response);
             })
         })
@@ -882,6 +921,19 @@ module.exports={
             .find({userId: userId}).toArray();
             console.log("userWallet", userWallet);
             resolve(userWallet);
+        });
+    },
+    getWalletAmount: (userId) => {
+        return new Promise(async(resolve, reject) => {
+            userId = new ObjectId(userId);
+            let userWallet = await db.get().collection(collection.WALLET_COLLECTION)
+            .findOne({userId: userId});
+            if(userWallet) {
+                console.log("userWallet", userWallet.amount);
+                resolve(userWallet.amount);
+            }else{
+                resolve(0)
+            }  
         });
     },
     totalWalletAmount: (userId) => {
