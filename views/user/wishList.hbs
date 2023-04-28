@@ -20,7 +20,7 @@
 </style>
 <div class="bg0 p-t-75 p-b-85">
     <div class="container">
-        <div class="row">
+        {{!-- <div class="row"> --}}
             <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                 <div class="m-l-25 m-r--38 m-lr-0-xl">
                     {{#if products}}
@@ -66,8 +66,7 @@
                                                 <td class="text-left">
                                                     <button
                                                         class="btn btn-sm btn-brand rounded font-sm mt-15 js-addcart-detail js-addcart-btn btn-addcart-btn"
-                                                        style="background-color: rgb(157,49,102);border-color:rgb(157,49,102)"
-                                                        type="submit"
+                                                        style="background-color:rgb(157,49,102)" type="submit"
                                                         onclick="addToCart('{{this.productDetails.[0]._id}}')"
                                                         id="addToCart" data-product="{{product._id}}"><i
                                                             class="zmdi zmdi-shopping-cart"
@@ -124,8 +123,10 @@
                         {{/if}}
                     </table>
                 </div>
+
             </div>
-        </div>
+            {{!--
+        </div> --}}
     </div>
 </div>
 
@@ -324,13 +325,18 @@
                 //console.log("came")
                 if (response.message === "guest") {
                     console.log("api here!!!");
-                    $("#cart-count").load(window.location.href + " #cart-count");
+                    var iconHeaderItems = document.querySelectorAll('.js-show-cart');
+                    for (var i = 0; i < iconHeaderItems.length; i++) {
+                        console.log(iconHeaderItems[i]);
+                        console.log("arriced here !!%^&*()");
+                        iconHeaderItems[i].setAttribute('data-notify', response.cartCount);
+                    }
                     Toastify({
                         text: 'Product added to cart !',
                         duration: 3000,
-                        gravity: 'bottom',
+                        gravity: 'top',
                         position: 'center',
-                        backgroundColor: "black",
+                        backgroundColor: "linear-gradient(90deg, rgba(0,36,3,1) 0%, rgba(157,49,102,1) 42%, rgba(255,0,69,1) 100%)",
                         stopOnFocus: true,
                         // Add an icon to the notification
                         className: "toastify-icon",
@@ -356,5 +362,6 @@
         console.log(productId);
         addToCart(productId);
     });
+
 
 </script>
