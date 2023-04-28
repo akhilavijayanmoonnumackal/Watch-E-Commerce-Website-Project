@@ -1,3 +1,27 @@
+<style>
+    .d-sm-flex.mb-5.align-items-center {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    @media only screen and (max-width: 576px) {
+        .d-sm-flex.mb-5.align-items-center {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .new {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .forgot-pass {
+            margin-top: 10px;
+        }
+    }
+</style>
 <div class="d-md-flex half">
     <div class="bg" style="background-image: url('/images/bg_1.jpeg');"></div>
     <div class="contents">
@@ -29,13 +53,11 @@
                             {{#if loginErr}}
                             <p class="error text-danger">{{loginErr}}</p>
                             {{/if}}
-                            <div class="d-sm-flex mb-5 align-items-center">
+                            <div class="d-sm-flex mb-5 align-items-left">
                                 <label><span class=" caption">Don't
                                         have an account?<a href="/signup" class=" new">Create
                                         </a>
                                     </span>
-                                    {{!-- <input type="checkbox" checked="checked" />
-                                    <div class="control__indicator"></div> --}}
                                 </label>
                                 <span class="ml-auto"><a href="/forgotPassword" class="forgot-pass">Forgot
                                         Password</a></span>
