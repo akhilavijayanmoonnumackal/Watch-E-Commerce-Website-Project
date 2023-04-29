@@ -170,7 +170,7 @@
                         <div class="div1 pl-4 pt-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="addrDetails" id="addrDetails"
-                                    value="{{this._id}}" checked>
+                                    value="{{this._id}}" id="address" checked>
                                 <label class="form-check-label" for="addrDetails">
                                     <p class="font-weight-bold">{{this.name}} - {{this.mobile}}</p>
 
@@ -595,11 +595,11 @@
     }
 
 
+
     function placeOrderSubmit() {
         console.log("apicall")
         $("#checkout-form").submit((e) => {
             e.preventDefault();
-
             $.ajax({
                 url: '/place-order',
                 method: 'post',
@@ -621,8 +621,13 @@
                     console.log(err);
                 }
             })
+
+
         })
+
     }
+
+
 
     function razorpayPayment(order) {
         var options = {

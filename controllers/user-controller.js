@@ -619,8 +619,11 @@ module.exports={
     //         res.redirect('/');
     //     }
     // },
-    getAddress: (req,res) => {
-        let user = req.session.user;
+    getAddress: async (req,res) => {
+        // let user = req.session.user;
+        const userId = req.session.user._id;
+        let user = await userHelpers.findUser(userId);
+        req.session.user = user;
         let cartCount = req.session.cartCount;
         let wishlistCount = req.session.wishlistCount;
         res.render('user/manageAddress', {admin:false,user, cartCount, wishlistCount, userHeader:true})

@@ -1090,7 +1090,8 @@ module.exports={
                 }
             )
             // console.log("selected address: ",address.address);
-            resolve(address.address[0]);
+            
+            resolve(address?.address[0]);
         })
     },
     couponApply: (couponCode, userId) => {
