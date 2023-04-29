@@ -4,7 +4,9 @@
         opacity: 0.5;
         /* optional - to indicate the element is disabled */
     }
-</style><!-- Shoping Cart -->
+</style>
+
+<!-- Shoping Cart -->
 <div>
     <br>
     <br>
@@ -26,7 +28,6 @@
                                 <th class="column-5">Total</th>
                                 <th class="column-5">Remove</th>
                             </tr>
-
                             {{#each product}}
                             {{#if (isEqual this.proDetails.[0].stock 0)}}
                             <tr class="table_row ">
@@ -49,7 +50,6 @@
                                         style="background-color:rgb(157,49,102);color:aliceblue; width: 3vh;"
                                         type="button" onclick="changeQuantity('{{this.proDetails.[0]._id}}',1)"
                                         disabled>+</button>
-
                                 </td>
                                 <td class="column-5">
                                     <span id="{{this.proDetails.[0]._id}}total">
@@ -72,7 +72,6 @@
                                 <td class="column-1">
                                     <div class="how-itemcart1">
                                         <img src="{{proDetails.[0].image.[0]}}" alt="IMG">
-
                                     </div>
                                 </td>
                                 <td class="column-2">{{this.proDetails.[0].name}}</td>
@@ -107,25 +106,21 @@
                             </tr>
                             {{/if}}
                             {{/each}}
-
                         </table>
                     </div>
                 </div>
             </div>
-
             <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
                 <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
                     <h4 class="mtext-109 cl2 p-b-30" style="color: black;">
                         Cart Totals
                     </h4>
-
                     <div class="flex-w flex-t p-t-27 p-b-33">
                         <div class="size-208">
                             <span class="mtext-101 cl2" style="color: black;">
                                 Total:
                             </span>
                         </div>
-
                         <div class="size-209 p-t-1">
                             <span class="mtext-110 cl2" data-price={{totalAmount}} id="totalValue"
                                 style="color: black;">
@@ -141,11 +136,6 @@
                     <a href="/place-order" class=" flex-c-m stext-101 cl0 size-116  bor14 hov-btn3 p-lr-15 trans-04
                         pointer" style="background-color: rgb(157,49,102);">Proceed to Checkout</a>
 
-                    {{!-- <button
-                        class=" flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"><a
-                            href="/place-order"></a>
-                        Proceed to Checkout
-                    </button> --}}
                     {{else}}
                     <div class="container-fluid  mt-30">
                         <div class="row">
@@ -164,14 +154,11 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                     {{/if}}
                 </div>
-
             </div>
         </div>
     </div>
@@ -186,103 +173,86 @@
                 <h4 class="stext-301 cl0 p-b-30">
                     Categories
                 </h4>
-
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
                             Women
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
                             Men
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Shoes
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
+                            Smart Watches
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Watches
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
+                            Unisex
                         </a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Help
                 </h4>
-
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Track Order
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Returns
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Shipping
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             FAQs
                         </a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     GET IN TOUCH
                 </h4>
-
                 <p class="stext-107 cl7 size-201">
-                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on
-                    (+1) 96 716 6879
+                    Any questions? Let us know in store at 8th floor, 379 Hudson St, Bangalore, NY 10018 or call us on
+                    (+91) 96 716 6879
                 </p>
-
                 <div class="p-t-27">
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-facebook"></i>
                     </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-instagram"></i>
                     </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-pinterest-p"></i>
                     </a>
                 </div>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
-                    Newsletter
+                    EMAIL
                 </h4>
-
                 <form>
                     <div class="wrap-input1 w-full p-b-4">
                         <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
                             placeholder="cozastore@gmail.com">
                         <div class="focus-input1 trans-04"></div>
                     </div>
-
                     <div class="p-t-18">
                         <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
                             Subscribe
@@ -291,36 +261,29 @@
                 </form>
             </div>
         </div>
-
         <div class="p-t-40">
             <div class="flex-c-m flex-w p-b-18">
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
                 </a>
             </div>
-
             <p class="stext-107 cl6 txt-center" style="color: rgb(159, 163, 163);">
                 Copyright &copy;
                 <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with
-                <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                    href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila
-                    Vijayan</a>
+                <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                <a href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila Vijayan</a>
             </p>
         </div>
     </div>
@@ -328,17 +291,14 @@
 
 <script>
     window.onload = function () {
-        //const subTotal = parseFloat(document.getElementById('subTotal').innerText);
         const subTotal1 = document.getElementById('totalValue');
         const subTotal = subTotal1.dataset.price;
         console.log(subTotal);
     }
 </script>
 
-
 <script>
     let subTotal1 = document.getElementById('totalValue');
-    console.log("mmmmmmmmmmmm", subTotal1);
 
     function removeProduct(proId, cartId) {
         swal({
@@ -369,7 +329,6 @@
         });
     }
 
-
     function changeQuantity(proId, count) {
         let quantity = parseInt(document.getElementById(proId).innerHTML)
         console.log(quantity)
@@ -385,7 +344,6 @@
             success: (response) => {
                 console.log("response :" + response);
                 if (response.removeProduct) {
-                    //alert('Product removed from your cart');
                     location.reload()
                 } else {
                     console.log(response.total);

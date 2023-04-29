@@ -32,9 +32,6 @@
                             <div class="text-center mb-5">
                                 <h3 class="text-uppercase">SignUp to <strong>CozaStore</strong></h3>
                             </div>
-                            {{!-- {{#if signupErr}}
-                            <p class="text-center validation-label">{{signupErr}}</p>
-                            {{/if}} --}}
                             {{#if signupErr}}
                             <p class="text-center validation-label" style="color: red;">
                                 <strong>{{signupErr}}</strong>
@@ -72,12 +69,10 @@
                                         onkeyup="validateMobileNumber()" />
                                     <span id="phone-error" class="validation-label" style="color: red;"></span>
                                 </div>
-
                                 <div class="d-sm-flex mb-5 align-items-center"><span class="ml-auto"><a href="/login"
                                             class="forgot-pass">Already have an
                                             account?</a></span>
                                 </div>
-
                                 <input type="submit" value="SignUp" class="btn btn-block py-2 btn-primary"
                                     onclick="return validateForm()" />
                                 <span id="submit-error" class="validation-label" style="color: red;"></span>
@@ -185,7 +180,6 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main.js"></script>
-
 
 </body>
 

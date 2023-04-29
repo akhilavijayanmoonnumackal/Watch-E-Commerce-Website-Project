@@ -13,7 +13,6 @@
         font-weight: bold;
     }
 
-
     .icon-heart {
         pointer-events: visible;
     }
@@ -61,13 +60,11 @@
 </style>
 
 <!-- Product -->
-
 <section class="bg0 p-t-23 p-b-140">
     <div class="container">
         <div class="p-b-10">
             <br><br>
         </div>
-
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                 <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*"><a
@@ -81,316 +78,277 @@
             </div>
 
             {{!-- Search --}}
-            {{!-- <div class="col-search  main-menu-padding-1"> --}}
-                <div class="flex-w flex-c-m m-tb-10">
-                    <div class="filter-container">
-                        <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter"
-                            id="filter-button">
-                            <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
-                            <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-                            Filter
-                        </div>
-                        <div class="filter-options" id="filter-options">
-                            <!-- Add your filter options here -->
-                        </div>
+            <div class="flex-w flex-c-m m-tb-10">
+                <div class="filter-container">
+                    <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter"
+                        id="filter-button">
+                        <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
+                        <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+                        Filter
                     </div>
-                    <form action="/search" method="GET" class="searchform">
-                        <div class="input-group">
-                            <input list="search_terms" type="text" name="search" class="form-control"
-                                value="{{searchValue}}" id="search" placeholder="Product Name.." />
-                            <datalist id="search_terms">
-                                {{#each products}}
-                                <option value="{{this.name}}">{{this.name}}</option>
-                                {{/each}}
-                            </datalist>
-                            <button class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search" type="submit">
-                                <i class="icon-search">Search</i>
-                            </button>
-                        </div>
-                    </form>
-
+                    <div class="filter-options" id="filter-options">
+                    </div>
                 </div>
-
-                <!-- Filter -->
-                <div class="dis-none panel-filter w-full p-t-10">
-                    <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
-                        <div class="filter-col1 p-r-15 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Sort By
-                            </div>
-
-                            <ul>
-                                <li class="p-b-6">
-                                    <a href="/shop" class="filter-link stext-106 trans-04 ">
-                                        Default
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="/shop?filter=newness" class="filter-link stext-106 trans-04 ">
-                                        Newness
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="/shop?filter=low" class="filter-link stext-106 trans-04">
-                                        Price: Low to High
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="/shop?filter=high" class="filter-link stext-106 trans-04">
-                                        Price: High to Low
-                                    </a>
-                                </li>
-                            </ul>
+                <form action="/search" method="GET" class="searchform">
+                    <div class="input-group">
+                        <input list="search_terms" type="text" name="search" class="form-control"
+                            value="{{searchValue}}" id="search" placeholder="Product Name.." />
+                        <datalist id="search_terms">
+                            {{#each products}}
+                            <option value="{{this.name}}">{{this.name}}</option>
+                            {{/each}}
+                        </datalist>
+                        <button class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search" type="submit">
+                            <i class="icon-search">Search</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- Filter -->
+            <div class="dis-none panel-filter w-full p-t-10">
+                <div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+                    <div class="filter-col1 p-r-15 p-b-27">
+                        <div class="mtext-102 cl2 p-b-15">
+                            Sort By
                         </div>
-
-                        <div class="filter-col2 p-r-15 p-b-27">
-                            <div class="mtext-102 cl2 p-b-15">
-                                Price
-                            </div>
-
-                            <ul>
-                                <li class="p-b-6">
-                                    <a href="/shop" class="filter-link stext-106 trans-04 ">
-                                        All
-                                    </a>
-                                </li>
-                                <li class="p-b-6">
-                                    <a href="/shop?filter=₹0.00 - ₹5000.00" class="filter-link stext-106 trans-04">
-                                        ₹0.00 - ₹5000.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="/shop?filter=₹5000.00 - ₹25000.00" class="filter-link stext-106 trans-04">
-                                        ₹5000.00 - ₹25000.00
-                                    </a>
-                                </li>
-
-                                <li class="p-b-6">
-                                    <a href="/shop?filter=₹25000.00 - ₹50000.00" class="filter-link stext-106 trans-04">
-                                        ₹25000.00 - ₹50000.00
-                                    </a>
-                                </li>
-                                <li class="p-b-6">
-                                    <a href="/shop?filter=above50000" class="filter-link stext-106 trans-04">
-                                        ₹50000.00+
-                                    </a>
-                                </li>
-                            </ul>
+                        <ul>
+                            <li class="p-b-6">
+                                <a href="/shop" class="filter-link stext-106 trans-04 ">
+                                    Default
+                                </a>
+                            </li>
+                            <li class="p-b-6">
+                                <a href="/shop?filter=newness" class="filter-link stext-106 trans-04 ">
+                                    Newness
+                                </a>
+                            </li>
+                            <li class="p-b-6">
+                                <a href="/shop?filter=low" class="filter-link stext-106 trans-04">
+                                    Price: Low to High
+                                </a>
+                            </li>
+                            <li class="p-b-6">
+                                <a href="/shop?filter=high" class="filter-link stext-106 trans-04">
+                                    Price: High to Low
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="filter-col2 p-r-15 p-b-27">
+                        <div class="mtext-102 cl2 p-b-15">
+                            Price
                         </div>
+                        <ul>
+                            <li class="p-b-6">
+                                <a href="/shop" class="filter-link stext-106 trans-04 ">
+                                    All
+                                </a>
+                            </li>
+                            <li class="p-b-6">
+                                <a href="/shop?filter=₹0.00 - ₹5000.00" class="filter-link stext-106 trans-04">
+                                    ₹0.00 - ₹5000.00
+                                </a>
+                            </li>
+                            <li class="p-b-6">
+                                <a href="/shop?filter=₹5000.00 - ₹25000.00" class="filter-link stext-106 trans-04">
+                                    ₹5000.00 - ₹25000.00
+                                </a>
+                            </li>
+                            <li class="p-b-6">
+                                <a href="/shop?filter=₹25000.00 - ₹50000.00" class="filter-link stext-106 trans-04">
+                                    ₹25000.00 - ₹50000.00
+                                </a>
+                            </li>
+                            <li class="p-b-6">
+                                <a href="/shop?filter=above50000" class="filter-link stext-106 trans-04">
+                                    ₹50000.00+
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="row isotope-grid">
-                {{#each products}}
-                {{#if this.status}}
-                {{#if this.stock}}
-                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{this.category}}">
-                    <!-- Block2 -->
-                    <div class="block2">
-                        <div class="block2-pic hov-img0">
-                            <img src="{{this.image.[0]}}" alt="IMG-PRODUCT">
+        </div>
+        <div class="row isotope-grid">
+            {{#each products}}
+            {{#if this.status}}
+            {{#if this.stock}}
+            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{this.category}}">
+                <!-- Block2 -->
+                <div class="block2">
+                    <div class="block2-pic hov-img0">
+                        <img src="{{this.image.[0]}}" alt="IMG-PRODUCT">
 
-                            <a href=" /productDetail" class="block2-btn flex-c-m quickView stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04
+                        <a href=" /productDetail" class="block2-btn flex-c-m quickView stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04
                             js-show-modal1" onclick=" quickView('{{this._id}}')">
-                                Quick View
-                            </a>
-                        </div>
-                        <div class="block2-txt flex-w flex-t p-t-14">
-                            <div class="block2-txt-child1 flex-col-l ">
-                                <a href="/productDetail/{{this._id}}" class=" stext-104 cl4 hov-cl1 trans-04
+                            Quick View
+                        </a>
+                    </div>
+                    <div class="block2-txt flex-w flex-t p-t-14">
+                        <div class="block2-txt-child1 flex-col-l ">
+                            <a href="/productDetail/{{this._id}}" class=" stext-104 cl4 hov-cl1 trans-04
                                 js-name-b2 p-b-6" style="color: rgb(157,49,102)">
-                                    {{this.name}}
-                                </a>
-                                <span class="stext-105 cl3">
-                                    Rs.{{this.price}}
-                                </span>
-                            </div>
-
-                            <div class="block2-txt-child2 flex-r p-t-3">
-                                <a href="#" data-product="{{products._id}}"
-                                    class="btn-addwish-b2 dis-block pos-relative js-addwish-b2"
-                                    onclick="event.preventDefault(); addToWishlist('{{this._id}}')">
-                                    <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-                                        alt="ICON">
-                                    <img class="icon-heart2 dis-block trans-04 ab-t-l"
-                                        src="images/icons/icon-heart-02.png" alt="ICON">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{else}}
-                <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{this.category}}">
-                    <!-- Block2 -->
-                    <div class="block2 disabled">
-                        <div class="block2-pic hov-img0">
-                            <img src="{{this.image.[0]}}" alt="IMG-PRODUCT">
-                            <span class="text-center text-danger" style="font-weight: bold;">
-                                {{!-- <div class="otofstock" style="margin-right: 2px;">OUT OF STOCK
-                                </div> --}}
-                                <div class="otofstock" style="position: absolute; top: 0; center: 0;">OUT OF STOCK
-                                </div>
+                                {{this.name}}
+                            </a>
+                            <span class="stext-105 cl3">
+                                Rs.{{this.price}}
                             </span>
-
-                            <a href=" /productDetail" class="block2-btn flex-c-m quickView stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04
-                            js-show-modal1" onclick=" quickView('{{this._id}}')">
-                                Quick View
+                        </div>
+                        <div class="block2-txt-child2 flex-r p-t-3">
+                            <a href="#" data-product="{{products._id}}"
+                                class="btn-addwish-b2 dis-block pos-relative js-addwish-b2"
+                                onclick="event.preventDefault(); addToWishlist('{{this._id}}')">
+                                <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
+                                    alt="ICON">
+                                <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png"
+                                    alt="ICON">
                             </a>
                         </div>
-                        <div class="block2-txt flex-w flex-t p-t-14">
-
-                            <div class="block2-txt-child1 flex-col-l ">
-                                <a href="/productDetail/{{this._id}}" class=" stext-104 cl4 hov-cl1 trans-04
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item {{this.category}}">
+                <!-- Block2 -->
+                <div class="block2 disabled">
+                    <div class="block2-pic hov-img0">
+                        <img src="{{this.image.[0]}}" alt="IMG-PRODUCT">
+                        <span class="text-center text-danger" style="font-weight: bold;">
+                            <div class="otofstock" style="position: absolute; top: 0; center: 0;">OUT OF STOCK
+                            </div>
+                        </span>
+                        <a href=" /productDetail" class="block2-btn flex-c-m quickView stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04
+                            js-show-modal1" onclick=" quickView('{{this._id}}')">
+                            Quick View
+                        </a>
+                    </div>
+                    <div class="block2-txt flex-w flex-t p-t-14">
+                        <div class="block2-txt-child1 flex-col-l ">
+                            <a href="/productDetail/{{this._id}}" class=" stext-104 cl4 hov-cl1 trans-04
                                 js-name-b2 p-b-6">
-                                    {{this.name}}
-                                </a>
-
-                                <span class="stext-105 cl3">
-                                    Rs.{{this.price}}
-                                </span>
-                            </div>
-
-                            <div class="block2-txt-child2 flex-r p-t-3">
-                                <a href="#" data-product="{{products._id}}"
-                                    class="btn-addwish-b2 dis-block pos-relative js-addwish-b2"
-                                    onclick="event.preventDefault(); addToWishlist('{{this._id}}')">
-                                    <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
-                                        alt="ICON">
-                                    <img class="icon-heart2 dis-block trans-04 ab-t-l"
-                                        src="images/icons/icon-heart-02.png" alt="ICON">
-                                </a>
-                            </div>
+                                {{this.name}}
+                            </a>
+                            <span class="stext-105 cl3">
+                                Rs.{{this.price}}
+                            </span>
+                        </div>
+                        <div class="block2-txt-child2 flex-r p-t-3">
+                            <a href="#" data-product="{{products._id}}"
+                                class="btn-addwish-b2 dis-block pos-relative js-addwish-b2"
+                                onclick="event.preventDefault(); addToWishlist('{{this._id}}')">
+                                <img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png"
+                                    alt="ICON">
+                                <img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png"
+                                    alt="ICON">
+                            </a>
                         </div>
                     </div>
                 </div>
-                {{/if}}
-                {{/if}}
-                {{/each}}
             </div>
+            {{/if}}
+            {{/if}}
+            {{/each}}
+        </div>
 
-            <!-- Pagination -->
-            <div class="col-md-12 text-center">
-                <div class="text-center" style="border-radius: 30px;">
-                    <div class="col d-flex justify-content-center pagination ">
-                    </div>
-                    <input type="text" id="totalCount" value="{{totalCount}}" hidden>
-                    <input type="text" id="currentPage" value="{{currentPage}}" hidden>
+        <!-- Pagination -->
+        <div class="col-md-12 text-center">
+            <div class="text-center" style="border-radius: 30px;">
+                <div class="col d-flex justify-content-center pagination ">
                 </div>
+                <input type="text" id="totalCount" value="{{totalCount}}" hidden>
+                <input type="text" id="currentPage" value="{{currentPage}}" hidden>
             </div>
-
+        </div>
 </section>
 
-
 <!-- Footer -->
-<footer class="bg3 p-t-75 p-b-32">
+<footer class="bg3 p-t-75 p-b-32 ">
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Categories
                 </h4>
-
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
                             Women
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
                             Men
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Shoes
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
+                            Smart Watches
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Watches
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
+                            Unisex
                         </a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Help
                 </h4>
-
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Track Order
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Returns
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Shipping
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             FAQs
                         </a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     GET IN TOUCH
                 </h4>
-
                 <p class="stext-107 cl7 size-201">
-                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us
-                    on
-                    (+1) 96 716 6879
+                    Any questions? Let us know in store at 8th floor, 379 Hudson St, Bangalore, NY 10018 or call us on
+                    (+91) 96 716 6879
                 </p>
-
                 <div class="p-t-27">
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-facebook"></i>
                     </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-instagram"></i>
                     </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-pinterest-p"></i>
                     </a>
                 </div>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
-                    Newsletter
+                    EMAIL
                 </h4>
-
                 <form>
                     <div class="wrap-input1 w-full p-b-4">
                         <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
                             placeholder="cozastore@gmail.com">
                         <div class="focus-input1 trans-04"></div>
                     </div>
-
                     <div class="p-t-18">
                         <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
                             Subscribe
@@ -399,41 +357,33 @@
                 </form>
             </div>
         </div>
-
         <div class="p-t-40">
             <div class="flex-c-m flex-w p-b-18">
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
                 </a>
             </div>
-
             <p class="stext-107 cl6 txt-center" style="color: rgb(159, 163, 163);">
                 Copyright &copy;
                 <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with
-                <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                    href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila
-                    Vijayan</a>
+                <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                <a href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila Vijayan</a>
             </p>
         </div>
     </div>
 </footer>
-
 
 <!--===============================================================================================-->
 <script>
@@ -441,16 +391,8 @@
         location.href = `/productDetail/${id}`
     }
 </script>
-
 <!--===============================wishlist================================================================-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--===============================================================================================-->
-{{!--
-<script src="/vendor/jquery/jquery-3.2.1.min.js"></script> --}}
-<!--===============================================================================================-->
-
-{{!--
-<script src="/vendor/animsition/js/animsition.min.js"></script> --}}
 <!--===============================================================================================-->
 <script src="/vendor/bootstrap/js/popper.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -493,11 +435,7 @@
 <script src="/vendor/isotope/isotope.pkgd.min.js"></script>
 <!--===============================================================================================-->
 <script src="/vendor/sweetalert/sweetalert.min.js"></script>
-
-
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
-
 {{!-- =============wishlist sample================= --}}
 <script>
     function addToWishlist(proId) {
@@ -521,7 +459,6 @@
                         position: 'center',
                         backgroundColor: "linear-gradient(90deg, rgba(0,36,3,1) 0%, rgba(157,49,102,1) 42%, rgba(255,0,69,1) 100%)",
                         stopOnFocus: true,
-                        // Add an icon to the notification
                         className: "toastify-icon",
                         close: false,
                     }).showToast();
@@ -545,9 +482,6 @@
         addToWishlist(productId);
     });
 </script>
-
-
-
 <!--===============================================================================================-->
 <script src="/vendor/perfect-scrollbar/perfect-scrollbar.min.js">
 </script>
@@ -560,7 +494,6 @@
             scrollingThreshold: 1000,
             wheelPropagation: false,
         });
-
         $(window).on('resize', function () {
             ps.update();
         })

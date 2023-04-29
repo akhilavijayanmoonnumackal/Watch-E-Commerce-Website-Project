@@ -33,7 +33,6 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-12">
                     <div class="form-block mx-auto" style="margin-top: 188px;">
@@ -54,7 +53,6 @@
                             <input type="btn" value="Resend OTP" id="resend-otp" style="cursor: pointer;">
                             <div class=" timer" style="display: none;">Resend OTP in <span id="timer"></span>
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -62,9 +60,6 @@
         </div>
     </div>
 </div>
-
-{{!--
-<script src="mainotp.js"></script> --}}
 
 <script>
     const verifyButton = document.getElementById('verify');
@@ -81,7 +76,6 @@
                 else {
                     location.reload();
                 }
-
             }
         })
     })
@@ -105,26 +99,22 @@
     })
     const modal = document.querySelector('.modal');
     const closeButton = document.querySelector('.close-modal');
-
 </script>
+
 <script>
     function startTimer(duration, display) {
         var timer = duration, minutes, seconds;
         setInterval(function () {
             minutes = parseInt(timer / 60, 10);
             seconds = parseInt(timer % 60, 10);
-
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
-
             display.textContent = minutes + ":" + seconds;
-
             if (--timer < 0) {
                 timer = duration;
             }
         }, 1000);
     }
-
 </script>
 <script>
     function resetTimer() {
@@ -151,6 +141,4 @@
             }
         })
     });
-
-
 </script>

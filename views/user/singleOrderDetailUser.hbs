@@ -1,264 +1,236 @@
 <section class="bg0 p-t-23 p-b-140">
     <div class="container">
         <div><br><br><br><br><br></div>
-
-        {{!-- <form action="/admin/singleOrderDetail/{{this._id}}" method="post" enctype="multipart/form-data"> --}}
-            <div class="content-header">
-                <div>
-                    <h2 class="content-title card-title">Order detail</h2>
-                    <p>Details for Order ID: {{this.orderId}}</p>
-                </div>
-                <div>
-                    <button id="download" class=" mt-15 btn btn-success"
-                        style="background-color: rgb(157,49,102);border-color:rgb(157,49,102);color:white">Download
-                        invoice</button>
-                </div>
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Order detail</h2>
+                <p>Details for Order ID: {{this.orderId}}</p>
             </div>
-
-            <div class="card" id="container_content">
-                <header class="card-header">
-                    {{#if deliveryDetails}}
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
-                            <span>
-                                <i class="material-icons md-calendar_today"></i> <b>{{this.deliveryDetails.date}}</b>
-                            </span> <br>
-                            <small class="text-muted">Order ID: {{this.orderId}}</small>
-                        </div>
+            <div>
+                <button id="download" class=" mt-15 btn btn-success"
+                    style="background-color: rgb(157,49,102);border-color:rgb(157,49,102);color:white">Download
+                    invoice</button>
+            </div>
+        </div>
+        <div class="card" id="container_content">
+            <header class="card-header">
+                {{#if deliveryDetails}}
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
+                        <span>
+                            <i class="material-icons md-calendar_today"></i> <b>{{this.deliveryDetails.date}}</b>
+                        </span> <br>
+                        <small class="text-muted">Order ID: {{this.orderId}}</small>
                     </div>
-                    {{/if}}
-                </header> <!-- card-header end// -->
-
-                <div class="card-body">
-                    <div class="row mb-50 mt-20 order-info-wrap">
-                        <div class="col-md-4">
-                            <article class="icontext align-items-start">
-                                <span class="icon icon-sm rounded-circle bg-primary-light">
-                                    <i class="text-primary material-icons md-person"></i>
-                                </span>
-                                <div class="text">
-                                    <h6 class="mb-1">Customer</h6>
-                                    <p class="mb-1">
-                                        {{this.deliveryDetails.deliveryDetails.name}} <br> <template
-                                            class="__cf_email__"
-                                            data-cfemail="e2838e879aa2879a838f928e87cc818d8f">[email&#160;protected]</template>
-                                        <br> +91{{this.deliveryDetails.deliveryDetails.mobile}}
-                                    </p>
-                                    <a href="/userProfile">View profile</a>
-                                </div>
-                            </article>
-                        </div> <!-- col// -->
-                        <div class="col-md-4">
-                            <article class="icontext align-items-start">
-                                <span class="icon icon-sm rounded-circle bg-primary-light">
-                                    <i class="text-primary material-icons md-local_shipping"></i>
-                                </span>
-                                <div class="text">
-                                    <h6 class="mb-1">Order info</h6>
-                                    <p class="mb-1">
-                                        Shipping: Fargo express <br> Pay method: {{this.deliveryDetails.PaymentMethod}}
-                                        <br> Status:
-                                        {{this.deliveryDetails.status}}
-                                    </p>
-
-
-                                    {{!-- <a href="#">Download info</a> --}}
-                                </div>
-                            </article>
-                        </div> <!-- col// -->
-                        <div class="col-md-4">
-                            <article class="icontext align-items-start">
-                                <span class="icon icon-sm rounded-circle bg-primary-light">
-                                    <i class="text-primary material-icons md-place"></i>
-                                </span>
-                                <div class="text">
-                                    <h6 class="mb-1">Deliver to</h6>
-                                    <p class="mb-1">
-                                        Address: {{this.deliveryDetails.deliveryDetails.address}} <br> Po Box
-                                        {{this.deliveryDetails.deliveryDetails.pincode}}
-                                    </p>
-                                    <a href="/userProfile">View profile</a>
-                                </div>
-                            </article>
-                        </div> <!-- col// -->
-                    </div> <!-- row // -->
-                    <div class="row">
-                        <div class="col-lg-7">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th width="40%">Product</th>
-                                            <th width="20%">Unit Price</th>
-                                            <th width="20%">Quantity</th>
-                                            <th width="20%" class="text-end">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {{#each products}}
-                                        <tr>
-                                            <td>
-                                                <a class="itemside" href="#">
-                                                    <div class="left">
-                                                        <img src="{{this.proDetails.[0].image.[0]}}" width="40"
-                                                            height="40" class="img-xs" alt="Item">
-                                                    </div>
-                                                    <div class="info"> {{this.proDetails.[0].name}} </div>
-                                                </a>
-                                            </td>
-                                            <td> ₹ {{this.proDetails.[0].price}} </td>
-                                            <td> {{this.products.quantity}} </td>
-                                            {{!-- <td class="text-end"> ₹ {{this.proDetails.[0].total}} </td> --}}
-                                            <td class="text-end"> ₹ {{mathMulti this.products.quantity
-                                                this.proDetails.[0].price}} </td>
-
-                                        </tr>
-                                        {{/each}}
-                                        <tr>
-                                            <td colspan="4">
-                                                <article class="float-end">
-                                                    <dl class="dlist">
-                                                        <dt>Subtotal:</dt>
-                                                        <dd>₹ {{this.deliveryDetails.totalAmount}}</dd>
-                                                    </dl>
-                                                    <dl class="dlist">
-                                                        <dt>Shipping cost:</dt>
-                                                        <dd>₹ 0.00</dd>
-                                                    </dl>
-                                                    <dl class="dlist">
-                                                        <dt>Grand total:</dt>
-                                                        <dd> <b class="h5">₹ {{this.deliveryDetails.totalAmount}}</b>
-                                                        </dd>
-                                                    </dl>
-                                                    <dl class="dlist">
-                                                        <dt class="text-muted">Status:</dt>
-                                                        <dd>
-                                                            <span
-                                                                class="badge rounded-pill alert-success text-success">{{this.deliveryDetails.status}}</span>
-                                                        </dd>
-                                                    </dl>
-                                                </article>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> <!-- table-responsive// -->
-                        </div> <!-- col// -->
-                        <div class="col-lg-1"></div>
-                    </div>
-                </div> <!-- card-body end// -->
-
-            </div> <!-- card end// -->
+                </div>
+                {{/if}}
+            </header> <!-- card-header end// -->
+            <div class="card-body">
+                <div class="row mb-50 mt-20 order-info-wrap">
+                    <div class="col-md-4">
+                        <article class="icontext align-items-start">
+                            <span class="icon icon-sm rounded-circle bg-primary-light">
+                                <i class="text-primary material-icons md-person"></i>
+                            </span>
+                            <div class="text">
+                                <h6 class="mb-1">Customer</h6>
+                                <p class="mb-1">
+                                    {{this.deliveryDetails.deliveryDetails.name}} <br> <template class="__cf_email__"
+                                        data-cfemail="e2838e879aa2879a838f928e87cc818d8f">[email&#160;protected]</template>
+                                    <br> +91{{this.deliveryDetails.deliveryDetails.mobile}}
+                                </p>
+                                <a href="/userProfile">View profile</a>
+                            </div>
+                        </article>
+                    </div> <!-- col// -->
+                    <div class="col-md-4">
+                        <article class="icontext align-items-start">
+                            <span class="icon icon-sm rounded-circle bg-primary-light">
+                                <i class="text-primary material-icons md-local_shipping"></i>
+                            </span>
+                            <div class="text">
+                                <h6 class="mb-1">Order info</h6>
+                                <p class="mb-1">
+                                    Shipping: Fargo express <br> Pay method: {{this.deliveryDetails.PaymentMethod}}
+                                    <br> Status:
+                                    {{this.deliveryDetails.status}}
+                                </p>
+                            </div>
+                        </article>
+                    </div> <!-- col// -->
+                    <div class="col-md-4">
+                        <article class="icontext align-items-start">
+                            <span class="icon icon-sm rounded-circle bg-primary-light">
+                                <i class="text-primary material-icons md-place"></i>
+                            </span>
+                            <div class="text">
+                                <h6 class="mb-1">Deliver to</h6>
+                                <p class="mb-1">
+                                    Address: {{this.deliveryDetails.deliveryDetails.address}} <br> Po Box
+                                    {{this.deliveryDetails.deliveryDetails.pincode}}
+                                </p>
+                                <a href="/userProfile">View profile</a>
+                            </div>
+                        </article>
+                    </div> <!-- col// -->
+                </div> <!-- row // -->
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th width="40%">Product</th>
+                                        <th width="20%">Unit Price</th>
+                                        <th width="20%">Quantity</th>
+                                        <th width="20%" class="text-end">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each products}}
+                                    <tr>
+                                        <td>
+                                            <a class="itemside" href="#">
+                                                <div class="left">
+                                                    <img src="{{this.proDetails.[0].image.[0]}}" width="40" height="40"
+                                                        class="img-xs" alt="Item">
+                                                </div>
+                                                <div class="info"> {{this.proDetails.[0].name}} </div>
+                                            </a>
+                                        </td>
+                                        <td> ₹ {{this.proDetails.[0].price}} </td>
+                                        <td> {{this.products.quantity}} </td>
+                                        <td class="text-end"> ₹ {{mathMulti this.products.quantity
+                                            this.proDetails.[0].price}}
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                    <tr>
+                                        <td colspan="4">
+                                            <article class="float-end">
+                                                <dl class="dlist">
+                                                    <dt>Subtotal:</dt>
+                                                    <dd>₹ {{this.deliveryDetails.totalAmount}}</dd>
+                                                </dl>
+                                                <dl class="dlist">
+                                                    <dt>Shipping cost:</dt>
+                                                    <dd>₹ 0.00</dd>
+                                                </dl>
+                                                <dl class="dlist">
+                                                    <dt>Grand total:</dt>
+                                                    <dd> <b class="h5">₹ {{this.deliveryDetails.totalAmount}}</b>
+                                                    </dd>
+                                                </dl>
+                                                <dl class="dlist">
+                                                    <dt class="text-muted">Status:</dt>
+                                                    <dd>
+                                                        <span
+                                                            class="badge rounded-pill alert-success text-success">{{this.deliveryDetails.status}}</span>
+                                                    </dd>
+                                                </dl>
+                                            </article>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> <!-- table-responsive// -->
+                    </div> <!-- col// -->
+                    <div class="col-lg-1"></div>
+                </div>
+            </div> <!-- card-body end// -->
+        </div> <!-- card end// -->
         </form>
     </div>
 </section> <!-- content-main end// -->
 
 <!-- Footer -->
-<footer class="bg3 p-t-75 p-b-32">
+<footer class="bg3 p-t-75 p-b-32 ">
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Categories
                 </h4>
-
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
                             Women
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
                             Men
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Shoes
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
+                            Smart Watches
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Watches
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
+                            Unisex
                         </a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Help
                 </h4>
-
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Track Order
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Returns
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Shipping
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             FAQs
                         </a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     GET IN TOUCH
                 </h4>
-
                 <p class="stext-107 cl7 size-201">
-                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us
-                    on
-                    (+1) 96 716 6879
+                    Any questions? Let us know in store at 8th floor, 379 Hudson St, Bangalore, NY 10018 or call us on
+                    (+91) 96 716 6879
                 </p>
-
                 <div class="p-t-27">
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-facebook"></i>
                     </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-instagram"></i>
                     </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-pinterest-p"></i>
                     </a>
                 </div>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
-                    Newsletter
+                    EMAIL
                 </h4>
-
                 <form>
                     <div class="wrap-input1 w-full p-b-4">
                         <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
                             placeholder="cozastore@gmail.com">
                         <div class="focus-input1 trans-04"></div>
                     </div>
-
                     <div class="p-t-18">
                         <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
                             Subscribe
@@ -267,36 +239,29 @@
                 </form>
             </div>
         </div>
-
         <div class="p-t-40">
             <div class="flex-c-m flex-w p-b-18">
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
                 </a>
             </div>
-
             <p class="stext-107 cl6 txt-center" style="color: rgb(159, 163, 163);">
                 Copyright &copy;
                 <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with
-                <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                    href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila
-                    Vijayan</a>
+                <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                <a href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila Vijayan</a>
             </p>
         </div>
     </div>

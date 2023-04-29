@@ -845,7 +845,7 @@ module.exports={
                 }
             }else{
                 res.json({
-                    status: "coupon is not valid!"
+                    message: "coupon is not valid!"
                 })
             }
         });

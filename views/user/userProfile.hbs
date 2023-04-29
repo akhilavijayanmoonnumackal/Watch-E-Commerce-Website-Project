@@ -228,23 +228,9 @@
     <div class="row profile">
         <div class="col-md-3">
             <div class="profile-sidebar">
-                <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
-                    {{!-- <label class="-label" for="file">
-                        <span class="glyphicon glyphicon-camera"></span>
-                        <span>Change Image</span>
-                    </label> --}}
-                    {{!-- <input id="file" type="file" onchange="loadFile(event)" /> --}}
                     <img src="images/profile.png" class="img-responsive" id="output" alt="">
                 </div>
-
-
-
-                {{!-- <div class="profile-userpic">
-                    <img src="images/akhila3.jpg" class="img-responsive" alt="">
-                </div> --}}
-                <!-- END SIDEBAR USERPIC -->
-                <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
                         {{user.name}}
@@ -253,17 +239,7 @@
                         Customer
                     </div>
                 </div>
-                <!-- END SIDEBAR USER TITLE -->
-                <!-- SIDEBAR BUTTONS -->
-                {{!-- <div class="profile-userbuttons">
-                    <button type="button" class="btn btn-success btn-sm">Follow</button>
-                    <button type="button" class="btn btn-danger btn-sm">Message</button>
-                </div> --}}
-                <!-- END SIDEBAR BUTTONS -->
-
-
                 <div class="portlet light bordered">
-
                     <div>
                         <div class="margin-top-20 profile-desc-link">
                             <i class="icon material-icons md-shopping_bag"></i>
@@ -271,13 +247,9 @@
                         </div>
                         <div class="margin-top-20 profile-desc-link">
                             <i class="icon material-icons md-person"></i>
-
                             <a href="" class="mb-3">Profile
                                 Information</a>
-
-                            {{!-- <a href="/account">Profile Information</a> --}}
                         </div>
-
                         <div class="margin-top-20 profile-desc-link">
                             <i class="icon material-icons md-store"></i>
                             <a href="/manageAddress">Manage Address</a>
@@ -291,7 +263,6 @@
                             <a href="/cart">My Cart</a>
                         </div>
                         <div class="margin-top-20 profile-desc-link">
-                            {{!-- <i class="zmdi zmdi-shopping-cart"></i> --}}
                             <a href="/wallet">&#128179; My Wallet</a>
                         </div>
                         <div class="margin-top-20 profile-desc-link">
@@ -307,7 +278,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Profile Information</h5>
-
                     </div>
                     <div class="modal-body">
                         <form action="/profileInformation/{{user._id}}" method="post">
@@ -329,7 +299,6 @@
                                 </div>
                             </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
                         <input type="submit" class="btn btn-primary" value="update"
@@ -341,7 +310,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal -->
 <div class=" modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -360,17 +328,10 @@
                         <label for="inputAddress">First Name</label>
                         <input type="text" class="form-control" id="inputAddress" placeholder="first name">
                     </div>
-
-                    {{!-- <div class="form-group">
-                        <label for="inputAddress2">Last Name</label>
-                        <input type="text" class="form-control" id="inputAddress2" placeholder="last name">
-                    </div> --}}
                     <div class="form-group">
-
                         <label for="inputEmail4">Email</label>
                         <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
                     </div>
-
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">Phone No.</label>
@@ -388,112 +349,94 @@
     </div>
 </div>
 
-
 <!-- Footer -->
-<footer class="bg3 p-t-75 p-b-32">
+<footer class="bg3 p-t-75 p-b-32 ">
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Categories
                 </h4>
-
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
                             Women
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
                             Men
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Shoes
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
+                            Smart Watches
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Watches
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
+                            Unisex
                         </a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Help
                 </h4>
-
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Track Order
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Returns
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Shipping
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             FAQs
                         </a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     GET IN TOUCH
                 </h4>
-
                 <p class="stext-107 cl7 size-201">
-                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or call us on
-                    (+1) 96 716 6879
+                    Any questions? Let us know in store at 8th floor, 379 Hudson St, Bangalore, NY 10018 or call us on
+                    (+91) 96 716 6879
                 </p>
-
                 <div class="p-t-27">
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-facebook"></i>
                     </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-instagram"></i>
                     </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-pinterest-p"></i>
                     </a>
                 </div>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
-                    Newsletter
+                    EMAIL
                 </h4>
-
                 <form>
                     <div class="wrap-input1 w-full p-b-4">
                         <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
                             placeholder="cozastore@gmail.com">
                         <div class="focus-input1 trans-04"></div>
                     </div>
-
                     <div class="p-t-18">
                         <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
                             Subscribe
@@ -502,36 +445,29 @@
                 </form>
             </div>
         </div>
-
         <div class="p-t-40">
             <div class="flex-c-m flex-w p-b-18">
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
                 </a>
             </div>
-
             <p class="stext-107 cl6 txt-center" style="color: rgb(159, 163, 163);">
                 Copyright &copy;
                 <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with
-                <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                    href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila
-                    Vijayan</a>
+                <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                <a href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila Vijayan</a>
             </p>
         </div>
     </div>
@@ -576,7 +512,5 @@
                 }).showToast();
             }
         })
-
     }
-
 </script>

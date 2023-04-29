@@ -20,224 +20,198 @@
 </style>
 <div class="bg0 p-t-75 p-b-85">
     <div class="container">
-        {{!-- <div class="row"> --}}
-            <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-                <div class="m-l-25 m-r--38 m-lr-0-xl">
-                    {{#if products}}
-                    <table class="table-shopping-cart">
-                        <br><br>
-                        <div class="content-header">
-                            <h2 class="content-title fs-4">My Wishlist</h2>
-                        </div>
-                        <div class="card mb-4">
-                            <div class="col-12">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr class="text-left">
-                                                <th>Item</th>
-                                                <th>Price</th>
-                                                <th>Cart</th>
-                                                <th> View Details</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{#each products}}
-                                            <tr>
-                                                <td width="40%">
-                                                    <a href="/productDetail/{{this.productDetails.[0]._id}}"
-                                                        class="item-center" onclick="viewDetails('{{this._id}}')">
-                                                        <div class="left">
-                                                            <img src="{{this.productDetails.[0].image.[0]}}"
-                                                                class="img-sm " alt="Userpic">
-                                                        </div>
-                                                        <div class="info pl-3">
-                                                            <h6 class="mb-0 title">
-                                                                {{this.productDetails.[0].name}}
-                                                            </h6>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td width="15%" class="price mt-15 text-left"
-                                                    style="padding-left: 10px;padding-top:35px">
-                                                    {{this.productDetails.[0].price}}</td>
-
-                                                <td class="text-left">
-                                                    <button
-                                                        class="btn btn-sm btn-brand rounded font-sm mt-15 js-addcart-detail js-addcart-btn btn-addcart-btn"
-                                                        style="background-color:rgb(157,49,102)" type="submit"
-                                                        onclick="addToCart('{{this.productDetails.[0]._id}}')"
-                                                        id="addToCart" data-product="{{product._id}}"><i
-                                                            class="zmdi zmdi-shopping-cart"
-                                                            style="color:white;margin-top:12px">
-                                                        </i>
-                                                    </button>
-                                                </td>
-
-                                                <td class="text-left">
-                                                    <a href="/productDetail/{{this.productDetails.[0]._id}}"
-                                                        class="btn btn-sm btn-brand rounded font-sm mt-15"
-                                                        style="background-color: rgb(157,49,102);border-color:rgb(157,49,102)"
-                                                        onclick="viewDetails('{{this._id}}')">View
-                                                        Details</a>
-                                                </td>
-                                                <td class="text-left">
-                                                    <button type="button"
-                                                        onclick="removeWishlistProduct('{{this.productDetails.[0]._id}}')"
-                                                        class="btn btn-sm" style="margin: 7%;">x</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <div class="text-center text-success">
-                                                    <h4 id="delete-msg" class="font-italic"></h4>
-                                                </div>
-                                            </tr>
-                                            {{/each}}
-                                        </tbody>
-                                    </table> <!-- table-responsive.// -->
-                                </div>
-                            </div> <!-- card-body end// -->
-                        </div> <!-- card end// -->
-                        {{else}}
-                        <div class="container-fluid  mt-100">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-body cart">
-                                            <div class="col-sm-12 empty-cart-cls text-center">
-                                                <img src="images/wishlistsvg.png" width="130" height="130"
-                                                    class="img-fluid mb-4 mr-3">
-                                                <h3><strong>Your wishlist is Empty</strong></h3>
-                                                <h4>Add something to make me happy :)</h4>
-                                                <a href="/shop" class="btn btn-primary cart-btn-transform m-3"
-                                                    data-abc="true"
-                                                    style="background-color: rgb(157,49,102);border-color:rgb(157,49,102)">continue
-                                                    shopping</a>
+        <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+            <div class="m-l-25 m-r--38 m-lr-0-xl">
+                {{#if products}}
+                <table class="table-shopping-cart">
+                    <br><br>
+                    <div class="content-header">
+                        <h2 class="content-title fs-4">My Wishlist</h2>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr class="text-left">
+                                            <th>Item</th>
+                                            <th>Price</th>
+                                            <th>Cart</th>
+                                            <th> View Details</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each products}}
+                                        <tr>
+                                            <td width="40%">
+                                                <a href="/productDetail/{{this.productDetails.[0]._id}}"
+                                                    class="item-center" onclick="viewDetails('{{this._id}}')">
+                                                    <div class="left">
+                                                        <img src="{{this.productDetails.[0].image.[0]}}" class="img-sm "
+                                                            alt="Userpic">
+                                                    </div>
+                                                    <div class="info pl-3">
+                                                        <h6 class="mb-0 title">
+                                                            {{this.productDetails.[0].name}}
+                                                        </h6>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            <td width="15%" class="price mt-15 text-left"
+                                                style="padding-left: 10px;padding-top:35px">
+                                                {{this.productDetails.[0].price}}</td>
+                                            <td class="text-left">
+                                                <button
+                                                    class="btn btn-sm btn-brand rounded font-sm mt-15 js-addcart-detail js-addcart-btn btn-addcart-btn"
+                                                    style="background-color:rgb(157,49,102)" type="submit"
+                                                    onclick="addToCart('{{this.productDetails.[0]._id}}')"
+                                                    id="addToCart" data-product="{{product._id}}"><i
+                                                        class="zmdi zmdi-shopping-cart"
+                                                        style="color:white;margin-top:12px">
+                                                    </i>
+                                                </button>
+                                            </td>
+                                            <td class="text-left">
+                                                <a href="/productDetail/{{this.productDetails.[0]._id}}"
+                                                    class="btn btn-sm btn-brand rounded font-sm mt-15"
+                                                    style="background-color: rgb(157,49,102);border-color:rgb(157,49,102)"
+                                                    onclick="viewDetails('{{this._id}}')">View
+                                                    Details</a>
+                                            </td>
+                                            <td class="text-left">
+                                                <button type="button"
+                                                    onclick="removeWishlistProduct('{{this.productDetails.[0]._id}}')"
+                                                    class="btn btn-sm" style="margin: 7%;">x</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <div class="text-center text-success">
+                                                <h4 id="delete-msg" class="font-italic"></h4>
                                             </div>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table> <!-- table-responsive.// -->
+                            </div>
+                        </div> <!-- card-body end// -->
+                    </div> <!-- card end// -->
+                    {{else}}
+                    <div class="container-fluid  mt-100">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body cart">
+                                        <div class="col-sm-12 empty-cart-cls text-center">
+                                            <img src="images/wishlistsvg.png" width="130" height="130"
+                                                class="img-fluid mb-4 mr-3">
+                                            <h3><strong>Your wishlist is Empty</strong></h3>
+                                            <h4>Add something to make me happy :)</h4>
+                                            <a href="/shop" class="btn btn-primary cart-btn-transform m-3"
+                                                data-abc="true"
+                                                style="background-color: rgb(157,49,102);border-color:rgb(157,49,102)">continue
+                                                shopping</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {{/if}}
-                    </table>
-                </div>
-
+                    </div>
+                    {{/if}}
+                </table>
             </div>
-            {{!--
-        </div> --}}
+        </div>
     </div>
 </div>
 
 <!-- Footer -->
-<footer class="bg3 p-t-75 p-b-32">
+<footer class="bg3 p-t-75 p-b-32 ">
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Categories
                 </h4>
-
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
                             Women
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
                             Men
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Shoes
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
+                            Smart Watches
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-                            Watches
+                        <a href="/shop" class="stext-107 cl7 hov-cl1 trans-04">
+                            Unisex
                         </a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     Help
                 </h4>
-
                 <ul>
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Track Order
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Returns
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             Shipping
                         </a>
                     </li>
-
                     <li class="p-b-10">
-                        <a href="#" class="stext-107 cl7 hov-cl1 trans-04">
+                        <a href="/viewOrders" class="stext-107 cl7 hov-cl1 trans-04">
                             FAQs
                         </a>
                     </li>
                 </ul>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
                     GET IN TOUCH
                 </h4>
-
                 <p class="stext-107 cl7 size-201">
-                    Any questions? Let us know in store at 8th floor, 379 Hudson St, New York, NY 10018 or
-                    call
-                    us
-                    on
-                    (+1) 96 716 6879
+                    Any questions? Let us know in store at 8th floor, 379 Hudson St, Bangalore, NY 10018 or call us on
+                    (+91) 96 716 6879
                 </p>
-
                 <div class="p-t-27">
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-facebook"></i>
                     </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-instagram"></i>
                     </a>
-
-                    <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                    <a href="/" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
                         <i class="fa fa-pinterest-p"></i>
                     </a>
                 </div>
             </div>
-
             <div class="col-sm-6 col-lg-3 p-b-50">
                 <h4 class="stext-301 cl0 p-b-30">
-                    Newsletter
+                    EMAIL
                 </h4>
-
                 <form>
                     <div class="wrap-input1 w-full p-b-4">
                         <input class="input1 bg-none plh1 stext-107 cl7" type="text" name="email"
                             placeholder="cozastore@gmail.com">
                         <div class="focus-input1 trans-04"></div>
                     </div>
-
                     <div class="p-t-18">
                         <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
                             Subscribe
@@ -246,42 +220,33 @@
                 </form>
             </div>
         </div>
-
         <div class="p-t-40">
             <div class="flex-c-m flex-w p-b-18">
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-01.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-02.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-03.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-04.png" alt="ICON-PAY">
                 </a>
-
-                <a href="#" class="m-all-1">
+                <a href="/" class="m-all-1">
                     <img src="images/icons/icon-pay-05.png" alt="ICON-PAY">
                 </a>
             </div>
-
             <p class="stext-107 cl6 txt-center" style="color: rgb(159, 163, 163);">
                 Copyright &copy;
                 <script>document.write(new Date().getFullYear());</script> All rights reserved | Made with
-                <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
-                    href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila
-                    Vijayan</a>
+                <i class="fa fa-heart-o" aria-hidden="true"></i> by
+                <a href="https://www.linkedin.com/in/akhilavijayanmoonnumackal" target="_blank">Akhila Vijayan</a>
             </p>
         </div>
     </div>
 </footer>
-
-
 
 <script>
     function viewDetails(id) {
@@ -338,7 +303,6 @@
                         position: 'center',
                         backgroundColor: "linear-gradient(90deg, rgba(0,36,3,1) 0%, rgba(157,49,102,1) 42%, rgba(255,0,69,1) 100%)",
                         stopOnFocus: true,
-                        // Add an icon to the notification
                         className: "toastify-icon",
                         close: false,
                     }).showToast();
@@ -348,7 +312,6 @@
             },
             error: (xhr, status, error) => {
                 console.error(error);
-                // handle the error here
             }
         })
     }
@@ -362,6 +325,4 @@
         console.log(productId);
         addToCart(productId);
     });
-
-
 </script>
