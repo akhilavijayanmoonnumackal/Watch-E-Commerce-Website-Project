@@ -31,7 +31,6 @@ module.exports ={
             res.render('admin/admin-login', {adminLoginErr:req.session.adminLoginErr,adminHeader:true});
             req.session.adminLoginErr=false
             
-            
         }
     },
     adminLoginPost:(req,res)=>{

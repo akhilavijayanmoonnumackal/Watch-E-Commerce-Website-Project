@@ -16,17 +16,20 @@ module.exports={
             console.log(adminData.pass)
             let admin=await db.get().collection(collection.ADMIN_COLLECTION)
             .findOne({email: adminData.username});
-            console.log(admin.password);
+            console.log(admin?.password);
             if(admin){
-                if(admin.password==adminData.pass){
+                if(admin?.password==adminData.pass){
                     response.admin=admin;
                     response.adminName=admin.name;
                     response.status=true;
                     resolve(response);
                 }else{
-                    console.log('admin not found');
+                    console.log('invalid');
                     resolve({status:false})
                 }
+            }else{
+                console.log('admin not found');
+                resolve({status:false})
             }
         })
     },
