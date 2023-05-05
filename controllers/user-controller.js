@@ -12,6 +12,7 @@ const async = require('hbs/lib/async');
 const { ObjectId } = require('mongodb');
 let userHeader;
 
+
 module.exports={
     get:async(req,res)=>{        
         let cartCount = 0;
